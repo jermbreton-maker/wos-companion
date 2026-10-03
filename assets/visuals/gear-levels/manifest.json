@@ -1,0 +1,58 @@
+{
+  "peu-commun": {
+    "headgear": "peu-commun/headgear.png",
+    "watch": "peu-commun/watch.png",
+    "coat": "peu-commun/coat.png",
+    "pants": "peu-commun/pants.png",
+    "ring": "peu-commun/ring.png",
+    "cane": "peu-commun/cane.png"
+  },
+  "rare": {
+    "headgear": "rare/headgear.png",
+    "watch": "rare/watch.png",
+    "coat": "rare/coat.png",
+    "pants": "rare/pants.png",
+    "ring": "rare/ring.png",
+    "cane": "rare/cane.png"
+  },
+  "epique": {
+    "headgear": "epique/headgear.png",
+    "watch": "epique/watch.png",
+    "coat": "epique/coat.png",
+    "pants": "epique/pants.png",
+    "ring": "epique/ring.png",
+    "cane": "epique/cane.png"
+  },
+  "mythique": {
+    "headgear": "mythique/headgear.png",
+    "watch": "mythique/watch.png",
+    "coat": "mythique/coat.png",
+    "pants": "mythique/pants.png",
+    "ring": "mythique/ring.png",
+    "cane": "mythique/cane.png"
+  },
+  "legendaire": {
+    "headgear": "legendaire/headgear.png",
+    "watch": "legendaire/watch.png",
+    "coat": "legendaire/coat.png",
+    "pants": "legendaire/pants.png",
+    "ring": "legendaire/ring.png",
+    "cane": "legendaire/cane.png"
+  },
+  "p4": {
+    "headgear": "p4/headgear.png",
+    "watch": "p4/watch.png",
+    "coat": "p4/coat.png",
+    "pants": "p4/pants.png",
+    "ring": "p4/ring.png",
+    "cane": "p4/cane.png"
+  },
+  "p5-p6": {
+    "headgear": "p5-p6/headgear.png",
+    "watch": "p5-p6/watch.png",
+    "coat": "p5-p6/coat.png",
+    "pants": "p5-p6/pants.png",
+    "ring": "p5-p6/ring.png",
+    "cane": "p5-p6/cane.png"
+  }
+}

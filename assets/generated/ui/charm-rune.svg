@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" fill="none">
+  <defs>
+    <radialGradient id="node-fade">
+      <stop offset="0" stop-color="#000"/>
+      <stop offset=".42" stop-color="#020405"/>
+      <stop offset=".63" stop-color="#2E393D"/>
+      <stop offset=".82" stop-color="#A0B0B5"/>
+      <stop offset="1" stop-color="#FFF"/>
+    </radialGradient>
+    <mask id="fade-behind-nodes" style="mask-type:luminance">
+      <rect width="480" height="480" fill="#FFF"/>
+      <ellipse cx="224" cy="90" rx="132" ry="86" fill="url(#node-fade)"/>
+      <ellipse cx="116" cy="362" rx="148" ry="94" fill="url(#node-fade)"/>
+      <ellipse cx="360" cy="362" rx="148" ry="94" fill="url(#node-fade)"/>
+    </mask>
+  </defs>
+
+  <g mask="url(#fade-behind-nodes)" stroke="#E7FAFF" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="240" cy="242" r="184" stroke-width="3" opacity=".34"/>
+    <path d="M87.728 168.690A169 169 0 0 1 392.272 168.690Q393.774 171.895 392.731 174.480L386.390 190.202Q385.087 193.432 388.072 195.227L402.601 203.963Q404.989 205.398 405.719 208.862A169 169 0 0 1 261.181 409.667Q257.665 410.074 255.545 408.265L242.650 397.261Q240 395 237.350 397.261L224.455 408.265Q222.335 410.074 218.819 409.667A169 169 0 0 1 74.281 208.862Q75.011 205.398 77.399 203.963L91.928 195.227Q94.913 193.432 93.610 190.202L87.269 174.480Q86.226 171.895 87.728 168.690Z" stroke-width="4" opacity=".56"/>
+  </g>
+  <path d="M87.327 190.892 83.857 183.931 76.896 187.401 80.366 194.362ZM392.673 190.892 396.143 183.931 403.104 187.401 399.634 194.362ZM240 403 234.500 408.500 240 414 245.500 408.500Z" fill="#F4FDFF" opacity=".90"/>
+</svg>
