@@ -1128,3 +1128,56 @@ img,svg,canvas,video{max-width:100%}
   #chief-gear .gear-orbit .orbit-pair:nth-child(3),
   #chief-gear .gear-orbit .orbit-pair:nth-child(6){bottom:12px}
 }
+
+/* Le sélecteur Gear reprend exactement le gabarit de sélection des Talismans.
+   Les skins, rangs et étoiles restent ceux des équipements. */
+#levelPicker.gear-level-picker{
+  max-width:720px;
+  background:
+    radial-gradient(ellipse 78% 58% at 50% 38%,rgba(105,211,246,.28),transparent 72%),
+    linear-gradient(180deg,#236b9b 0,#1b5c89 48%,#123f68 100%);
+}
+#levelPicker.gear-level-picker .level-picker-grid{
+  grid-template-columns:repeat(5,minmax(92px,1fr));
+  gap:10px;
+  padding:3px;
+  max-height:65vh;
+}
+#levelPicker.gear-level-picker .gear-level-choice{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  min-height:138px;
+  aspect-ratio:auto;
+  padding:8px 7px 10px;
+  border-radius:11px;
+}
+#levelPicker.gear-level-picker .gear-choice-visual{width:78px;height:78px}
+
+@media(max-width:600px){
+  #levelPicker.gear-level-picker{
+    width:calc(100% - 30px);
+    max-height:none;
+    overflow:visible;
+  }
+  #levelPicker.gear-level-picker form{
+    display:block;
+    max-height:none;
+    padding:28px;
+  }
+  #levelPicker.gear-level-picker h2{padding-right:0;margin-block:.83em;font-size:1.5em}
+  #levelPicker.gear-level-picker .dialog-close{top:15px;right:15px}
+  #levelPicker.gear-level-picker .level-picker-grid{
+    grid-template-columns:repeat(3,minmax(82px,1fr));
+    gap:7px;
+    padding:3px;
+    max-height:65vh;
+    overflow-x:hidden;
+    overflow-y:auto;
+  }
+  #levelPicker.gear-level-picker .gear-level-choice{min-height:122px}
+  #levelPicker.gear-level-picker .gear-choice-visual{width:66px;height:66px}
+  #levelPicker.gear-level-picker .gear-choice-rank{top:5px;left:7px;font-size:17px}
+  #levelPicker.gear-level-picker .gear-choice-stars{left:6px;bottom:5px;font-size:14px}
+}
