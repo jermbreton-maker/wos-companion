@@ -22,7 +22,7 @@ D.gearLevels=GEAR_VISUAL_LEVELS.map(level=>level.label);
 const state={from:D.furnace.findIndex(x=>x.id==="FC6"),to:D.furnace.findIndex(x=>x.id==="FC8"),scope:"furnace",gear:{},selectedGear:null,troop:"infantry",techStart:"steel",techTarget:"helios",t12:[0,0,0,0]};
 function gearSkin(g){return `<img class="gear-skin-p6" src="assets/generated/gear-p6/${g.id}.png" alt="">`}
 function gearVisualData(level){return GEAR_VISUAL_LEVELS[Math.max(0,Math.min(GEAR_VISUAL_LEVELS.length-1,level))]}
-function gearLevelSkin(g,level){const visual=gearVisualData(level),slot=g.id==='helmet'?'headgear':g.id;return `<img class="gear-level-skin gear-visual-${visual.skin}" src="assets/visuals/gear-levels/${visual.skin}/${slot}.png?v=4" alt="">`}
+function gearLevelSkin(g,level){const visual=gearVisualData(level),slot=g.id==='helmet'?'headgear':g.id;return `<img class="gear-level-skin gear-visual-${visual.skin}" src="assets/visuals/gear-levels/${visual.skin}/${slot}.png?v=5" alt="">`}
 const $=(s,p=document)=>p.querySelector(s),$$=(s,p=document)=>[...p.querySelectorAll(s)],fmt=n=>new Intl.NumberFormat("fr-FR",{maximumFractionDigits:1}).format(n);
 function go(id){$$('.view').forEach(v=>v.classList.toggle('active',v.id===id));scrollTo({top:0,behavior:'smooth'})}$$('[data-go]').forEach(b=>b.onclick=()=>go(b.dataset.go));
 function sumSteps(arr,a,b){const out={fc:0,rfc:0,food:0,wood:0,coal:0,iron:0,time:0};arr.slice(a+1,b+1).forEach(x=>Object.keys(out).forEach(k=>out[k]+=x[k]||0));return out}
