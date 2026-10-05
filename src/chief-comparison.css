@@ -1038,8 +1038,8 @@ img,svg,canvas,video{max-width:100%}
     min-height:min(45vw,168px);
   }
   #chief-gear .gear-orbit .gear-center-item[class*="skin-"]{
-    width:min(38vw,142px)!important;
-    height:min(38vw,142px)!important;
+    width:min(35vw,132px)!important;
+    height:min(35vw,132px)!important;
   }
   #chief-gear .gear-orbit .orbit-pair{
     width:min(39vw,124px);
