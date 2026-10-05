@@ -1201,3 +1201,17 @@ body.level-picker-open{
   padding-right:14px;
   overscroll-behavior:contain;
 }
+
+/* Talismans mobile : paires actuel/objectif compactes et de taille homogène. */
+@media(max-width:540px){
+  #chief-charms .charm-triad .triad-pair{gap:1px}
+  #chief-charms .charm-triad .triad-pair>span{width:12px;font-size:22px}
+  #chief-charms .charm-triad .triad-level.current,
+  #chief-charms .charm-triad .triad-level.target{width:72px;height:92px}
+  #chief-charms .charm-triad .triad-level.current .charm-skin,
+  #chief-charms .charm-triad .triad-level.target .charm-skin{width:53px;height:53px}
+
+  /* Les deux équipements médians restent entièrement dans la zone visible. */
+  #chief-charms .charm-workspace .charm-gear-selector:nth-child(2){left:4px}
+  #chief-charms .charm-workspace .charm-gear-selector:nth-child(5){right:4px}
+}
