@@ -1012,8 +1012,8 @@ img,svg,canvas,video{max-width:100%}
 .gear-level-skin.gear-visual-p5-p6{--gear-light:1.04}
 #chief-gear .gear-orbit .gear-level-skin,
 #levelPicker.gear-level-picker .gear-level-skin{
-  filter:brightness(var(--gear-light,1)) saturate(1.1) contrast(1.04) drop-shadow(0 5px 5px rgba(15,22,34,.34))!important;
+  filter:brightness(var(--gear-light,1)) saturate(1.1) contrast(1.08) drop-shadow(0 5px 5px rgba(15,22,34,.34))!important;
 }
 #chief-gear .gear-orbit .gear-center-item .gear-level-skin{
-  filter:brightness(var(--gear-light,1)) saturate(1.1) contrast(1.04) drop-shadow(0 8px 9px rgba(7,24,40,.35))!important;
+  filter:brightness(var(--gear-light,1)) saturate(1.1) contrast(1.08) drop-shadow(0 8px 9px rgba(7,24,40,.35))!important;
 }
