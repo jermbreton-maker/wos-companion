@@ -1017,3 +1017,114 @@ img,svg,canvas,video{max-width:100%}
 #chief-gear .gear-orbit .gear-center-item .gear-level-skin{
   filter:brightness(var(--gear-light,1)) saturate(1.1) contrast(1.08) drop-shadow(0 8px 9px rgba(7,24,40,.35))!important;
 }
+
+/* Passe mobile dédiée à l'Équipement du Chef.
+   Ces règles n'interviennent jamais sur la composition desktop validée. */
+@media(max-width:540px){
+  #chief-gear .upgrade-grid,
+  #chief-gear .gear-orbit{
+    width:100%;
+    min-width:0;
+    max-width:100%;
+  }
+  #chief-gear .gear-orbit{
+    height:clamp(416px,126vw,480px);
+    min-height:0;
+    margin-top:10px;
+    overflow:hidden;
+  }
+  #chief-gear .gear-orbit .orbit-center{
+    width:min(45vw,168px);
+    min-height:min(45vw,168px);
+  }
+  #chief-gear .gear-orbit .gear-center-item[class*="skin-"]{
+    width:min(38vw,142px)!important;
+    height:min(38vw,142px)!important;
+  }
+  #chief-gear .gear-orbit .orbit-pair{
+    width:min(39vw,124px);
+    height:60px;
+    gap:1px;
+    z-index:3;
+  }
+  #chief-gear .gear-orbit .orbit-current[class*="skin-"]{width:48px;height:48px;border-radius:13px}
+  #chief-gear .gear-orbit .target-item[class*="skin-"]{width:54px;height:54px;border-radius:13px}
+  #chief-gear .gear-orbit .orbit-current>span,
+  #chief-gear .gear-orbit .target-item>span{height:37px}
+  #chief-gear .gear-orbit .orbit-current .gear-skin-p6,
+  #chief-gear .gear-orbit .target-item .gear-skin-p6,
+  #chief-gear .gear-orbit .orbit-current .gear-level-skin,
+  #chief-gear .gear-orbit .target-item .gear-level-skin{width:37px;height:37px}
+  #chief-gear .gear-orbit .orbit-current>small,
+  #chief-gear .gear-orbit .target-item>small{height:10px;line-height:10px;font-size:6px}
+  #chief-gear .gear-orbit .orbit-chevron{flex:0 0 11px;width:11px;font-size:19px;line-height:1;text-align:center}
+  #chief-gear .gear-orbit .gear-rank{top:3px;left:4px;font-size:9px}
+  #chief-gear .gear-orbit .gear-stars{left:4px;bottom:3px;font-size:8px}
+
+  /* Les six paires restent intégralement dans le viewport, sans espace vide excessif. */
+  #chief-gear .gear-orbit .orbit-pair:nth-child(1){left:max(2px,env(safe-area-inset-left));top:16px}
+  #chief-gear .gear-orbit .orbit-pair:nth-child(4){right:max(2px,env(safe-area-inset-right));top:16px}
+  #chief-gear .gear-orbit .orbit-pair:nth-child(2){left:max(0px,env(safe-area-inset-left));top:calc(50% - 30px)}
+  #chief-gear .gear-orbit .orbit-pair:nth-child(5){right:max(0px,env(safe-area-inset-right));top:calc(50% - 30px)}
+  #chief-gear .gear-orbit .orbit-pair:nth-child(3){left:max(2px,env(safe-area-inset-left));top:auto;bottom:16px}
+  #chief-gear .gear-orbit .orbit-pair:nth-child(6){right:max(2px,env(safe-area-inset-right));top:auto;bottom:16px}
+
+  /* Vraie modale mobile : deux grandes cartes et un seul défilement vertical interne. */
+  #levelPicker.gear-level-picker{
+    width:calc(100% - 20px);
+    max-width:none;
+    max-height:calc(100dvh - 20px);
+    margin:auto;
+    border-radius:22px;
+    overflow:hidden;
+  }
+  #levelPicker.gear-level-picker form{
+    display:flex;
+    flex-direction:column;
+    max-height:calc(100dvh - 20px);
+    min-height:0;
+    padding:18px 13px calc(14px + env(safe-area-inset-bottom));
+  }
+  #levelPicker.gear-level-picker h2{padding-right:38px;margin:3px 0 12px;font-size:clamp(22px,7vw,28px)}
+  #levelPicker.gear-level-picker .dialog-close{top:12px;right:12px;z-index:2}
+  #levelPicker.gear-level-picker .level-picker-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    flex:1 1 auto;
+    min-height:0;
+    max-height:none;
+    gap:8px;
+    padding:2px 2px 6px;
+    overflow-x:hidden;
+    overflow-y:auto;
+    overscroll-behavior:contain;
+  }
+  #levelPicker.gear-level-picker .gear-level-choice{
+    width:100%;
+    min-width:0;
+    aspect-ratio:1.16;
+    padding:5px;
+    border-width:3px;
+    border-radius:15px;
+  }
+  #levelPicker.gear-level-picker .gear-choice-visual{width:86%;height:86%}
+  #levelPicker.gear-level-picker .gear-choice-rank{top:4px;left:5px;font-size:14px}
+  #levelPicker.gear-level-picker .gear-choice-stars{left:5px;bottom:4px;font-size:11px}
+  #levelPicker.gear-level-picker .gear-level-max{margin:6px 0;padding:16px}
+}
+
+@media(max-width:360px){
+  #chief-gear .gear-orbit{height:416px}
+  #chief-gear .gear-orbit .orbit-pair{width:116px}
+  #chief-gear .gear-orbit .orbit-current[class*="skin-"]{width:45px;height:45px}
+  #chief-gear .gear-orbit .target-item[class*="skin-"]{width:50px;height:50px}
+  #chief-gear .gear-orbit .orbit-current>span,
+  #chief-gear .gear-orbit .target-item>span{height:35px}
+  #chief-gear .gear-orbit .orbit-current .gear-skin-p6,
+  #chief-gear .gear-orbit .target-item .gear-skin-p6,
+  #chief-gear .gear-orbit .orbit-current .gear-level-skin,
+  #chief-gear .gear-orbit .target-item .gear-level-skin{width:34px;height:34px}
+  #chief-gear .gear-orbit .orbit-pair:nth-child(1),
+  #chief-gear .gear-orbit .orbit-pair:nth-child(4){top:12px}
+  #chief-gear .gear-orbit .orbit-pair:nth-child(3),
+  #chief-gear .gear-orbit .orbit-pair:nth-child(6){bottom:12px}
+}
