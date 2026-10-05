@@ -1181,3 +1181,22 @@ img,svg,canvas,video{max-width:100%}
   #levelPicker.gear-level-picker .gear-choice-rank{top:5px;left:7px;font-size:17px}
   #levelPicker.gear-level-picker .gear-choice-stars{left:6px;bottom:5px;font-size:14px}
 }
+
+/* Les deux sélecteurs de niveaux gardent leur page en arrière-plan immobile. */
+body.level-picker-open{
+  position:fixed;
+  top:var(--level-picker-page-offset,0);
+  left:0;
+  right:0;
+  width:100%;
+  overflow:hidden;
+  overscroll-behavior:none;
+}
+
+/* La gouttière et le retrait droit empêchent la scrollbar de recouvrir les cartes. */
+#levelPicker .level-picker-grid{
+  scrollbar-gutter:stable;
+  margin-right:-10px;
+  padding-right:14px;
+  overscroll-behavior:contain;
+}
