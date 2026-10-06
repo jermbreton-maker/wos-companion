@@ -1204,7 +1204,7 @@ body.level-picker-open{
   #chief-charms .charm-triad .triad-pair{gap:1px}
   #chief-charms .charm-triad .triad-pair>span{width:12px;font-size:22px}
   #chief-charms .charm-triad .triad-level.current,
-  #chief-charms .charm-triad .triad-level.target{width:72px;height:92px}
+  #chief-charms .charm-triad .triad-level.target{width:60px;height:92px}
   #chief-charms .charm-triad .triad-level.current .charm-skin,
   #chief-charms .charm-triad .triad-level.target .charm-skin{width:53px;height:53px}
 
