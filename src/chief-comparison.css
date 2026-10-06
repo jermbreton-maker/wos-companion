@@ -1298,3 +1298,10 @@ body.level-picker-open{
   #chief-gear .gear-orbit .orbit-pair:nth-child(2){left:max(9px,env(safe-area-inset-left));right:auto}
   #chief-gear .gear-orbit .orbit-pair:nth-child(5){right:max(9px,env(safe-area-inset-right));left:auto}
 }
+
+@media(max-width:360px){
+  #chief-gear .gear-orbit .orbit-pair:nth-child(2),
+  #chief-gear .gear-orbit .orbit-pair:nth-child(5){width:calc((100% - 18px)/2);gap:0}
+  #chief-gear .gear-orbit .orbit-pair:nth-child(2) .orbit-chevron,
+  #chief-gear .gear-orbit .orbit-pair:nth-child(5) .orbit-chevron{flex-basis:8px;width:8px}
+}
