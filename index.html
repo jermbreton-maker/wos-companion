@@ -10,7 +10,7 @@
   <link rel="preload" href="assets/fonts/lilita-one/LilitaOne-Regular.woff" as="font" type="font/woff" crossorigin />
   <link rel="stylesheet" href="src/styles.css?v=20261006-larger-navigation" />
   <link rel="stylesheet" href="src/chief-comparison.css?v=20261006-lilita-one" />
-  <link rel="stylesheet" href="src/home.css?v=20261006-home-ice" />
+  <link rel="stylesheet" href="src/home.css?v=20261006-home-skin-layout" />
 </head>
 <body>
   <header class="topbar">
@@ -25,16 +25,15 @@
     <section class="view home active" id="home">
       <div class="aurora"></div>
       <div class="hero-copy">
-        <p class="eyebrow">LE CALCULATEUR QUI RESSEMBLE À TON JEU</p>
         <h1>Planifie. Progresse.<br><em>Survis au froid.</em></h1>
         <p>Choisis ce que tu as, ce que tu vises, et laisse Companion calculer le chemin.</p>
       </div>
       <div class="module-grid">
-        <button class="module-card furnace-card" data-go="furnace"><span class="card-icon">🔥</span><h2>Chaudière</h2><p>FC, sous-paliers et bâtiments requis.</p><b>Commencer <span>→</span></b></button>
-        <button class="module-card chief-card" data-go="chief-gear"><span class="card-icon home-item-icon home-gear-icon" aria-hidden="true"><img src="assets/visuals/gear-levels/p5-p6/headgear.png?v=20261006-p4-p5-cutouts" alt="" width="240" height="240"><span class="home-art-label">P6</span></span><h2>Équipement du Chef</h2><p>Niveaux actuels, objectifs et ressources.</p><b>Améliorer <span>→</span></b></button>
-        <button class="module-card chief-card" data-go="chief-charms"><span class="card-icon home-item-icon home-charm-icon" aria-hidden="true"><img src="assets/generated/charms/charm-12-marksman.png?v=11" alt="" width="240" height="240"><span class="home-art-label">12</span></span><h2>Talismans du Chef</h2><p>Configure directement tes 18 talismans.</p><b>Améliorer <span>→</span></b></button>
-        <button class="module-card academy-card" data-go="t11"><span class="card-icon">✦</span><h2>Recherche T11</h2><p>Planifie les branches de recherche des troupes T11.</p><b>Explorer <span>→</span></b></button>
-        <button class="module-card academy-card" data-go="t12"><span class="card-icon">❄</span><h2>Déblocage T12</h2><p>Suis la progression des quatre pièces glorifiées.</p><b>Préparer <span>→</span></b></button>
+        <button class="module-card furnace-card" data-go="furnace"><div class="home-card-copy"><h2>Chaudière</h2><p>FC, sous-paliers et bâtiments requis.</p><b>Commencer <span>→</span></b></div><span class="card-icon">🔥</span></button>
+        <button class="module-card chief-card" data-go="chief-gear"><div class="home-card-copy"><h2>Équipement du Chef</h2><p>Niveaux actuels, objectifs et ressources.</p><b>Améliorer <span>→</span></b></div><span class="card-icon home-item-icon home-gear-icon" aria-hidden="true"><img src="assets/visuals/gear-levels/p5-p6/headgear.png?v=20261006-p4-p5-cutouts" alt="" width="240" height="240"></span></button>
+        <button class="module-card chief-card" data-go="chief-charms"><div class="home-card-copy"><h2>Talismans du Chef</h2><p>Configure directement tes 18 talismans.</p><b>Améliorer <span>→</span></b></div><span class="card-icon home-item-icon home-charm-icon" aria-hidden="true"><img src="assets/generated/charms/charm-18-marksman.png?v=11" alt="" width="240" height="240"></span></button>
+        <button class="module-card academy-card" data-go="t11"><div class="home-card-copy"><h2>Recherche T11</h2><p>Planifie les branches de recherche des troupes T11.</p><b>Explorer <span>→</span></b></div><span class="card-icon">✦</span></button>
+        <button class="module-card academy-card" data-go="t12"><div class="home-card-copy"><h2>Déblocage T12</h2><p>Suis la progression des quatre pièces glorifiées.</p><b>Préparer <span>→</span></b></div><span class="card-icon">❄</span></button>
       </div>
       <p class="disclaimer">Outil communautaire non officiel · Les données V1 sont isolées et versionnées pour audit.</p>
     </section>
