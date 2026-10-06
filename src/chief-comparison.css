@@ -1341,3 +1341,15 @@ body.level-picker-open{
   object-fit:contain;
   pointer-events:none;
 }
+
+/* Desktop : colonne centrale uniforme pour réserver les côtés aux publicités. */
+@media(min-width:761px){
+  #chief-gear .gear-orbit,
+  #chief-charms .charm-workspace,
+  #chief-gear #chiefResult,
+  #chief-charms #charmResult{
+    width:100%;
+    max-width:900px;
+    margin-inline:auto;
+  }
+}
