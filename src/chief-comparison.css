@@ -1398,13 +1398,21 @@ body.level-picker-open{
 
 
 /* Visuel central Équipement : opaque sur desktop, discret derrière les cartes sur mobile. */
-@media(min-width:541px){
+@media(min-width:761px){
   #chief-gear .gear-orbit .orbit-center,
   #chief-gear .gear-orbit .gear-center-item[class*="skin-"],
   #chief-gear .gear-orbit .gear-center-item .gear-level-skin{opacity:1!important}
 }
-@media(max-width:540px){
-  #chief-gear .gear-orbit .orbit-center,
+@media(max-width:760px){
+  #chief-gear .gear-orbit .orbit-center{opacity:.25!important}
   #chief-gear .gear-orbit .gear-center-item[class*="skin-"],
-  #chief-gear .gear-orbit .gear-center-item .gear-level-skin{opacity:.25!important}
+  #chief-gear .gear-orbit .gear-center-item .gear-level-skin{opacity:1!important}
+}
+@media(min-width:541px) and (max-width:760px){
+  #chief-charms .charm-workspace .charm-gear-selector:nth-child(2){top:240px}
+  #chief-charms .charm-workspace .charm-gear-selector:nth-child(5){top:234px}
+  #chief-charms .charm-triad .triad-charm{width:160px}
+  #chief-charms .charm-triad .triad-charm-1{left:125px}
+  #chief-charms .charm-triad .triad-charm-2{left:-5px}
+  #chief-charms .charm-triad .triad-charm-3{right:-5px}
 }
