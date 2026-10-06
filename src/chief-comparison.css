@@ -1220,7 +1220,7 @@ body.level-picker-open{
     min-height:0;
     aspect-ratio:1;
     z-index:1;
-    opacity:.78;
+    opacity:.25;
   }
   #chief-gear .gear-orbit .gear-center-item[class*="skin-"]{
     width:100%!important;
