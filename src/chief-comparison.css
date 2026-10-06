@@ -1393,3 +1393,11 @@ body.level-picker-open{
 #levelPicker.gear-level-picker .gear-zero-choice:not(:disabled):hover{
   background:rgba(255,255,255,.08);
 }
+
+
+/* Visuel central Équipement : le sprite HD reste pleinement opaque. */
+#chief-gear .gear-orbit .orbit-center,
+#chief-gear .gear-orbit .gear-center-item[class*="skin-"],
+#chief-gear .gear-orbit .gear-center-item .gear-level-skin{
+  opacity:1!important;
+}
