@@ -1256,3 +1256,38 @@ body.level-picker-open{
     0 0 16px 7px rgba(255,211,55,.82),
     0 0 34px 13px rgba(255,169,22,.46)!important;
 }
+
+/* Desktop : mêmes ancrages que les cases Équipement de Talismans.
+   Les sélecteurs Talismans mesurent 112 × 142 px ; leur case est centrée
+   avec 9 px de retrait horizontal et 6 px au-dessus. */
+@media(min-width:761px){
+  #chief-gear .gear-orbit .orbit-pair{
+    width:225px;
+    height:142px;
+    padding:6px 0 0 9px;
+    gap:5px;
+    justify-content:flex-start;
+    align-items:flex-start;
+    bottom:auto;
+  }
+  #chief-gear .gear-orbit .orbit-pair .orbit-current,
+  #chief-gear .gear-orbit .orbit-pair .target-item{flex:0 0 94px}
+  #chief-gear .gear-orbit .orbit-pair .orbit-chevron{
+    flex:0 0 18px;
+    width:18px;
+    height:94px;
+    display:grid;
+    place-items:center;
+  }
+  #chief-gear .gear-orbit .orbit-pair:nth-child(1){left:65px;right:auto;top:55px}
+  #chief-gear .gear-orbit .orbit-pair:nth-child(2){left:20px;right:auto;top:295px}
+  #chief-gear .gear-orbit .orbit-pair:nth-child(3){left:65px;right:auto;top:535px}
+  #chief-gear .gear-orbit .orbit-pair:nth-child(4){left:auto;right:65px;top:49px}
+  #chief-gear .gear-orbit .orbit-pair:nth-child(5){left:auto;right:20px;top:289px}
+  #chief-gear .gear-orbit .orbit-pair:nth-child(6){left:auto;right:65px;top:529px}
+  #chief-gear .gear-orbit .orbit-pair:nth-child(n+4){
+    flex-direction:row-reverse;
+    padding:6px 9px 0 0;
+  }
+  #chief-gear .gear-orbit .orbit-pair:nth-child(n+4) .orbit-chevron{transform:scaleX(-1)}
+}
