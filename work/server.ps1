@@ -17,6 +17,7 @@ try {
     $bytes = [System.IO.File]::ReadAllBytes($path)
     $ext = [System.IO.Path]::GetExtension($path).ToLowerInvariant()
     $context.Response.ContentType = $(if ($types[$ext]) { $types[$ext] } else { 'application/octet-stream' })
+    $context.Response.Headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
     $context.Response.ContentLength64 = $bytes.Length
     $context.Response.OutputStream.Write($bytes, 0, $bytes.Length)
     $context.Response.Close()
