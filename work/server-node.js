@@ -21,5 +21,6 @@ http.createServer((request, response) => {
     return;
   }
   response.setHeader('Content-Type', types[path.extname(file).toLowerCase()] || 'application/octet-stream');
+  response.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
   fs.createReadStream(file).pipe(response);
 }).listen(4173, '127.0.0.1');
