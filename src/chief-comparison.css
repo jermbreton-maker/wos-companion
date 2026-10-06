@@ -1305,3 +1305,37 @@ body.level-picker-open{
   #chief-gear .gear-orbit .orbit-pair:nth-child(2) .orbit-chevron,
   #chief-gear .gear-orbit .orbit-pair:nth-child(5) .orbit-chevron{flex-basis:8px;width:8px}
 }
+
+/* Taille du dessin mesurée sur la capture P5, sans dépendre du padding PNG.
+   Ces enveloppes suivent la case complète, y compris son contour. */
+#chief-gear .gear-orbit .orbit-current>span,
+#chief-gear .gear-orbit .target-item>span{
+  position:absolute;
+  inset:-1px;
+  width:auto!important;
+  height:auto!important;
+  margin:0;
+  display:block;
+}
+#chief-charms .charm-gear-selector>span .gear-art-frame{
+  position:absolute;
+  inset:-3px;
+  display:block;
+  pointer-events:none;
+}
+#chief-charms .charm-gear-selector.selected>span .gear-art-frame{inset:-3.5px}
+#levelPicker.gear-level-picker .gear-choice-visual{position:relative}
+#chief-gear .gear-orbit .orbit-current>span .gear-level-skin,
+#chief-gear .gear-orbit .target-item>span .gear-level-skin,
+#chief-charms .charm-gear-selector>span .gear-art-frame .gear-skin-p6,
+#levelPicker.gear-level-picker .gear-choice-visual .gear-level-skin{
+  position:absolute;
+  width:var(--gear-art-width)!important;
+  height:var(--gear-art-height)!important;
+  left:var(--gear-art-left);
+  top:var(--gear-art-top);
+  margin:0!important;
+  transform:translate(var(--gear-art-offset-x),var(--gear-art-offset-y))!important;
+  object-fit:contain;
+  pointer-events:none;
+}
