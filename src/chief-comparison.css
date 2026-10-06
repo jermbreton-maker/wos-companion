@@ -1353,3 +1353,10 @@ body.level-picker-open{
     margin-inline:auto;
   }
 }
+
+/* Same segmented sub-level selection as Talismans, inside each gear card. */
+#levelPicker.gear-level-picker .gear-choice-art{position:relative;display:grid;place-items:center;width:100%;min-width:0;flex:1;min-height:78px}
+#levelPicker.gear-level-picker .gear-level-group{cursor:default;overflow:visible}
+#levelPicker.gear-level-picker .gear-level-group.disabled{opacity:.35;filter:grayscale(.55)}
+#levelPicker.gear-level-picker .gear-level-group .picker-substep-panel{flex:none;margin-top:4px}
+@media(max-width:600px){#levelPicker.gear-level-picker .gear-choice-art{min-height:66px}}

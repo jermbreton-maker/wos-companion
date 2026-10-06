@@ -11,6 +11,7 @@ const GEAR_VISUAL_LEVELS=[
   ...[0,1,2,3].map(stars=>({label:`P4${stars?` ${'★'.repeat(stars)}`:''}`,skin:'p4',tone:'red',rank:'P4',stars})),
   ...['P5','P6'].flatMap(rank=>[0,1,2,3].map(stars=>({label:`${rank}${stars?` ${'★'.repeat(stars)}`:''}`,skin:'p5-p6',tone:'red',rank,stars})))
 ];
+const detailedGearLevels=D.gearLevels.slice(),detailedGearCosts=D.gearStepCosts.slice();
 const previousGearCosts=D.gearStepCosts.slice();
 const gearCostKeys=['alloy','polish','plans','amber'];
 D.gearStepCosts=Array.from({length:GEAR_VISUAL_LEVELS.length-1},(_,index)=>{
@@ -18,6 +19,15 @@ D.gearStepCosts=Array.from({length:GEAR_VISUAL_LEVELS.length-1},(_,index)=>{
   const end=Math.max(start+1,Math.floor((index+1)*previousGearCosts.length/(GEAR_VISUAL_LEVELS.length-1)));
   return previousGearCosts.slice(start,end).reduce((total,cost)=>(gearCostKeys.forEach(key=>total[key]+=(cost[key]||0)),total),{alloy:0,polish:0,plans:0,amber:0});
 });
+// Preserve every existing P sub-level and its resource cost from data.js.
+const gearMajorCosts=D.gearStepCosts.slice(),gearExpandedLevels=[];
+GEAR_VISUAL_LEVELS.forEach((visual,majorIndex)=>{
+  const matches=visual.tone==='red'&&visual.rank?detailedGearLevels.map((label,index)=>({label,index})).filter(item=>item.label.startsWith(visual.label+' · ')):[];
+  const entries=matches.length?matches.map(item=>({...visual,label:item.label,step:+item.label.match(/ · (\d+)\//)[1],steps:matches.length,sourceIndex:item.index})): [{...visual,step:1,steps:1}];
+  entries.forEach(entry=>gearExpandedLevels.push({...entry,majorIndex}));
+});
+GEAR_VISUAL_LEVELS.splice(0,GEAR_VISUAL_LEVELS.length,...gearExpandedLevels);
+D.gearStepCosts=GEAR_VISUAL_LEVELS.slice(1).map((target,index)=>target.sourceIndex!==undefined?{...detailedGearCosts[target.sourceIndex-1]}:{...gearMajorCosts[GEAR_VISUAL_LEVELS[index].majorIndex]});
 D.gearLevels=GEAR_VISUAL_LEVELS.map(level=>level.label);
 const state={from:D.furnace.findIndex(x=>x.id==="FC6"),to:D.furnace.findIndex(x=>x.id==="FC8"),scope:"furnace",gear:{},selectedGear:null,troop:"infantry",techStart:"steel",techTarget:"helios",t12:[0,0,0,0]};
 // Proportions mesurées sur la capture P5 ; limites alpha des 48 assets.
@@ -117,9 +127,12 @@ renderSelectedCosts=function(){
   ];
   $('#charmResult').innerHTML=`<h2>Coût d’amélioration</h2><div class="upgrade-cost-grid charm-cost-grid">${resources.map(v=>`<div class="upgrade-resource upgrade-resource-${v[0]}"><span class="resource-item material-skin" title="${v[2]}" aria-label="${v[2]}"><img src="${v[1]}" alt=""></span><strong>${fmt(v[3])}</strong><small>${v[2]}</small></div>`).join('')}</div>`;
 };
-function gearChoiceMarkup(gear,value,current){
-  const visual=gearVisualData(value),rank=visual.rank?`<b class="gear-choice-rank">${visual.rank}</b>`:'',stars=visual.stars?`<i class="gear-choice-stars">${'★'.repeat(visual.stars)}</i>`:'';
-  return `<button value="cancel" class="level-choice gear-level-choice skin-${visual.tone} ${value===current?'active':''}" data-level="${value}" aria-label="${visual.label}" title="${visual.label}"><span class="gear-choice-visual">${gearLevelSkin(gear,value)}</span><span class="gear-choice-markers">${rank}${stars}</span></button>`;
+function gearChoiceMarkup(gear,values,current){
+  const value=values[0],visual=gearVisualData(value),active=values.includes(current),rank=visual.rank?`<b class="gear-choice-rank">${visual.rank}</b>`:'',stars=visual.stars?`<i class="gear-choice-stars">${'★'.repeat(visual.stars)}</i>`:'';
+  const art=`<span class="gear-choice-art"><span class="gear-choice-visual">${gearLevelSkin(gear,value)}</span><span class="gear-choice-markers">${rank}${stars}</span></span>`;
+  const classes=`level-choice gear-level-choice skin-${visual.tone} ${active?'active':''}`;
+  if(values.length===1)return `<button value="cancel" class="${classes}" data-level="${value}" aria-label="${visual.label}" title="${visual.label}">${art}</button>`;
+  return `<article class="${classes} gear-level-group" aria-label="${visual.label.split(' · ')[0]}">${art}<span class="picker-substep-panel"><small>SOUS-NIVEAU</small><em class="picker-substeps" aria-label="Sous-niveaux de ${visual.label.split(' · ')[0]}">${values.map(item=>{const level=gearVisualData(item);return `<button value="cancel" class="picker-substep ${active&&item<=current?'filled':''} ${item===current?'active':''}" data-level="${item}" aria-label="${level.label}" title="Étape ${level.step}/${level.steps}"></button>`}).join('')}</em></span></article>`;
 }
 openLevelPicker=function(spec){
   const parts=spec.split(':'),[kind,direction]=parts[0].split('-'),id=parts[1],index=parts[2]===undefined?null:+parts[2],isGear=kind==='gear',s=state.gear[id];
@@ -131,17 +144,21 @@ openLevelPicker=function(spec){
   const selectAll=$(isGear?'#selectAllGear':'#selectAllCharms');
   $('#pickerEyebrow').textContent=direction==='to'?'OBJECTIF':'NIVEAU ACTUEL';
   $('#pickerTitle').textContent=isGear?gear.name:`${gear.name} · Talisman ${index+1}`;
-  if(isGear)$('#levelPickerGrid').innerHTML=min>max?'<p class="gear-level-max">Niveau maximal atteint</p>':Array.from({length:max-min+1},(_,i)=>gearChoiceMarkup(gear,min+i,current)).join('');
+  if(isGear){
+    const groups=[];
+    GEAR_VISUAL_LEVELS.forEach((level,value)=>{let group=groups[groups.length-1];if(!group||group.majorIndex!==level.majorIndex){group={majorIndex:level.majorIndex,values:[]};groups.push(group)}group.values.push(value)});
+    $('#levelPickerGrid').innerHTML=groups.filter(group=>group.values.some(value=>value>=min)).map(group=>gearChoiceMarkup(gear,group.values,current)).join('');
+  }
   else{
     const groups=[];
     D.charmLevels.forEach((level,value)=>{let group=groups[groups.length-1];if(!group||group.major!==level.major){group={major:level.major,steps:level.steps,items:[]};groups.push(group)}group.items.push({level,value})});
     const currentLevel=D.charmLevels[current];
     $('#levelPickerGrid').innerHTML=groups.filter(group=>group.items.some(item=>item.value>=min)).map(group=>{const active=group.major===currentLevel.major,first=group.items[0],visual=`<i class="picker-charm-visual" style="background-image:url('${charmSkinPath(gear,first.value)}')"></i><b>Niv. ${group.major}</b>`;if(group.steps===1)return `<button value="cancel" class="level-choice charm-level-choice ${active?'active':''}" data-level="${first.value}" aria-label="Niveau ${group.major}">${visual}</button>`;return `<article class="level-choice charm-level-choice charm-level-group ${active?'active':''}" data-major="${group.major}">${visual}<span class="picker-substep-panel"><small>SOUS-NIVEAU</small><em class="picker-substeps" aria-label="Sous-niveaux du niveau ${group.major}">${group.items.map(item=>`<button value="cancel" class="picker-substep ${active&&item.level.step<=currentLevel.step?'filled':''} ${item.value===current?'active':''}" data-level="${item.value}" aria-label="Niveau ${group.major}, étape ${item.level.step} sur ${group.steps}" title="Étape ${item.level.step}/${group.steps}"></button>`).join('')}</em></span></article>`}).join('');
   }
-  const syncBulkChoices=()=>{const minimum=direction==='to'&&selectAll.checked?(isGear?Math.max(...D.gears.map(item=>state.gear[item.id].from)):Math.max(...D.gears.flatMap(item=>state.gear[item.id].charms))):min;$('#levelPickerGrid').querySelectorAll('[data-level]').forEach(button=>button.disabled=+button.dataset.level<minimum);$('#levelPickerGrid').querySelectorAll('.charm-level-group').forEach(group=>group.classList.toggle('disabled',![...group.querySelectorAll('[data-level]')].some(button=>!button.disabled)))};
+  const syncBulkChoices=()=>{const minimum=direction==='to'&&selectAll.checked?(isGear?Math.max(...D.gears.map(item=>state.gear[item.id].from)):Math.max(...D.gears.flatMap(item=>state.gear[item.id].charms))):min;$('#levelPickerGrid').querySelectorAll('[data-level]').forEach(button=>button.disabled=+button.dataset.level<minimum);$('#levelPickerGrid').querySelectorAll('.charm-level-group,.gear-level-group').forEach(group=>group.classList.toggle('disabled',![...group.querySelectorAll('[data-level]')].some(button=>!button.disabled)))};
   selectAll.onchange=syncBulkChoices;
   syncBulkChoices();
-  if(!isGear)$('#levelPickerGrid').querySelectorAll('.picker-substeps').forEach(track=>{const steps=[...track.querySelectorAll('.picker-substep')];steps.forEach((step,index)=>step.onmouseenter=()=>{if(step.disabled)return;steps.forEach((item,itemIndex)=>{item.classList.toggle('preview-filled',itemIndex<=index&&!item.disabled);item.classList.toggle('preview-target',itemIndex===index)})});track.onmouseleave=()=>steps.forEach(item=>item.classList.remove('preview-filled','preview-target'))});
+  $('#levelPickerGrid').querySelectorAll('.picker-substeps').forEach(track=>{const steps=[...track.querySelectorAll('.picker-substep')];steps.forEach((step,index)=>step.onmouseenter=()=>{if(step.disabled)return;steps.forEach((item,itemIndex)=>{item.classList.toggle('preview-filled',itemIndex<=index&&!item.disabled);item.classList.toggle('preview-target',itemIndex===index)})});track.onmouseleave=()=>steps.forEach(item=>item.classList.remove('preview-filled','preview-target'))});
   $('#levelPickerGrid').querySelectorAll('[data-level]').forEach(button=>button.onclick=()=>{const value=+button.dataset.level;if(isGear){state.selectedUpgradeGear=id;const items=selectAll.checked?D.gears:[gear];items.forEach(item=>{const gearState=state.gear[item.id];if(direction==='from'){gearState.from=value;gearState.to=value}else gearState.to=value})}else if(selectAll.checked){D.gears.forEach(item=>{const gearState=state.gear[item.id];if(direction==='from'){gearState.charms=gearState.charms.map(()=>value);gearState.targetCharms=gearState.targetCharms.map(target=>Math.max(target,value))}else gearState.targetCharms=gearState.targetCharms.map(()=>value)});state.selectedUpgradeCharm=id+':'+index}else{state.selectedUpgradeCharm=id+':'+index;if(direction==='from'){s.charms[index]=value;s.targetCharms[index]=Math.max(s.targetCharms[index],value)}else s.targetCharms[index]=value}renderGear()});
   lockLevelPickerBackground();
   picker.showModal();
