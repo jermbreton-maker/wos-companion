@@ -11,7 +11,6 @@ const GEAR_VISUAL_LEVELS=[
   ...[0,1,2,3].map(stars=>({label:`P4${stars?` ${'★'.repeat(stars)}`:''}`,skin:'p4',tone:'red',rank:'P4',stars})),
   ...['P5','P6'].flatMap(rank=>[0,1,2,3].map(stars=>({label:`${rank}${stars?` ${'★'.repeat(stars)}`:''}`,skin:'p5-p6',tone:'red',rank,stars})))
 ];
-const detailedGearLevels=D.gearLevels.slice(),detailedGearCosts=D.gearStepCosts.slice();
 const previousGearCosts=D.gearStepCosts.slice();
 const gearCostKeys=['alloy','polish','plans','amber'];
 D.gearStepCosts=Array.from({length:GEAR_VISUAL_LEVELS.length-1},(_,index)=>{
@@ -19,15 +18,15 @@ D.gearStepCosts=Array.from({length:GEAR_VISUAL_LEVELS.length-1},(_,index)=>{
   const end=Math.max(start+1,Math.floor((index+1)*previousGearCosts.length/(GEAR_VISUAL_LEVELS.length-1)));
   return previousGearCosts.slice(start,end).reduce((total,cost)=>(gearCostKeys.forEach(key=>total[key]+=(cost[key]||0)),total),{alloy:0,polish:0,plans:0,amber:0});
 });
-// Preserve every existing P sub-level and its resource cost from data.js.
+// A stage belongs to the gear already worn, beginning at zero.
 const gearMajorCosts=D.gearStepCosts.slice(),gearExpandedLevels=[];
 GEAR_VISUAL_LEVELS.forEach((visual,majorIndex)=>{
-  const matches=visual.tone==='red'&&visual.rank?detailedGearLevels.map((label,index)=>({label,index})).filter(item=>item.label.startsWith(visual.label+' · ')):[];
-  const entries=matches.length?matches.map(item=>({...visual,label:item.label,step:+item.label.match(/ · (\d+)\//)[1],steps:matches.length,sourceIndex:item.index})): [{...visual,step:1,steps:1}];
+  const group=window.CHIEF_GEAR_SUBLEVELS.find(group=>group.tone===visual.tone&&group.rank===visual.rank&&group.stars===visual.stars);
+  const entries=group?group.items.map(item=>({...visual,label:group.items.length>1?`${visual.label} · ${item.step}/${group.items.length-1}`:visual.label,step:item.step,steps:group.items.length,incomingCost:item.cost})): [{...visual,step:0,steps:1}];
   entries.forEach(entry=>gearExpandedLevels.push({...entry,majorIndex}));
 });
 GEAR_VISUAL_LEVELS.splice(0,GEAR_VISUAL_LEVELS.length,...gearExpandedLevels);
-D.gearStepCosts=GEAR_VISUAL_LEVELS.slice(1).map((target,index)=>target.sourceIndex!==undefined?{...detailedGearCosts[target.sourceIndex-1]}:{...gearMajorCosts[GEAR_VISUAL_LEVELS[index].majorIndex]});
+D.gearStepCosts=GEAR_VISUAL_LEVELS.slice(1).map((target,index)=>target.incomingCost&&!(target.tone==='mythic'&&target.step===0)?{...target.incomingCost}:{...gearMajorCosts[GEAR_VISUAL_LEVELS[index].majorIndex]});
 D.gearLevels=GEAR_VISUAL_LEVELS.map(level=>level.label);
 const state={from:D.furnace.findIndex(x=>x.id==="FC6"),to:D.furnace.findIndex(x=>x.id==="FC8"),scope:"furnace",gear:{},selectedGear:null,troop:"infantry",techStart:"steel",techTarget:"helios",t12:[0,0,0,0]};
 // Proportions mesurées sur la capture P5 ; limites alpha des 48 assets.
@@ -96,7 +95,7 @@ renderUpgradeOrbits=function(){
 // talismans. La page Équipement continue d'utiliser son rendu validé ci-dessus.
 const renderUpgradeOrbitsWithCrown=renderUpgradeOrbits;
 renderUpgradeOrbits=function(){renderUpgradeOrbitsWithCrown();renderCharmWorkspace()};
-function gearProgressBar(index){const level=gearVisualData(index);if(level.steps===1)return'';return `<em class="gear-progress" role="img" aria-label="Sous-niveau ${level.step} sur ${level.steps}">${Array.from({length:level.steps},(_,i)=>`<span class="${i<level.step?'filled':''}"></span>`).join('')}</em>`}
+function gearProgressBar(index){const level=gearVisualData(index);if(level.steps===1)return'';return `<em class="gear-progress" role="img" aria-label="Sous-niveau ${level.step} sur ${level.steps-1}">${Array.from({length:level.steps},(_,i)=>`<span class="${i<level.step?'filled':''}"></span>`).join('')}</em>`}
 function charmProgressBar(index,compact=false){const level=D.charmLevels[index];if(level.steps===1)return'';return `<em class="charm-progress ${compact?'compact':''}" aria-label="Étape ${level.step} sur ${level.steps}">${Array.from({length:level.steps},(_,i)=>`<span class="${i<level.step?'filled':''}"></span>`).join('')}</em>`}
 function charmSkinPath(gear,index){const type=gear.troop==='Infanterie'?'infantry':gear.troop==='Lancier'?'lancer':'marksman',level=String(D.charmLevels[index].major).padStart(2,'0');return `assets/generated/charms/charm-${level}-${type}.png?v=11`}
 function renderCharmWorkspace(){
@@ -133,7 +132,7 @@ function gearChoiceMarkup(gear,values,current){
   const art=`<span class="gear-choice-art"><span class="gear-choice-visual">${gearLevelSkin(gear,value)}</span><span class="gear-choice-markers">${rank}${stars}</span></span>`;
   const classes=`level-choice gear-level-choice skin-${visual.tone} ${active?'active':''}`;
   if(values.length===1)return `<button value="cancel" class="${classes}" data-level="${value}" aria-label="${visual.label}" title="${visual.label}">${art}</button>`;
-  return `<article class="${classes} gear-level-group" aria-label="${visual.label.split(' · ')[0]}">${art}<span class="picker-substep-panel"><small>SOUS-NIVEAU</small><em class="picker-substeps" aria-label="Sous-niveaux de ${visual.label.split(' · ')[0]}">${values.map(item=>{const level=gearVisualData(item);return `<button value="cancel" class="picker-substep ${active&&item<=current?'filled':''} ${item===current?'active':''}" data-level="${item}" aria-label="${level.label}" title="Étape ${level.step}/${level.steps}"></button>`}).join('')}</em></span></article>`;
+  return `<article class="${classes} gear-level-group" aria-label="${visual.label.split(' · ')[0]}">${art}<span class="picker-substep-panel"><small>SOUS-NIVEAU</small><em class="picker-substeps" aria-label="Sous-niveaux de ${visual.label.split(' · ')[0]}">${values.map(item=>{const level=gearVisualData(item);return `<button value="cancel" class="picker-substep ${active&&item<current?'filled':''} ${item===current?'active':''}" data-level="${item}" aria-label="${level.label}" title="Étape ${level.step}/${level.steps-1}"></button>`}).join('')}</em></span></article>`;
 }
 openLevelPicker=function(spec){
   const parts=spec.split(':'),[kind,direction]=parts[0].split('-'),id=parts[1],index=parts[2]===undefined?null:+parts[2],isGear=kind==='gear',s=state.gear[id];
