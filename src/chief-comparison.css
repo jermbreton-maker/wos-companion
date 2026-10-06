@@ -1241,3 +1241,18 @@ body.level-picker-open{
   #levelPicker.gear-level-picker .gear-level-choice{min-width:0}
   #levelPicker.gear-level-picker .gear-choice-visual{max-width:100%}
 }
+
+/* Harmonisation avec la présentation Talismans. */
+#chief-charms .charm-triad .triad-level.current{width:72px;height:92px}
+#chief-charms .charm-triad .triad-level.current .charm-skin{width:68px;height:68px}
+@media(max-width:540px){
+  #chief-charms .charm-triad .triad-level.current .charm-skin{width:53px;height:53px}
+}
+#chief-gear .gear-orbit .orbit-pair.selected .orbit-current[class*="skin-"],
+#chief-gear .gear-orbit .orbit-pair.selected .target-item[class*="skin-"]{
+  box-shadow:
+    0 10px 20px rgba(31,20,45,.34),
+    0 0 6px 2px rgba(255,244,170,.95),
+    0 0 16px 7px rgba(255,211,55,.82),
+    0 0 34px 13px rgba(255,169,22,.46)!important;
+}
