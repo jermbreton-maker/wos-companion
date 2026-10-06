@@ -95,7 +95,7 @@ function renderCharmWorkspace(){
   const troopColor=selectedGear.troop==='Infanterie'?'#54d66b':selectedGear.troop==='Lancier'?'#58c9ff':'#ff9c32';
   const gearButtons=D.gears.map((g,i)=>{
     const s=state.gear[g.id],color=g.troop==='Infanterie'?'#54d66b':g.troop==='Lancier'?'#58c9ff':'#ff9c32';
-    return `<button class="charm-gear-selector ${g.id===selectedGear.id?'selected':''}" data-charm-gear="${g.id}" style="--slot:${i};--troop-color:${color}"><span><i class="gear-art-frame">${gearSkin(g)}</i><small>${g.name}</small></span><i>${s.charms.map(n=>`<span class="mini-charm"><b class="charm-thumb" style="background-image:url('${charmSkinPath(g,n)}')" aria-label="Niveau ${D.charmLevels[n].major}"></b>${charmProgressBar(n,true)}</span>`).join('')}</i></button>`;
+    return `<button class="charm-gear-selector ${g.id===selectedGear.id?'selected':''}" data-charm-gear="${g.id}" style="--slot:${i};--troop-color:${color}"><span><i class="gear-art-frame">${gearLevelSkin(g,GEAR_VISUAL_LEVELS.findIndex(level=>level.rank==='P6'))}</i><small>${g.name}</small></span><i>${s.charms.map(n=>`<span class="mini-charm"><b class="charm-thumb" style="background-image:url('${charmSkinPath(g,n)}')" aria-label="Niveau ${D.charmLevels[n].major}"></b>${charmProgressBar(n,true)}</span>`).join('')}</i></button>`;
   }).join('');
   const charmPairs=selectedState.charms.map((level,index)=>{
     const target=selectedState.targetCharms[index],key=selectedGear.id+':'+index,isSelected=state.selectedUpgradeCharm===key,direction=state.selectedUpgradeCharmDirection||'from';
