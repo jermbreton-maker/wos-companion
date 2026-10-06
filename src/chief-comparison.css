@@ -1360,3 +1360,26 @@ body.level-picker-open{
 #levelPicker.gear-level-picker .gear-level-group.disabled{opacity:.35;filter:grayscale(.55)}
 #levelPicker.gear-level-picker .gear-level-group .picker-substep-panel{flex:none;margin-top:4px}
 @media(max-width:600px){#levelPicker.gear-level-picker .gear-choice-art{min-height:66px}}
+
+/* Current and target gear show the selected sub-level below their card. */
+#chief-gear .gear-orbit .gear-progress{
+  position:absolute;left:3px;right:3px;bottom:-17px;
+  display:flex;height:13px;gap:2px;padding:1px;
+  border:2px solid #e9bd5b;border-radius:5px;background:#8b5d30;
+  box-shadow:inset 0 1px rgba(255,239,166,.48),0 1px 3px rgba(54,28,11,.42);
+  font-style:normal;
+}
+#chief-gear .gear-orbit .gear-progress>span{
+  flex:1;min-width:0;border-radius:2px;
+  background:linear-gradient(180deg,#9b713d 0,#875d30 52%,#70451f 100%);
+  box-shadow:inset 0 1px rgba(224,169,90,.38),inset 0 -1px rgba(69,35,13,.32);
+}
+#chief-gear .gear-orbit .gear-progress>span.filled{
+  background:linear-gradient(180deg,#8ed14b 0,#65b637 58%,#4c942b 100%);
+  box-shadow:inset 0 1px rgba(205,246,126,.58),inset 0 -1px rgba(47,105,24,.28),0 0 4px rgba(113,205,61,.42);
+}
+@media(max-width:540px){
+  #chief-gear .gear-orbit .gear-progress{height:10px;bottom:-14px;border-width:1.5px;gap:1px}
+  #chief-gear .gear-orbit .orbit-pair:nth-child(3),
+  #chief-gear .gear-orbit .orbit-pair:nth-child(6){bottom:20px}
+}

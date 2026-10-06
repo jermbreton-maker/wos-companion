@@ -79,7 +79,7 @@ renderUpgradeOrbits=function(){
   $$('[data-pick^="gear-"]').forEach(button=>{
     const spec=button.dataset.pick,[direction,id]=spec.split(':'),gear=D.gears.find(item=>item.id===id),host=$('span',button),level=direction==='gear-from'?state.gear[id].from:state.gear[id].to,label=D.gearLevels[level],rank=(label.match(/\bP\d+\b/)||[])[0]||'',stars=(label.match(/★/g)||[]).length,marker=$('small',button);
     if(gear&&host)host.innerHTML=gearLevelSkin(gear,level);
-    if(marker){marker.className='gear-level-markers';marker.innerHTML=`${rank?`<b class="gear-rank">${rank}</b>`:''}${stars?`<i class="gear-stars">${'★'.repeat(stars)}</i>`:''}`}
+    if(marker){marker.className='gear-level-markers';marker.innerHTML=`${rank?`<b class="gear-rank">${rank}</b>`:''}${stars?`<i class="gear-stars">${'★'.repeat(stars)}</i>`:''}${gearProgressBar(level)}`}
     button.setAttribute('aria-label',`${gear?.name||'Équipement'} · ${label}`);
     button.onclick=()=>{
       state.selectedUpgradeGear=id;
@@ -96,6 +96,7 @@ renderUpgradeOrbits=function(){
 // talismans. La page Équipement continue d'utiliser son rendu validé ci-dessus.
 const renderUpgradeOrbitsWithCrown=renderUpgradeOrbits;
 renderUpgradeOrbits=function(){renderUpgradeOrbitsWithCrown();renderCharmWorkspace()};
+function gearProgressBar(index){const level=gearVisualData(index);if(level.steps===1)return'';return `<em class="gear-progress" role="img" aria-label="Sous-niveau ${level.step} sur ${level.steps}">${Array.from({length:level.steps},(_,i)=>`<span class="${i<level.step?'filled':''}"></span>`).join('')}</em>`}
 function charmProgressBar(index,compact=false){const level=D.charmLevels[index];if(level.steps===1)return'';return `<em class="charm-progress ${compact?'compact':''}" aria-label="Étape ${level.step} sur ${level.steps}">${Array.from({length:level.steps},(_,i)=>`<span class="${i<level.step?'filled':''}"></span>`).join('')}</em>`}
 function charmSkinPath(gear,index){const type=gear.troop==='Infanterie'?'infantry':gear.troop==='Lancier'?'lancer':'marksman',level=String(D.charmLevels[index].major).padStart(2,'0');return `assets/generated/charms/charm-${level}-${type}.png?v=11`}
 function renderCharmWorkspace(){
