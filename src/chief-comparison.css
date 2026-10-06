@@ -1215,3 +1215,29 @@ body.level-picker-open{
   #chief-charms .charm-workspace .charm-gear-selector:nth-child(2){left:4px}
   #chief-charms .charm-workspace .charm-gear-selector:nth-child(5){right:4px}
 }
+
+/* Essai mobile : équipement flottant derrière les cases et gouttière du sélecteur. */
+@media(max-width:540px){
+  #chief-gear .gear-orbit .orbit-center{
+    width:76%;
+    min-height:0;
+    aspect-ratio:1;
+    z-index:1;
+    opacity:.78;
+  }
+  #chief-gear .gear-orbit .gear-center-item[class*="skin-"]{
+    width:100%!important;
+    height:auto!important;
+    aspect-ratio:1;
+  }
+}
+@media(max-width:600px){
+  #levelPicker.gear-level-picker .level-picker-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    margin-right:-10px;
+    padding:3px 14px 3px 3px;
+    scrollbar-gutter:stable;
+  }
+  #levelPicker.gear-level-picker .gear-level-choice{min-width:0}
+  #levelPicker.gear-level-picker .gear-choice-visual{max-width:100%}
+}
