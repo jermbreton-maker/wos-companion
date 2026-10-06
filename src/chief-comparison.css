@@ -1002,21 +1002,15 @@ img,svg,canvas,video{max-width:100%}
 #chief-gear .gear-material-skin img{display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 5px 6px rgba(4,24,43,.28))}
 @media(max-width:520px){#chief-gear .gear-material-skin{width:68px;height:68px}}
 
-/* Luminosité harmonisée avec les équipements visibles sur la page Talismans. */
-.gear-level-skin.gear-visual-peu-commun{--gear-light:1.72;--gear-saturation:1.18;--gear-contrast:1.03}
-.gear-level-skin.gear-visual-rare{--gear-light:1.53;--gear-saturation:1.18;--gear-contrast:1.03}
-.gear-level-skin.gear-visual-epique{--gear-light:1.63;--gear-saturation:1.18;--gear-contrast:1.03}
-.gear-level-skin.gear-visual-mythique{--gear-light:2.08;--gear-saturation:1.18;--gear-contrast:1.03}
-.gear-level-skin.gear-visual-legendaire{--gear-light:1.78;--gear-saturation:1.18;--gear-contrast:1.03}
-.gear-level-skin.gear-visual-p4{--gear-light:1.04}
-.gear-level-skin.gear-visual-p5-p6{--gear-light:1.04}
+/* Les sprites HD sont déjà éclairés : on conserve uniquement les ombres de relief. */
 #chief-gear .gear-orbit .gear-level-skin,
 #chief-charms .charm-gear-selector .gear-level-skin,
 #levelPicker.gear-level-picker .gear-level-skin{
-  filter:brightness(var(--gear-light,1)) saturate(var(--gear-saturation,1.1)) contrast(var(--gear-contrast,1.08)) drop-shadow(0 5px 5px rgba(15,22,34,.34))!important;
+  filter:drop-shadow(0 5px 5px rgba(15,22,34,.34))!important;
 }
 #chief-gear .gear-orbit .gear-center-item .gear-level-skin{
-  filter:brightness(var(--gear-light,1)) saturate(var(--gear-saturation,1.1)) contrast(var(--gear-contrast,1.08)) drop-shadow(0 8px 9px rgba(7,24,40,.35))!important;
+  opacity:.78;
+  filter:drop-shadow(0 8px 9px rgba(7,24,40,.35))!important;
 }
 
 /* Passe mobile dédiée à l'Équipement du Chef.
@@ -1039,8 +1033,10 @@ img,svg,canvas,video{max-width:100%}
     min-height:min(45vw,168px);
   }
   #chief-gear .gear-orbit .gear-center-item[class*="skin-"]{
-    width:min(18vw,72px)!important;
-    height:min(18vw,72px)!important;
+    width:min(45vw,168px)!important;
+    height:min(45vw,168px)!important;
+    opacity:.78;
+    z-index:1;
   }
   #chief-gear .gear-orbit .orbit-pair{
     width:min(44vw,142px);
