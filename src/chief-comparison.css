@@ -1287,10 +1287,10 @@ body.level-picker-open{
   #chief-gear .gear-orbit .orbit-pair:nth-child(5){left:auto;right:20px;top:289px}
   #chief-gear .gear-orbit .orbit-pair:nth-child(6){left:auto;right:65px;top:529px}
   #chief-gear .gear-orbit .orbit-pair:nth-child(n+4){
-    flex-direction:row-reverse;
+    flex-direction:row;
     padding:6px 9px 0 0;
   }
-  #chief-gear .gear-orbit .orbit-pair:nth-child(n+4) .orbit-chevron{transform:scaleX(-1)}
+  #chief-gear .gear-orbit .orbit-pair:nth-child(n+4) .orbit-chevron{transform:none}
 }
 
 /* Retrait du contour pour les deux paires médianes, comme dans Talismans.
