@@ -1039,12 +1039,12 @@ img,svg,canvas,video{max-width:100%}
     z-index:1;
   }
   #chief-gear .gear-orbit .orbit-pair{
-    width:min(44vw,142px);
+    width:min(46vw,150px);
     height:70px;
     gap:1px;
     z-index:3;
   }
-  #chief-gear .gear-orbit .orbit-current[class*="skin-"]{width:58px;height:58px;border-radius:14px}
+  #chief-gear .gear-orbit .orbit-current[class*="skin-"]{width:68px;height:68px;border-radius:14px}
   #chief-gear .gear-orbit .target-item[class*="skin-"]{width:68px;height:68px;border-radius:14px}
   #chief-gear .gear-orbit .orbit-current>span,
   #chief-gear .gear-orbit .target-item>span{height:45px}
@@ -1112,8 +1112,8 @@ img,svg,canvas,video{max-width:100%}
 @media(max-width:360px){
   #chief-gear .gear-orbit{height:416px}
   #chief-gear .gear-orbit .gear-center-item[class*="skin-"]{width:54px!important;height:54px!important}
-  #chief-gear .gear-orbit .orbit-pair{width:140px}
-  #chief-gear .gear-orbit .orbit-current[class*="skin-"]{width:58px;height:58px}
+  #chief-gear .gear-orbit .orbit-pair{width:min(46vw,150px)}
+  #chief-gear .gear-orbit .orbit-current[class*="skin-"]{width:68px;height:68px}
   #chief-gear .gear-orbit .target-item[class*="skin-"]{width:68px;height:68px}
   #chief-gear .gear-orbit .orbit-current>span,
   #chief-gear .gear-orbit .target-item>span{height:45px}
@@ -1209,8 +1209,8 @@ body.level-picker-open{
   #chief-charms .charm-triad .triad-level.target .charm-skin{width:53px;height:53px}
 
   /* Les deux équipements médians restent entièrement dans la zone visible. */
-  #chief-charms .charm-workspace .charm-gear-selector:nth-child(2){left:4px}
-  #chief-charms .charm-workspace .charm-gear-selector:nth-child(5){right:4px}
+  #chief-charms .charm-workspace .charm-gear-selector:nth-child(2){left:4px;top:220px}
+  #chief-charms .charm-workspace .charm-gear-selector:nth-child(5){right:4px;top:214px}
 }
 
 /* Essai mobile : équipement flottant derrière les cases et gouttière du sélecteur. */
@@ -1226,7 +1226,9 @@ body.level-picker-open{
     width:100%!important;
     height:auto!important;
     aspect-ratio:1;
+    opacity:1!important;
   }
+  #chief-gear .gear-orbit .gear-center-item .gear-level-skin{opacity:1!important}
 }
 @media(max-width:600px){
   #levelPicker.gear-level-picker .level-picker-grid{
