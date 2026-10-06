@@ -18,11 +18,16 @@ D.gearStepCosts=Array.from({length:GEAR_VISUAL_LEVELS.length-1},(_,index)=>{
   const end=Math.max(start+1,Math.floor((index+1)*previousGearCosts.length/(GEAR_VISUAL_LEVELS.length-1)));
   return previousGearCosts.slice(start,end).reduce((total,cost)=>(gearCostKeys.forEach(key=>total[key]+=(cost[key]||0)),total),{alloy:0,polish:0,plans:0,amber:0});
 });
-// A stage belongs to the gear already worn, beginning at zero.
+// The item selects stage zero; every paid transition has its own segment.
 const gearMajorCosts=D.gearStepCosts.slice(),gearExpandedLevels=[];
+const gearGroups=GEAR_VISUAL_LEVELS.map(visual=>window.CHIEF_GEAR_SUBLEVELS.find(group=>group.tone===visual.tone&&group.rank===visual.rank&&group.stars===visual.stars));
 GEAR_VISUAL_LEVELS.forEach((visual,majorIndex)=>{
-  const group=window.CHIEF_GEAR_SUBLEVELS.find(group=>group.tone===visual.tone&&group.rank===visual.rank&&group.stars===visual.stars);
-  const entries=group?group.items.map(item=>({...visual,label:group.items.length>1?`${visual.label} · ${item.step}/${group.items.length-1}`:visual.label,step:item.step,steps:group.items.length,incomingCost:item.cost})): [{...visual,step:0,steps:1}];
+  const group=gearGroups[majorIndex],previousGroup=gearGroups[majorIndex-1],nextGroup=gearGroups[majorIndex+1],hasTrack=group&&group.items.length>1;
+  const count=hasTrack?group.items.length:0;
+  const entries=group?group.items.map(item=>({...visual,label:hasTrack?`${visual.label} · ${item.step}/${count}`:visual.label,step:item.step,steps:hasTrack?count+1:1,incomingCost:item.step===0&&previousGroup?.items.length>1?{alloy:0,polish:0,plans:0,amber:0}:item.cost})): [{...visual,step:0,steps:1}];
+  // The full track and the next item's empty track are equivalent states.
+  // Charge the transition on the last segment, never a second time on the next item.
+  if(hasTrack&&nextGroup)entries.push({...visual,label:`${visual.label} · ${count}/${count}`,step:count,steps:count+1,incomingCost:nextGroup.items[0].cost,completedLevel:true});
   entries.forEach(entry=>gearExpandedLevels.push({...entry,majorIndex}));
 });
 GEAR_VISUAL_LEVELS.splice(0,GEAR_VISUAL_LEVELS.length,...gearExpandedLevels);
