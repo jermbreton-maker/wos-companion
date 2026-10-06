@@ -1291,3 +1291,10 @@ body.level-picker-open{
   }
   #chief-gear .gear-orbit .orbit-pair:nth-child(n+4) .orbit-chevron{transform:scaleX(-1)}
 }
+
+/* Retrait du contour pour les deux paires médianes, comme dans Talismans.
+   Les règles tablet/mobile antérieures les plaçaient au ras du cadre. */
+@media(max-width:760px){
+  #chief-gear .gear-orbit .orbit-pair:nth-child(2){left:max(9px,env(safe-area-inset-left));right:auto}
+  #chief-gear .gear-orbit .orbit-pair:nth-child(5){right:max(9px,env(safe-area-inset-right));left:auto}
+}
