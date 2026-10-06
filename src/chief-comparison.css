@@ -1395,9 +1395,14 @@ body.level-picker-open{
 }
 
 
-/* Visuel central Équipement : le sprite HD reste pleinement opaque. */
-#chief-gear .gear-orbit .orbit-center,
-#chief-gear .gear-orbit .gear-center-item[class*="skin-"],
-#chief-gear .gear-orbit .gear-center-item .gear-level-skin{
-  opacity:1!important;
+/* Visuel central Équipement : opaque sur desktop, discret derrière les cartes sur mobile. */
+@media(min-width:541px){
+  #chief-gear .gear-orbit .orbit-center,
+  #chief-gear .gear-orbit .gear-center-item[class*="skin-"],
+  #chief-gear .gear-orbit .gear-center-item .gear-level-skin{opacity:1!important}
+}
+@media(max-width:540px){
+  #chief-gear .gear-orbit .orbit-center,
+  #chief-gear .gear-orbit .gear-center-item[class*="skin-"],
+  #chief-gear .gear-orbit .gear-center-item .gear-level-skin{opacity:.25!important}
 }
