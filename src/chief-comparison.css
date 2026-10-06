@@ -1383,3 +1383,17 @@ body.level-picker-open{
   #chief-gear .gear-orbit .orbit-pair:nth-child(3),
   #chief-gear .gear-orbit .orbit-pair:nth-child(6){bottom:20px}
 }
+
+/* Clicking the gear chooses stage zero; the track contains only stages 1+. */
+#levelPicker.gear-level-picker .gear-zero-choice{
+  display:grid;place-items:center;flex:1;align-self:stretch;min-width:0;
+  margin:0;padding:0;border:0;border-radius:7px;background:transparent;
+  color:inherit;font:inherit;cursor:pointer;
+}
+#levelPicker.gear-level-picker .gear-zero-choice:focus-visible{
+  outline:2px solid #fff4a8;outline-offset:2px;
+}
+#levelPicker.gear-level-picker .gear-zero-choice:disabled{opacity:.35;cursor:not-allowed}
+#levelPicker.gear-level-picker .gear-zero-choice:not(:disabled):hover{
+  background:rgba(255,255,255,.08);
+}

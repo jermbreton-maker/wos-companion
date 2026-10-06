@@ -95,7 +95,7 @@ renderUpgradeOrbits=function(){
 // talismans. La page Équipement continue d'utiliser son rendu validé ci-dessus.
 const renderUpgradeOrbitsWithCrown=renderUpgradeOrbits;
 renderUpgradeOrbits=function(){renderUpgradeOrbitsWithCrown();renderCharmWorkspace()};
-function gearProgressBar(index){const level=gearVisualData(index);if(level.steps===1)return'';return `<em class="gear-progress" role="img" aria-label="Sous-niveau ${level.step} sur ${level.steps-1}">${Array.from({length:level.steps},(_,i)=>`<span class="${i<level.step?'filled':''}"></span>`).join('')}</em>`}
+function gearProgressBar(index){const level=gearVisualData(index);if(level.steps===1)return'';return `<em class="gear-progress" role="img" aria-label="Sous-niveau ${level.step} sur ${level.steps-1}">${Array.from({length:level.steps-1},(_,i)=>`<span class="${i<level.step?'filled':''}"></span>`).join('')}</em>`}
 function charmProgressBar(index,compact=false){const level=D.charmLevels[index];if(level.steps===1)return'';return `<em class="charm-progress ${compact?'compact':''}" aria-label="Étape ${level.step} sur ${level.steps}">${Array.from({length:level.steps},(_,i)=>`<span class="${i<level.step?'filled':''}"></span>`).join('')}</em>`}
 function charmSkinPath(gear,index){const type=gear.troop==='Infanterie'?'infantry':gear.troop==='Lancier'?'lancer':'marksman',level=String(D.charmLevels[index].major).padStart(2,'0');return `assets/generated/charms/charm-${level}-${type}.png?v=11`}
 function renderCharmWorkspace(){
@@ -132,7 +132,7 @@ function gearChoiceMarkup(gear,values,current){
   const art=`<span class="gear-choice-art"><span class="gear-choice-visual">${gearLevelSkin(gear,value)}</span><span class="gear-choice-markers">${rank}${stars}</span></span>`;
   const classes=`level-choice gear-level-choice skin-${visual.tone} ${active?'active':''}`;
   if(values.length===1)return `<button value="cancel" class="${classes}" data-level="${value}" aria-label="${visual.label}" title="${visual.label}">${art}</button>`;
-  return `<article class="${classes} gear-level-group" aria-label="${visual.label.split(' · ')[0]}">${art}<span class="picker-substep-panel"><small>SOUS-NIVEAU</small><em class="picker-substeps" aria-label="Sous-niveaux de ${visual.label.split(' · ')[0]}">${values.map(item=>{const level=gearVisualData(item);return `<button value="cancel" class="picker-substep ${active&&item<current?'filled':''} ${item===current?'active':''}" data-level="${item}" aria-label="${level.label}" title="Étape ${level.step}/${level.steps-1}"></button>`}).join('')}</em></span></article>`;
+  return `<article class="${classes} gear-level-group" aria-label="${visual.label.split(' · ')[0]}"><button value="cancel" class="gear-zero-choice" data-level="${value}" aria-label="${visual.label} · jauge vide" title="Choisir ce niveau sans sous-niveau" aria-pressed="${value===current}">${art}</button><span class="picker-substep-panel"><small>SOUS-NIVEAU</small><em class="picker-substeps" aria-label="Sous-niveaux de ${visual.label.split(' · ')[0]}">${values.slice(1).map(item=>{const level=gearVisualData(item);return `<button value="cancel" class="picker-substep ${active&&item<=current?'filled':''} ${item===current?'active':''}" data-level="${item}" aria-label="${level.label}" title="Étape ${level.step}/${level.steps-1}"></button>`}).join('')}</em></span></article>`;
 }
 openLevelPicker=function(spec){
   const parts=spec.split(':'),[kind,direction]=parts[0].split('-'),id=parts[1],index=parts[2]===undefined?null:+parts[2],isGear=kind==='gear',s=state.gear[id];
