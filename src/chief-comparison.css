@@ -1539,3 +1539,29 @@ body.level-picker-open{
   border-color:#ffe45f!important;
   box-shadow:0 0 8px 3px rgba(255,230,109,.82),0 8px 17px rgba(4,31,52,.3)!important;
 }
+
+
+/* Équipement : halo de sélection identique à celui du gear actif Talisman. */
+#chief-gear .gear-orbit .orbit-pair.selected[data-selected-direction="from"] .orbit-current[class*="skin-"],
+#chief-gear .gear-orbit .orbit-pair.selected[data-selected-direction="to"] .target-item[class*="skin-"]{
+  border-width:3.5px!important;
+  border-color:#d83e42!important;
+  filter:none!important;
+  box-shadow:
+    0 10px 20px rgba(31,20,45,.34),
+    0 0 6px 2px rgba(255,244,170,.95),
+    0 0 16px 7px rgba(255,211,55,.82),
+    0 0 34px 13px rgba(255,169,22,.46)!important;
+}
+
+/* Modale Équipement : l’encadrement des sous-niveaux suit la couleur
+   de la carte parente, au lieu de la palette bleue générique. */
+#levelPicker.gear-level-picker .gear-level-choice[class*="skin-"] .picker-substep-panel{
+  border-color:color-mix(in srgb,var(--picker-case-border) 78%,#fff)!important;
+  background:color-mix(in srgb,var(--picker-case-base) 24%,transparent)!important;
+  box-shadow:inset 0 1px rgba(255,255,255,.24),0 2px 5px rgba(1,20,43,.16)!important;
+}
+#levelPicker.gear-level-picker .gear-level-choice[class*="skin-"] .picker-substeps{
+  border-color:var(--picker-case-border)!important;
+  background:color-mix(in srgb,var(--picker-case-dark) 72%,#352014)!important;
+}
