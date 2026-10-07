@@ -1501,3 +1501,22 @@ body.level-picker-open{
     0 13px 22px rgba(18,25,43,.36),
     0 0 31px color-mix(in srgb,var(--skin-a) 72%,transparent)!important;
 }
+
+
+/* Ajustement validé : reflet blanc concentré dans le seul coin bas-gauche. */
+#chief-gear .gear-orbit .orbit-current.skin-green,
+#chief-gear .gear-orbit .target-item.skin-green{--gear-case-border:#27883c}
+#chief-gear .gear-orbit .orbit-current.skin-blue,
+#chief-gear .gear-orbit .target-item.skin-blue{--gear-case-border:#2869b4}
+#chief-gear .gear-orbit .orbit-current.skin-epic,
+#chief-gear .gear-orbit .target-item.skin-epic{--gear-case-border:#571c9e}
+#chief-gear .gear-orbit .orbit-current.skin-mythic,
+#chief-gear .gear-orbit .target-item.skin-mythic{--gear-case-border:#c76a12}
+#chief-gear .gear-orbit .orbit-current.skin-red,
+#chief-gear .gear-orbit .target-item.skin-red{--gear-case-border:#9a1d36}
+
+#chief-gear .gear-orbit .orbit-current[class*="skin-"],
+#chief-gear .gear-orbit .target-item[class*="skin-"]{
+  border-color:var(--gear-case-border)!important;
+  background:linear-gradient(to top right,#fff 0%,var(--gear-case-pale) 10%,var(--gear-case-base) 36%,var(--gear-case-dark) 100%)!important;
+}
