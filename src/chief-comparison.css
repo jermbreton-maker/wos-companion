@@ -1565,3 +1565,18 @@ body.level-picker-open{
   border-color:var(--picker-case-border)!important;
   background:color-mix(in srgb,var(--picker-case-dark) 72%,#352014)!important;
 }
+
+
+/* Équipement : le halo n’altère jamais la couleur du contour de rareté. */
+#chief-gear .gear-orbit .orbit-pair.selected[data-selected-direction="from"] .orbit-current[class*="skin-"],
+#chief-gear .gear-orbit .orbit-pair.selected[data-selected-direction="to"] .target-item[class*="skin-"]{
+  border-color:var(--gear-case-border)!important;
+}
+
+/* Modale Équipement : la boîte de fond reste colorée par palier ;
+   la barre segmentée conserve le style doré/brun de Talisman. */
+#levelPicker.gear-level-picker .gear-level-choice[class*="skin-"] .picker-substeps{
+  border-color:#e9bd5b!important;
+  background:#8b5d30!important;
+  box-shadow:inset 0 1px rgba(255,239,166,.48),0 1px 3px rgba(54,28,11,.42)!important;
+}
