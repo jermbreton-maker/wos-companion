@@ -7,7 +7,7 @@
   background:linear-gradient(180deg,#124d81 0,#185e95 44%,#10466f 100%);
 }
 #home .home-shell{width:100%;max-width:900px;margin-inline:auto}
-#home .home-welcome{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:14px;margin-bottom:18px}
+#home .home-welcome{display:grid;grid-template-columns:35% minmax(0,1fr);gap:14px;margin-bottom:18px}
 #home .home-brand-banner{
   min-height:126px;
   display:flex;
