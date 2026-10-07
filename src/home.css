@@ -43,6 +43,7 @@
   overflow:hidden;
 }
 #home .home-intro h1{display:flex;align-items:center;justify-content:center;width:100%;min-width:0;font-size:0;line-height:0;margin:0}
+#home .mobile-copy-break{display:none}
 #home .home-title-mark{display:block;width:min(94%,460px);max-width:100%;max-height:clamp(76px,10vw,132px);height:auto;object-fit:contain;flex:0 1 auto;filter:drop-shadow(0 3px 2px rgba(1,23,49,.5))}
 #home .home-tagline{font-size:5.15cqi;line-height:1.06;margin:0;color:#fff;white-space:nowrap}
 #home .home-tagline em{margin-left:.28em;font-style:normal;color:#bdf4ff}
@@ -145,9 +146,12 @@
   #home .home-welcome{--home-header-height:clamp(136px,38vw,160px);grid-template-columns:calc(37.5% + 2px) minmax(0,calc(62.5% - 10px));gap:8px;margin-bottom:46px}
   #home .home-brand-banner{min-height:0;height:100%;justify-content:center}
   #home .home-brand-banner img{width:auto;height:100%;transform:translateY(0)}
-  #home .home-intro{grid-column:2;min-height:0;border-radius:18px}
+  #home .home-intro{grid-column:2;min-height:0;justify-content:flex-start;gap:6px;padding:10px 10px 8px;border-radius:18px}
+  #home .home-intro h1{flex:0 0 auto}
   #home .home-title-mark{width:min(78%,230px);max-height:64px}
-  #home .home-tagline{white-space:nowrap}
+  #home .home-tagline{font-size:6.3cqi;white-space:nowrap}
+  #home .home-intro>p:last-child{font-size:clamp(10px,4.15cqi,13px);line-height:1.12;white-space:normal}
+  #home .mobile-copy-break{display:inline}
   #home .home-intro,#home .home-banner{min-height:0}
   #home .home-banner{padding:17px}
   #home .module-grid{gap:16px}
