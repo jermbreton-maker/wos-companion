@@ -10,7 +10,7 @@
   <link rel="preload" href="assets/fonts/lilita-one/LilitaOne-Regular.woff" as="font" type="font/woff" crossorigin />
   <link rel="stylesheet" href="src/styles.css?v=20261006-larger-navigation" />
   <link rel="stylesheet" href="src/chief-comparison.css?v=20261007-gear-finetune" />
-  <link rel="stylesheet" href="src/home.css?v=20261007-ad-columns" />
+  <link rel="stylesheet" href="src/home.css?v=20261007-home-game-menu" />
 </head>
 <body>
   <header class="topbar">
@@ -23,19 +23,28 @@
 
   <main>
     <section class="view home active" id="home">
-      <div class="aurora"></div>
-      <div class="hero-copy">
-        <h1>Planifie. Progresse.<br><em>Survis au froid.</em></h1>
-        <p>Choisis ce que tu as, ce que tu vises, et laisse Companion calculer le chemin.</p>
+      <div class="home-shell">
+        <div class="home-welcome">
+          <div class="home-intro">
+            <h1>WOS Companion</h1>
+            <p class="home-tagline">Planifie. Progresse.<br><em>Survis au froid.</em></p>
+            <p>Choisis ce que tu as, ce que tu vises, et laisse Companion calculer le chemin.</p>
+          </div>
+          <div class="home-banner" aria-label="Logo WOS Companion">
+            <span class="home-banner-mark">W</span>
+            <span><b>WHITEOUT</b><small>COMPANION</small></span>
+          </div>
+        </div>
+        <div class="module-grid" aria-label="Calculatrices">
+          <button class="module-card furnace-card" data-go="furnace"><span class="card-icon" aria-hidden="true">🔥</span><span class="home-card-copy"><b>Chaudière</b><small>FC, sous-paliers et bâtiments requis.</small></span><span class="card-arrow" aria-hidden="true">›</span></button>
+          <button class="module-card chief-card" data-go="chief-gear"><span class="card-icon home-item-icon home-gear-icon" aria-hidden="true"><img src="assets/visuals/home/chief-p6-hd.png?v=20261006-home-hd" alt="" width="1254" height="1254"></span><span class="home-card-copy"><b>Équipement du Chef</b><small>Niveaux actuels, objectifs et ressources.</small></span><span class="card-arrow" aria-hidden="true">›</span></button>
+          <button class="module-card chief-card" data-go="chief-charms"><span class="card-icon home-item-icon home-charm-icon" aria-hidden="true"><img src="assets/visuals/home/charm-18-hd.png?v=20261006-home-hd" alt="" width="1254" height="1254"></span><span class="home-card-copy"><b>Talismans du Chef</b><small>Configure directement tes 18 talismans.</small></span><span class="card-arrow" aria-hidden="true">›</span></button>
+          <button class="module-card academy-card" data-go="t11"><span class="card-icon" aria-hidden="true">✦</span><span class="home-card-copy"><b>Recherche T11</b><small>Planifie les branches de recherche des troupes T11.</small></span><span class="card-arrow" aria-hidden="true">›</span></button>
+          <button class="module-card academy-card" data-go="t12"><span class="card-icon" aria-hidden="true">❄</span><span class="home-card-copy"><b>Déblocage T12</b><small>Suis la progression des quatre pièces glorifiées.</small></span><span class="card-arrow" aria-hidden="true">›</span></button>
+          <button class="module-card coming-card" type="button" disabled><span class="card-icon" aria-hidden="true">+</span><span class="home-card-copy"><b>Prochain outil</b><small>Un nouveau calculateur arrivera bientôt.</small></span></button>
+        </div>
+        <p class="disclaimer">Outil communautaire non officiel · Les données V1 sont isolées et versionnées pour audit.</p>
       </div>
-      <div class="module-grid">
-        <button class="module-card furnace-card" data-go="furnace"><div class="home-card-copy"><h2>Chaudière</h2><p>FC, sous-paliers et bâtiments requis.</p><b>Commencer <span>→</span></b></div><span class="card-icon">🔥</span></button>
-        <button class="module-card chief-card" data-go="chief-gear"><div class="home-card-copy"><h2>Équipement du Chef</h2><p>Niveaux actuels, objectifs et ressources.</p><b>Améliorer <span>→</span></b></div><span class="card-icon home-item-icon home-gear-icon" aria-hidden="true"><img src="assets/visuals/home/chief-p6-hd.png?v=20261006-home-hd" alt="" width="1254" height="1254"></span></button>
-        <button class="module-card chief-card" data-go="chief-charms"><div class="home-card-copy"><h2>Talismans du Chef</h2><p>Configure directement tes 18 talismans.</p><b>Améliorer <span>→</span></b></div><span class="card-icon home-item-icon home-charm-icon" aria-hidden="true"><img src="assets/visuals/home/charm-18-hd.png?v=20261006-home-hd" alt="" width="1254" height="1254"></span></button>
-        <button class="module-card academy-card" data-go="t11"><div class="home-card-copy"><h2>Recherche T11</h2><p>Planifie les branches de recherche des troupes T11.</p><b>Explorer <span>→</span></b></div><span class="card-icon">✦</span></button>
-        <button class="module-card academy-card" data-go="t12"><div class="home-card-copy"><h2>Déblocage T12</h2><p>Suis la progression des quatre pièces glorifiées.</p><b>Préparer <span>→</span></b></div><span class="card-icon">❄</span></button>
-      </div>
-      <p class="disclaimer">Outil communautaire non officiel · Les données V1 sont isolées et versionnées pour audit.</p>
     </section>
 
     <section class="view calculator" id="furnace">
