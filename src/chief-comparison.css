@@ -1607,3 +1607,22 @@ body.level-picker-open{
   #chief-charms .charm-workspace .charm-gear-selector:nth-child(5){top:220px}
   #chief-charms .charm-workspace .charm-gear-selector:nth-child(6){top:481px}
 }
+
+
+/* Verrouillage mobile : une même ordonnée est imposée aux deux colonnes. */
+@media(max-width:520px){
+  #chief-charms .charm-workspace .charm-gear-selector:nth-child(1),
+  #chief-charms .charm-workspace .charm-gear-selector:nth-child(4){top:25px!important}
+  #chief-charms .charm-workspace .charm-gear-selector:nth-child(2),
+  #chief-charms .charm-workspace .charm-gear-selector:nth-child(5){top:220px!important}
+  #chief-charms .charm-workspace .charm-gear-selector:nth-child(3),
+  #chief-charms .charm-workspace .charm-gear-selector:nth-child(6){top:451px!important}
+}
+@media(min-width:521px) and (max-width:540px){
+  #chief-charms .charm-workspace .charm-gear-selector:nth-child(1),
+  #chief-charms .charm-workspace .charm-gear-selector:nth-child(4){top:35px!important}
+  #chief-charms .charm-workspace .charm-gear-selector:nth-child(2),
+  #chief-charms .charm-workspace .charm-gear-selector:nth-child(5){top:220px!important}
+  #chief-charms .charm-workspace .charm-gear-selector:nth-child(3),
+  #chief-charms .charm-workspace .charm-gear-selector:nth-child(6){top:481px!important}
+}
