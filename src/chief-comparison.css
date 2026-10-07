@@ -1520,3 +1520,19 @@ body.level-picker-open{
   border-color:var(--gear-case-border)!important;
   background:linear-gradient(to top right,#fff 0%,var(--gear-case-pale) 10%,var(--gear-case-base) 36%,var(--gear-case-dark) 100%)!important;
 }
+
+
+/* Talismans : les cartes Actuel et Objectif reprennent exactement
+   la case rouge Équipement, y compris le reflet bas-gauche. */
+#chief-charms .charm-triad .triad-level.current,
+#chief-charms .charm-triad .triad-level.target{
+  border:3px solid #9a1d36!important;
+  border-radius:22px!important;
+  background:linear-gradient(to top right,#fff 0%,#ffdce1 10%,#eb7180 36%,#9a1d36 100%)!important;
+  box-shadow:0 7px 17px rgba(3,27,56,.32)!important;
+}
+#chief-charms .charm-triad .triad-level.selected{
+  box-shadow:
+    0 13px 22px rgba(18,25,43,.36),
+    0 0 31px rgba(255,80,92,.52)!important;
+}
