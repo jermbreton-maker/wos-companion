@@ -1397,13 +1397,14 @@ body.level-picker-open{
 }
 
 
-/* Visuel central Équipement : opaque sur desktop, discret derrière les cartes sur mobile. */
-@media(min-width:761px){
+/* Visuel central Équipement : la transparence dépend du périphérique,
+   pas de la largeur de fenêtre. Un navigateur desktop étroit reste donc opaque. */
+@media(hover:hover) and (pointer:fine){
   #chief-gear .gear-orbit .orbit-center,
   #chief-gear .gear-orbit .gear-center-item[class*="skin-"],
   #chief-gear .gear-orbit .gear-center-item .gear-level-skin{opacity:1!important}
 }
-@media(max-width:760px){
+@media(hover:none), (pointer:coarse){
   #chief-gear .gear-orbit .orbit-center{opacity:.25!important}
   #chief-gear .gear-orbit .gear-center-item[class*="skin-"],
   #chief-gear .gear-orbit .gear-center-item .gear-level-skin{opacity:1!important}
