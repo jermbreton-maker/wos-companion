@@ -109,10 +109,13 @@
 #home .disclaimer{margin:clamp(12px,2vh,22px) 0 0;text-align:center;color:#c8ebfc;font-family:var(--site-font);font-size:12px}
 @media(max-width:800px){
   #home{padding:28px 14px 94px}
-  #home .home-welcome{grid-template-columns:1fr;gap:14px;margin-bottom:20px}
-  #home .home-brand-banner{min-height:112px;justify-content:center}
-  #home .home-brand-banner img{width:126px;height:126px;transform:translateY(-6px)}
-  #home .home-intro{grid-column:1;}
+  #home .home-welcome{grid-template-columns:94px minmax(0,1fr);gap:8px;margin-bottom:16px}
+  #home .home-brand-banner{min-height:106px;justify-content:center}
+  #home .home-brand-banner img{width:98px;height:98px;transform:translateY(-4px)}
+  #home .home-intro{grid-column:2;min-height:106px;padding:10px 12px;border-radius:18px}
+  #home .home-intro h1{font-size:clamp(21px,6.3vw,27px);margin-bottom:4px}
+  #home .home-tagline{font-size:clamp(15px,4.4vw,19px)}
+  #home .home-intro>p:last-child{font-size:11px;line-height:1.17;margin-top:5px}
   #home .home-intro,#home .home-banner{min-height:0}
   #home .home-intro{padding:22px}
   #home .home-banner{padding:17px}
