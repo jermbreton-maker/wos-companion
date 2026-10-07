@@ -7,7 +7,7 @@
   background:linear-gradient(180deg,#124d81 0,#185e95 44%,#10466f 100%);
 }
 #home .home-shell{width:100%;max-width:900px;margin-inline:auto}
-#home .home-welcome{--home-header-height:clamp(205px,16vw,220px);display:grid;grid-template-columns:calc(37.5% + 2.25px) minmax(0,calc(62.5% - 16.25px));gap:14px;margin-bottom:18px}
+#home .home-welcome{--home-header-height:clamp(205px,16vw,220px);display:grid;grid-template-columns:calc(37.5% + 2.25px) minmax(0,calc(62.5% - 16.25px));gap:14px;margin-bottom:clamp(42px,6vh,52px)}
 #home .home-brand-banner{
   min-height:0;
   height:var(--home-header-height);
@@ -136,7 +136,7 @@
 #home .disclaimer{margin:clamp(12px,2vh,22px) 0 0;text-align:center;color:#c8ebfc;font-family:var(--site-font);font-size:12px}
 @media(max-width:600px){
   #home{padding:28px 14px 94px}
-  #home .home-welcome{--home-header-height:106px;grid-template-columns:calc(37.5% + 2px) minmax(0,calc(62.5% - 10px));gap:8px;margin-bottom:16px}
+  #home .home-welcome{--home-header-height:106px;grid-template-columns:calc(37.5% + 2px) minmax(0,calc(62.5% - 10px));gap:8px;margin-bottom:46px}
   #home .home-brand-banner{min-height:0;height:100%;justify-content:center}
   #home .home-brand-banner img{width:auto;height:100%;transform:translateY(0)}
   #home .home-intro{grid-column:2;min-height:0;border-radius:18px}
