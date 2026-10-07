@@ -107,7 +107,7 @@ renderUpgradeOrbits=function(){
 const renderUpgradeOrbitsWithCrown=renderUpgradeOrbits;
 renderUpgradeOrbits=function(){renderUpgradeOrbitsWithCrown();renderCharmWorkspace()};
 function gearProgressBar(index){const level=gearVisualData(index);if(level.steps===1)return'';return `<em class="gear-progress" role="img" aria-label="Sous-niveau ${level.step} sur ${level.steps-1}">${Array.from({length:level.steps-1},(_,i)=>`<span class="${i<level.step?'filled':''}"></span>`).join('')}</em>`}
-function charmProgressBar(index,compact=false){const level=D.charmLevels[index];if(level.steps===1)return'';return `<em class="charm-progress ${compact?'compact':''}" aria-label="Étape ${level.step} sur ${level.steps}">${Array.from({length:level.steps},(_,i)=>`<span class="${i<level.step?'filled':''}"></span>`).join('')}</em>`}
+function charmProgressBar(index,compact=false){const level=D.charmLevels[index];if(level.steps===1)return compact?'<em class="charm-progress compact empty" aria-hidden="true"></em>':'';return `<em class="charm-progress ${compact?'compact':''}" aria-label="Étape ${level.step} sur ${level.steps}">${Array.from({length:level.steps},(_,i)=>`<span class="${i<level.step?'filled':''}"></span>`).join('')}</em>`}
 function charmSkinPath(gear,index){const type=gear.troop==='Infanterie'?'infantry':gear.troop==='Lancier'?'lancer':'marksman',level=String(D.charmLevels[index].major).padStart(2,'0');return `assets/generated/charms/charm-${level}-${type}.png?v=11`}
 function renderCharmWorkspace(){
   const selectedId=(state.selectedUpgradeCharm||'helmet:0').split(':')[0];
