@@ -11,3 +11,8 @@
   .topbar nav{gap:2px}
   .topbar nav button{font-size:13px;padding-inline:2px}
 }
+
+
+/* Wordmark de la barre supérieure. */
+.brand-wordmark{display:block;width:124px;height:auto;max-height:46px;object-fit:contain}
+@media(max-width:800px){.brand-wordmark{width:104px;max-height:42px}}
