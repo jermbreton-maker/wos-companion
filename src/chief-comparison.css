@@ -1626,3 +1626,45 @@ body.level-picker-open{
   #chief-charms .charm-workspace .charm-gear-selector:nth-child(3),
   #chief-charms .charm-workspace .charm-gear-selector:nth-child(6){top:481px!important}
 }
+
+
+/* Talismans mobile : les quatre visuels de la rangée basse partagent une grille stricte.
+   La cible ne change plus la taille ni l'axe du visuel, du niveau ou de la jauge. */
+@media(max-width:520px){
+  #chief-charms .charm-triad .triad-pair{
+    height:74px;
+    align-items:flex-start;
+  }
+  #chief-charms .charm-triad .triad-level,
+  #chief-charms .charm-triad .triad-level.target{
+    box-sizing:border-box;
+    display:grid;
+    grid-template-rows:45px 12px 5px;
+    align-content:start;
+    justify-items:center;
+    width:62px;
+    height:74px;
+    padding:0;
+  }
+  #chief-charms .charm-triad .triad-level .charm-skin,
+  #chief-charms .charm-triad .triad-level.target .charm-skin{
+    width:45px;
+    height:45px;
+    margin:0;
+  }
+  #chief-charms .charm-triad .triad-level b{
+    display:block;
+    height:12px;
+    margin:0;
+    line-height:12px;
+  }
+  #chief-charms .charm-triad .triad-level .charm-progress{
+    align-self:start;
+    width:54px;
+    height:5px;
+    margin:0;
+  }
+  #chief-charms .charm-triad .triad-pair>span{
+    align-self:center;
+  }
+}
