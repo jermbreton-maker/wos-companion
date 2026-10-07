@@ -1668,3 +1668,54 @@ body.level-picker-open{
     align-self:center;
   }
 }
+
+
+/* Talismans mobile : alignement optique du récapitulatif et des projections.
+   Chaque miniature réserve la même hauteur, y compris sans sous-niveau. */
+@media(max-width:520px){
+  #chief-charms .charm-workspace .charm-gear-selector>i .mini-charm{
+    display:grid;
+    grid-template-rows:20px 4px;
+    align-content:start;
+    justify-items:center;
+    height:25px;
+    gap:1px;
+  }
+  #chief-charms .charm-workspace .charm-gear-selector>i .mini-charm .charm-thumb{
+    width:20px;
+    height:20px;
+  }
+  #chief-charms .charm-workspace .charm-gear-selector>i .mini-charm .charm-progress.compact{
+    width:24px;
+    height:3px;
+    margin:1px 0 0;
+  }
+
+  /* Actuel et objectif utilisent le gabarit de l'actuel, sans exception. */
+  #chief-charms .charm-triad .triad-level,
+  #chief-charms .charm-triad .triad-level.target{
+    grid-template-rows:45px 12px 13px;
+    width:62px;
+    height:74px;
+  }
+  #chief-charms .charm-triad .triad-level .charm-skin,
+  #chief-charms .charm-triad .triad-level.target .charm-skin{
+    width:45px;
+    height:45px;
+  }
+
+  /* La jauge conserve le cadre doré et les segments réels du sélecteur. */
+  #chief-charms .charm-triad .triad-level .charm-progress{
+    box-sizing:border-box;
+    align-self:start;
+    width:54px;
+    height:13px;
+    margin:0;
+    padding:1px;
+    gap:2px;
+    border:2px solid #e9bd5b;
+    border-radius:5px;
+    background:#8b5d30;
+    box-shadow:inset 0 1px rgba(255,239,166,.48),0 1px 3px rgba(54,28,11,.42);
+  }
+}
