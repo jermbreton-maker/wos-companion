@@ -1587,3 +1587,10 @@ body.level-picker-open{
   #chief-charms .charm-workspace .charm-gear-selector:nth-child(3){left:13px}
   #chief-charms .charm-workspace .charm-gear-selector:nth-child(6){right:13px}
 }
+
+
+/* Talismans mobile : le cadre global descend sous les sous-niveaux inférieurs,
+   sans déplacer les deux blocs du bas. */
+@media(max-width:520px){
+  #chief-charms .charm-workspace{height:584px}
+}
