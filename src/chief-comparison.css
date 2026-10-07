@@ -1520,3 +1520,22 @@ body.level-picker-open{
   border-color:var(--gear-case-border)!important;
   background:linear-gradient(to top right,#fff 0%,var(--gear-case-pale) 10%,var(--gear-case-base) 36%,var(--gear-case-dark) 100%)!important;
 }
+
+
+/* Modale Équipement uniquement : les choix de niveau reprennent
+   exactement le dégradé des cases de la page Équipement. */
+#levelPicker.gear-level-picker .gear-level-choice.skin-green{--picker-case-pale:#dfffe0;--picker-case-base:#65d66a;--picker-case-dark:#12652b;--picker-case-border:#27883c}
+#levelPicker.gear-level-picker .gear-level-choice.skin-blue{--picker-case-pale:#dcefff;--picker-case-base:#5db2ff;--picker-case-dark:#174b98;--picker-case-border:#2869b4}
+#levelPicker.gear-level-picker .gear-level-choice.skin-epic{--picker-case-pale:#f1dfff;--picker-case-base:#b268f3;--picker-case-dark:#571c9e;--picker-case-border:#571c9e}
+#levelPicker.gear-level-picker .gear-level-choice.skin-mythic{--picker-case-pale:#fff1ce;--picker-case-base:#ffc456;--picker-case-dark:#a84c08;--picker-case-border:#c76a12}
+#levelPicker.gear-level-picker .gear-level-choice.skin-red{--picker-case-pale:#ffdce1;--picker-case-base:#eb7180;--picker-case-dark:#9a1d36;--picker-case-border:#9a1d36}
+
+#levelPicker.gear-level-picker .gear-level-choice[class*="skin-"]{
+  border-color:var(--picker-case-border)!important;
+  background:linear-gradient(to top right,#fff 0%,var(--picker-case-pale) 10%,var(--picker-case-base) 36%,var(--picker-case-dark) 100%)!important;
+  box-shadow:0 7px 17px rgba(3,27,56,.32)!important;
+}
+#levelPicker.gear-level-picker .gear-level-choice[class*="skin-"].active{
+  border-color:#ffe45f!important;
+  box-shadow:0 0 8px 3px rgba(255,230,109,.82),0 8px 17px rgba(4,31,52,.3)!important;
+}
