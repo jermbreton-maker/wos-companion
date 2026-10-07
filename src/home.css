@@ -143,13 +143,13 @@
 }
 @media(max-width:600px){
   #home{padding:28px 14px 94px}
-  #home .home-welcome{--home-header-height:clamp(136px,38vw,160px);grid-template-columns:calc(37.5% + 2px) minmax(0,calc(62.5% - 10px));gap:8px;margin-bottom:46px}
+  #home .home-welcome{--home-header-height:clamp(136px,38vw,160px);grid-template-columns:calc(37.5% + 2px) minmax(0,calc(62.5% - 10px));gap:8px;margin-bottom:92px}
   #home .home-brand-banner{min-height:0;height:100%;justify-content:center}
   #home .home-brand-banner img{width:auto;height:100%;transform:translateY(0)}
   #home .home-intro{grid-column:2;min-height:0;justify-content:flex-start;gap:9px;padding:9px 10px 7px;border-radius:18px}
   #home .home-intro h1{flex:0 0 auto}
   #home .home-title-mark{width:min(78%,230px);max-height:64px}
-  #home .home-tagline{font-size:7.1cqi;white-space:nowrap}
+  #home .home-tagline{max-width:88%;font-size:6.5cqi;white-space:nowrap}
   #home .home-intro>p:last-child{font-size:clamp(11px,4.7cqi,14px);line-height:1.1;white-space:normal}
   #home .mobile-copy-break{display:inline}
   #home .home-intro,#home .home-banner{min-height:0}
