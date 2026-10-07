@@ -41,7 +41,8 @@
   background:linear-gradient(145deg,rgba(7,45,81,.96),rgba(9,61,105,.91));
   box-shadow:inset 0 2px rgba(255,255,255,.12),0 9px 0 rgba(6,42,76,.5),0 17px 25px rgba(3,29,57,.26);
 }
-#home .home-intro h1{font-size:9.5cqi;line-height:1;margin:0;text-shadow:0 3px 2px #062f58}
+#home .home-intro h1{display:flex;align-items:center;justify-content:center;font-size:0;line-height:0;margin:0}
+#home .home-title-mark{display:block;width:min(72%,320px);max-height:104px;height:auto;object-fit:contain;filter:drop-shadow(0 3px 2px rgba(1,23,49,.5))}
 #home .home-tagline{font-size:5.15cqi;line-height:1.06;margin:0;color:#fff;white-space:nowrap}
 #home .home-tagline em{margin-left:.28em;font-style:normal;color:#bdf4ff}
 #home .home-intro>p:last-child{font-family:var(--site-font);font-size:clamp(8px,3cqi,17px);line-height:1.28;margin:0;color:#d9f3ff;max-width:100%;white-space:nowrap}
@@ -140,6 +141,7 @@
   #home .home-brand-banner{min-height:0;height:100%;justify-content:center}
   #home .home-brand-banner img{width:auto;height:100%;transform:translateY(0)}
   #home .home-intro{grid-column:2;min-height:0;border-radius:18px}
+  #home .home-title-mark{width:min(78%,230px);max-height:64px}
   #home .home-tagline{white-space:nowrap}
   #home .home-intro,#home .home-banner{min-height:0}
   #home .home-banner{padding:17px}
