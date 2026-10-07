@@ -1594,3 +1594,16 @@ body.level-picker-open{
 @media(max-width:520px){
   #chief-charms .charm-workspace{height:584px}
 }
+
+
+/* Talismans mobile : chaque paire gauche/droite partage strictement le même axe horizontal. */
+@media(max-width:520px){
+  #chief-charms .charm-workspace .charm-gear-selector:nth-child(4){top:25px}
+  #chief-charms .charm-workspace .charm-gear-selector:nth-child(5){top:220px}
+  #chief-charms .charm-workspace .charm-gear-selector:nth-child(6){top:451px}
+}
+@media(min-width:521px) and (max-width:540px){
+  #chief-charms .charm-workspace .charm-gear-selector:nth-child(4){top:35px}
+  #chief-charms .charm-workspace .charm-gear-selector:nth-child(5){top:220px}
+  #chief-charms .charm-workspace .charm-gear-selector:nth-child(6){top:481px}
+}
