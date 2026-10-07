@@ -58,21 +58,21 @@
   padding:12px 20px 12px 15px;
   overflow:hidden;
   text-align:left;
-  border:2px solid #22d9f5;
-  border-radius:24px;
+  border:2px solid #21c8ef;
+  border-radius:11px;
   color:#fff;
   cursor:pointer;
-  background:linear-gradient(135deg,#26cbe5 0 31%,#4397db 31% 100%);
-  box-shadow:inset 0 2px rgba(255,255,255,.4),0 9px 0 #0a568d,0 15px 22px rgba(3,29,57,.28);
+  background:linear-gradient(180deg,#4b9adc 0%,#428fd4 52%,#3f89ce 100%);
+  box-shadow:inset 0 2px rgba(255,255,255,.33),inset 0 -2px rgba(16,91,161,.38),0 5px 0 #075482,0 8px 11px rgba(2,38,70,.32);
   transition:transform .18s,filter .18s;
 }
 #home .module-card::before{
-  content:"";position:absolute;z-index:-1;inset:0 44% 0 0;
-  background:#0bc6e8;
-  clip-path:polygon(0 0,100% 0,70% 54%,54% 54%,38% 100%,0 100%);
+  content:"";position:absolute;z-index:-1;inset:0 51% 0 0;
+  background:linear-gradient(180deg,#18ddf5,#08c9e9 58%,#04bddf);
+  clip-path:polygon(0 0,100% 0,76% 48%,59% 48%,42% 100%,0 100%);
 }
 #home .module-card::after{display:none}
-#home .module-card:hover{transform:translateY(-3px);filter:brightness(1.08);border-color:#d3fbff}
+#home .module-card:hover{transform:translateY(-2px);filter:brightness(1.06);border-color:#a4f5ff}
 #home .module-card:focus-visible{outline:3px solid #ffe09b;outline-offset:4px}
 #home .card-icon{
   position:relative;z-index:1;
@@ -89,8 +89,8 @@
 #home .home-card-copy b{display:block;font-size:clamp(23px,2.5vw,31px);line-height:1.02;text-shadow:0 3px 2px rgba(6,41,77,.62)}
 #home .home-card-copy small{display:block;margin-top:7px;color:#e7f8ff;font-family:var(--site-font);font-size:13px;line-height:1.22}
 #home .card-arrow{font-family:Arial,sans-serif;font-size:38px;font-weight:700;line-height:1;color:#d8faff;text-shadow:0 2px #16608f}
-#home .coming-card{cursor:default;opacity:.82;background:linear-gradient(135deg,#1fb4d3 0 31%,#3779ae 31% 100%)}
-#home .coming-card:hover{transform:none;filter:none;border-color:#22d9f5}
+#home .coming-card{cursor:default;opacity:.82;background:linear-gradient(180deg,#4b9adc 0%,#428fd4 52%,#3f89ce 100%)}
+#home .coming-card:hover{transform:none;filter:none;border-color:#21c8ef}
 #home .coming-card:disabled{color:#fff}
 #home .disclaimer{margin:clamp(12px,2vh,22px) 0 0;text-align:center;color:#c8ebfc;font-family:var(--site-font);font-size:12px}
 @media(max-width:800px){
