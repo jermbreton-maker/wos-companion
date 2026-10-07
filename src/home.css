@@ -7,7 +7,7 @@
   background:linear-gradient(180deg,#124d81 0,#185e95 44%,#10466f 100%);
 }
 #home .home-shell{width:100%;max-width:900px;margin-inline:auto}
-#home .home-welcome{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:14px;margin-bottom:18px}
+#home .home-welcome{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:14px;margin-bottom:18px}
 #home .home-brand-banner{
   min-height:126px;
   display:flex;
@@ -16,11 +16,11 @@
   overflow:visible;
 }
 #home .home-brand-banner img{
-  width:148px;
-  height:148px;
+  width:180px;
+  height:180px;
   object-fit:contain;
   filter:drop-shadow(0 7px 5px rgba(7,27,53,.38));
-  transform:translateY(-9px);
+  transform:translateY(-27px);
 }
 #home .home-intro{
   grid-column:2;
