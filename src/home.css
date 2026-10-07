@@ -1,9 +1,18 @@
 /* Accueil : même palette glacée que les pages Équipement et Talismans. */
 #home{
   max-width:none;
-  padding-inline:max(22px,calc((100% - 1196px)/2));
+  /* Même colonne centrale de 900 px que les contenus Équipement/Talismans :
+     les 170 px restants de chaque côté restent libres pour la publicité. */
+  padding-inline:max(22px,calc((100% - 1240px)/2));
   background:radial-gradient(ellipse 58% 58% at 50% 43%,rgba(142,229,255,.38) 0,rgba(79,180,222,.22) 42%,transparent 78%),linear-gradient(180deg,#184d7d 0,#236b9b 38%,#16476f 100%);
   color:#fff;
+}
+#home .hero-copy,
+#home .module-grid,
+#home .disclaimer{
+  width:100%;
+  max-width:900px;
+  margin-inline:auto;
 }
 #home .aurora{display:none}
 #home .eyebrow{color:#80dcff}
