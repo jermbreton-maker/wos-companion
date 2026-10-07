@@ -149,7 +149,7 @@
   #home .home-intro{grid-column:2;min-height:0;justify-content:flex-start;gap:9px;padding:9px 10px 7px;border-radius:18px}
   #home .home-intro h1{flex:0 0 auto}
   #home .home-title-mark{width:min(78%,230px);max-height:64px}
-  #home .home-tagline{max-width:88%;font-size:6.5cqi;white-space:nowrap}
+  #home .home-tagline{align-self:center;max-width:88%;font-size:6.5cqi;text-align:center;white-space:nowrap}
   #home .home-intro>p:last-child{font-size:clamp(11px,4.7cqi,14px);line-height:1.1;white-space:normal}
   #home .mobile-copy-break{display:inline}
   #home .home-intro,#home .home-banner{min-height:0}
