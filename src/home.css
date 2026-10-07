@@ -136,6 +136,10 @@
 #home .coming-card:hover{transform:none;filter:none;border-color:#21c8ef}
 #home .coming-card:disabled{color:#fff}
 #home .disclaimer{margin:clamp(12px,2vh,22px) 0 0;text-align:center;color:#c8ebfc;font-family:var(--site-font);font-size:12px}
+@media(min-width:1000px){
+  #home .home-intro{gap:12px;padding:14px 28px}
+  #home .home-title-mark{max-height:110px}
+}
 @media(max-width:600px){
   #home{padding:28px 14px 94px}
   #home .home-welcome{--home-header-height:clamp(136px,38vw,160px);grid-template-columns:calc(37.5% + 2px) minmax(0,calc(62.5% - 10px));gap:8px;margin-bottom:46px}
