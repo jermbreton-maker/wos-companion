@@ -16,8 +16,8 @@
   overflow:visible;
 }
 #home .home-brand-banner img{
-  width:102px;
-  height:134px;
+  width:auto;
+  height:126px;
   object-fit:contain;
   filter:drop-shadow(0 5px 4px rgba(7,27,53,.38));
   transform:translateY(0);
