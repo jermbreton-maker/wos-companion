@@ -66,7 +66,7 @@
   position:relative;
   isolation:isolate;
   display:grid;
-  grid-template-columns:106px minmax(0,1fr) 18px;
+  grid-template-columns:106px minmax(0,1fr);
   align-items:center;
   min-width:0;
   min-height:clamp(96px,13.6vh,126px);
@@ -115,8 +115,9 @@
 #home .home-card-copy b{
   display:block;
   color:#fff;
-  font-size:clamp(23px,2.5vw,31px);
-  line-height:1.02;
+  font-size:clamp(10px,3.15vw,26px);
+  line-height:1;
+  white-space:nowrap;
   text-shadow:0 3px 2px rgba(6,41,77,.62);
 }
 #home .home-card-copy small{display:block;margin-top:7px;color:#e7f8ff;font-family:var(--site-font);font-size:13px;line-height:1.22}
@@ -138,10 +139,10 @@
   #home .home-intro{padding:22px}
   #home .home-banner{padding:17px}
   #home .module-grid{gap:16px}
-  #home .module-card{grid-template-columns:85px minmax(0,1fr) 15px;min-height:108px;padding:10px 15px 10px 10px;border-radius:21px}
+  #home .module-card{grid-template-columns:85px minmax(0,1fr);min-height:108px;padding:10px 15px 10px 10px;border-radius:21px}
   #home .card-icon{width:72px;height:72px;font-size:39px}
   #home .home-card-copy{transform:translateX(26px)}
-  #home .home-card-copy b{font-size:clamp(21px,6.1vw,28px)}
+  #home .home-card-copy b{font-size:clamp(10px,3.15vw,26px)}
   #home .home-card-copy small{font-size:12px}
   #home .card-arrow{font-size:30px}
 }
