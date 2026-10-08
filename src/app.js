@@ -300,3 +300,19 @@ if(wipCard){
   new ResizeObserver(alignWip).observe(wipCard);
   alignWip();
 }
+
+/* Selection dialogs also dismiss on a deliberate click on their backdrop. */
+['levelPicker','gearDialog'].forEach(id=>{
+  const dialog=document.getElementById(id);
+  let startedOutside=false;
+  const outside=event=>{
+    const box=dialog.getBoundingClientRect();
+    return event.clientX<box.left||event.clientX>box.right||event.clientY<box.top||event.clientY>box.bottom;
+  };
+  dialog.addEventListener('pointerdown',event=>{startedOutside=event.target===dialog&&outside(event)});
+  dialog.addEventListener('pointercancel',()=>{startedOutside=false});
+  dialog.addEventListener('click',event=>{
+    if(startedOutside&&event.target===dialog&&outside(event))dialog.close();
+    startedOutside=false;
+  });
+});
