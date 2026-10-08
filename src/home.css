@@ -171,3 +171,12 @@
   #home .home-card-copy small{display:none}
 }
 @media(prefers-reduced-motion:reduce){#home .module-card{transition:none}}
+
+
+/* Accueil : couleurs illustrées plus douces, accordées aux cases d'équipement. */
+#home .home-brand-banner img{
+  filter:saturate(.72) contrast(.90) brightness(1.10) drop-shadow(0 5px 4px rgba(7,27,53,.38));
+}
+#home .module-card .home-item-icon img{
+  filter:saturate(.72) contrast(.90) brightness(1.10);
+}
