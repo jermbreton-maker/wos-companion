@@ -282,3 +282,14 @@ document.addEventListener('click',event=>{
 window.matchMedia('(max-width:600px)').addEventListener('change',event=>{
   if(!event.matches&&sublevelZoom.open)closeSublevelZoom();
 });
+
+/* Keep the WIP lettering parallel to its ribbon at every button aspect ratio. */
+const wipCard=document.querySelector('#home .coming-card');
+if(wipCard){
+  const alignWip=()=>{
+    const width=wipCard.clientWidth,height=wipCard.clientHeight;
+    if(width&&height)wipCard.style.setProperty('--wip-angle',`${-Math.atan2(height,width*.35)*180/Math.PI}deg`);
+  };
+  new ResizeObserver(alignWip).observe(wipCard);
+  alignWip();
+}
