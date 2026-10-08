@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="src/styles.css?v=20261007-wordmark" />
   <link rel="stylesheet" href="src/chief-comparison.css?v=20261008-responsive-restored" />
   <link rel="stylesheet" href="src/home.css?v=20261008-responsive-restored" />
+  <link rel="stylesheet" href="src/furnace.css?v=20261008-furnace-selection">
 </head>
 <body>
   <header class="topbar">
@@ -45,16 +46,18 @@
     </section>
 
     <section class="view calculator" id="furnace">
-      <div class="section-head"><div><p class="eyebrow">MODULE A</p><h1>Progression de la Chaudière</h1><p>Touche deux paliers sur la frise : ton niveau actuel, puis ton objectif.</p></div></div>
-      <div class="furnace-stage panel">
-        <div class="furnace-art"><div class="chimney"></div><div class="flame">🔥</div><span id="furnaceLevel">FC6</span></div>
-        <div class="before-after"><div><small>ACTUEL</small><strong id="furnaceFromLabel">FC6</strong></div><span>→</span><div><small>OBJECTIF</small><strong id="furnaceToLabel">FC8</strong></div></div>
+      <div class="section-head"><div><h1>Chaudière</h1><p>Configure le niveau actuel de ta chaudière et celui que tu vises.</p></div></div>
+      <div class="furnace-stage panel furnace-comparison">
+        <button type="button" class="furnace-pick" id="furnaceCurrent" aria-haspopup="dialog"><small>ACTUEL</small><span class="furnace-visual" id="furnaceCurrentVisual"></span><strong id="furnaceFromLabel"></strong></button>
+        <span class="furnace-comparison-arrow" aria-hidden="true">›</span>
+        <button type="button" class="furnace-pick" id="furnaceTarget" aria-haspopup="dialog"><small>OBJECTIF</small><span class="furnace-visual" id="furnaceTargetVisual"></span><strong id="furnaceToLabel"></strong></button>
       </div>
-      <div class="mode-switch"><button class="active" data-fmode="route">Actuel → objectif</button><button data-fmode="stock">Mon stock → niveau max</button></div>
-      <div id="routeMode"><div class="timeline panel" id="furnaceTimeline"></div><p class="data-note">Les coûts pré-FC ajoutés dans ce premier jet doivent encore être recoupés avec la table WOS définitive.</p></div>
-      <div id="stockMode" class="panel stock-panel" hidden><label>Cristaux de feu <input id="stockFc" type="number" min="0" value="1800"></label><label>Cristaux raffinés <input id="stockRfc" type="number" min="0" value="120"></label><button class="primary" id="calcStock">Calculer mon niveau max</button><p id="stockResult"></p></div>
-      <div class="mode-switch compact"><button class="active" data-scope="furnace">Chaudière seule</button><button data-scope="full">Progression complète</button></div>
+      <label class="select-all-charms charm-bulk-select furnace-scope-toggle"><input type="checkbox" id="furnaceFullScope"><span class="bulk-toggle" aria-hidden="true"><i></i></span><span>Progression complète</span></label>
       <div class="result panel" id="furnaceResult"></div>
+      <details class="furnace-stock-tools"><summary>Mon stock → niveau maximal</summary>
+        <div id="stockMode" class="panel stock-panel"><label>Cristaux de feu <input id="stockFc" type="number" min="0" value="1800"></label><label>Cristaux raffinés <input id="stockRfc" type="number" min="0" value="120"></label><button class="primary" id="calcStock">Calculer mon niveau max</button><p id="stockResult"></p></div>
+      </details>
+      <p class="data-note">Les coûts pré-FC ajoutés dans ce premier jet doivent encore être recoupés avec la table WOS définitive.</p>
     </section>
 
     <section class="view calculator chief-dedicated" id="chief-gear">
@@ -88,6 +91,6 @@
   <div hidden><div id="gearLeft"></div><div id="gearRight"></div></div>
   <dialog id="gearDialog"><form method="dialog"><button class="dialog-close" value="cancel" aria-label="Fermer">×</button><p class="eyebrow" id="dialogType"></p><h2 id="dialogTitle"></h2><p class="profile-dialog-note">Renseigne uniquement l’état actuel de ton Chef.</p><div class="dialog-compare"><label class="current-setting"><small>ÉQUIPEMENT ACTUEL</small><span class="gear-preview" id="gearFromPreview"></span><select id="gearFrom"></select></label><span class="dialog-arrow">→</span><label class="target-setting"><small>OBJECTIF</small><span class="gear-preview target" id="gearToPreview"></span><select id="gearTo"></select></label></div><h3>3 talismans actuels</h3><div id="charmInputs" class="charm-inputs"></div><button class="primary" value="save" id="saveGear">Appliquer</button></form></dialog>
   <dialog id="levelPicker"><form method="dialog"><button class="dialog-close" value="cancel" aria-label="Fermer">×</button><p class="eyebrow" id="pickerEyebrow">NIVEAU</p><h2 id="pickerTitle">Choisir un niveau</h2><div class="level-picker-grid" id="levelPickerGrid"></div></form></dialog>
-  <script src="src/data.js"></script><script src="src/chief-gear-sublevels.js?v=20261006-gear-full-steps"></script><script src="src/app.js?v=20261008-responsive-restored"></script>
+  <script src="src/data.js"></script><script src="src/chief-gear-sublevels.js?v=20261006-gear-full-steps"></script><script src="src/app.js?v=20261008-furnace-selection"></script>
 </body>
 </html>

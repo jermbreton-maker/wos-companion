@@ -1,0 +1,49 @@
+/* Chaudière uniquement : les pages verrouillées ne sont pas concernées. */
+#furnace .furnace-comparison{display:grid;grid-template-columns:minmax(0,1fr) 40px minmax(0,1fr);align-items:center;gap:18px;width:100%;max-width:900px;min-height:400px;margin:18px auto 0;padding:30px 40px;border-radius:30px;background:radial-gradient(ellipse at 50% 46%,rgba(142,229,255,.38),rgba(79,180,222,.22) 42%,transparent 78%),rgba(8,43,79,.38)}
+#furnace .furnace-pick{display:grid;justify-items:center;gap:12px;min-width:0;width:100%;padding:12px;border:0;background:transparent;color:#fff;cursor:pointer;border-radius:20px}
+#furnace .furnace-pick:hover{background:rgba(156,223,255,.08)}
+#furnace .furnace-pick:focus-visible{outline:3px solid #ffe36f;outline-offset:3px}
+#furnace .furnace-pick small{font-size:15px;letter-spacing:.1em;color:#c9edff}
+#furnace .furnace-pick strong{font-size:24px}
+#furnace .furnace-visual{display:grid;place-items:center;width:100%;height:250px}
+#furnace .furnace-visual img{display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 8px 7px rgba(1,22,48,.35))}
+#furnace .furnace-comparison-arrow{font-size:48px;text-align:center;color:#e9fbff;text-shadow:0 2px 5px #103b61}
+#furnace .furnace-scope-toggle{margin:18px auto 0;width:max-content;max-width:100%;color:#fff;background:rgba(8,43,79,.38);border:1px solid rgba(131,203,240,.46);padding:12px 16px;border-radius:16px}
+#furnace #furnaceResult{width:100%}
+#furnace .furnace-cost-route{text-align:center;color:#d4efff;margin:0 0 14px}
+#furnace .furnace-stock-tools{max-width:900px;margin:24px auto;color:#d4efff}
+#furnace .furnace-stock-tools summary{cursor:pointer}
+#furnace .furnace-stock-tools #stockMode{margin-top:12px}
+#furnace .furnace-placeholder,#furnacePicker .furnace-placeholder{position:relative;display:block;width:65%;height:78%;max-width:165px;max-height:195px;border:4px solid #0b2443;border-radius:25% 25% 12% 12%;background:linear-gradient(135deg,#aad7ed,#5d9abc 65%,#347497);box-shadow:inset 0 0 0 5px rgba(232,250,255,.3),0 8px 12px #0015}
+#furnace .furnace-placeholder-stack,#furnacePicker .furnace-placeholder-stack{position:absolute;width:36%;height:28%;top:-22%;left:32%;border:4px solid #0b2443;background:linear-gradient(90deg,#8ebbd3,#406d8a);border-radius:5px}
+#furnace .furnace-placeholder-door,#furnacePicker .furnace-placeholder-door{position:absolute;display:grid;place-items:center;left:22%;bottom:12%;width:56%;height:43%;border:4px solid #0b2443;border-radius:50% 50% 12% 12%;background:#123c5b;font-size:38px}
+#furnacePicker{width:min(720px,calc(100vw - 24px));max-width:calc(100vw - 24px);max-height:calc(100dvh - 24px);padding:0;overflow:hidden;color:#fff;border:2px solid rgba(131,203,240,.65);border-radius:22px;background:linear-gradient(180deg,#236b9b,#123f68);font-family:var(--site-font)}
+#furnacePicker::backdrop{background:rgba(2,15,29,.55)}
+#furnacePicker form{display:flex;flex-direction:column;max-height:calc(100dvh - 28px);padding:22px 18px 18px;min-height:0}
+#furnacePicker h2{font-size:26px;margin:0 40px 20px 0}
+#furnacePicker .dialog-close{position:absolute;right:12px;top:12px;z-index:2}
+#furnacePicker .furnace-picker-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;overflow-y:auto;overflow-x:hidden;min-height:0;padding:5px 14px 8px 4px;scrollbar-gutter:stable;overscroll-behavior:contain}
+#furnacePicker .furnace-level-choice{display:grid;justify-items:center;gap:8px;min-width:0;padding:14px 7px 10px;border:2px solid #6aa1c1;border-radius:14px;background:linear-gradient(145deg,#347dab,#17466e);color:#fff;font-family:var(--site-font);cursor:pointer}
+#furnacePicker .furnace-level-choice.active{border-color:#ffe36f;box-shadow:0 0 5px 2px #ffe36f99}
+#furnacePicker .furnace-level-choice:disabled{opacity:.3;cursor:not-allowed}
+#furnacePicker .furnace-choice-visual{display:grid;place-items:center;width:100%;height:75px}
+#furnacePicker .furnace-choice-visual img{width:100%;height:100%;object-fit:contain}
+#furnacePicker .furnace-placeholder{border-width:2px;border-radius:16%}
+#furnacePicker .furnace-placeholder-stack,#furnacePicker .furnace-placeholder-door{border-width:2px}
+#furnacePicker .furnace-placeholder-door{font-size:18px}
+@media(max-width:600px){
+ #furnace .furnace-comparison{grid-template-columns:minmax(0,1fr) 20px minmax(0,1fr);gap:4px;min-height:290px;padding:24px 8px;border-radius:24px}
+ #furnace .furnace-pick{padding:6px;gap:10px}
+ #furnace .furnace-visual{height:170px}
+ #furnace .furnace-pick small{font-size:12px}
+ #furnace .furnace-pick strong{font-size:19px}
+ #furnace .furnace-comparison-arrow{font-size:32px}
+ #furnace .furnace-placeholder{border-width:3px}
+ #furnace .furnace-placeholder-stack,#furnace .furnace-placeholder-door{border-width:3px}
+ #furnace .furnace-placeholder-door{font-size:28px}
+ #furnacePicker .furnace-picker-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+ #furnacePicker form{padding:18px 10px 12px}
+ #furnacePicker h2{font-size:23px}
+}
+
+#furnace #furnaceResult{position:static;z-index:auto}
