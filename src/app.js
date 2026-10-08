@@ -176,6 +176,7 @@ openLevelPicker=function(spec){
 };
 $('#lang').onchange=e=>{if(e.target.value==='en')alert('English translation layer is ready; the reviewed terminology will be enabled in the next dataset pass.')};renderFurnace();renderGear();renderTech();renderT12();
 
+
 /* Mobile touch zoom: reuse the exact level buttons and their calculation handlers. */
 let selectingZoomSublevel=false;
 const sublevelZoom=document.createElement('dialog');
@@ -183,6 +184,7 @@ sublevelZoom.id='sublevelZoom';
 sublevelZoom.setAttribute('aria-label','Choisir le sous-niveau');
 document.body.append(sublevelZoom);
 function closeSublevelZoom(){sublevelZoom.close()}
+sublevelZoom.addEventListener('close',()=>{if(!$('#levelPicker').open)unlockLevelPickerBackground()});
 sublevelZoom.addEventListener('click',event=>{if(event.target===sublevelZoom)closeSublevelZoom()});
 $('#levelPicker').addEventListener('close',()=>{if(sublevelZoom.open)closeSublevelZoom()});
 function showSublevelZoom(track){
@@ -211,6 +213,7 @@ function showSublevelZoom(track){
     bar.append(button);
   });
   sublevelZoom.append(bar);
+  if(!$('#levelPicker').open)lockLevelPickerBackground();
   sublevelZoom.showModal();
 }
 document.addEventListener('click',event=>{
@@ -231,7 +234,7 @@ document.addEventListener('click',event=>{
   owner.click();
   const active=$('#levelPickerGrid .picker-substep.active');
   const selectedTrack=active?.closest('.picker-substeps')||$('#levelPickerGrid .level-choice.active .picker-substeps');
-  if(selectedTrack)showSublevelZoom(selectedTrack);
+  if(selectedTrack){$('#levelPicker').close();showSublevelZoom(selectedTrack)}
 },true);
 window.matchMedia('(max-width:600px)').addEventListener('change',event=>{
   if(!event.matches&&sublevelZoom.open)closeSublevelZoom();
