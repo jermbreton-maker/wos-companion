@@ -58,9 +58,15 @@ function go(id){$$('.view').forEach(v=>v.classList.toggle('active',v.id===id));s
 function sumSteps(arr,a,b){const out={fc:0,rfc:0,food:0,wood:0,coal:0,iron:0,time:0};arr.slice(a+1,b+1).forEach(x=>Object.keys(out).forEach(k=>out[k]+=x[k]||0));return out}
 function addCosts(...costs){const out={fc:0,rfc:0,food:0,wood:0,coal:0,iron:0,time:0};costs.forEach(cost=>Object.keys(out).forEach(key=>out[key]+=(cost?.[key]||0)));return out}
 function sumFurnaceBuildings(a,b,scope){const out={fc:0,rfc:0,food:0,wood:0,coal:0,iron:0,time:0},table=D.furnaceBuildingCosts||[];for(let index=a+1;index<=b;index++)Object.keys(out).forEach(key=>out[key]+=(table[index]?.[scope]?.[key]||0));return out}
+const furnaceVisualAssets={
+  'Niv. 1':'base/furnace-level-01.png','Niv. 2':'base/furnace-level-02.png','Niv. 3':'base/furnace-level-03.png','Niv. 4':'base/furnace-level-04.png',
+  'Niv. 9':'base/furnace-level-09.png','Niv. 10':'base/furnace-level-10.png','Niv. 19':'base/furnace-level-19.png',
+  FC5:'fc/furnace-FC05.png',FC7:'fc/furnace-FC07.png',FC8:'fc/furnace-FC08.png',FC9:'fc/furnace-FC09.png',FC10:'fc/furnace-FC10.png'
+};
 function furnaceVisual(level){
-  return level.id==='FC10'
-    ? '<img src="assets/visuals/furnaces/fc10.png" alt="Chaudière FC10" draggable="false">'
+  const asset=furnaceVisualAssets[level.id];
+  return asset
+    ? `<img src="assets/visuals/furnaces/${asset}?v=20261008-furnace-level-assets" alt="Chaudière ${level.id}" draggable="false">`
     : '<span class="furnace-placeholder" aria-hidden="true"><span class="furnace-placeholder-stack"></span><span class="furnace-placeholder-door">🔥</span></span>';
 }
 function furnaceLevelParts(level){
