@@ -1783,3 +1783,5 @@ body.level-picker-open{
 #sublevelZoom .picker-substep.filled{background:linear-gradient(180deg,#8ed14b,#65b637 58%,#4c942b)}
 #sublevelZoom .picker-substep.active{outline:3px solid #fff4a8;outline-offset:1px}
 #sublevelZoom .picker-substep:disabled{opacity:.28}
+
+#sublevelZoom .zoom-substeps{touch-action:none;user-select:none;-webkit-user-select:none}
