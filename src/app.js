@@ -66,7 +66,7 @@ const furnaceVisualAssets={
 function furnaceVisual(level){
   const asset=furnaceVisualAssets[level.id];
   return asset
-    ? `<img src="assets/visuals/furnaces/${asset}?v=20261008-furnace-level-assets-16-18" alt="Chaudière ${level.id}" draggable="false">`
+    ? `<img src="assets/visuals/furnaces/${asset}?v=20261008-furnace-level-assets-16-18-no-smoke" alt="Chaudière ${level.id}" draggable="false">`
     : '<span class="furnace-placeholder" aria-hidden="true"><span class="furnace-placeholder-stack"></span><span class="furnace-placeholder-door">🔥</span></span>';
 }
 function furnaceLevelParts(level){
