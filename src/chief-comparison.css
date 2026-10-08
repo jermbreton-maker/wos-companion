@@ -1789,3 +1789,8 @@ body.level-picker-open{
 @keyframes sublevelPending{0%,100%{filter:brightness(1)}50%{filter:brightness(.5)}}
 #sublevelZoom .picker-substep.pending{background:linear-gradient(180deg,#8ed14b,#65b637 58%,#4c942b);animation:sublevelPending 1.2s ease-in-out infinite}
 @media(prefers-reduced-motion:reduce){#sublevelZoom .picker-substep.pending{animation:none;filter:brightness(.65)}}
+
+/* Nine-step talismans use the available mobile width without overflowing. */
+#sublevelZoom:has(.picker-substep:nth-child(9)){width:min(600px,calc(100vw - 16px));max-width:calc(100vw - 16px);padding:4px}
+#sublevelZoom .zoom-substeps:has(.picker-substep:nth-child(9)){gap:3px}
+#sublevelZoom .zoom-substeps:has(.picker-substep:nth-child(9)) .picker-substep{flex:1 1 0;min-width:0;min-height:64px}
