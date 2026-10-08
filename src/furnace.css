@@ -20,7 +20,14 @@
 #furnace .furnace-comparison-arrow{font-size:48px;text-align:center;color:#e9fbff;text-shadow:0 2px 5px #103b61}
 #furnace .furnace-scope-toggle{margin:18px auto 0;width:max-content;max-width:100%;color:#fff;background:rgba(8,43,79,.38);border:1px solid rgba(131,203,240,.46);padding:12px 16px;border-radius:16px}
 #furnace #furnaceResult{width:100%}
-#furnace .furnace-cost-route{text-align:center;color:#d4efff;margin:0 0 14px}
+#furnace .furnace-cost-grid{grid-template-columns:repeat(7,1fr);gap:13px}
+#furnace .furnace-material-fire{border-color:#f4a56e;background:linear-gradient(145deg,#ffe2ad,#a95724)}
+#furnace .furnace-material-refined{border-color:#c59bf4;background:linear-gradient(145deg,#f0dcff,#7250b9)}
+#furnace .furnace-material-food{border-color:#e5a66d;background:linear-gradient(145deg,#ffe0be,#a9542e)}
+#furnace .furnace-material-wood{border-color:#b99566;background:linear-gradient(145deg,#eed09a,#8c542d)}
+#furnace .furnace-material-coal{border-color:#9eafc4;background:linear-gradient(145deg,#dce8f1,#52687e)}
+#furnace .furnace-material-iron{border-color:#86c9f3;background:linear-gradient(145deg,#eafaff,#3995cf)}
+#furnace .furnace-material-time{border-color:#ffe38b;background:linear-gradient(145deg,#fff4b9,#bf711c)}
 #furnace .furnace-stock-tools{max-width:900px;margin:24px auto;color:#d4efff}
 #furnace .furnace-stock-tools summary{cursor:pointer}
 #furnace .furnace-stock-tools #stockMode{margin-top:12px}
@@ -53,6 +60,7 @@
  #furnace .furnace-pick small{font-size:12px}
  #furnace .furnace-pick strong{font-size:19px}
  #furnace .furnace-progress{height:10px;width:56px;border-width:1.5px;gap:1px}
+ #furnace .furnace-cost-grid{grid-template-columns:repeat(4,1fr);gap:10px}
  #furnace .furnace-comparison-arrow{font-size:32px}
  #furnace .furnace-placeholder{border-width:3px}
  #furnace .furnace-placeholder-stack,#furnace .furnace-placeholder-door{border-width:3px}
