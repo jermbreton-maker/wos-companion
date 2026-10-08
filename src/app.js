@@ -214,45 +214,49 @@ function showSublevelZoom(track){
   });
 
   const buttons=[...bar.children];
-  let dragPointer=null,previewIndex=-1;
-  const previewAt=event=>{
+  let dragPointer=null,previewIndex=-1,pendingIndex=-1,confirmIndex=-1,startX=0,startY=0,moved=false,confirming=false;
+  const indexAt=event=>{
     const hit=document.elementFromPoint(event.clientX,event.clientY)?.closest('.picker-substep');
-    previewIndex=buttons.indexOf(hit);
-    if(previewIndex<0||hit.disabled)previewIndex=-1;
-    buttons.forEach((button,index)=>{
-      button.classList.toggle('filled',previewIndex<0?originals[index].classList.contains('filled'):index<=previewIndex&&!button.disabled);
-      button.classList.toggle('active',previewIndex<0?originals[index].classList.contains('active'):index===previewIndex);
-    });
+    const index=buttons.indexOf(hit);
+    return index>=0&&!hit.disabled?index:-1;
   };
+  const paint=index=>buttons.forEach((button,i)=>{
+    button.classList.toggle('filled',index<0?originals[i].classList.contains('filled'):i<=index&&!button.disabled);
+    button.classList.toggle('active',index<0?originals[i].classList.contains('active'):i===index);
+    button.classList.toggle('pending',dragPointer===null&&i===pendingIndex);
+  });
+  bar.addEventListener('click',event=>{
+    if(!confirming&&event.detail>0&&event.pointerType!=='mouse'){event.preventDefault();event.stopImmediatePropagation()}
+  },true);
   bar.addEventListener('pointerdown',event=>{
     if(event.pointerType==='mouse'||event.button!==0||dragPointer!==null)return;
     event.preventDefault();
-    dragPointer=event.pointerId;
+    dragPointer=event.pointerId;startX=event.clientX;startY=event.clientY;moved=false;
+    previewIndex=indexAt(event);
+    confirmIndex=previewIndex===pendingIndex?pendingIndex:-1;
     bar.setPointerCapture(dragPointer);
-    previewAt(event);
+    paint(previewIndex);
   });
   bar.addEventListener('pointermove',event=>{
     if(event.pointerId!==dragPointer)return;
     event.preventDefault();
-    previewAt(event);
+    if(Math.hypot(event.clientX-startX,event.clientY-startY)>8)moved=true;
+    previewIndex=indexAt(event);
+    paint(previewIndex);
   });
   bar.addEventListener('pointerup',event=>{
     if(event.pointerId!==dragPointer)return;
     event.preventDefault();
-    previewAt(event);
+    previewIndex=indexAt(event);
     const selected=previewIndex;
-    dragPointer=null;
-    bar.releasePointerCapture(event.pointerId);
-    if(selected>=0)buttons[selected].click();
+    const validate=selected>=0&&selected===confirmIndex&&!moved;
+    dragPointer=null;bar.releasePointerCapture(event.pointerId);
+    if(validate){confirming=true;try{buttons[selected].click()}finally{confirming=false}}
+    else{if(selected>=0)pendingIndex=selected;paint(pendingIndex)}
   });
   bar.addEventListener('pointercancel',event=>{
     if(event.pointerId!==dragPointer)return;
-    dragPointer=null;
-    previewIndex=-1;
-    buttons.forEach((button,index)=>{
-      button.classList.toggle('filled',originals[index].classList.contains('filled'));
-      button.classList.toggle('active',originals[index].classList.contains('active'));
-    });
+    dragPointer=null;previewIndex=pendingIndex;paint(pendingIndex);
   });
 
   sublevelZoom.append(bar);
