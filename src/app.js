@@ -216,9 +216,12 @@ function showSublevelZoom(track){
   const buttons=[...bar.children];
   let dragPointer=null,previewIndex=-1,pendingIndex=-1,confirmIndex=-1,startX=0,startY=0,moved=false,confirming=false;
   const indexAt=event=>{
-    const hit=document.elementFromPoint(event.clientX,event.clientY)?.closest('.picker-substep');
-    const index=buttons.indexOf(hit);
-    return index>=0&&!hit.disabled?index:-1;
+    // During the gesture, each segment extends vertically across the screen.
+    // Horizontal movement still chooses the segment; outside edges keep the nearest one.
+    const centers=buttons.map(button=>{const box=button.getBoundingClientRect();return box.left+box.width/2});
+    let index=0;
+    centers.forEach((center,i)=>{if(Math.abs(event.clientX-center)<Math.abs(event.clientX-centers[index]))index=i});
+    return buttons[index]&&!buttons[index].disabled?index:-1;
   };
   const paint=index=>buttons.forEach((button,i)=>{
     button.classList.toggle('filled',index<0?originals[i].classList.contains('filled'):i<=index&&!button.disabled);
