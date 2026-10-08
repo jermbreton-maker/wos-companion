@@ -175,3 +175,64 @@ openLevelPicker=function(spec){
   picker.showModal();
 };
 $('#lang').onchange=e=>{if(e.target.value==='en')alert('English translation layer is ready; the reviewed terminology will be enabled in the next dataset pass.')};renderFurnace();renderGear();renderTech();renderT12();
+
+/* Mobile touch zoom: reuse the exact level buttons and their calculation handlers. */
+let selectingZoomSublevel=false;
+const sublevelZoom=document.createElement('dialog');
+sublevelZoom.id='sublevelZoom';
+sublevelZoom.setAttribute('aria-label','Choisir le sous-niveau');
+document.body.append(sublevelZoom);
+function closeSublevelZoom(){sublevelZoom.close()}
+sublevelZoom.addEventListener('click',event=>{if(event.target===sublevelZoom)closeSublevelZoom()});
+$('#levelPicker').addEventListener('close',()=>{if(sublevelZoom.open)closeSublevelZoom()});
+function showSublevelZoom(track){
+  const originals=[...track.querySelectorAll('.picker-substep')];
+  if(!originals.some(button=>!button.disabled))return;
+  sublevelZoom.replaceChildren();
+  const bar=document.createElement('div');
+  bar.className='zoom-substeps';
+  bar.setAttribute('role','group');
+  bar.setAttribute('aria-label',track.getAttribute('aria-label')||'Sous-niveaux');
+  originals.forEach((original,index)=>{
+    const button=original.cloneNode(false);
+    button.type='button';
+    button.removeAttribute('value');
+    button.removeAttribute('data-level');
+    button.classList.remove('preview-filled','preview-target');
+    button.textContent=index+1;
+    button.setAttribute('aria-pressed',String(original.classList.contains('active')));
+    button.onclick=()=>{
+      if(original.disabled)return;
+      closeSublevelZoom();
+      selectingZoomSublevel=true;
+      try{original.click()}finally{selectingZoomSublevel=false}
+      if($('#levelPicker').open)$('#levelPicker').close();
+    };
+    bar.append(button);
+  });
+  sublevelZoom.append(bar);
+  sublevelZoom.showModal();
+}
+document.addEventListener('click',event=>{
+  if(selectingZoomSublevel)return;
+  if(!window.matchMedia('(max-width:600px)').matches)return;
+  const track=event.target.closest('#levelPicker .picker-substeps');
+  if(track){
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    showSublevelZoom(track);
+    return;
+  }
+  const compact=event.target.closest('.gear-progress,.charm-progress:not(.compact)');
+  const owner=compact?.closest('[data-pick]');
+  if(!owner)return;
+  event.preventDefault();
+  event.stopImmediatePropagation();
+  owner.click();
+  const active=$('#levelPickerGrid .picker-substep.active');
+  const selectedTrack=active?.closest('.picker-substeps')||$('#levelPickerGrid .level-choice.active .picker-substeps');
+  if(selectedTrack)showSublevelZoom(selectedTrack);
+},true);
+window.matchMedia('(max-width:600px)').addEventListener('change',event=>{
+  if(!event.matches&&sublevelZoom.open)closeSublevelZoom();
+});
