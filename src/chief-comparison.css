@@ -1785,3 +1785,7 @@ body.level-picker-open{
 #sublevelZoom .picker-substep:disabled{opacity:.28}
 
 #sublevelZoom .zoom-substeps{touch-action:none;user-select:none;-webkit-user-select:none}
+
+@keyframes sublevelPending{0%,100%{filter:brightness(1)}50%{filter:brightness(.5)}}
+#sublevelZoom .picker-substep.pending{background:linear-gradient(180deg,#8ed14b,#65b637 58%,#4c942b);animation:sublevelPending 1.2s ease-in-out infinite}
+@media(prefers-reduced-motion:reduce){#sublevelZoom .picker-substep.pending{animation:none;filter:brightness(.65)}}
