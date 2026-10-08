@@ -61,6 +61,26 @@ function furnaceVisual(level){
     ? '<img src="assets/visuals/furnaces/fc10.png" alt="Chaudière FC10" draggable="false">'
     : '<span class="furnace-placeholder" aria-hidden="true"><span class="furnace-placeholder-stack"></span><span class="furnace-placeholder-door">🔥</span></span>';
 }
+function furnaceLevelParts(level){
+  const match=level.id.match(/^(FC\d+)(?:-(\d+))?$/);
+  if(!match||!D.furnace.some(item=>item.id.startsWith(match[1]+'-')))return null;
+  return {base:match[1],step:+(match[2]||0),steps:D.furnace.filter(item=>item.id.startsWith(match[1]+'-')).length};
+}
+function furnaceProgress(level){
+  const parts=furnaceLevelParts(level);
+  if(!parts)return '';
+  return `<i class="furnace-progress" aria-label="${parts.base}, sous-niveau ${parts.step} sur ${parts.steps}">${Array.from({length:parts.steps},(_,index)=>`<span class="${index<parts.step?'filled':''}"></span>`).join('')}</i>`;
+}
+function furnaceGroups(){
+  const groups=[];
+  D.furnace.forEach((level,index)=>{
+    const parts=furnaceLevelParts(level);
+    const previous=groups[groups.length-1];
+    if(parts&&previous&&previous.parts&&previous.parts.base===parts.base){previous.items.push({level,index,parts});return}
+    groups.push({level,index,parts,items:[{level,index,parts}]});
+  });
+  return groups;
+}
 function openFurnacePicker(direction){
   let dialog=document.getElementById('furnacePicker');
   if(!dialog){
@@ -77,20 +97,36 @@ function openFurnacePicker(direction){
   }
   dialog.querySelector('h2').textContent=direction==='from'?'Chaudière actuelle':'Chaudière objectif';
   const grid=dialog.querySelector('.furnace-picker-grid');grid.replaceChildren();
-  D.furnace.forEach((level,index)=>{
-    const choice=document.createElement('button');choice.type='button';
-    choice.className='furnace-level-choice'+(index===state[direction]?' active':'');
-    choice.disabled=direction==='to'&&index<state.from;
-    choice.setAttribute('aria-pressed',String(index===state[direction]));
-    choice.innerHTML='<span class="furnace-choice-visual">'+furnaceVisual(level)+'</span><strong>'+level.id+'</strong>';
-    choice.onclick=()=>{state[direction]=index;if(state.to<state.from)state.to=state.from;renderFurnace();dialog.close()};
-    grid.append(choice);
+  furnaceGroups().forEach(group=>{
+    const active=group.items.some(item=>item.index===state[direction]);
+    const card=document.createElement('article');
+    card.className='furnace-level-group'+(active?' active':'');
+    const main=group.items[0], choice=document.createElement('button');choice.type='button';
+    choice.className='furnace-level-choice';
+    choice.disabled=direction==='to'&&main.index<state.from;
+    choice.setAttribute('aria-pressed',String(main.index===state[direction]));
+    choice.innerHTML='<span class="furnace-choice-visual">'+furnaceVisual(main.level)+'</span><strong>'+main.level.id+'</strong>';
+    choice.onclick=()=>{state[direction]=main.index;if(state.to<state.from)state.to=state.from;renderFurnace();dialog.close()};
+    card.append(choice);
+    if(group.parts){
+      const bar=document.createElement('i');bar.className='furnace-picker-substeps';bar.setAttribute('aria-label','Sous-niveaux de '+group.parts.base);
+      group.items.slice(1).forEach(item=>{
+        const sub=document.createElement('button');sub.type='button';
+        sub.className='furnace-picker-substep '+(item.index<=state[direction]?'filled ':'')+(item.index===state[direction]?'active':'');
+        sub.disabled=direction==='to'&&item.index<state.from;
+        sub.setAttribute('aria-label',item.level.id);
+        sub.onclick=()=>{state[direction]=item.index;if(state.to<state.from)state.to=state.from;renderFurnace();dialog.close()};
+        bar.append(sub);
+      });
+      card.append(bar);
+    }
+    grid.append(card);
   });
   lockLevelPickerBackground();dialog.showModal();
   const selected=grid.querySelector('.active');
   if(selected){selected.focus({preventScroll:true});selected.scrollIntoView({block:'nearest'})}
 }
-function renderFurnace(){const a=D.furnace[state.from],b=D.furnace[state.to],m=sumSteps(D.furnace,state.from,state.to),mult=state.scope==='full'?2.4:1;$('#furnaceFromLabel').textContent=a.id;$('#furnaceToLabel').textContent=b.id;$('#furnaceCurrentVisual').innerHTML=furnaceVisual(a);$('#furnaceTargetVisual').innerHTML=furnaceVisual(b);$('#furnaceCurrent').onclick=()=>openFurnacePicker('from');$('#furnaceTarget').onclick=()=>openFurnacePicker('to');$('#furnaceFullScope').checked=state.scope==='full';$('#furnaceFullScope').onchange=event=>{state.scope=event.target.checked?'full':'furnace';renderFurnace()};const vals=[['🔥 Cristaux de feu',m.fc],['💎 Cristaux raffinés',m.rfc],['🥩 Nourriture',m.food*mult*1e6],['🪵 Bois',m.wood*mult*1e6],['🪨 Charbon',m.coal*mult*1e6],['⚙️ Fer',m.iron*mult*1e6],['⏱ Temps',m.time*mult+' j']];$('#furnaceResult').innerHTML=`<p class="eyebrow">COÛT ESTIMÉ · ${state.scope==='full'?'PROGRESSION COMPLÈTE':'CHAUDIÈRE SEULE'}</p><h2>Coût d’amélioration</h2><p class="furnace-cost-route">${a.id} → ${b.id}</p><div class="resource-grid">${vals.map(v=>`<div class="resource"><span>${v[0]}</span><strong>${typeof v[1]==='number'?fmt(v[1]):v[1]}</strong></div>`).join('')}</div><details class="steps"><summary>Voir les ${state.to-state.from} améliorations</summary>${D.furnace.slice(state.from+1,state.to+1).map((x,i)=>`<div class="step"><span>${D.furnace[state.from+i].id} → ${x.id}</span><b>${fmt(x.fc)} FC ${x.rfc?'· '+fmt(x.rfc)+' RFC':''}</b></div>`).join('')}</details>`}
+function renderFurnace(){const a=D.furnace[state.from],b=D.furnace[state.to],m=sumSteps(D.furnace,state.from,state.to),mult=state.scope==='full'?2.4:1;$('#furnaceFromLabel').innerHTML=a.id+furnaceProgress(a);$('#furnaceToLabel').innerHTML=b.id+furnaceProgress(b);$('#furnaceCurrentVisual').innerHTML=furnaceVisual(a);$('#furnaceTargetVisual').innerHTML=furnaceVisual(b);$('#furnaceCurrent').onclick=()=>openFurnacePicker('from');$('#furnaceTarget').onclick=()=>openFurnacePicker('to');$('#furnaceFullScope').checked=state.scope==='full';$('#furnaceFullScope').onchange=event=>{state.scope=event.target.checked?'full':'furnace';renderFurnace()};const vals=[['🔥 Cristaux de feu',m.fc],['💎 Cristaux raffinés',m.rfc],['🥩 Nourriture',m.food*mult*1e6],['🪵 Bois',m.wood*mult*1e6],['🪨 Charbon',m.coal*mult*1e6],['⚙️ Fer',m.iron*mult*1e6],['⏱ Temps',m.time*mult+' j']];$('#furnaceResult').innerHTML=`<p class="eyebrow">COÛT ESTIMÉ · ${state.scope==='full'?'PROGRESSION COMPLÈTE':'CHAUDIÈRE SEULE'}</p><h2>Coût d’amélioration</h2><p class="furnace-cost-route">${a.id} → ${b.id}</p><div class="resource-grid">${vals.map(v=>`<div class="resource"><span>${v[0]}</span><strong>${typeof v[1]==='number'?fmt(v[1]):v[1]}</strong></div>`).join('')}</div><details class="steps"><summary>Voir les ${state.to-state.from} améliorations</summary>${D.furnace.slice(state.from+1,state.to+1).map((x,i)=>`<div class="step"><span>${D.furnace[state.from+i].id} → ${x.id}</span><b>${fmt(x.fc)} FC ${x.rfc?'· '+fmt(x.rfc)+' RFC':''}</b></div>`).join('')}</details>`}
 
 D.gears.forEach(g=>{const charmFrom=D.charmLevels.findIndex(x=>x.label==='Niv. 8 · 4/4'),charmTo=D.charmLevels.findIndex(x=>x.label==='Niv. 10 · 4/4');state.gear[g.id]={from:D.gearLevels.indexOf('Mythique ★'),to:D.gearLevels.indexOf('Mythique ★★★'),charms:[charmFrom,charmFrom,charmFrom],targetCharms:[charmTo,charmTo,charmTo]}});function gearCard(g){const s=state.gear[g.id],color=g.troop==='Infanterie'?'#54d66b':g.troop==='Lancier'?'#58c9ff':'#ff9c32';return `<button class="gear-card gear-card-minimal" data-gear="${g.id}" aria-label="Ouvrir ${g.name}, niveau actuel ${D.gearLevels[s.from]}"><span class="gear-icon">${gearSkin(g)}</span><i class="charms" style="--charm:${color}">${s.charms.map(level=>`<span class="charm-wrap"><i class="charm"></i><small>${D.charmLevels[level].short}</small></span>`).join('')}</i></button>`}
 function levelOptions(selected,min=0){return D.gearLevels.map((x,i)=>i>=min?`<option value="${i}" ${i===selected?'selected':''}>${x}</option>`:'').join('')}function renderGear(){const left=D.gears.slice(0,3),right=D.gears.slice(3);$('#gearLeft').innerHTML=left.map(gearCard).join('');$('#gearRight').innerHTML=right.map(gearCard).join('');$$('[data-gear]').forEach(b=>b.onclick=()=>openGear(b.dataset.gear));$('#gearUpgradeGrid').innerHTML=D.gears.map(g=>{const s=state.gear[g.id];return `<article class="upgrade-card"><span class="upgrade-icon">${g.icon}</span><div><small>${g.name}</small><b>${D.gearLevels[s.from]}</b></div><span>→</span><label>Objectif<select data-gear-target="${g.id}">${levelOptions(s.to,s.from)}</select></label></article>`}).join('');$('#charmUpgradeGrid').innerHTML=D.gears.map(g=>{const s=state.gear[g.id],color=g.troop==='Infanterie'?'#54d66b':g.troop==='Lancier'?'#58c9ff':'#ff9c32';return `<article class="upgrade-card charm-goals" style="--charm:${color}"><span class="upgrade-icon">${g.icon}</span><div><small>${g.name}</small><b>3 talismans</b></div>${s.charms.map((n,i)=>`<label><span><i class="charm"></i>${n} →</span><input data-charm-target="${g.id}:${i}" type="number" min="${n}" max="18" value="${s.targetCharms[i]}"></label>`).join('')}</article>`}).join('');$$('[data-gear-target]').forEach(x=>x.onchange=()=>{state.gear[x.dataset.gearTarget].to=+x.value;renderGear()});$$('[data-charm-target]').forEach(x=>x.onchange=()=>{const[id,i]=x.dataset.charmTarget.split(':');state.gear[id].targetCharms[+i]=Math.max(state.gear[id].charms[+i],+x.value);renderGear()});let totals={alloy:0,polish:0,plans:0,amber:0,guides:0,designs:0};D.gears.forEach(g=>{const s=state.gear[g.id];D.gearStepCosts.slice(s.from,s.to).forEach(c=>Object.keys(c).forEach(k=>totals[k]+=c[k]));s.charms.forEach((c,i)=>{const levels=s.targetCharms[i]-c;totals.guides+=levels*35;totals.designs+=levels*18})});$('#chiefResult').innerHTML=`<p class="eyebrow">COÛT ÉQUIPEMENT</p><h2>Objectifs des 6 pièces</h2><div class="resource-grid">${[['⚙️ Alliage',totals.alloy],['✨ Polissage',totals.polish],['📜 Plans',totals.plans],['🟠 Ambre lunaire',totals.amber]].map(v=>`<div class="resource"><span>${v[0]}</span><strong>${fmt(v[1])}</strong></div>`).join('')}</div>`;$('#charmResult').innerHTML=`<p class="eyebrow">COÛT TALISMANS</p><h2>Objectifs des 18 talismans</h2><div class="resource-grid"><div class="resource"><span>📘 Guides</span><strong>${fmt(totals.guides)}</strong></div><div class="resource"><span>💠 Designs</span><strong>${fmt(totals.designs)}</strong></div></div>`}
