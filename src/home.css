@@ -186,3 +186,8 @@
 
 /* Slightly enlarge the furnace artwork around its existing center. */
 #home .furnace-card .home-item-icon img{transform:scale(1.12);transform-origin:center}
+
+/* Mobile: center artwork inside the cyan section, clear of the cutout. */
+@media(max-width:600px){
+  #home .module-card .card-icon{position:absolute;left:2%;top:50%;width:24%;height:calc(100% - 18px);transform:translateY(-50%);margin:0}
+}
