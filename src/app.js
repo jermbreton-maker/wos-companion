@@ -268,7 +268,7 @@ function showSublevelZoom(track){
 }
 document.addEventListener('click',event=>{
   if(selectingZoomSublevel)return;
-  if(!window.matchMedia('(max-width:600px)').matches)return;
+  if(!window.matchMedia('(max-width:760px)').matches)return;
   const track=event.target.closest('#levelPicker .picker-substeps');
   if(track){
     event.preventDefault();
@@ -286,7 +286,7 @@ document.addEventListener('click',event=>{
   const selectedTrack=active?.closest('.picker-substeps')||$('#levelPickerGrid .level-choice.active .picker-substeps');
   if(selectedTrack){$('#levelPicker').close();showSublevelZoom(selectedTrack)}
 },true);
-window.matchMedia('(max-width:600px)').addEventListener('change',event=>{
+window.matchMedia('(max-width:760px)').addEventListener('change',event=>{
   if(!event.matches&&sublevelZoom.open)closeSublevelZoom();
 });
 
