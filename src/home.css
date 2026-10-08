@@ -183,3 +183,6 @@
   margin-top:auto;
   padding-top:clamp(18px,3vh,30px);
 }
+
+/* Slightly enlarge the furnace artwork around its existing center. */
+#home .furnace-card .home-item-icon img{transform:scale(1.12);transform-origin:center}
