@@ -24,6 +24,16 @@ const earlyFc=[{id:"FC1",fc:132,rfc:0,food:85,wood:85,coal:17,iron:4,time:8},{id
 const fc10={id:"FC10",fc:600,rfc:60,food:600,wood:600,coal:120,iron:30,time:60};
 window.COMPANION_DATA.furnace=[...normalFurnace,...earlyFc,...window.COMPANION_DATA.furnace,fc10];
 
+// Première base de calcul des bâtiments FC. Les valeurs détaillées seront
+// auditées et remplacées par le tableau final lors de la passe de vérification.
+// Les multiplicateurs sont isolés ici pour ne pas mélanger les coûts chaudière.
+const PROVISIONAL_BUILDING_MULTIPLIERS={required:0.5,total:3.5};
+window.COMPANION_DATA.furnaceBuildingCosts=window.COMPANION_DATA.furnace.map(level=>{
+  const base={food:level.food||0,wood:level.wood||0,coal:level.coal||0,iron:level.iron||0,fc:level.fc||0,rfc:level.rfc||0,time:level.time||0};
+  const scale=multiplier=>Object.fromEntries(Object.entries(base).map(([key,value])=>[key,value*multiplier]));
+  return {required:scale(PROVISIONAL_BUILDING_MULTIPLIERS.required),total:scale(PROVISIONAL_BUILDING_MULTIPLIERS.total)};
+});
+
 // Progression détaillée de l'équipement du Chef.
 // Chaque entrée représente un état réellement sélectionnable dans la jauge du jeu.
 const chiefGearProgression=[];
