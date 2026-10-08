@@ -211,3 +211,8 @@
 #home .coming-card .wip-ribbon svg{overflow:hidden}
 #home .coming-card::after{content:"";display:block;position:absolute;inset:-2px;z-index:3;border:2px solid #21c8ef;border-radius:inherit;pointer-events:none}
 #home .coming-card .wip-ribbon span{left:19.5%;top:50%;transform:translate(-50%,-50%) rotate(var(--wip-angle,-45deg));-webkit-text-stroke:2px #172033;paint-order:stroke fill;text-shadow:0 1px 0 #172033}
+
+/* Cover the card edge at both cloth ends; remove the inherited decorative square. */
+#home .coming-card::after{display:none}
+#home .coming-card .wip-ribbon{inset:-3px;z-index:3}
+#home .coming-card .wip-ribbon span{font-family:var(--site-font);font-weight:400;font-synthesis:none}
