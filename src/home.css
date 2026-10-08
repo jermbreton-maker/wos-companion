@@ -172,3 +172,14 @@
 }
 @media(prefers-reduced-motion:reduce){#home .module-card{transition:none}}
 
+
+/* Le texte communautaire occupe le bas de l'accueil, sous les boutons. */
+#home .home-shell{
+  display:flex;
+  flex-direction:column;
+  min-height:calc(100svh - 76px - clamp(16px,2.7vh,30px) - clamp(18px,2.8vh,32px));
+}
+#home .disclaimer{
+  margin-top:auto;
+  padding-top:clamp(18px,3vh,30px);
+}
