@@ -201,7 +201,7 @@ function showSublevelZoom(track){
     button.removeAttribute('value');
     button.removeAttribute('data-level');
     button.classList.remove('preview-filled','preview-target');
-    button.textContent=index+1;
+    button.textContent='';
     button.setAttribute('aria-pressed',String(original.classList.contains('active')));
     button.onclick=()=>{
       if(original.disabled)return;
@@ -212,6 +212,49 @@ function showSublevelZoom(track){
     };
     bar.append(button);
   });
+
+  const buttons=[...bar.children];
+  let dragPointer=null,previewIndex=-1;
+  const previewAt=event=>{
+    const hit=document.elementFromPoint(event.clientX,event.clientY)?.closest('.picker-substep');
+    previewIndex=buttons.indexOf(hit);
+    if(previewIndex<0||hit.disabled)previewIndex=-1;
+    buttons.forEach((button,index)=>{
+      button.classList.toggle('filled',previewIndex<0?originals[index].classList.contains('filled'):index<=previewIndex&&!button.disabled);
+      button.classList.toggle('active',previewIndex<0?originals[index].classList.contains('active'):index===previewIndex);
+    });
+  };
+  bar.addEventListener('pointerdown',event=>{
+    if(event.pointerType==='mouse'||event.button!==0||dragPointer!==null)return;
+    event.preventDefault();
+    dragPointer=event.pointerId;
+    bar.setPointerCapture(dragPointer);
+    previewAt(event);
+  });
+  bar.addEventListener('pointermove',event=>{
+    if(event.pointerId!==dragPointer)return;
+    event.preventDefault();
+    previewAt(event);
+  });
+  bar.addEventListener('pointerup',event=>{
+    if(event.pointerId!==dragPointer)return;
+    event.preventDefault();
+    previewAt(event);
+    const selected=previewIndex;
+    dragPointer=null;
+    bar.releasePointerCapture(event.pointerId);
+    if(selected>=0)buttons[selected].click();
+  });
+  bar.addEventListener('pointercancel',event=>{
+    if(event.pointerId!==dragPointer)return;
+    dragPointer=null;
+    previewIndex=-1;
+    buttons.forEach((button,index)=>{
+      button.classList.toggle('filled',originals[index].classList.contains('filled'));
+      button.classList.toggle('active',originals[index].classList.contains('active'));
+    });
+  });
+
   sublevelZoom.append(bar);
   if(!$('#levelPicker').open)lockLevelPickerBackground();
   sublevelZoom.showModal();
