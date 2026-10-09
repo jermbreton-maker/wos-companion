@@ -66,7 +66,7 @@ const furnaceVisualAssets={
 };
 function furnaceVisual(level){
   const baseId=level.id.replace(/-\d+$/,'');
-  const asset=furnaceVisualAssets[level.id]||furnaceVisualAssets[baseId]||(level.id.startsWith('30-')?furnaceVisualAssets.FC1:null);
+  const asset=furnaceVisualAssets[level.id]||furnaceVisualAssets[baseId]||(level.id.startsWith('30-')?furnaceVisualAssets['Niv. 30']:null);
   return asset
     ? `<img src="assets/visuals/furnaces/${asset}?v=20261009-furnace-assets-level16-fit-v1" alt="Chaudière ${level.id}" draggable="false">`
     : '<span class="furnace-placeholder" aria-hidden="true"><span class="furnace-placeholder-stack"></span><span class="furnace-placeholder-door">🔥</span></span>';
@@ -125,7 +125,7 @@ function openFurnacePicker(direction){
       const bar=document.createElement('em');bar.className='picker-substeps';bar.setAttribute('aria-label','Sous-niveaux de '+group.parts.base);
       group.items.slice(1).forEach(item=>{
         const sub=document.createElement('button');sub.type='button';
-        sub.className='picker-substep '+(item.index<=state[direction]?'filled ':'')+(item.index===state[direction]?'active':'');
+        sub.className='picker-substep '+(active&&item.index<=state[direction]?'filled ':'')+(item.index===state[direction]?'active':'');
         sub.disabled=direction==='to'&&item.index<state.from;
         sub.dataset.level=String(item.index);
         sub.setAttribute('aria-label',item.level.id);
