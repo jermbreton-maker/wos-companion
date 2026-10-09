@@ -97,7 +97,13 @@
 
 
 /* Toggles Chaudière : même palette que les sélecteurs Équipement et Talismans. */
-#furnace .furnace-scope-toggles{width:max-content;max-width:calc(100% - 24px);margin:18px auto 0;padding:9px 13px;border:1px solid rgba(131,203,240,.42);border-radius:11px;background:rgba(22,71,111,.88);box-shadow:inset 0 1px rgba(255,255,255,.12),0 5px 14px rgba(1,22,48,.22)}
+
+
+/* Alignement du groupe de toggles sur la colonne de contenu. */
+#furnace .furnace-scope-toggles{margin:18px 0 0 max(0px,calc((100% - 900px)/2))}
+@media(max-width:600px){#furnace .furnace-scope-toggles{margin:14px 0 0}}
+#furnace .furnace-scope-toggles{margin:18px 0 0 max(0px,calc((100% - 900px)/2))!important}
+@media(max-width:600px){#furnace .furnace-scope-toggles{margin:14px 0 0!important}}#furnace .furnace-scope-toggles{width:max-content;max-width:calc(100% - 24px);margin:18px auto 0;padding:9px 13px;border:1px solid rgba(131,203,240,.42);border-radius:11px;background:rgba(22,71,111,.88);box-shadow:inset 0 1px rgba(255,255,255,.12),0 5px 14px rgba(1,22,48,.22)}
 #furnace .furnace-scope-toggle{width:auto;max-width:100%;margin:0;padding:0;background:transparent;border:0;border-radius:0}
 #furnace .furnace-scope-toggle+.furnace-scope-toggle{border-top:0}
 @media(max-width:600px){#furnace .furnace-scope-toggles{margin-top:14px;padding:9px 13px}#furnace .furnace-scope-toggle{padding:0}}
