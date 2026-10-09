@@ -1,11 +1,11 @@
 /* Chaudière uniquement : les pages verrouillées ne sont pas concernées. */
 #furnace .furnace-comparison{display:grid;grid-template-columns:minmax(0,1fr) 40px minmax(0,1fr);align-items:center;gap:18px;width:100%;max-width:900px;min-height:590px;margin:18px auto 0;padding:38px 40px;border-radius:30px;background:radial-gradient(ellipse at 50% 46%,rgba(142,229,255,.38),rgba(79,180,222,.22) 42%,transparent 78%),rgba(8,43,79,.38)}
-#furnace .furnace-pick{display:grid;grid-template-rows:auto 1fr auto;justify-items:center;gap:16px;min-width:0;width:100%;height:100%;min-height:500px;padding:12px;border:0;background:transparent;color:#fff;cursor:pointer;border-radius:20px}
+#furnace .furnace-pick{display:grid;grid-template-rows:auto minmax(0,1fr) auto;justify-items:center;gap:16px;min-width:0;width:100%;height:100%;min-height:500px;padding:12px 12px 6px;border:0;background:transparent;color:#fff;cursor:pointer;border-radius:20px}
 #furnace .furnace-pick:hover{background:rgba(156,223,255,.08)}
 #furnace .furnace-pick:focus-visible{outline:3px solid #ffe36f;outline-offset:3px}
 #furnace .furnace-pick small{font-size:15px;letter-spacing:.1em;color:#c9edff}
 #furnace .furnace-pick strong{font-size:24px}
-#furnace .furnace-pick strong{display:grid;justify-items:center;gap:6px}
+#furnace .furnace-pick strong{display:grid;justify-items:center;align-self:end;gap:6px}
 /* Même barre de sous-niveaux que les Talismans/Équipement : brun vide,
    vert pour les étapes déjà franchies. */
 #furnace .furnace-progress,
@@ -15,7 +15,7 @@
 #furnacePicker .furnace-picker-substep{flex:1;min-width:0;border:0;border-radius:2px;background:linear-gradient(180deg,#9b713d 0,#875d30 52%,#70451f 100%);box-shadow:inset 0 1px rgba(224,169,90,.38),inset 0 -1px rgba(69,35,13,.32)}
 #furnace .furnace-progress>span.filled,
 #furnacePicker .furnace-picker-substep.filled{background:linear-gradient(180deg,#8ed14b 0,#65b637 58%,#4c942b 100%);box-shadow:inset 0 1px rgba(205,246,126,.58),inset 0 -1px rgba(47,105,24,.28),0 0 4px rgba(113,205,61,.42)}
-#furnace .furnace-visual{display:grid;place-items:center;width:100%;height:410px}
+#furnace .furnace-visual{display:grid;place-items:center;align-self:center;width:100%;height:410px}
 #furnace .furnace-visual img{display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 8px 7px rgba(1,22,48,.35))}
 #furnace .furnace-comparison-arrow{font-size:48px;text-align:center;color:#e9fbff;text-shadow:0 2px 5px #103b61}
 #furnace .furnace-scope-toggles{display:flex;flex-direction:column;align-items:flex-start;gap:10px;margin:18px 0 0}
@@ -57,7 +57,7 @@
 #furnacePicker .furnace-placeholder-door{font-size:18px}
 @media(max-width:600px){
  #furnace .furnace-comparison{grid-template-columns:minmax(0,1fr) 20px minmax(0,1fr);gap:4px;min-height:470px;padding:28px 8px;border-radius:24px}
- #furnace .furnace-pick{min-height:400px;padding:6px;gap:12px}
+ #furnace .furnace-pick{min-height:400px;padding:6px 6px 3px;gap:12px}
  #furnace .furnace-visual{height:300px}
  #furnace .furnace-pick small{font-size:12px}
  #furnace .furnace-pick strong{font-size:19px}
