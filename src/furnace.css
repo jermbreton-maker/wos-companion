@@ -1,11 +1,11 @@
 /* Chaudière uniquement : les pages verrouillées ne sont pas concernées. */
 #furnace{background:linear-gradient(180deg,#184d7d 0,#236b9b 38%,#16476f 100%)}
-#furnace .furnace-comparison{position:relative;isolation:isolate;display:grid;grid-template-columns:minmax(0,1fr) 40px minmax(0,1fr);align-items:center;gap:12px;width:100%;max-width:900px;min-height:500px;margin:18px auto 0;padding:26px 32px;border-radius:30px;background:rgba(8,43,79,.38);overflow:hidden}
+#furnace .furnace-comparison{position:relative;isolation:isolate;display:grid;grid-template-columns:minmax(0,1fr) 40px minmax(0,1fr);align-items:center;gap:12px;width:100%;max-width:900px;height:clamp(390px,calc(100dvh - 250px),500px);min-height:0;margin:18px auto 0;padding:26px 32px;border-radius:30px;background:rgba(8,43,79,.38);overflow:hidden}
 #furnace .furnace-comparison::before,#furnace .furnace-comparison::after{content:"";position:absolute;z-index:0;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(235,252,255,.56) 0,rgba(112,217,255,.34) 36%,rgba(72,166,221,.12) 57%,transparent 72%);filter:blur(7px);pointer-events:none}
 #furnace .furnace-comparison::before{left:5%;top:50%;transform:translateY(-50%)}
 #furnace .furnace-comparison::after{right:5%;top:50%;transform:translateY(-50%)}
 #furnace .furnace-comparison>*{position:relative;z-index:1}
-#furnace .furnace-pick{display:grid;grid-template-rows:auto 1fr auto;justify-items:center;gap:12px;min-width:0;width:100%;height:100%;min-height:420px;padding:8px;border:0;background:transparent;color:#fff;cursor:pointer;border-radius:20px}
+#furnace .furnace-pick{display:grid;grid-template-rows:auto minmax(0,1fr) auto;justify-items:center;gap:12px;min-width:0;width:100%;height:100%;min-height:0;padding:8px;border:0;background:transparent;color:#fff;cursor:pointer;border-radius:20px}
 #furnace .furnace-pick:hover{background:rgba(156,223,255,.08)}
 #furnace .furnace-pick:focus-visible{outline:3px solid #ffe36f;outline-offset:3px}
 #furnace .furnace-pick small{font-size:15px;letter-spacing:.1em;color:#c9edff}
@@ -17,8 +17,8 @@
 #furnace .furnace-progress{width:68px}
 #furnace .furnace-progress>span{flex:1;min-width:0;border:0;border-radius:2px;background:linear-gradient(180deg,#9b713d 0,#875d30 52%,#70451f 100%);box-shadow:inset 0 1px rgba(224,169,90,.38),inset 0 -1px rgba(69,35,13,.32)}
 #furnace .furnace-progress>span.filled{background:linear-gradient(180deg,#8ed14b 0,#65b637 58%,#4c942b 100%);box-shadow:inset 0 1px rgba(205,246,126,.58),inset 0 -1px rgba(47,105,24,.28),0 0 4px rgba(113,205,61,.42)}
-#furnace .furnace-visual{display:grid;place-items:center;width:100%;height:340px}
-#furnace .furnace-visual img{display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 8px 7px rgba(1,22,48,.35))}
+#furnace .furnace-visual{display:grid;place-items:center;align-self:stretch;width:100%;min-height:0;height:auto}
+#furnace .furnace-visual img{display:block;width:100%;height:100%;max-height:100%;object-fit:contain;filter:drop-shadow(0 8px 7px rgba(1,22,48,.35))}
 #furnace .furnace-comparison-arrow{font-size:48px;text-align:center;color:#e9fbff;text-shadow:0 2px 5px #103b61}
 #furnace .furnace-scope-toggles{display:flex;flex-direction:column;align-items:stretch;gap:0;width:100%;max-width:900px;margin:18px auto 0;padding:8px 16px;border:1px solid rgba(131,203,240,.46);border-radius:18px;background:rgba(8,43,79,.88);box-shadow:inset 0 1px rgba(255,255,255,.16),0 10px 24px rgba(1,22,48,.24)}
 #furnace .furnace-scope-toggle{margin:0;width:100%;max-width:100%;color:#fff;background:transparent;border:0;border-radius:0;padding:10px 2px}
@@ -64,7 +64,7 @@
 #furnacePicker .furnace-placeholder-stack,#furnacePicker .furnace-placeholder-door{border-width:2px}
 #furnacePicker .furnace-placeholder-door{font-size:18px}
 @media(max-width:600px){
- #furnace .furnace-comparison{grid-template-columns:minmax(0,1fr) 20px minmax(0,1fr);gap:4px;min-height:400px;padding:20px 8px;border-radius:24px}
+ #furnace .furnace-comparison{grid-template-columns:minmax(0,1fr) 20px minmax(0,1fr);gap:4px;height:auto;min-height:400px;padding:20px 8px;border-radius:24px}
  #furnace .furnace-comparison::before,#furnace .furnace-comparison::after{width:230px;height:260px;filter:blur(5px)}
  #furnace .furnace-comparison::before{left:-18%}
  #furnace .furnace-comparison::after{right:-18%}
