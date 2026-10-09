@@ -1,11 +1,6 @@
 window.COMPANION_DATA={
-  version:"v1-review-2026-08-27",
-  furnace:[
-    {id:"FC5",fc:0,rfc:0,food:0,wood:0,coal:0,iron:0,time:0},{id:"FC5-1",fc:90,rfc:0,food:120,wood:120,coal:24,iron:6,time:10},{id:"FC5-2",fc:90,rfc:0,food:125,wood:125,coal:25,iron:6,time:11},{id:"FC5-3",fc:110,rfc:0,food:130,wood:130,coal:26,iron:7,time:12},{id:"FC5-4",fc:110,rfc:0,food:135,wood:135,coal:27,iron:7,time:13},
-    {id:"FC6",fc:140,rfc:0,food:150,wood:150,coal:30,iron:8,time:15},{id:"FC6-1",fc:160,rfc:0,food:160,wood:160,coal:32,iron:8,time:16},{id:"FC6-2",fc:160,rfc:0,food:170,wood:170,coal:34,iron:9,time:17},{id:"FC6-3",fc:180,rfc:0,food:180,wood:180,coal:36,iron:9,time:18},{id:"FC6-4",fc:180,rfc:0,food:190,wood:190,coal:38,iron:10,time:19},
-    {id:"FC7",fc:220,rfc:10,food:210,wood:210,coal:42,iron:11,time:22},{id:"FC7-1",fc:240,rfc:12,food:225,wood:225,coal:45,iron:12,time:23},{id:"FC7-2",fc:240,rfc:12,food:240,wood:240,coal:48,iron:12,time:24},{id:"FC7-3",fc:260,rfc:15,food:255,wood:255,coal:51,iron:13,time:26},{id:"FC7-4",fc:260,rfc:15,food:270,wood:270,coal:54,iron:14,time:28},
-    {id:"FC8",fc:300,rfc:20,food:300,wood:300,coal:60,iron:15,time:32},{id:"FC8-1",fc:330,rfc:22,food:320,wood:320,coal:64,iron:16,time:34},{id:"FC8-2",fc:330,rfc:22,food:340,wood:340,coal:68,iron:17,time:36},{id:"FC8-3",fc:360,rfc:25,food:360,wood:360,coal:72,iron:18,time:38},{id:"FC8-4",fc:360,rfc:25,food:380,wood:380,coal:76,iron:19,time:40},{id:"FC9",fc:420,rfc:30,food:420,wood:420,coal:84,iron:21,time:45}
-  ],
+  version:"v2-furnace-source-audit-2026-10-09",
+  furnace:[],
   gearLevels:["Épique","Épique ★","Mythique","Mythique ★","Mythique ★★","Mythique ★★★","P1","P1 ★","P2","P2 ★","P3","P3 ★","P4","P4 ★","P5","P5 ★","P6"],
   gearStepCosts:[
     {alloy:120,polish:40,plans:0,amber:0},{alloy:180,polish:60,plans:0,amber:0},{alloy:260,polish:90,plans:20,amber:0},{alloy:360,polish:130,plans:30,amber:0},{alloy:480,polish:180,plans:45,amber:0},{alloy:620,polish:240,plans:60,amber:0},{alloy:800,polish:320,plans:85,amber:0},{alloy:1000,polish:420,plans:110,amber:0},{alloy:1300,polish:540,plans:145,amber:10},{alloy:1650,polish:690,plans:190,amber:15},{alloy:2100,polish:880,plans:250,amber:20},{alloy:2650,polish:1100,plans:320,amber:25},{alloy:3300,polish:1400,plans:410,amber:35},{alloy:4100,polish:1750,plans:520,amber:45},{alloy:5100,polish:2200,plans:660,amber:60},{alloy:6400,polish:2750,plans:840,amber:80}
@@ -18,11 +13,30 @@ window.COMPANION_DATA={
   ]
 };
 
-// Progression pré-FC V1, isolée pour faciliter l'audit et le remplacement des coûts.
-const normalFurnace=Array.from({length:30},(_,index)=>{const level=index+1,scale=Math.pow(level,2.18);return{id:`Niv. ${level}`,fc:0,rfc:0,food:Math.round(scale*.72)/10,wood:Math.round(scale*.72)/10,coal:Math.round(scale*.145)/10,iron:Math.round(scale*.036)/10,time:Math.max(0,Math.round(level*level*.015))}});
-const earlyFc=[{id:"FC1",fc:132,rfc:0,food:85,wood:85,coal:17,iron:4,time:8},{id:"FC2",fc:158,rfc:0,food:94,wood:94,coal:19,iron:5,time:9},{id:"FC3",fc:238,rfc:0,food:105,wood:105,coal:21,iron:5,time:10},{id:"FC4",fc:335,rfc:0,food:114,wood:114,coal:23,iron:6,time:11}];
-const fc10={id:"FC10",fc:600,rfc:60,food:600,wood:600,coal:120,iron:30,time:60};
-window.COMPANION_DATA.furnace=[...normalFurnace,...earlyFc,...window.COMPANION_DATA.furnace,fc10];
+// Table complète auditée le 09/10/2026 (WhiteoutData + H5Joy). Les ressources sont en millions et le temps en jours.
+const furnaceLevel=(id,food,wood,coal,iron,time,fc=0,rfc=0)=>({id,fc,rfc,food,wood,coal,iron,time});
+const normalFurnace=[
+  furnaceLevel('Niv. 1',0,0,0,0,0),furnaceLevel('Niv. 2',0,.00018,0,0,6/86400),furnaceLevel('Niv. 3',0,.000805,0,0,1/1440),furnaceLevel('Niv. 4',0,.0018,.00036,0,3/1440),furnaceLevel('Niv. 5',0,.0076,.0015,0,10/1440),
+  furnaceLevel('Niv. 6',0,.019,.0038,.00096,.5/24),furnaceLevel('Niv. 7',0,.069,.013,.0034,1/24),furnaceLevel('Niv. 8',0,.12,.025,.0063,2.5/24),furnaceLevel('Niv. 9',0,.26,.052,.013,4.5/24),furnaceLevel('Niv. 10',0,.46,.092,.023,6/24),
+  furnaceLevel('Niv. 11',1.3,1.3,.26,.065,7.5/24),furnaceLevel('Niv. 12',1.6,1.6,.33,.084,9/24),furnaceLevel('Niv. 13',2.3,2.3,.47,.11,11/24),furnaceLevel('Niv. 14',3.1,3.1,.63,.15,14/24),furnaceLevel('Niv. 15',4.6,4.6,.93,.23,18/24),
+  furnaceLevel('Niv. 16',5.9,5.9,1.1,.29,1+6/24+28/1440),furnaceLevel('Niv. 17',9.3,9.3,1.8,.48,1+12/24+34/1440),furnaceLevel('Niv. 18',12,12,2.5,.62,1+19/24+53/1440),furnaceLevel('Niv. 19',15,15,3.1,.78,2+17/24+50/1440),furnaceLevel('Niv. 20',21,21,4.3,1,3+10/24+18/1440),
+  furnaceLevel('Niv. 21',27,27,5.4,1.3,4+10/24+59/1440),furnaceLevel('Niv. 22',36,36,7.2,1.8,6+16/24+29/1440),furnaceLevel('Niv. 23',44,44,8.9,2.2,9+8/24+40/1440),furnaceLevel('Niv. 24',60,60,12,3,13+2/24+33/1440),furnaceLevel('Niv. 25',81,81,16,4,18+8/24+22/1440),
+  furnaceLevel('Niv. 26',100,100,21,5.2,21+2/24+26/1440),furnaceLevel('Niv. 27',140,140,24,7.4,25+7/24+43/1440),furnaceLevel('Niv. 28',190,190,39,9.9,29+2/24+52/1440),furnaceLevel('Niv. 29',240,240,49,12,33+11/24+42/1440),furnaceLevel('Niv. 30',300,300,60,15,40+4/24+27/1440)
+];
+const repeatFurnaceLevels=(ids,values)=>ids.map(id=>furnaceLevel(id,...values));
+const fireCrystalFurnace=[
+  ...repeatFurnaceLevels(['30-1','30-2','30-3','30-4','FC1'],[67,67,13,3.3,7,132,0]),
+  ...repeatFurnaceLevels(['FC1-1','FC1-2','FC1-3','FC1-4','FC2'],[72,72,14,3.6,9,158,0]),
+  ...repeatFurnaceLevels(['FC2-1','FC2-2','FC2-3','FC2-4','FC3'],[79,79,15,3.9,11,238,0]),
+  ...repeatFurnaceLevels(['FC3-1','FC3-2','FC3-3','FC3-4','FC4'],[82,82,16,4.1,12,280,0]),
+  ...repeatFurnaceLevels(['FC4-1','FC4-2','FC4-3','FC4-4','FC5'],[84,84,16,4.2,14,335,0]),
+  ...repeatFurnaceLevels(['FC5-1','FC5-2','FC5-3','FC5-4'],[96,96,19,4.8,15,200,10]),furnaceLevel('FC6',96,96,19,4.8,15,100,20),
+  ...repeatFurnaceLevels(['FC6-1','FC6-2','FC6-3','FC6-4'],[100,100,21,5.4,18,240,15]),furnaceLevel('FC7',100,100,21,5.4,18,120,30),
+  ...repeatFurnaceLevels(['FC7-1','FC7-2','FC7-3','FC7-4'],[130,130,26,6.6,20,240,20]),furnaceLevel('FC8',130,130,26,6.6,20,120,40),
+  ...repeatFurnaceLevels(['FC8-1','FC8-2','FC8-3','FC8-4'],[140,140,29,7.2,13,280,30]),furnaceLevel('FC9',140,140,29,7.2,13,140,60),
+  ...repeatFurnaceLevels(['FC9-1','FC9-2','FC9-3','FC9-4'],[160,160,33,8.4,20,350,70]),furnaceLevel('FC10',160,160,33,8.4,20,175,140)
+];
+window.COMPANION_DATA.furnace=[...normalFurnace,...fireCrystalFurnace];
 
 // Première base de calcul des bâtiments FC. Les valeurs détaillées seront
 // auditées et remplacées par le tableau final lors de la passe de vérification.
