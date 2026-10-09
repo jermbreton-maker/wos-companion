@@ -61,12 +61,12 @@ function sumFurnaceBuildings(a,b,scope){const out={fc:0,rfc:0,food:0,wood:0,coal
 const furnaceVisualAssets={
   'Niv. 1':'base/furnace-level-01.png','Niv. 2':'base/furnace-level-02.png','Niv. 3':'base/furnace-level-03.png','Niv. 4':'base/furnace-level-04.png','Niv. 5':'base/furnace-level-04.png','Niv. 6':'base/furnace-level-04.png',
   'Niv. 7':'base/furnace-level-09.png','Niv. 8':'base/furnace-level-09.png','Niv. 9':'base/furnace-level-09.png','Niv. 10':'base/furnace-level-10.png','Niv. 11':'base/furnace-level-10.png','Niv. 12':'base/furnace-level-10.png','Niv. 13':'base/furnace-level-15.png','Niv. 14':'base/furnace-level-15.png','Niv. 15':'base/furnace-level-15.png','Niv. 16':'base/furnace-level-16.png','Niv. 17':'base/furnace-level-16.png','Niv. 18':'base/furnace-level-16.png','Niv. 19':'base/furnace-level-19.png','Niv. 20':'base/furnace-level-19.png','Niv. 21':'base/furnace-level-19.png','Niv. 22':'base/furnace-level-19.png','Niv. 23':'base/furnace-level-25.png','Niv. 24':'base/furnace-level-25.png','Niv. 25':'base/furnace-level-25.png','Niv. 26':'base/furnace-level-28.png','Niv. 27':'base/furnace-level-28.png','Niv. 28':'base/furnace-level-28.png','Niv. 29':'base/furnace-level-28.png','Niv. 30':'base/furnace-level-28.png',
-  FC1:'fc/furnace-FC01.png',FC2:'fc/furnace-FC02.png',FC3:'fc/furnace-FC03.png',FC5:'fc/furnace-FC05.png',FC7:'fc/furnace-FC07.png',FC8:'fc/furnace-FC08.png',FC9:'fc/furnace-FC09.png',FC10:'fc/furnace-FC10.png'
+  FC1:'fc/furnace-FC01.png',FC2:'fc/furnace-FC02.png',FC3:'fc/furnace-FC03.png',FC4:'fc/furnace-FC04.png',FC5:'fc/furnace-FC05.png',FC6:'fc/furnace-FC06.png',FC7:'fc/furnace-FC07.png',FC8:'fc/furnace-FC08.png',FC9:'fc/furnace-FC09.png',FC10:'fc/furnace-FC10.png'
 };
 function furnaceVisual(level){
   const asset=furnaceVisualAssets[level.id];
   return asset
-    ? `<img src="assets/visuals/furnaces/${asset}?v=20261009-furnace-level-assets-23-30-no-smoke-v2" alt="Chaudière ${level.id}" draggable="false">`
+    ? `<img src="assets/visuals/furnaces/${asset}?v=20261009-furnace-assets-fc4-fc6-no-smoke" alt="Chaudière ${level.id}" draggable="false">`
     : '<span class="furnace-placeholder" aria-hidden="true"><span class="furnace-placeholder-stack"></span><span class="furnace-placeholder-door">🔥</span></span>';
 }
 function furnaceLevelParts(level){
