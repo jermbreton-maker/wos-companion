@@ -58,9 +58,7 @@
 #furnacePicker .picker-substep.preview-target:not(:disabled),#furnacePicker .picker-substep.active{outline:2px solid #fff4a8;outline-offset:1px}
 #furnacePicker .picker-substep:hover:not(:disabled){background:linear-gradient(180deg,#b8eb67,#78c944);box-shadow:0 0 6px rgba(166,239,93,.72)}
 #furnacePicker .picker-substep:disabled{opacity:.28;cursor:not-allowed}
-#furnacePicker .furnace-choice-visual{display:grid;place-items:center;align-self:stretch;width:100%;min-height:0}
-
-
+#furnacePicker .furnace-choice-visual{display:grid;place-items:center;align-self:stretch;width:100%;min-height:0}#furnace .furnace-cost-grid .furnace-material.furnace-material-time img{width:92%!important;height:92%!important}
 /* Taille ajustée des ressources Chaudière. */
 #furnace .furnace-cost-grid .furnace-material img{width:96%!important;height:96%!important}
 #furnace .furnace-cost-grid .furnace-material-refined img{width:100%!important;height:100%!important}
