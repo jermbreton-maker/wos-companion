@@ -103,13 +103,10 @@
 
 
 /* Proportions relevées sur les icônes sources Whiteout Survival. */
-#furnace .furnace-material-fire img{width:66%!important;height:66%!important}
-#furnace .furnace-material-refined img{width:75%!important;height:75%!important}
-#furnace .furnace-material-food img{width:78%!important;height:78%!important}
-#furnace .furnace-material-wood img{width:72%!important;height:72%!important}
-#furnace .furnace-material-coal img{width:72%!important;height:72%!important}
-#furnace .furnace-material-iron img{width:68%!important;height:68%!important}
-#furnace .furnace-material-time img{width:66%!important;height:66%!important}#furnace .furnace-scope-toggles{margin:18px 0 0 max(0px,calc((100% - 900px)/2))}
+
+
+/* Même occupation que les ressources Équipement et Talismans. */
+#furnace .furnace-material img{width:92%!important;height:92%!important;object-fit:contain}#furnace .furnace-scope-toggles{margin:18px 0 0 max(0px,calc((100% - 900px)/2))}
 @media(max-width:600px){#furnace .furnace-scope-toggles{margin:14px 0 0}}
 #furnace .furnace-scope-toggles{margin:18px 0 0 max(0px,calc((100% - 900px)/2))!important}
 @media(max-width:600px){#furnace .furnace-scope-toggles{margin:14px 0 0!important}}#furnace .furnace-scope-toggles{width:max-content;max-width:calc(100% - 24px);margin:18px auto 0;padding:9px 13px;border:1px solid rgba(131,203,240,.42);border-radius:11px;background:rgba(22,71,111,.88);box-shadow:inset 0 1px rgba(255,255,255,.12),0 5px 14px rgba(1,22,48,.22)}
