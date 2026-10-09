@@ -117,19 +117,22 @@ function openFurnacePicker(direction){
     choice.onclick=()=>{state[direction]=main.index;if(state.to<state.from)state.to=state.from;renderFurnace();dialog.close()};
     card.append(choice);
     if(group.parts){
-      const bar=document.createElement('i');bar.className='furnace-picker-substeps';bar.setAttribute('aria-label','Sous-niveaux de '+group.parts.base);
+      const panel=document.createElement('span');panel.className='picker-substep-panel';
+      const bar=document.createElement('em');bar.className='picker-substeps';bar.setAttribute('aria-label','Sous-niveaux de '+group.parts.base);
       group.items.slice(1).forEach(item=>{
         const sub=document.createElement('button');sub.type='button';
-        sub.className='furnace-picker-substep '+(item.index<=state[direction]?'filled ':'')+(item.index===state[direction]?'active':'');
+        sub.className='picker-substep '+(item.index<=state[direction]?'filled ':'')+(item.index===state[direction]?'active':'');
         sub.disabled=direction==='to'&&item.index<state.from;
+        sub.dataset.level=String(item.index);
         sub.setAttribute('aria-label',item.level.id);
         sub.onclick=()=>{state[direction]=item.index;if(state.to<state.from)state.to=state.from;renderFurnace();dialog.close()};
         bar.append(sub);
       });
-      card.append(bar);
+      panel.append(bar);card.append(panel);
     }
     grid.append(card);
   });
+  grid.querySelectorAll('.picker-substeps').forEach(track=>{const steps=[...track.querySelectorAll('.picker-substep')];steps.forEach((step,index)=>step.onmouseenter=()=>{if(step.disabled)return;steps.forEach((item,itemIndex)=>{item.classList.toggle('preview-filled',itemIndex<=index&&!item.disabled);item.classList.toggle('preview-target',itemIndex===index)})});track.onmouseleave=()=>steps.forEach(item=>item.classList.remove('preview-filled','preview-target'))});
   lockLevelPickerBackground();dialog.showModal();
   const selected=grid.querySelector('.active');
   if(selected){selected.focus({preventScroll:true});selected.scrollIntoView({block:'nearest'})}
@@ -347,7 +350,7 @@ function showSublevelZoom(track){
 document.addEventListener('click',event=>{
   if(selectingZoomSublevel)return;
   if(!window.matchMedia('(max-width:600px)').matches)return;
-  const track=event.target.closest('#levelPicker .picker-substeps');
+  const track=event.target.closest('#levelPicker .picker-substeps,#furnacePicker .picker-substeps');
   if(track){
     event.preventDefault();
     event.stopImmediatePropagation();
