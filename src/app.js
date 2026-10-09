@@ -72,6 +72,7 @@ function furnaceVisual(level){
     : '<span class="furnace-placeholder" aria-hidden="true"><span class="furnace-placeholder-stack"></span><span class="furnace-placeholder-door">🔥</span></span>';
 }
 function furnaceLevelParts(level){
+  if(level.id==='Niv. 30')return D.furnace.some(item=>item.id.startsWith('30-'))?{base:'30',step:0,steps:D.furnace.filter(item=>item.id.startsWith('30-')).length}:null;
   const match=level.id.match(/^(FC\d+|30)(?:-(\d+))?$/);
   if(!match)return null;
   const prefix=match[1]+'-',steps=D.furnace.filter(item=>item.id.startsWith(prefix)).length;
