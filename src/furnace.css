@@ -59,6 +59,14 @@
 #furnacePicker .picker-substep:hover:not(:disabled){background:linear-gradient(180deg,#b8eb67,#78c944);box-shadow:0 0 6px rgba(166,239,93,.72)}
 #furnacePicker .picker-substep:disabled{opacity:.28;cursor:not-allowed}
 #furnacePicker .furnace-choice-visual{display:grid;place-items:center;align-self:stretch;width:100%;min-height:0}
+
+
+/* Responsive furnace card layout. */
+#furnace .furnace-pick{display:flex;flex-direction:column;align-items:center}
+#furnace .furnace-pick small,#furnace .furnace-pick strong{flex:0 0 auto}
+#furnace .furnace-visual{display:flex;flex:1 1 0;align-items:center;justify-content:center;min-width:0;min-height:0;height:auto}
+#furnace .furnace-visual img{min-width:0;min-height:0}
+@media(max-width:600px){#furnace .furnace-visual{height:auto}}
 #furnacePicker .furnace-choice-visual img{display:block;width:86%;height:86%;object-fit:contain}
 #furnacePicker .furnace-placeholder{border-width:2px;border-radius:16%}
 #furnacePicker .furnace-placeholder-stack,#furnacePicker .furnace-placeholder-door{border-width:2px}
@@ -86,6 +94,8 @@
  #furnacePicker h2{font-size:23px}
 }
 
+
+@media(max-width:600px){#furnace .furnace-visual{height:auto!important}}
 #furnace #furnaceResult{position:static;z-index:auto}
 
 #furnacePicker .furnace-picker-grid{flex:1 1 auto}
