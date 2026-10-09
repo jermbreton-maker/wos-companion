@@ -61,6 +61,11 @@
 #furnacePicker .furnace-choice-visual{display:grid;place-items:center;align-self:stretch;width:100%;min-height:0}
 
 
+/* Taille ajustée des ressources Chaudière. */
+#furnace .furnace-cost-grid .furnace-material img{width:96%!important;height:96%!important}
+#furnace .furnace-cost-grid .furnace-material-refined img{width:100%!important;height:100%!important}
+
+
 /* Responsive furnace card layout. */
 #furnace .furnace-pick{display:flex;flex-direction:column;align-items:center}
 #furnace .furnace-pick small,#furnace .furnace-pick strong{flex:0 0 auto}
