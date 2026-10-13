@@ -102,3 +102,11 @@
 
 /* Barre supérieure : navigation seule, sans logo. */
 .topbar .brand{display:none}
+
+/* Desktop : la navigation utilise exactement la colonne centrale du site.
+   Chaque page reçoit la même part de la barre, sans déborder dans les rails publicitaires. */
+@media(min-width:801px){
+  .topbar{gap:0}
+  .topbar nav{flex:1;min-width:0;margin-left:0}
+  .topbar nav button{flex:1;min-width:0;text-align:center;white-space:nowrap}
+}
