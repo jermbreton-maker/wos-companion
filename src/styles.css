@@ -113,3 +113,16 @@
   .topbar nav{gap:2px}
   .topbar nav button{font-size:clamp(11px,3.2vw,14px);padding-inline:1px;white-space:normal;line-height:1.05}
 }
+
+/* Toutes les fenêtres de sélection utilisent la fermeture validée sur Talismans. */
+#gearDialog,#levelPicker,#furnacePicker{position:relative}
+#gearDialog .dialog-close,#levelPicker .dialog-close,#furnacePicker .dialog-close{
+  position:absolute;
+  top:12px;
+  right:12px;
+  z-index:2;
+  color:#e9faff;
+  background:#0b2d4e;
+  border:1px solid #70c9e8;
+  box-shadow:0 4px 10px rgba(0,21,48,.34);
+}
