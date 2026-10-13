@@ -4,6 +4,10 @@
 
 
 
+
+
+
+
 /* Larger page-navigation labels, with compact spacing on narrow screens. */
 .topbar nav button{font-size:20px}
 @media(min-width:801px) and (max-width:1000px){
@@ -22,9 +26,25 @@
 
 
 
+
+
+
+
+
+
+
+
 /* Wordmark de la barre supérieure. */
 .brand-wordmark{display:block;width:124px;height:auto;max-height:46px;object-fit:contain}
 @media(max-width:800px){.brand-wordmark{width:104px;max-height:42px}}
+
+
+
+
+
+
+
+
 
 
 
@@ -45,6 +65,12 @@
 
 
 
+
+
+
+
+
+
 /* Arbre T11 : boîtiers et chemins anguleux de la référence. */
 #t11{--tech-line:#20cfff;--tech-glow:rgba(32,207,255,.75)}
 #t11:has(.troop-tabs [data-troop="infantry"].active){--tech-line:#57df79;--tech-glow:rgba(87,223,121,.72)}
@@ -59,16 +85,10 @@
 #t11 .tech-tree .tech-node b{margin:0;font-size:12px;line-height:1.05;color:#fff}
 #t11 .tech-tree .tech-node small{font-size:11px;line-height:1;color:#ffe7d4}
 #t11 .tech-tree .tech-node:nth-child(1){grid-area:n1}#t11 .tech-tree .tech-node:nth-child(2){grid-area:n2}#t11 .tech-tree .tech-node:nth-child(3){grid-area:n3}#t11 .tech-tree .tech-node:nth-child(4){grid-area:n4}#t11 .tech-tree .tech-node:nth-child(5){grid-area:n5}#t11 .tech-tree .tech-node:nth-child(6){grid-area:n6}#t11 .tech-tree .tech-node:nth-child(7){grid-area:n7}#t11 .tech-tree .tech-node:nth-child(8){grid-area:n8}#t11 .tech-tree .tech-node:nth-child(9){grid-area:n9}
-@media(max-width:600px){#t11 .tech-tree{grid-template-rows:repeat(6,minmax(78px,auto));gap:18px 6px;padding-inline:6px}#t11 .tech-tree .tech-node{min-height:78px;padding:7px 3px}#t11 .tech-tree .tech-node .node-orb{width:29px;height:29px;font-size:13px}#t11 .tech-tree .tech-node b{font-size:11px}#t11 .tech-tree .tech-node small{font-size:10px}}
 
-
-
-/* Barre de navigation : logo et libellés desktop renforcés, navigation à gauche du bandeau. */
+/* Ajustement compact du menu desktop : plus d'air après le logo, boutons resserrés. */
 @media(min-width:801px){
-  .topbar{height:86px;gap:20px}
-  .brand-wordmark{width:158px;max-height:58px}
-  .brandmark{width:48px;height:48px}
-  .topbar nav{margin-left:0;gap:10px}
-  .topbar nav button{font-size:22px;padding:12px 14px}
-  .language{margin-left:auto}
+  .topbar{gap:28px}
+  .topbar nav{gap:8px}
+  .topbar nav button{padding:10px 11px}
 }
