@@ -33,6 +33,10 @@
 #furnace .furnace-material-iron{border-color:#86c9f3;background:linear-gradient(145deg,#eafaff,#3995cf)}
 #furnace .furnace-material-time{border-color:#ffe38b;background:linear-gradient(145deg,#fff4b9,#bf711c)}
 #furnace .furnace-material img{display:block;width:88%;height:88%;object-fit:contain;filter:drop-shadow(0 5px 5px rgba(3,35,61,.32))}
+/* Palette unifiée des ressources Chaudière. */
+#furnace .furnace-material-food,#furnace .furnace-material-wood,#furnace .furnace-material-coal,#furnace .furnace-material-iron{border-color:#9eafc4;background:linear-gradient(145deg,#dce8f1,#52687e)}
+#furnace .furnace-material-refined{border-color:#f4a56e;background:linear-gradient(145deg,#ffe2ad,#a95724)}
+#furnace .furnace-material-time{border-color:#86c9f3;background:linear-gradient(145deg,#eafaff,#3995cf)}
 #furnace .furnace-stock-tools{max-width:900px;margin:24px auto;color:#d4efff}
 #furnace .furnace-stock-tools summary{cursor:pointer}
 #furnace .furnace-stock-tools #stockMode{margin-top:12px}
