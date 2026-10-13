@@ -2,6 +2,8 @@
 :root{--site-font:"Lilita One","Arial Rounded MT Bold",system-ui,sans-serif;--ink:#06162a;--navy:#0b2443;--ice:#74d7ff;--pale:#eaf9ff;--blue:#1976d2;--ember:#ff914d;--panel:rgba(249,253,255,.91);--muted:#617288;--line:#cfe5ef;--shadow:0 20px 55px rgba(2,20,42,.16)}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:var(--site-font);font-synthesis:style;color:var(--ink);background:linear-gradient(#e8f8ff 0,#f8fcff 55%,#dff2fb 100%);min-height:100vh}.topbar{height:76px;display:flex;align-items:center;gap:28px;padding:0 max(20px,calc((100vw - 1240px)/2));background:rgba(5,22,43,.94);color:#fff;position:sticky;top:0;z-index:20;backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.12)}button,select,input,textarea{font:inherit}.brand{display:flex;align-items:center;gap:10px;color:#fff;background:none;border:0;cursor:pointer;padding:0}.brandmark{display:grid;place-items:center;width:38px;height:38px;background:linear-gradient(145deg,#baf0ff,#238dd4);clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);font-weight:950;color:#082240}.brand b,.brand small{display:block;line-height:1;text-align:left;letter-spacing:.08em}.brand small{font-size:9px;color:#8edfff;margin-top:4px}.topbar nav{display:flex;gap:8px;margin-left:auto}.topbar nav button,.language select{border:1px solid transparent;background:transparent;color:#cce9f8;padding:10px 12px;border-radius:12px;cursor:pointer}.topbar nav button:hover{background:#173757;color:#fff}.language span{position:absolute;clip:rect(0 0 0 0)}.language select{border-color:#33516c}.view{display:none;max-width:1240px;margin:auto;padding:42px 22px 80px;position:relative}.view.active{display:block}.home{min-height:calc(100vh - 76px);padding-top:82px}.aurora{position:absolute;inset:0 -15vw auto;height:450px;z-index:-1;background:radial-gradient(ellipse at 25% 30%,rgba(63,222,223,.25),transparent 42%),radial-gradient(ellipse at 70% 0,rgba(76,120,255,.28),transparent 40%);filter:blur(18px)}.hero-copy{max-width:750px}.eyebrow{font-size:12px;font-weight:900;letter-spacing:.17em;color:#1484b6;margin:0 0 12px}.hero-copy h1,.se
 
 
+
+
 /* Larger page-navigation labels, with compact spacing on narrow screens. */
 .topbar nav button{font-size:20px}
 @media(min-width:801px) and (max-width:1000px){
@@ -16,9 +18,17 @@
 
 
 
+
+
+
+
 /* Wordmark de la barre supérieure. */
 .brand-wordmark{display:block;width:124px;height:auto;max-height:46px;object-fit:contain}
 @media(max-width:800px){.brand-wordmark{width:104px;max-height:42px}}
+
+
+
+
 
 
 
@@ -29,6 +39,9 @@
 #t11 .tech-tree .tech-node{position:relative;z-index:1;min-width:0;min-height:78px;align-self:center}
 #t11 .tech-tree .tech-node:nth-child(1){grid-area:n1}#t11 .tech-tree .tech-node:nth-child(2){grid-area:n2}#t11 .tech-tree .tech-node:nth-child(3){grid-area:n3}#t11 .tech-tree .tech-node:nth-child(4){grid-area:n4}#t11 .tech-tree .tech-node:nth-child(5){grid-area:n5}#t11 .tech-tree .tech-node:nth-child(6){grid-area:n6}#t11 .tech-tree .tech-node:nth-child(7){grid-area:n7}#t11 .tech-tree .tech-node:nth-child(8){grid-area:n8}#t11 .tech-tree .tech-node:nth-child(9){grid-area:n9}
 @media(max-width:600px){#t11 .tech-tree{grid-template-rows:repeat(6,minmax(76px,auto));gap:18px 6px;padding-inline:6px}#t11 .tech-tree .tech-node{min-height:76px;padding:7px 3px}#t11 .tech-tree .tech-node b{font-size:12px}#t11 .tech-tree .tech-node small{font-size:11px}}
+
+
+
 
 
 
@@ -47,3 +60,15 @@
 #t11 .tech-tree .tech-node small{font-size:11px;line-height:1;color:#ffe7d4}
 #t11 .tech-tree .tech-node:nth-child(1){grid-area:n1}#t11 .tech-tree .tech-node:nth-child(2){grid-area:n2}#t11 .tech-tree .tech-node:nth-child(3){grid-area:n3}#t11 .tech-tree .tech-node:nth-child(4){grid-area:n4}#t11 .tech-tree .tech-node:nth-child(5){grid-area:n5}#t11 .tech-tree .tech-node:nth-child(6){grid-area:n6}#t11 .tech-tree .tech-node:nth-child(7){grid-area:n7}#t11 .tech-tree .tech-node:nth-child(8){grid-area:n8}#t11 .tech-tree .tech-node:nth-child(9){grid-area:n9}
 @media(max-width:600px){#t11 .tech-tree{grid-template-rows:repeat(6,minmax(78px,auto));gap:18px 6px;padding-inline:6px}#t11 .tech-tree .tech-node{min-height:78px;padding:7px 3px}#t11 .tech-tree .tech-node .node-orb{width:29px;height:29px;font-size:13px}#t11 .tech-tree .tech-node b{font-size:11px}#t11 .tech-tree .tech-node small{font-size:10px}}
+
+
+
+/* Barre de navigation : logo et libellés desktop renforcés, navigation à gauche du bandeau. */
+@media(min-width:801px){
+  .topbar{height:86px;gap:20px}
+  .brand-wordmark{width:158px;max-height:58px}
+  .brandmark{width:48px;height:48px}
+  .topbar nav{margin-left:0;gap:10px}
+  .topbar nav button{font-size:22px;padding:12px 14px}
+  .language{margin-left:auto}
+}
