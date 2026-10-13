@@ -126,3 +126,19 @@
   border:1px solid #70c9e8;
   box-shadow:0 4px 10px rgba(0,21,48,.34);
 }
+
+/* Barre de navigation : séparateurs courts et bleus, inspirés du ruban de jeu. */
+.topbar{background:linear-gradient(180deg,rgba(20,56,94,.97),rgba(12,39,70,.97))}
+.topbar nav{gap:0}
+.topbar nav button{position:relative}
+.topbar nav button+button::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:20%;
+  width:2px;
+  height:60%;
+  border-radius:2px;
+  background:linear-gradient(90deg,rgba(4,23,48,.42),rgba(155,207,239,.35));
+  box-shadow:1px 0 rgba(255,255,255,.08);
+}
