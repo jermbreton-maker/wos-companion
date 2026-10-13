@@ -66,7 +66,7 @@
 /* Taille ajustée des ressources Chaudière. */
 #furnace .furnace-cost-grid .furnace-material img{width:96%!important;height:96%!important}
 #furnace .furnace-cost-grid .furnace-material-refined{overflow:hidden}
-#furnace .furnace-cost-grid .furnace-material-refined img{width:98%!important;height:98%!important;transform:scaleY(1.35)}
+#furnace .furnace-cost-grid .furnace-material-refined img{width:135%!important;height:135%!important}
 
 
 /* Responsive furnace card layout. */
