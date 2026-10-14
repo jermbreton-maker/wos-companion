@@ -6,22 +6,45 @@ window.COMPANION_DATA={
     {alloy:120,polish:40,plans:0,amber:0},{alloy:180,polish:60,plans:0,amber:0},{alloy:260,polish:90,plans:20,amber:0},{alloy:360,polish:130,plans:30,amber:0},{alloy:480,polish:180,plans:45,amber:0},{alloy:620,polish:240,plans:60,amber:0},{alloy:800,polish:320,plans:85,amber:0},{alloy:1000,polish:420,plans:110,amber:0},{alloy:1300,polish:540,plans:145,amber:10},{alloy:1650,polish:690,plans:190,amber:15},{alloy:2100,polish:880,plans:250,amber:20},{alloy:2650,polish:1100,plans:320,amber:25},{alloy:3300,polish:1400,plans:410,amber:35},{alloy:4100,polish:1750,plans:520,amber:45},{alloy:5100,polish:2200,plans:660,amber:60},{alloy:6400,polish:2750,plans:840,amber:80}
   ],
   gears:[{id:"helmet",name:"Casque",troop:"Lancier",icon:"⛑️"},{id:"coat",name:"Veste",troop:"Infanterie",icon:"🥋"},{id:"ring",name:"Bague",troop:"Tireur",icon:"💍"},{id:"watch",name:"Montre",troop:"Lancier",icon:"⌚"},{id:"pants",name:"Pantalon",troop:"Infanterie",icon:"👖"},{id:"cane",name:"Canne",troop:"Tireur",icon:"🦯"}],
-  /* Recherche T11 (même arbre pour les trois troupes). Légion de Feu : max 12 (vérifié en jeu). Autres valeurs de démonstration : max, coût par niveau (milliers d'acier)
-     et durée par niveau (jours) seront remplacés par les tables validées. {troop} = nom de la troupe au singulier. */
+  /* Recherche T11 (Académie de guerre). Même arbre pour les trois troupes, seuls certains noms changent.
+     Noms FR, niveaux max et prérequis : whiteoutsurvival.wiki/fr/research et wiki.wosforge.org/wiki/Helios (2026-10-14).
+     cost (milliers d'acier par niveau) et days (jours par niveau) restent des valeurs de démonstration.
+     {unit} = nom de la troupe ; atk/def = 2e rang gauche/droite, atk2/def2 = côtés gauche/droite. */
   t11:{
-    troops:{infantry:"Fantassin",lancer:"Lancier",marksman:"Tireur"},
+    units:{infantry:"Infanterie",lancer:"Lancier",marksman:"Tireur"},
+    names:{
+      infantry:{atk:"Frappe de Feu",def:"Bouclier de Feu",atk2:"Tomahawk de Feu",def2:"Protection de Feu"},
+      lancer:{atk:"Charge Embrasée",def:"Armure Embrasée",atk2:"Lance Embrasée",def2:"Gardien Embrasé"},
+      marksman:{atk:"Vision de Cristal",def:"Armure de Cristal",atk2:"Flèche de Cristal",def2:"Protection de Cristal"}
+    },
     nodes:[
-      {id:"squad",name:"Escouade de {troop}",max:10,cost:70,days:.6},
-      {id:"attack",name:"Attaque de {troop}",max:10,cost:85,days:.8},
-      {id:"defense",name:"Défense de {troop}",max:10,cost:85,days:.8},
+      {id:"squad",name:"Escouade de Feu",max:5,cost:70,days:.6},
+      {id:"atk",max:8,cost:85,days:.8},
+      {id:"def",max:8,cost:85,days:.8},
       {id:"legion",name:"Légion de Feu",max:12,cost:190,days:1.6},
-      {id:"lethality",name:"Létalité de {troop}",max:10,cost:120,days:1},
-      {id:"health",name:"Santé de {troop}",max:10,cost:120,days:1},
-      {id:"helios",name:"{troop} Hélios",max:1,cost:900,days:7},
-      {id:"heal",name:"{troop} de Soins Hélios",max:10,cost:160,days:1.4},
-      {id:"train",name:"Entraînement de {troop} Hélios",max:10,cost:160,days:1.4},
-      {id:"aid",name:"{troop} de Premiers Secours Hélios",max:10,cost:160,days:1.4}
-    ]
+      {id:"atk2",max:12,cost:120,days:1},
+      {id:"def2",max:12,cost:120,days:1},
+      {id:"helios",name:"{unit} Hélios",max:1,cost:900,days:7},
+      {id:"heal",name:"{unit} de Soins Hélios",max:10,cost:160,days:1.4},
+      {id:"train",name:"Entraînement de {unit} Hélios",max:10,cost:160,days:1.4},
+      {id:"aid",name:"{unit} de Premiers Secours Hélios",max:10,cost:160,days:1.4}
+    ],
+    /* Prérequis : recherche → niveau visé → niveaux actuels minimum d'autres recherches
+       (hors niveau de l'Académie de guerre, non suivi ici). */
+    requires:{
+      atk:{1:{squad:3},5:{squad:5}},
+      def:{1:{squad:3},5:{squad:5}},
+      legion:{1:{atk:6,def:6},7:{atk:7}},
+      atk2:{1:{atk:6},7:{atk:7},8:{atk:8}},
+      def2:{1:{def:6},7:{def:7},8:{def:8}},
+      helios:{1:{atk2:12,def2:12,legion:12}},
+      heal:{1:{helios:1}},train:{1:{helios:1}},aid:{1:{helios:1}}
+    },
+    /* Écarts propres à une troupe, d'après les pages du wiki. */
+    troopRequires:{
+      infantry:{atk:{4:{squad:4}},def:{4:{squad:4}},legion:{7:{def:7}}},
+      marksman:{legion:{7:{def:7}}}
+    }
   }
 };
 

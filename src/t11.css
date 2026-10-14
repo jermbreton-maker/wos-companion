@@ -30,6 +30,7 @@
 /* Liaisons lumineuses. */
 #t11 .t11-links{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
 #t11 .t11-links path{fill:none;stroke-linejoin:round;stroke-linecap:round;vector-effect:non-scaling-stroke}
+#t11 .t11-link-off path{stroke:rgba(28,8,8,.6);stroke-width:5px}
 #t11 .t11-link-glow path{stroke:var(--t11-glow);stroke-width:10px;filter:blur(3px)}
 #t11 .t11-link-core path{stroke:var(--t11-core);stroke-width:5px}
 #t11 .t11-link-light path{stroke:var(--t11-light);stroke-width:1.6px}
@@ -43,6 +44,8 @@
 #t11 .t11-badge{position:absolute;right:5%;bottom:3%;font-size:clamp(10px,4cqi,21px);line-height:1;color:#fff;-webkit-text-stroke:3px #2a1410;paint-order:stroke fill}
 #t11 .t11-target{position:absolute;top:-12%;right:-16%;padding:2px 5px;border-radius:8px;font-size:clamp(8px,2.7cqi,13px);line-height:1.1;color:#06233e;background:#8be4ff;box-shadow:0 2px 4px rgba(4,24,48,.5),0 0 8px rgba(139,228,255,.8)}
 #t11 .t11-node.planned{border-color:var(--t11-rim-on);box-shadow:0 0 0 3px var(--t11-rim-on-dark),0 0 18px 5px var(--t11-halo-on),inset 0 0 12px rgba(60,6,6,.45)}
+/* Recherche verrouillée (prérequis non remplis) : éteinte, sans halo. */
+#t11 .t11-node.locked{border-color:#8d7b78;box-shadow:0 0 0 3px #3b2a28,inset 0 0 12px rgba(30,4,4,.5);filter:grayscale(.7) brightness(.6)}
 #t11 .t11-label{position:absolute;z-index:1;width:34%;transform:translateX(-50%);text-align:center;font-size:clamp(10px,3.4cqi,17px);line-height:1.15;color:#fff3e6;-webkit-text-stroke:3px #3a1712;paint-order:stroke fill;pointer-events:none}
 
 /* Coût de recherche : mêmes cases que la page Chaudière. */
@@ -80,6 +83,11 @@
 #t11Picker .t11-max{padding:5px 14px;border-radius:10px;font-size:13px}
 #t11Picker button:disabled{opacity:.4;cursor:default}
 #t11Picker .t11-stepper-arrow{font-size:30px;color:#c09090}
+#t11Picker .t11-reqs{display:grid;gap:4px;margin:0;padding:10px 12px;border-radius:12px;background:#efd6d4;font-size:14px}
+#t11Picker .t11-reqs[hidden]{display:none}
+#t11Picker .t11-reqs small{font-size:12px;letter-spacing:.08em;color:#a84e4e}
+#t11Picker .t11-reqs .ok{color:#3f7a3a}
+#t11Picker .t11-reqs .missing{color:#a83a32}
 #t11Picker .t11-apply{justify-self:center;margin-top:2px;padding:11px 34px;border:0;border-radius:14px;color:#fff;background:linear-gradient(180deg,#b5603d,#8c4129);font:inherit;font-size:17px;cursor:pointer;box-shadow:0 4px 0 #6a2e1d}
 
 @media(max-width:600px){
@@ -88,6 +96,7 @@
   #t11 .section-head p{font-size:14px}
   #t11 .t11-board{padding:14px 8px 20px;border-radius:22px}
   #t11 .t11-node{border-width:2px;box-shadow:0 0 0 2px var(--t11-rim-dark),0 0 10px 2px var(--t11-halo),inset 0 0 10px rgba(60,6,6,.45)}
+  #t11 .t11-node.locked{box-shadow:0 0 0 2px #3b2a28,inset 0 0 10px rgba(30,4,4,.5)}
   #t11 .t11-node.planned{box-shadow:0 0 0 2px var(--t11-rim-on-dark),0 0 12px 3px var(--t11-halo-on),inset 0 0 10px rgba(60,6,6,.45)}
   #t11 .t11-badge{-webkit-text-stroke:2px #2a1410}
   #t11 .t11-label{-webkit-text-stroke:2px #3a1712}
