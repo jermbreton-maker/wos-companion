@@ -197,7 +197,8 @@
 #home .coming-card::before{border-radius:inherit}
 
 /* Tampon encreur circulaire, légèrement de biais, apposé sur le bouton (rouge des casques T11/T12).
-   Son centre se place à gauche du titre (centré à 2/3 de la carte) pour en recouvrir environ le premier quart. */
-#home .coming-card .wip-stamp{position:absolute;left:calc(66.7% - 91px);top:50%;z-index:2;height:calc(100% + 12px);aspect-ratio:1;color:#cf3e47;opacity:.93;transform:translate(-50%,-50%) rotate(-14deg);pointer-events:none;filter:drop-shadow(0 1px 0 rgba(120,22,30,.35))}
+   Ordinateur : à gauche, déborde de 12 px en haut/bas (espace entre cartes : 18 px) et de 8 px à gauche (26 px).
+   Mobile : centré à gauche du titre (lui-même centré à 2/3 de la carte), dont il recouvre le début. */
+#home .coming-card .wip-stamp{position:absolute;left:54px;top:50%;z-index:2;height:calc(100% + 24px);aspect-ratio:1;color:#cf3e47;opacity:.93;transform:translate(-50%,-50%) rotate(-14deg);pointer-events:none;filter:drop-shadow(0 1px 0 rgba(120,22,30,.35))}
 #home .coming-card .wip-stamp svg{display:block;width:100%;height:100%;overflow:visible;font-family:var(--site-font)}
-@media(max-width:600px){#home .coming-card .wip-stamp{left:calc(66.7% - 9.4vw - 23px);height:100%}}
+@media(max-width:600px){#home .coming-card .wip-stamp{left:calc(66.7% - 9.4vw - 31px);height:100%}}
