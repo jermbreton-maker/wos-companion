@@ -48,6 +48,13 @@
 #t11 .t11-node.locked{border-color:#8d7b78;box-shadow:0 0 0 3px #3b2a28,inset 0 0 12px rgba(30,4,4,.5);filter:grayscale(.7) brightness(.6)}
 #t11 .t11-label{position:absolute;z-index:1;width:34%;transform:translateX(-50%);text-align:center;font-size:clamp(10px,3.4cqi,17px);line-height:1.15;color:#fff3e6;-webkit-text-stroke:3px #3a1712;paint-order:stroke fill;pointer-events:none}
 
+/* Interrupteur « Remettre à zéro » : même composant que les autres pages, en tons bruns. */
+#t11 .t11-actions{max-width:900px;margin:-8px auto 18px}
+#t11 .t11-actions .charm-bulk-select{margin:0;border-color:rgba(240,170,120,.42);background:rgba(42,14,12,.72);box-shadow:inset 0 1px rgba(255,220,190,.12),0 5px 14px rgba(20,4,4,.3);color:#fff}
+#t11 .t11-actions .bulk-toggle{border-color:rgba(240,180,140,.5);background:linear-gradient(180deg,#6a3326,#4a2119);box-shadow:inset 0 2px 5px rgba(20,4,4,.45),0 1px rgba(255,220,190,.14)}
+#t11 .t11-actions .bulk-toggle i{background:linear-gradient(180deg,#fff,#f3dccd)}
+#t11 .t11-actions input:checked+.bulk-toggle{border-color:#ffc79c;background:linear-gradient(180deg,#d9804f,#a8502f);box-shadow:inset 0 1px rgba(255,255,255,.35),0 0 9px rgba(240,140,80,.45)}
+
 /* Coût de recherche : mêmes cases que la page Chaudière. */
 #t11 .t11-result{max-width:900px;margin:0 auto;padding:14px 18px 20px;border:2px solid rgba(240,170,120,.42);border-radius:26px;background:rgba(42,14,12,.72);box-shadow:inset 0 1px rgba(255,220,190,.14),0 14px 35px rgba(20,4,4,.4)}
 #t11 .t11-result h2{margin:0 0 16px;padding:9px;border-radius:16px;font-size:20px;text-align:center;color:#fff;background:linear-gradient(180deg,#b5603d,#8c4129)}

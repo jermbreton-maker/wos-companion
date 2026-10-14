@@ -132,6 +132,9 @@ function render(){
   });
   renderTree();
   renderResult();
+  /* L'interrupteur reflète l'état « tout à zéro » de la troupe affichée. */
+  const levels=t11State.levels[t11State.troop];
+  document.getElementById('t11Reset').checked=T11.nodes.every(node=>!levels[node.id].from&&!levels[node.id].to);
 }
 
 /* Fenêtre de réglage d'une recherche : niveau actuel › objectif. */
@@ -188,5 +191,7 @@ picker.querySelector('.t11-apply').addEventListener('click',event=>{
 picker.addEventListener('click',event=>{if(event.target===picker)picker.close('cancel')});
 
 document.querySelectorAll('[data-t11-troop]').forEach(tab=>tab.onclick=()=>{t11State.troop=tab.dataset.t11Troop;render()});
+/* Remettre à zéro : actuel et objectif de toutes les recherches de la troupe affichée. */
+document.getElementById('t11Reset').addEventListener('change',()=>{t11State.levels[t11State.troop]=emptyLevels();render()});
 render();
 })();
