@@ -155,4 +155,4 @@
 }
 
 /* Arrière-plan du document : visible lors du rebond de défilement sur mobile (haut et bas de page). */
-html{background-color:#123f66}
+html,body{background-color:#123f66}
