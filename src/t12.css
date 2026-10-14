@@ -164,10 +164,12 @@
 /* ---------- Déblocage : écran de forge (même mise en forme que le jeu) ---------- */
 #t12 .t12-tree.t12-forge-host{aspect-ratio:auto!important}
 #t12 .t12-forge{--copper:#c07a45;--copper-dark:#5a2a16;overflow:hidden;border:2px solid #6b3523;border-radius:22px;background:#3a1916;box-shadow:0 14px 35px rgba(20,4,4,.45)}
-/* Rendu 3D de la pièce : bords fondus dans le noir de l'atelier. */
-#t12 .t12-forge-stage{position:relative;aspect-ratio:720/486;background:#0d0d24;overflow:hidden}
-#t12 .t12-forge-stage img{display:block;width:100%;height:100%;object-fit:cover}
-#t12 .t12-forge-stage::after{content:"";position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 28px 14px #0d0d24;background:linear-gradient(180deg,transparent 70%,rgba(58,25,22,.9))}
+/* Pièce détourée sur le fond de l'atelier : nuit bleutée, faisceau et halo bleus sous la pièce. */
+#t12 .t12-forge-stage{position:relative;display:grid;place-items:center;aspect-ratio:720/486;overflow:hidden;
+  background:radial-gradient(ellipse 34% 12% at 50% 86%,rgba(120,140,255,.55),transparent 70%),radial-gradient(ellipse 60% 70% at 50% 55%,#2a2a5c 0,#16163a 55%,#0b0b20 100%)}
+#t12 .t12-forge-stage::before{content:"";position:absolute;left:50%;top:0;bottom:12%;width:30%;transform:translateX(-50%);background:linear-gradient(180deg,rgba(110,130,255,.0),rgba(110,130,255,.16) 60%,rgba(130,150,255,.3));filter:blur(8px)}
+#t12 .t12-forge-art{position:relative;max-width:68%;max-height:70%;transform:translateY(-7%);object-fit:contain;filter:drop-shadow(0 0 14px rgba(255,60,30,.35)) drop-shadow(0 10px 12px rgba(0,0,0,.55))}
+#t12 .t12-forge-stage::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,transparent 78%,rgba(58,25,22,.9))}
 #t12 .t12-forge-unit{position:absolute;z-index:1;left:12px;top:10px;padding:4px 10px;border:1px solid rgba(240,170,120,.45);border-radius:10px;font-size:13px;color:#f6dcc8;background:rgba(42,14,12,.78)}
 #t12 .t12-forge-unit.ok{border-color:#7fd06a;color:#d9ffd0}
 

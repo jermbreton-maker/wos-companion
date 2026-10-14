@@ -108,7 +108,7 @@ function renderTree(){
 }
 
 /* ---------- Déblocage : écran de forge du jeu (rendu 3D, rangée des 5 pièces, détails de la pièce choisie) ---------- */
-const RENDER=(troop,id)=>`assets/visuals/t12/renders/${troop}-${id}.jpg?v=20261014`;
+const RENDER=(troop,id)=>`assets/visuals/t12/pieces/${troop}-${id}.png?v=20261014`;
 const TROOP_NOUN={infantry:'Infanterie',lancer:'Lancier',marksman:'Tireur'};
 const RES=[
   ['steel','Acier','assets/visuals/t11/steel.png'],
@@ -146,7 +146,7 @@ function renderForge(){
     RES.map(([k,label,src])=>`<div class="t12-forge-req t12-forge-req-${k}" data-tip="${label}"><img src="${src}" alt=""><span>${num(cost[k])}</span></div>`).join('');
   const stepper=(field,label,value,min)=>`<div class="t12-forge-step" data-t12-forge-field="${field}"><small>${label}</small><button type="button" data-d="-1" ${value<=min?'disabled':''} aria-label="${label} : moins 1">−</button><output>${value}</output><button type="button" data-d="1" ${value>=5?'disabled':''} aria-label="${label} : plus 1">+</button>${field==='to'?`<button type="button" class="t12-forge-max" data-d="5" ${value>=5?'disabled':''}>MAX</button>`:''}</div>`;
   host.innerHTML=`<div class="t12-forge">
-    <div class="t12-forge-stage"><img src="${RENDER(troop,id)}" alt="${nodeName(id,troop)}" draggable="false">
+    <div class="t12-forge-stage"><img class="t12-forge-art" src="${RENDER(troop,id)}" alt="${nodeName(id,troop)}" draggable="false">
       <span class="t12-forge-unit${unit?' ok':''}">${unit?`✓ ${T12.units[troop]} débloquée`:`🔒 ${T12.units[troop]} · ${done}/5 pièces`}</span></div>
     <div class="t12-forge-row">${row}</div>
     <div class="t12-forge-panel">
