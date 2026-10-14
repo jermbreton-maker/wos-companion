@@ -34,12 +34,12 @@
 #furnace .furnace-material-time{border-color:#ffe38b;background:linear-gradient(145deg,#fff4b9,#bf711c)}
 #furnace .furnace-material img{display:block;width:88%;height:88%;object-fit:contain;filter:drop-shadow(0 5px 5px rgba(3,35,61,.32))}
 /* Palette unifiée des ressources Chaudière. */
-#furnace .furnace-material-food,#furnace .furnace-material-wood,#furnace .furnace-material-coal,#furnace .furnace-material-iron{border-color:#76afee;background:linear-gradient(180deg,#365894,#a7d4f2);box-shadow:0 6px 12px rgba(0,15,39,.35)}
+#furnace .furnace-material-food,#furnace .furnace-material-wood,#furnace .furnace-material-coal,#furnace .furnace-material-iron{border-color:#6fc96a;background:linear-gradient(180deg,#2c7a2a,#a9e09c);box-shadow:0 6px 12px rgba(0,15,39,.35)}
 #furnace .furnace-material-refined{border-color:#f4a56e;background:linear-gradient(145deg,#ffe2ad,#a95724)}
 #furnace .furnace-material-time{border-color:#86c9f3;background:linear-gradient(145deg,#eafaff,#3995cf)}
 /* Cases de coûts alignées sur les références Équipement et Talismans. */
 #furnace .furnace-material-fire,#furnace .furnace-material-refined{border:3px solid #eba16e;border-radius:17px;background:linear-gradient(180deg,#935b2d,#f2ceaf);box-shadow:0 6px 12px rgba(0,15,39,.35)}
-#furnace .furnace-material-time{border:3px solid #6fc96a;border-radius:17px;background:linear-gradient(180deg,#2c7a2a,#a9e09c);box-shadow:0 6px 12px rgba(0,15,39,.35)}
+#furnace .furnace-material-time{border:3px solid #76afee;border-radius:17px;background:linear-gradient(180deg,#365894,#a7d4f2);box-shadow:0 6px 12px rgba(0,15,39,.35)}
 @media(max-width:600px){#furnace .furnace-material-fire,#furnace .furnace-material-refined,#furnace .furnace-material-time{border-radius:13px}}
 #furnace .furnace-stock-tools{max-width:900px;margin:24px auto;color:#d4efff}
 #furnace .furnace-stock-tools summary{cursor:pointer}
