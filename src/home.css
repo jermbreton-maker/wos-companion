@@ -208,5 +208,6 @@ body:has(#home.active){min-height:100svh}
 @media(max-width:600px){#home .home-shell{min-height:calc(100svh - 76px - 18px - 22px)}}
 
 /* Mobile : le texte communautaire suit directement les boutons ; la hauteur d'écran disponible
-   (web app sans barres de navigateur, grands téléphones) donne de l'air entre l'en-tête et les boutons. */
-@media(max-width:767px){#home .module-grid{margin-top:auto}#home .disclaimer{margin-top:0}}
+   (web app sans barres de navigateur, grands téléphones) est partagée à parts égales entre
+   l'air au-dessus des boutons et l'espace sous le texte. */
+@media(max-width:767px){#home .module-grid{margin-top:auto}#home .disclaimer{margin-top:0;margin-bottom:auto}}
