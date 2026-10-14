@@ -78,7 +78,7 @@
 
 /* Fenêtre de réglage d'une recherche : couleurs des fenêtres d'information du jeu
    (fond rose pâle, rebord rosé, titre bordeaux, zone grisée, voile sombre flouté). */
-#t11Picker{width:min(92vw,440px);padding:0;border:0;border-radius:16px;color:#665454;background:#f6e2e2;box-shadow:0 5px 0 #e4a2a2,0 24px 60px rgba(0,0,0,.55)}
+#t11Picker{width:min(92vw,440px);padding:0;border:0;border-radius:22px;color:#665454;background:#f6e2e2;box-shadow:0 5px 0 #e4a2a2,0 24px 60px rgba(0,0,0,.55)}
 #t11Picker::backdrop{background:rgba(24,12,15,.78);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
 #t11Picker form{position:relative;display:grid;gap:14px;padding:20px 20px 22px;font-family:var(--site-font)}
 #t11Picker .t11-close{position:absolute;top:12px;right:12px;width:32px;height:32px;border:1px solid #dec6c0;border-radius:50%;color:#843030;background:#fbeeee;font:inherit;font-size:20px;line-height:1;cursor:pointer}
