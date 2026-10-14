@@ -111,19 +111,19 @@ function renderTree(){
 
 function renderResult(){
   const levels=t11State.levels[t11State.troop];
-  let steel=0,dust=0,days=0,steps=0,researches=0;
+  let steel=0,shards=0,days=0,steps=0,researches=0;
   T11.nodes.forEach(node=>{
     const {from,to}=levels[node.id],count=Math.max(0,to-from);
     if(!count)return;
     researches++;steps+=count;
     steel+=node.cost*1000*count;
-    dust+=node.cost*.62*count;
+    shards+=node.cost*.62*count;
     days+=node.days*count;
   });
   /* Ressources de base : proportions de démonstration calquées sur les tables du jeu (≈ 46 viande et bois,
      9 charbon et 2,3 fer par unité d'acier) ; les vraies tables viendront en dernière étape. */
   const tiles=[
-    ['dust','Poussière de cristal','assets/visuals/t11/fire-crystal-dust.png',fmt(Math.round(dust))],
+    ['shard','Fragment de Cristal Ardent','assets/visuals/t11/fire-crystal-shard.png',fmt(Math.round(shards))],
     ['steel','Acier','assets/visuals/t11/steel.png',fmt(Math.round(steel))],
     ['meat','Viande','assets/visuals/furnace-materials/meat.png',fmt(Math.round(steel*46))],
     ['wood','Bois','assets/visuals/furnace-materials/wood.png',fmt(Math.round(steel*46))],
@@ -132,7 +132,7 @@ function renderResult(){
     ['time','Temps','assets/visuals/furnace-materials/accelerator.png',formatFurnaceDuration(days)]
   ];
   document.getElementById('t11Result').innerHTML=`<h2>Coût de recherche</h2>
-    <div class="t11-cost-grid">${tiles.map(([key,label,src,value])=>`<div class="t11-cost t11-cost-${key}"><span class="t11-cost-tile" title="${label}"><img src="${src}" alt=""></span><strong>${value}</strong><small>${label}</small></div>`).join('')}</div>
+    <div class="t11-cost-grid">${tiles.map(([key,label,src,value])=>`<div class="t11-cost t11-cost-${key}" tabindex="0" data-label="${label}" aria-label="${label} : ${value}"><span class="t11-cost-tile"><img src="${src}" alt=""></span><strong>${value}</strong></div>`).join('')}</div>
     <p class="t11-summary">${steps?`${steps} niveau${steps>1?'x':''} à rechercher sur ${researches} recherche${researches>1?'s':''}`:T11.nodes.every(node=>!levels[node.id].from&&!levels[node.id].to)?'Touche une recherche pour saisir ton niveau actuel et ton objectif.':'Tout est déjà à l’objectif.'}</p>`;
 }
 
@@ -203,6 +203,12 @@ picker.querySelector('.t11-apply').addEventListener('click',event=>{
 picker.addEventListener('click',event=>{if(event.target===picker)picker.close('cancel')});
 
 document.querySelectorAll('[data-t11-troop]').forEach(tab=>tab.onclick=()=>{t11State.troop=tab.dataset.t11Troop;render()});
+/* Nom des ressources : au survol sur ordinateur, au toucher sur mobile (toucher ailleurs le masque). */
+document.addEventListener('click',event=>{
+  const cost=event.target.closest?.('#t11 .t11-cost');
+  document.querySelectorAll('#t11 .t11-cost.show-label').forEach(item=>{if(item!==cost)item.classList.remove('show-label')});
+  cost?.classList.toggle('show-label');
+});
 /* Remettre à zéro : actuel et objectif de toutes les recherches de la troupe affichée. */
 document.getElementById('t11Reset').addEventListener('change',()=>{t11State.levels[t11State.troop]=emptyLevels();render()});
 render();
