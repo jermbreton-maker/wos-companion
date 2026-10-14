@@ -1397,9 +1397,10 @@ body.level-picker-open{
 }
 
 
-/* Visuel central Équipement : la transparence dépend du périphérique,
-   pas de la largeur de fenêtre. Un navigateur desktop étroit reste donc opaque. */
-@media(hover:hover) and (pointer:fine){
+/* Visuel central Équipement : la transparence dépend du périphérique.
+   Exception : une fenêtre desktop de 540 px ou moins prend la mise en page mobile
+   (visuel derrière les cases) et donc la même transparence que sur mobile. */
+@media(hover:hover) and (pointer:fine) and (min-width:541px){
   #chief-gear .gear-orbit .orbit-center,
   #chief-gear .gear-orbit .gear-center-item[class*="skin-"],
   #chief-gear .gear-orbit .gear-center-item .gear-level-skin{opacity:1!important}
