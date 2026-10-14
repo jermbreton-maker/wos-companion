@@ -5,6 +5,7 @@ from PIL import Image, ImageDraw
 
 SRC = sys.argv[2] if len(sys.argv) > 2 else '/home/koema-jr/Bureau/Screen Iphone/'  # dossier des captures du jeu
 OUT = sys.argv[1]
+METHOD = 'telea'  # 'telea' (retenu) ou 'fsr' (xphoto, plus bruité sur ces icônes)
 K = 1.27  # affichage 924 px -> original 1170 px
 
 RIM = {
@@ -52,39 +53,40 @@ def inner_box(im, cx, cy, rim):
 
 
 def erase_badge(tile):
-    """Repère le texte blanc du badge (coin bas-droit), puis remplit tout son rectangle par un dégradé
-    tiré des pixels juste au-dessus et à gauche ; notre propre badge se pose ensuite au même endroit."""
-    w, h = tile.size
-    px = tile.load()
-    xs, ys = [], []
-    for y in range(int(h * .55), h):
-        for x in range(int(w * .35), w):
-            r, g, b = px[x, y]
-            # contour du texte : gris neutre sombre (absent des illustrations, toutes dans les rouges)
-            if (r + g + b) / 3 < 110 and max(r, g, b) - min(r, g, b) < 28:
-                xs.append(x); ys.append(y)
-    if len(xs) < 15:
+    """Efface le badge de niveau (coin bas-droit) par inpainting OpenCV, limité aux lettres :
+    on repère leur contour gris foncé, on le referme et on remplit l'intérieur des lettres.
+    Les zones blanches de l'illustration (sans contour gris) sont conservées."""
+    import numpy as np, cv2
+    rgb = np.asarray(tile).astype(np.int16)
+    h, w = rgb.shape[:2]
+    bright = rgb.mean(axis=2)
+    spread = rgb.max(axis=2) - rgb.min(axis=2)
+    zone = np.zeros((h, w), bool)
+    zone[int(h * .5):, int(w * .18):] = True
+    outline = (zone & (bright < 160) & (spread < 22)).astype(np.uint8) * 255
+    if (outline > 0).sum() < 15:
         return tile
-    xs.sort(); ys.sort()
-    # on ignore les quelques pixels isolés en prenant les 3 % extrêmes
-    cut = max(1, len(xs) // 100)
-    x0, y0 = max(1, xs[cut] - 11), max(1, ys[cut] - 4)
-    # bord du haut lissé sur ±6 px (évite d'étirer un détail isolé)
-    row = [px[x, y0 - 1] for x in range(w)]
-    smooth = [tuple(sum(c[i] for c in row[max(0, x - 6):x + 7]) // len(row[max(0, x - 6):x + 7]) for i in range(3)) for x in range(w)]
-    for y in range(y0, h):
-        for x in range(x0, w):
-            top, left = smooth[x], px[x0 - 1, y]
-            wt, wl = 1 / (y - y0 + 1), 1 / (x - x0 + 1) ** 2
-            px[x, y] = tuple(int((top[i] * wt + left[i] * wl) / (wt + wl)) for i in range(3))
-    # adoucissement du rectangle rempli
-    for _ in range(3):
-        src = tile.copy().load()
-        for y in range(y0, h):
-            for x in range(x0, w):
-                near = [src[X, Y] for X in (x - 1, x, x + 1) for Y in (y - 1, y, y + 1) if 0 <= X < w and 0 <= Y < h]
-                px[x, y] = tuple(sum(c[i] for c in near) // len(near) for i in range(3))
-    return tile
+    closed = cv2.morphologyEx(outline, cv2.MORPH_CLOSE, np.ones((5, 5), np.uint8))
+    # intérieur des lettres : tout ce qui n'est pas atteignable depuis le bord sans traverser le contour
+    flood = closed.copy()
+    ff = np.zeros((h + 2, w + 2), np.uint8)
+    cv2.floodFill(flood, ff, (0, 0), 255)
+    holes = cv2.bitwise_not(flood)
+    letters = cv2.bitwise_or(closed, holes)
+    # le blanc neutre collé aux lettres (anticrénelage) les rejoint aussi
+    near = cv2.dilate(letters, np.ones((3, 3), np.uint8), iterations=2) > 0
+    white = near & (spread < 26) & (bright > 150)
+    mask = cv2.bitwise_or(letters, white.astype(np.uint8) * 255)
+    # halo d'ombre portée autour des lettres
+    mask = cv2.dilate(mask, np.ones((3, 3), np.uint8), iterations=4)
+    src = np.asarray(tile)[:, :, ::-1].copy()
+    if METHOD == 'fsr':
+        known = (mask == 0).astype(np.uint8)
+        out = np.zeros_like(src)
+        cv2.xphoto.inpaint(src, known, out, cv2.xphoto.INPAINT_FSR_FAST)
+    else:
+        out = cv2.inpaint(src, mask, 7, cv2.INPAINT_TELEA)
+    return Image.fromarray(out[:, :, ::-1])
 
 
 report = []
@@ -100,18 +102,18 @@ for troop, node, fname, (x, y) in jobs:
     inset = 9
     box = (cx - l + inset, cy - t + inset, cx + r - inset + 1, cy + b - inset + 1)
     tile = im.crop(box)
-    tile = erase_badge(tile).resize((160, 160), Image.LANCZOS)
+    tile = erase_badge(tile).resize((192, 192), Image.LANCZOS)
     tile.save(f'{OUT}/{troop}-{node}.png')
     report.append(f'{troop}/{node}: {box[2]-box[0]}x{box[3]-box[1]} (l{l} r{r} t{t} b{b})')
 print('\n'.join(report))
 
 # planche de contrôle
 names = ['squad', 'atk', 'def', 'legion', 'atk2', 'def2', 'helios', 'heal', 'train', 'aid']
-sheet = Image.new('RGB', (10 * 170, 3 * 170), (40, 20, 25))
+sheet = Image.new('RGB', (10 * 200, 3 * 200), (40, 20, 25))
 for row, troop in enumerate(['lancer', 'infantry', 'marksman']):
     for col, node in enumerate(names):
         try:
-            sheet.paste(Image.open(f'{OUT}/{troop}-{node}.png'), (col * 170 + 5, row * 170 + 5))
+            sheet.paste(Image.open(f'{OUT}/{troop}-{node}.png'), (col * 200 + 4, row * 200 + 4))
         except FileNotFoundError:
             pass
 sheet.save(f'{OUT}/_planche.png')

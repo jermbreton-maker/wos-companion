@@ -60,7 +60,7 @@ const emptyLevels=()=>Object.fromEntries(T11.nodes.map(node=>[node.id,{from:0,to
 const t11State={troop:'lancer',levels:Object.fromEntries(troopIds.map(id=>[id,emptyLevels()])),editing:null,draft:null};
 
 const badge=(value,max)=>value>=max?'MAX':`${value}/${max}`;
-const iconImg=(id,troop)=>`<img class="t11-ico" src="assets/visuals/t11/icons/${troop}-${id}.png?v=20261014" alt="" draggable="false">`;
+const iconImg=(id,troop)=>`<img class="t11-ico" src="assets/visuals/t11/icons/${troop}-${id}.png?v=20261014-cv" alt="" draggable="false">`;
 
 function renderTree(){
   const tree=document.getElementById('t11Tree');
