@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="600" viewBox="0 0 300 600" font-family="Arial,Helvetica,sans-serif">
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff8a3d"/><stop offset=".55" stop-color="#e2492a"/><stop offset="1" stop-color="#8e1f22"/></linearGradient></defs>
+  <rect width="300" height="600" fill="url(#bg)"/>
+  <g fill="#fff" opacity=".35"><circle cx="30" cy="40" r="4"/><circle cx="260" cy="70" r="3"/><circle cx="110" cy="130" r="2.5"/><circle cx="270" cy="200" r="4"/><circle cx="40" cy="230" r="3"/><circle cx="200" cy="40" r="2.5"/></g>
+  <text x="150" y="72" text-anchor="middle" fill="#fff" font-size="33" font-weight="900">THERMO'PLAID</text>
+  <text x="150" y="104" text-anchor="middle" fill="#ffe2b0" font-size="18">La couverture qui chauffe vraiment</text>
+  <g transform="translate(150 255) scale(1.6)">
+    <rect x="-52" y="-50" width="104" height="100" rx="14" fill="#fff4e6"/>
+    <path d="M-52 -18h104M-52 14h104M-20 -50v100M14 -50v100" stroke="#e2492a" stroke-width="6"/>
+    <path d="M-52 36 q26 20 52 0 q26 -20 52 0 v2 a12 12 0 0 1 -12 12 h-80 a12 12 0 0 1 -12 -12z" fill="#ffd28a"/>
+    <path d="M30 -70 q8 10 0 20 q-8 10 0 20" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+    <path d="M44 -66 q8 10 0 20 q-8 10 0 20" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".7"/>
+  </g>
+  <circle cx="232" cy="378" r="48" fill="#fff"/>
+  <text x="232" y="378" text-anchor="middle" fill="#e2492a" font-size="32" font-weight="900">-30%</text>
+  <text x="232" y="398" text-anchor="middle" fill="#8e1f22" font-size="11" font-weight="700">CET HIVER</text>
+  <text x="150" y="462" text-anchor="middle" fill="#fff" font-size="18">Survis au froid,</text>
+  <text x="150" y="486" text-anchor="middle" fill="#fff" font-size="18">même sur ton canapé.</text>
+  <rect x="60" y="514" width="180" height="46" rx="23" fill="#ffe2b0"/>
+  <text x="150" y="544" text-anchor="middle" fill="#8e1f22" font-size="18" font-weight="900">J'EN PROFITE</text>
+  <text x="150" y="588" text-anchor="middle" fill="#fff" font-size="10" opacity=".75">Annonce fictive</text>
+</svg>

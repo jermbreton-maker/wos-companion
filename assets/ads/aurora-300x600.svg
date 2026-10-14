@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="600" viewBox="0 0 300 600" font-family="Arial,Helvetica,sans-serif">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#071a3a"/><stop offset=".6" stop-color="#123d6b"/><stop offset="1" stop-color="#1d5f8f"/></linearGradient>
+    <linearGradient id="au" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#52ffb0" stop-opacity="0"/><stop offset=".5" stop-color="#52ffb0" stop-opacity=".85"/><stop offset="1" stop-color="#8a7bff" stop-opacity="0"/></linearGradient>
+  </defs>
+  <rect width="300" height="600" fill="url(#sky)"/>
+  <g fill="#fff"><circle cx="30" cy="30" r="1.6"/><circle cx="120" cy="20" r="1.2"/><circle cx="260" cy="44" r="1.6"/><circle cx="200" cy="100" r="1.2"/><circle cx="50" cy="120" r="1.2"/><circle cx="160" cy="60" r="1"/></g>
+  <path d="M-10 180 C70 110 160 240 310 140 L310 185 C160 280 70 160 -10 225Z" fill="url(#au)"/>
+  <path d="M-10 240 C90 190 190 280 310 210 L310 236 C190 310 90 225 -10 268Z" fill="url(#au)" opacity=".6"/>
+  <path d="M0 360 L80 280 L125 320 L190 250 L300 350 L300 600 L0 600Z" fill="#e8f6ff"/>
+  <path d="M80 280 L96 300 L86 306 L70 294Z M190 250 L212 276 L200 284 L178 266Z" fill="#fff"/>
+  <path d="M0 400 L300 375 L300 600 L0 600Z" fill="#cfe9f8"/>
+  <text x="150" y="448" text-anchor="middle" fill="#123d6b" font-size="28" font-weight="900">AURORA VOYAGES</text>
+  <text x="150" y="480" text-anchor="middle" fill="#2a5a80" font-size="17">Laponie &amp; aurores boréales</text>
+  <text x="150" y="508" text-anchor="middle" fill="#2a5a80" font-size="17">dès <tspan font-weight="900" font-size="24" fill="#0e6fc4">499 €</tspan></text>
+  <rect x="70" y="526" width="160" height="42" rx="21" fill="#0e6fc4"/>
+  <text x="150" y="553" text-anchor="middle" fill="#fff" font-size="17" font-weight="900">RÉSERVER</text>
+  <text x="150" y="590" text-anchor="middle" fill="#5d86a6" font-size="10">Annonce fictive</text>
+</svg>

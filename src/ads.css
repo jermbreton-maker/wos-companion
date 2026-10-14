@@ -1,0 +1,38 @@
+/* Emplacements publicitaires (maquette avec annonces fictives) — insérés par src/ads.js.
+   Ordinateur : bandeaux verticaux dans les marges latérales de la colonne centrale (1240 px).
+   Mobile : bannière 320×50 sous le menu du haut, pavé 300×250 sous le panneau Coût. */
+.ad-slot{display:none;flex-direction:column;align-items:center;gap:4px;margin:0 auto}
+.ad-slot small{font:700 10px/1 Arial,Helvetica,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:rgba(214,236,250,.62)}
+.ad-slot img{display:block;max-width:100%;height:auto;border-radius:6px;box-shadow:0 6px 18px rgba(0,10,25,.35)}
+.ad-rail{display:none;position:fixed;top:96px;z-index:5}
+
+@media(min-width:1600px){
+  .ad-rail{display:block;width:160px}
+  .ad-rail-left{left:calc((100vw - 1240px) / 4 - 80px)}
+  .ad-rail-right{right:calc((100vw - 1240px) / 4 - 80px)}
+  .ad-rail .ad-rail-narrow{display:flex}
+}
+@media(min-width:1900px){
+  .ad-rail{width:300px}
+  .ad-rail-left{left:calc((100vw - 1240px) / 4 - 150px)}
+  .ad-rail-right{right:calc((100vw - 1240px) / 4 - 150px)}
+  .ad-rail .ad-rail-narrow{display:none}
+  .ad-rail .ad-rail-wide{display:flex}
+}
+/* Écran peu haut : le bandeau rapetisse pour rester entier. */
+@media(min-width:1600px) and (max-height:760px){
+  .ad-rail{top:88px}
+  .ad-rail img{width:auto;max-height:calc(100vh - 116px)}
+}
+
+@media(max-width:767px){
+  :root{--ad-top-h:78px}
+  .ad-mobile-top{display:flex;padding:8px 0 6px;background:#0f2c4d}
+  .ad-mobile-mrec{display:flex;margin:18px auto 0}
+  /* L'accueil reste sur une hauteur d'écran malgré la bannière du haut. */
+  /* Espacements de l'accueil resserrés pour compenser la bannière (34 px regagnés). */
+  #home{min-height:calc(100svh - 76px - var(--ad-top-h));padding-top:10px}
+  #home .home-shell{min-height:calc(100svh - 76px - 10px - 22px - var(--ad-top-h))}
+  #home .home-welcome{margin-bottom:16px}
+  #home .disclaimer{padding-top:8px}
+}
