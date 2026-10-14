@@ -21,22 +21,28 @@
 /* Lumière chaude centrée sur la case Hélios (x 50 %, y 870/1400 de l'arbre), étalée sur toute la page. */
 #t11 .t11-tree::before{content:"";position:absolute;left:50%;top:62.14%;z-index:-1;width:560cqi;height:560cqi;transform:translate(-50%,-50%);pointer-events:none;background:radial-gradient(circle,#ffcf91 0,#f39250 6.5cqi,#d2643a 17cqi,#b1502f 33cqi,#9c452d 54cqi,#853a28 81cqi,#6c2d23 112cqi,#55231e 146cqi,#3f1918 186cqi,#2e1113 228cqi,#260d0f 270cqi)}
 
-/* Liaisons bleues lumineuses. */
+/* Couleur des chemins de lumière (liaisons + liseré des nœuds) selon la troupe :
+   bleu pour Lancier, vert pour Infanterie, rouge pour Tireur. */
+#t11 .t11-tree{--t11-glow:rgba(64,160,255,.5);--t11-core:#2f8cf0;--t11-light:#9fdcff;--t11-rim:#7fd6ff;--t11-rim-dark:#1c5fc4;--t11-halo:rgba(72,170,255,.75);--t11-rim-on:#b9f0ff;--t11-rim-on-dark:#1c7fe0;--t11-halo-on:rgba(120,210,255,.85)}
+#t11 .t11-tree[data-troop="infantry"]{--t11-glow:rgba(70,220,110,.5);--t11-core:#2fbf5a;--t11-light:#b4f5c4;--t11-rim:#8cf0a4;--t11-rim-dark:#1f8f3e;--t11-halo:rgba(80,220,120,.75);--t11-rim-on:#d0ffd9;--t11-rim-on-dark:#26a84a;--t11-halo-on:rgba(130,240,160,.85)}
+#t11 .t11-tree[data-troop="marksman"]{--t11-glow:rgba(255,80,70,.5);--t11-core:#e8443a;--t11-light:#ffb3a8;--t11-rim:#ff9a8a;--t11-rim-dark:#b0241c;--t11-halo:rgba(255,90,70,.75);--t11-rim-on:#ffd2c8;--t11-rim-on-dark:#d0362c;--t11-halo-on:rgba(255,140,120,.85)}
+
+/* Liaisons lumineuses. */
 #t11 .t11-links{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
 #t11 .t11-links path{fill:none;stroke-linejoin:round;stroke-linecap:round;vector-effect:non-scaling-stroke}
-#t11 .t11-link-glow path{stroke:rgba(64,160,255,.5);stroke-width:10px;filter:blur(3px)}
-#t11 .t11-link-core path{stroke:#2f8cf0;stroke-width:5px}
-#t11 .t11-link-light path{stroke:#9fdcff;stroke-width:1.6px}
+#t11 .t11-link-glow path{stroke:var(--t11-glow);stroke-width:10px;filter:blur(3px)}
+#t11 .t11-link-core path{stroke:var(--t11-core);stroke-width:5px}
+#t11 .t11-link-light path{stroke:var(--t11-light);stroke-width:1.6px}
 
 /* Nœuds : case rouge, liseré bleu lumineux, pictogramme blanc. */
-#t11 .t11-node{position:absolute;z-index:1;aspect-ratio:1;padding:0;transform:translate(-50%,-50%);border:3px solid #7fd6ff;border-radius:18%;background:radial-gradient(circle at 50% 38%,#e8634a 0,#c13b2b 48%,#86211a 100%);box-shadow:0 0 0 3px #1c5fc4,0 0 14px 3px rgba(72,170,255,.75),inset 0 0 12px rgba(60,6,6,.45);cursor:pointer;transition:transform .15s ease,box-shadow .15s ease}
+#t11 .t11-node{position:absolute;z-index:1;aspect-ratio:1;padding:0;transform:translate(-50%,-50%);border:3px solid var(--t11-rim);border-radius:18%;background:radial-gradient(circle at 50% 38%,#e8634a 0,#c13b2b 48%,#86211a 100%);box-shadow:0 0 0 3px var(--t11-rim-dark),0 0 14px 3px var(--t11-halo),inset 0 0 12px rgba(60,6,6,.45);cursor:pointer;transition:transform .15s ease,box-shadow .15s ease}
 #t11 .t11-node:hover{transform:translate(-50%,-50%) scale(1.05)}
 #t11 .t11-node:focus-visible{outline:3px solid #fff;outline-offset:4px}
 #t11 .t11-ico{position:absolute;inset:4% 6% 8% 4%;width:90%;height:88%;fill:#fff7ef;filter:drop-shadow(0 2px 1px rgba(90,14,10,.55))}
 #t11 .t11-ico .t11-ico-cut{fill:#a8291f}
 #t11 .t11-badge{position:absolute;right:5%;bottom:3%;font-size:clamp(10px,4cqi,21px);line-height:1;color:#fff;-webkit-text-stroke:3px #2a1410;paint-order:stroke fill}
 #t11 .t11-target{position:absolute;top:-12%;right:-16%;padding:2px 5px;border-radius:8px;font-size:clamp(8px,2.7cqi,13px);line-height:1.1;color:#06233e;background:#8be4ff;box-shadow:0 2px 4px rgba(4,24,48,.5),0 0 8px rgba(139,228,255,.8)}
-#t11 .t11-node.planned{border-color:#b9f0ff;box-shadow:0 0 0 3px #1c7fe0,0 0 18px 5px rgba(120,210,255,.85),inset 0 0 12px rgba(60,6,6,.45)}
+#t11 .t11-node.planned{border-color:var(--t11-rim-on);box-shadow:0 0 0 3px var(--t11-rim-on-dark),0 0 18px 5px var(--t11-halo-on),inset 0 0 12px rgba(60,6,6,.45)}
 #t11 .t11-label{position:absolute;z-index:1;width:34%;transform:translateX(-50%);text-align:center;font-size:clamp(10px,3.4cqi,17px);line-height:1.15;color:#fff3e6;-webkit-text-stroke:3px #3a1712;paint-order:stroke fill;pointer-events:none}
 
 /* Coût de recherche : mêmes cases que la page Chaudière. */
@@ -81,8 +87,8 @@
   #t11 .section-head h1{font-size:28px}
   #t11 .section-head p{font-size:14px}
   #t11 .t11-board{padding:14px 8px 20px;border-radius:22px}
-  #t11 .t11-node{border-width:2px;box-shadow:0 0 0 2px #1c5fc4,0 0 10px 2px rgba(72,170,255,.75),inset 0 0 10px rgba(60,6,6,.45)}
-  #t11 .t11-node.planned{box-shadow:0 0 0 2px #1c7fe0,0 0 12px 3px rgba(120,210,255,.85),inset 0 0 10px rgba(60,6,6,.45)}
+  #t11 .t11-node{border-width:2px;box-shadow:0 0 0 2px var(--t11-rim-dark),0 0 10px 2px var(--t11-halo),inset 0 0 10px rgba(60,6,6,.45)}
+  #t11 .t11-node.planned{box-shadow:0 0 0 2px var(--t11-rim-on-dark),0 0 12px 3px var(--t11-halo-on),inset 0 0 10px rgba(60,6,6,.45)}
   #t11 .t11-badge{-webkit-text-stroke:2px #2a1410}
   #t11 .t11-label{-webkit-text-stroke:2px #3a1712}
   #t11 .t11-cost-tile{width:58px;height:58px;border-radius:13px}

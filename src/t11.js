@@ -78,6 +78,7 @@ function renderTree(){
       ${planned?`<span class="t11-target">→${lvl.to>=node.max?'MAX':lvl.to}</span>`:''}
     </button>${label}`;
   }).join('');
+  tree.dataset.troop=t11State.troop;
   tree.innerHTML=links+nodes;
   tree.querySelectorAll('[data-t11-node]').forEach(button=>button.onclick=()=>openPicker(button.dataset.t11Node));
 }

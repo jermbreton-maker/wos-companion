@@ -6,7 +6,7 @@ window.COMPANION_DATA={
     {alloy:120,polish:40,plans:0,amber:0},{alloy:180,polish:60,plans:0,amber:0},{alloy:260,polish:90,plans:20,amber:0},{alloy:360,polish:130,plans:30,amber:0},{alloy:480,polish:180,plans:45,amber:0},{alloy:620,polish:240,plans:60,amber:0},{alloy:800,polish:320,plans:85,amber:0},{alloy:1000,polish:420,plans:110,amber:0},{alloy:1300,polish:540,plans:145,amber:10},{alloy:1650,polish:690,plans:190,amber:15},{alloy:2100,polish:880,plans:250,amber:20},{alloy:2650,polish:1100,plans:320,amber:25},{alloy:3300,polish:1400,plans:410,amber:35},{alloy:4100,polish:1750,plans:520,amber:45},{alloy:5100,polish:2200,plans:660,amber:60},{alloy:6400,polish:2750,plans:840,amber:80}
   ],
   gears:[{id:"helmet",name:"Casque",troop:"Lancier",icon:"⛑️"},{id:"coat",name:"Veste",troop:"Infanterie",icon:"🥋"},{id:"ring",name:"Bague",troop:"Tireur",icon:"💍"},{id:"watch",name:"Montre",troop:"Lancier",icon:"⌚"},{id:"pants",name:"Pantalon",troop:"Infanterie",icon:"👖"},{id:"cane",name:"Canne",troop:"Tireur",icon:"🦯"}],
-  /* Recherche T11 (même arbre pour les trois troupes). Valeurs de démonstration : max, coût par niveau (milliers d'acier)
+  /* Recherche T11 (même arbre pour les trois troupes). Légion de Feu : max 12 (vérifié en jeu). Autres valeurs de démonstration : max, coût par niveau (milliers d'acier)
      et durée par niveau (jours) seront remplacés par les tables validées. {troop} = nom de la troupe au singulier. */
   t11:{
     troops:{infantry:"Fantassin",lancer:"Lancier",marksman:"Tireur"},
@@ -14,7 +14,7 @@ window.COMPANION_DATA={
       {id:"squad",name:"Escouade de {troop}",max:10,cost:70,days:.6},
       {id:"attack",name:"Attaque de {troop}",max:10,cost:85,days:.8},
       {id:"defense",name:"Défense de {troop}",max:10,cost:85,days:.8},
-      {id:"legion",name:"Légion de Feu",max:10,cost:190,days:1.6},
+      {id:"legion",name:"Légion de Feu",max:12,cost:190,days:1.6},
       {id:"lethality",name:"Létalité de {troop}",max:10,cost:120,days:1},
       {id:"health",name:"Santé de {troop}",max:10,cost:120,days:1},
       {id:"helios",name:"{troop} Hélios",max:1,cost:900,days:7},
