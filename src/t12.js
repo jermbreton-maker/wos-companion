@@ -70,7 +70,7 @@ function requirementsUpTo(id,target){
 
 /* ---------- État ---------- */
 const empty=()=>{const out={};[...UNLOCK.nodes,...TREE.nodes].forEach(n=>{if(!n.display)out[n.id]={from:0,to:0}});return out};
-const state={troop:'infantry',view:'unlock',levels:Object.fromEntries(TROOPS.map(t=>[t,empty()])),editing:null,draft:null};
+const state={troop:'infantry',view:'unlock',levels:Object.fromEntries(TROOPS.map(t=>[t,empty()])),piece:Object.fromEntries(TROOPS.map(t=>[t,'p1'])),editing:null,draft:null};
 const unitUnlocked=levels=>levels.p5.from>=5;
 const current=(levels,id)=>id==='unit'?(unitUnlocked(levels)?1:0):levels[id].from;
 const isUnlocked=(id,levels)=>Object.entries(requirements(id)[1]||{}).every(([other,min])=>current(levels,other)>=min);
@@ -81,7 +81,8 @@ const nodeArt=(node,troop)=>`<img class="t12-ico" src="${ICON(troop,iconId(node.
 
 /* ---------- Rendu ---------- */
 function renderTree(){
-  const layout=state.view==='unlock'?UNLOCK:TREE,levels=state.levels[state.troop],troop=state.troop;
+  if(state.view==='unlock')return renderForge();
+  const layout=TREE,levels=state.levels[state.troop],troop=state.troop;
   const host=document.getElementById('t12Tree');
   host.style.aspectRatio=`1000/${layout.h}`;
   host.dataset.troop=troop;host.dataset.view=state.view;
@@ -92,8 +93,7 @@ function renderTree(){
     <g class="t12-link-off">${paths(layout.links)}</g><g class="t12-link-glow">${paths(on)}</g><g class="t12-link-core">${paths(on)}</g><g class="t12-link-light">${paths(on)}</g></svg>`;
   const nodes=layout.nodes.map(node=>{
     const name=nodeName(node.id,troop),pos=`left:${node.x/10}%;top:${node.y/layout.h*100}%;width:${node.size/10}%`;
-    const labelX=state.view==='unlock'?`left:${(node.x+node.size/2+28)/10}%;top:${node.y/layout.h*100}%`:`left:${node.x/10}%;top:${(node.y+node.size/2+16)/layout.h*100}%`;
-    const label=node.label?`<span class="t12-label${state.view==='unlock'?' t12-label-side':''}" style="${labelX}">${name}</span>`:'';
+    const label=node.label?`<span class="t12-label" style="left:${node.x/10}%;top:${(node.y+node.size/2+16)/layout.h*100}%">${name}</span>`:'';
     if(node.display){
       const ok=unitUnlocked(levels);
       return `<div class="t12-node t12-unit${ok?' unlocked':' locked'}" style="${pos}" data-tip="${name} : ${ok?'débloquée':'pas encore débloquée'}">${nodeArt(node,troop)}<span class="t12-badge">${ok?'✓':'🔒'}</span></div>${label}`;
@@ -102,8 +102,69 @@ function renderTree(){
     return `<button type="button" class="t12-node${planned?' planned':''}${locked?' locked':''}" style="${pos}" data-t12-node="${node.id}" aria-label="${name} : niveau ${lvl.from} sur ${node.max}${planned?`, objectif ${lvl.to}`:''}${locked?', verrouillée':''}">
       ${nodeArt(node,troop)}<span class="t12-badge">${badge(lvl.from,node.max)}</span>${planned?`<span class="t12-target">→${lvl.to>=node.max?'MAX':lvl.to}</span>`:''}</button>${label}`;
   }).join('');
+  host.classList.remove('t12-forge-host');
   host.innerHTML=svg+nodes;
   host.querySelectorAll('[data-t12-node]').forEach(button=>button.onclick=()=>openPicker(button.dataset.t12Node));
+}
+
+/* ---------- Déblocage : écran de forge du jeu (rendu 3D, rangée des 5 pièces, détails de la pièce choisie) ---------- */
+const RENDER=(troop,id)=>`assets/visuals/t12/renders/${troop}-${id}.jpg?v=20261014`;
+const TROOP_NOUN={infantry:'Infanterie',lancer:'Lancier',marksman:'Tireur'};
+const RES=[
+  ['steel','Acier','assets/visuals/t11/steel.png'],
+  ['rfc','Cristaux raffinés','assets/visuals/furnace-materials/refined-fire-crystal.png'],
+  ['shard','Fragment de Cristal Ardent','assets/visuals/t11/fire-crystal-shard.png?v=hd']
+];
+const pieceIndex=id=>+id[1]-1;
+const pieceLocked=(levels,id)=>id!=='p1'&&!levels[id].from&&levels['p'+pieceIndex(id)].from<5;
+function pieceCost(id,from,to){
+  const C=T12.unlockCost,kind=pieceIndex(id)?1:0,out={steel:0,rfc:0,shard:0};
+  for(let l=from;l<to;l++){const r=C.rfc[kind][l];out.rfc+=r;out.steel+=r*C.steelPerRfc[kind];out.shard+=r*C.shardsPerRfc}
+  return out;
+}
+const num=n=>String(n).replace(/\B(?=(\d{3})+(?!\d))/g,' ');
+function renderForge(){
+  const troop=state.troop,levels=state.levels[troop],host=document.getElementById('t12Tree');
+  const id=state.piece[troop],lvl=levels[id],i=pieceIndex(id),stat=T12.unlockStats[i];
+  const target=lvl.to>lvl.from?lvl.to:Math.min(lvl.from+1,5),maxed=lvl.from>=5&&lvl.to<=lvl.from;
+  host.style.aspectRatio='';host.dataset.troop=troop;host.dataset.view='unlock';host.classList.add('t12-forge-host');
+  const done=UNLOCK.nodes.filter(n=>!n.display&&levels[n.id].from>=5).length,unit=unitUnlocked(levels);
+  const gauge=`<span class="t12-forge-gauge" aria-hidden="true">${[0,1,2,3,4].map(k=>`<i class="${k<lvl.from?'on':k<lvl.to?'plan':''}" style="--k:${k-2}"></i>`).join('')}</span>`;
+  const row=UNLOCK.nodes.filter(n=>!n.display).map((n,k)=>{
+    const l=levels[n.id],locked=pieceLocked(levels,n.id),sel=n.id===id,name=nodeName(n.id,troop);
+    const cls=['t12-forge-piece',sel&&'sel',l.from>=5&&'done',locked&&'locked',l.to>l.from&&'planned'].filter(Boolean).join(' ');
+    const pipe=k?`<i class="t12-forge-pipe${pieceLocked(levels,n.id)?'':' lit'}" aria-hidden="true"></i>`:'';
+    return `${pipe}<button type="button" class="${cls}" data-t12-piece="${n.id}" aria-pressed="${sel}" aria-label="${name} : niveau ${l.from} sur 5${locked?', verrouillée':''}" data-tip="${name}">${sel?gauge:''}<span class="t12-forge-disc"><img src="${ICON(troop,n.id)}" alt="" draggable="false">${locked?'<span class="t12-forge-lock">🔒</span>':''}</span>${l.to>l.from?`<span class="t12-target">→${l.to>=5?'MAX':l.to}</span>`:''}</button>`;
+  }).join('');
+  const gainTo=maxed?lvl.from:target;
+  const statLine=(label,step,unit)=>`<div><span>${label}</span><b>${num(lvl.from*step)}${unit}${gainTo>lvl.from?`<em>+${num((gainTo-lvl.from)*step)}${unit}</em>`:''}</b></div>`;
+  const statLabel=i?`${stat.label} ${TROOP_NOUN[troop]==='Infanterie'?"de l'Infanterie":`du ${TROOP_NOUN[troop]}`}`:'Capacité de déploiement des troupes';
+  const cost=pieceCost(id,lvl.from,maxed?lvl.from:target);
+  const prev=i?`p${i}`:null,prevOk=!prev||levels[prev].from>=5;
+  const reqs=maxed?'<div class="t12-forge-req done"><span>Pièce terminée</span><b>✓</b></div>':
+    (prev?`<div class="t12-forge-req${prevOk?'':' missing'}"><img src="${ICON(troop,prev)}" alt=""><span>${nodeName(prev,troop)} niv. 5</span><b>${prevOk?'✓':'✗'}</b></div>`:'')+
+    RES.map(([k,label,src])=>`<div class="t12-forge-req t12-forge-req-${k}" data-tip="${label}"><img src="${src}" alt=""><span>${num(cost[k])}</span></div>`).join('');
+  const stepper=(field,label,value,min)=>`<div class="t12-forge-step" data-t12-forge-field="${field}"><small>${label}</small><button type="button" data-d="-1" ${value<=min?'disabled':''} aria-label="${label} : moins 1">−</button><output>${value}</output><button type="button" data-d="1" ${value>=5?'disabled':''} aria-label="${label} : plus 1">+</button>${field==='to'?`<button type="button" class="t12-forge-max" data-d="5" ${value>=5?'disabled':''}>MAX</button>`:''}</div>`;
+  host.innerHTML=`<div class="t12-forge">
+    <div class="t12-forge-stage"><img src="${RENDER(troop,id)}" alt="${nodeName(id,troop)}" draggable="false">
+      <span class="t12-forge-unit${unit?' ok':''}">${unit?`✓ ${T12.units[troop]} débloquée`:`🔒 ${T12.units[troop]} · ${done}/5 pièces`}</span></div>
+    <div class="t12-forge-row">${row}</div>
+    <div class="t12-forge-panel">
+      <div class="t12-forge-head"><h3>${nodeName(id,troop)}</h3><span class="t12-forge-lv">Niv. ${lvl.from}${maxed?' · MAX':`<i>➜</i>${target}`}</span></div>
+      <div class="t12-forge-stats">${statLine(statLabel,stat.step,stat.unit)}${statLine('Puissance',i?150000:180000,'')}</div>
+      <h4>${maxed?'État':`Requis${target-lvl.from>1?` (niv. ${lvl.from} → ${target})`:''}`}</h4>
+      <div class="t12-forge-reqs">${reqs}</div>
+      <div class="t12-forge-set">${stepper('from','Actuel',lvl.from,0)}${stepper('to','Objectif',lvl.to,lvl.from)}</div>
+    </div></div>`;
+  host.querySelectorAll('[data-t12-piece]').forEach(b=>b.onclick=()=>{state.piece[troop]=b.dataset.t12Piece;render()});
+  host.querySelectorAll('[data-t12-forge-field]').forEach(box=>{
+    const field=box.dataset.t12ForgeField;
+    box.querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>{
+      const d=+b.dataset.d,l=levels[id];
+      l[field]=Math.max(0,Math.min(5,d===5?5:l[field]+d));l.to=Math.max(l.to,l.from);
+      render();
+    });
+  });
 }
 
 /* Coût : déblocage (fragments, cristaux raffinés, acier — instantané) ou arbre (8 ressources). */
@@ -168,10 +229,6 @@ function syncPicker(){
     box.querySelectorAll('[data-t12-step]').forEach(b=>{const step=+b.dataset.t12Step;b.disabled=step<0?value<=min:value>=max});
     box.querySelector('[data-t12-max]').disabled=value>=max;
   });
-  const piece=/^p\d$/.test(id)?T12.unlockStats[+id[1]-1]:null,bonus=l=>`+${(l*piece.step).toLocaleString("fr-FR")}${piece.unit}`;
-  document.getElementById('t12PickerDesc').textContent=piece
-    ?`${piece.label} : ${bonus(draft.from)}${draft.to>draft.from?` → ${bonus(draft.to)}`:''} (${bonus(1)} par niveau).`
-    :'Règle le niveau actuel de cette recherche et le niveau que tu vises.';
   const needs=Object.entries(requirementsUpTo(id,draft.to)),list=document.getElementById('t12PickerReqs');
   list.hidden=!needs.length;
   list.innerHTML=needs.length?`<small>PRÉREQUIS${draft.to>1?` JUSQU'AU NIVEAU ${draft.to}`:''}</small>`+needs.map(([other,min])=>{

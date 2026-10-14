@@ -146,8 +146,6 @@
 #t12 .t12-unit{cursor:default}
 #t12 .t12-unit:hover{transform:translate(-50%,-50%)}
 #t12 .t12-label{position:absolute;z-index:1;width:40%;transform:translateX(-50%);text-align:center;font-size:clamp(10px,3.4cqi,17px);line-height:1.15;color:#ecdcdc;-webkit-text-stroke:3px #3a1712;paint-order:stroke fill;pointer-events:none}
-/* Déblocage : noms à droite des médaillons. */
-#t12 .t12-label.t12-label-side{width:52%;transform:translateY(-50%);text-align:left}
 
 /* Coût : cristaux en orange (comme la Chaudière). */
 #t12 :is(.t12-cost-fc,.t12-cost-rfc,.t12-cost-shard) .t12-cost-tile{border-color:#eba16e;background:linear-gradient(180deg,#935b2d,#f2ceaf)}
@@ -163,5 +161,69 @@
 #t12Picker.t12-long .t12-step10{display:inline-block;width:auto!important;padding:0 8px;font-size:14px!important}
 #t12Picker .t12-node.t12-node-preview{position:relative;display:block;width:82px;transform:none;cursor:default}
 
-/* Déblocage : niveau posé sur le bas de l'anneau, l'illustration de la pièce reste dégagée. */
-#t12 .t12-tree[data-view="unlock"] .t12-badge{bottom:-3%;padding:1px 6px;border-radius:8px;background:#3a1712;-webkit-text-stroke:0;font-size:clamp(9px,3cqi,15px)}
+/* ---------- Déblocage : écran de forge (même mise en forme que le jeu) ---------- */
+#t12 .t12-tree.t12-forge-host{aspect-ratio:auto!important}
+#t12 .t12-forge{--copper:#c07a45;--copper-dark:#5a2a16;overflow:hidden;border:2px solid #6b3523;border-radius:22px;background:#3a1916;box-shadow:0 14px 35px rgba(20,4,4,.45)}
+/* Rendu 3D de la pièce : bords fondus dans le noir de l'atelier. */
+#t12 .t12-forge-stage{position:relative;aspect-ratio:720/486;background:#0d0d24;overflow:hidden}
+#t12 .t12-forge-stage img{display:block;width:100%;height:100%;object-fit:cover}
+#t12 .t12-forge-stage::after{content:"";position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 28px 14px #0d0d24;background:linear-gradient(180deg,transparent 70%,rgba(58,25,22,.9))}
+#t12 .t12-forge-unit{position:absolute;z-index:1;left:12px;top:10px;padding:4px 10px;border:1px solid rgba(240,170,120,.45);border-radius:10px;font-size:13px;color:#f6dcc8;background:rgba(42,14,12,.78)}
+#t12 .t12-forge-unit.ok{border-color:#7fd06a;color:#d9ffd0}
+
+/* Rangée des 5 pièces reliées par le tuyau : orange allumé une fois la pièce précédente terminée, bleu-gris sinon. */
+#t12 .t12-forge-row{position:relative;display:flex;align-items:center;margin-top:-40px;padding:44px 4% 12px;border-bottom:2px solid rgba(240,170,120,.16)}
+#t12 .t12-forge-row::before,#t12 .t12-forge-row::after{content:"";position:absolute;top:calc(50% + 11px);width:4%;height:10px}
+#t12 .t12-forge-row::before{left:0;border-radius:0 0 0 6px;background:linear-gradient(180deg,#ffd27a,#e0601c)}
+#t12 .t12-forge-row::after{right:0;background:linear-gradient(180deg,#46557a,#22293f)}
+#t12 .t12-forge-pipe{flex:1;height:10px;margin:0 -3px;background:linear-gradient(180deg,#46557a,#22293f)}
+#t12 .t12-forge-pipe.lit{background:linear-gradient(180deg,#ffe08a,#f08a2a 55%,#c24d12);box-shadow:0 0 10px rgba(255,150,50,.7)}
+#t12 .t12-forge-piece{position:relative;z-index:1;flex:none;width:13.2cqi;aspect-ratio:1;padding:0;border:0;border-radius:50%;cursor:pointer;
+  background:radial-gradient(circle closest-side,transparent 0 70%,#2a120a 71% 73%,var(--copper) 75%,#e2a874 83%,var(--copper) 90%,var(--copper-dark) 98%,transparent 100%);box-shadow:0 3px 6px rgba(10,2,2,.55);transition:transform .15s}
+#t12 .t12-forge-piece:hover{transform:scale(1.05)}
+#t12 .t12-forge-piece:focus-visible{outline:3px solid #fff;outline-offset:3px}
+#t12 .t12-forge-piece.sel{width:17.5cqi}
+#t12 .t12-forge-disc{position:absolute;inset:15%;overflow:hidden;border-radius:50%;background:#1b1d3a}
+#t12 .t12-forge-disc img{width:100%;height:100%;object-fit:cover;pointer-events:none}
+#t12 .t12-forge-piece:not(.done) .t12-forge-disc img{filter:saturate(.75) brightness(.8)}
+#t12 .t12-forge-piece.locked .t12-forge-disc img{filter:grayscale(.7) brightness(.32)}
+#t12 .t12-forge-lock{position:absolute;inset:0;display:grid;place-items:center;font-size:5.2cqi;filter:drop-shadow(0 1px 1px #000)}
+#t12 .t12-forge-piece .t12-target{top:-12%;right:-22%}
+#t12 .t12-forge-piece.sel .t12-target{display:none}
+/* Jauge des 5 niveaux au-dessus de la pièce choisie : allumée = niveau atteint, claire = objectif. */
+#t12 .t12-forge-gauge{position:absolute;left:50%;top:50%;width:0;height:0;pointer-events:none}
+#t12 .t12-forge-gauge i{position:absolute;left:-2.9cqi;top:0;width:5.8cqi;height:4.6cqi;border:2px solid var(--copper);border-radius:4px 4px 1px 1px;background:#1d1013;box-shadow:inset 0 0 0 1px #2a120a;
+  transform:rotate(calc(var(--k) * 23deg)) translateY(-14.2cqi);transform-origin:50% 0;clip-path:polygon(0 0,100% 0,84% 100%,16% 100%)}
+#t12 .t12-forge-gauge i.on{background:linear-gradient(180deg,#ffd27a,#f07c1e)}
+#t12 .t12-forge-gauge i.plan{background:linear-gradient(180deg,#fff2c4,#e7c27a);opacity:.75}
+
+/* Panneau de la pièce : nom, niveau, bonus, ressources requises, réglage. */
+#t12 .t12-forge-panel{padding:12px 4% 16px}
+#t12 .t12-forge-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:8px}
+#t12 .t12-forge-head h3{margin:0;font-size:clamp(17px,4.4cqi,22px);color:#fff}
+#t12 .t12-forge-lv{flex:none;font-size:clamp(16px,4.2cqi,21px);color:#fff}
+#t12 .t12-forge-lv i{margin:0 6px;font-style:normal;color:#4cd64c}
+#t12 .t12-forge-stats,#t12 .t12-forge-reqs{display:grid;gap:2px;padding:6px 12px;border-radius:12px;background:#2a110f}
+#t12 .t12-forge-stats div{display:flex;justify-content:space-between;gap:10px;padding:5px 0;font-size:14px;color:#d8c2bd}
+#t12 .t12-forge-stats b{font-weight:inherit;color:#fff;white-space:nowrap}
+#t12 .t12-forge-stats em{font-style:normal;color:#4cd64c}
+#t12 .t12-forge-panel h4{margin:12px 0 6px;font-size:16px;color:#fff}
+#t12 .t12-forge-req{display:flex;align-items:center;gap:10px;padding:5px 0;font-size:15px;color:#e8d6d2}
+#t12 .t12-forge-req img{width:28px;height:28px;object-fit:contain;border-radius:50%}
+#t12 .t12-forge-req b{margin-left:auto;color:#4cd64c}
+#t12 .t12-forge-req.missing{color:#ffb0a0}
+#t12 .t12-forge-req.missing b{color:#ff6a5a}
+#t12 .t12-forge-req.done{justify-content:space-between}
+#t12 .t12-forge-set{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 18px;margin-top:14px}
+#t12 .t12-forge-step{display:flex;align-items:center;gap:6px}
+#t12 .t12-forge-step small{margin-right:2px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#e3bfa6}
+#t12 .t12-forge-step output{min-width:22px;text-align:center;font-size:20px;color:#fff}
+#t12 .t12-forge-step button{min-width:36px;height:36px;padding:0 8px;border:0;border-radius:11px;font:inherit;font-size:18px;color:#fff;cursor:pointer;
+  background:linear-gradient(180deg,#5ab8ff,#2a73e0);box-shadow:inset 0 1px rgba(255,255,255,.45),0 3px 0 #1b4a9a}
+#t12 .t12-forge-step .t12-forge-max{font-size:14px}
+#t12 .t12-forge-step button:disabled{opacity:.4;cursor:default}
+@media (max-width:600px){
+  #t12 .t12-forge-set{display:grid;justify-content:center}
+  #t12 .t12-forge-step{display:grid;grid-template-columns:70px 36px 30px 36px auto;justify-items:center}
+  #t12 .t12-forge-step small{justify-self:end}
+}
