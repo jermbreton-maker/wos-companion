@@ -193,27 +193,10 @@
   #home .module-card .card-icon{position:absolute;left:2%;top:50%;width:24%;height:calc(100% - 18px);transform:translateY(-50%);margin:0}
 }
 
-/* Orange armband follows the cyan cutout, from lower left to upper right. */
-#home .coming-card .wip-ribbon{position:absolute;inset:0;z-index:2;pointer-events:none;clip-path:polygon(0 79%,0 100%,8% 100%,43% 0,32% 0);background:linear-gradient(145deg,#ed9155,#d86639 52%,#bb4b29);box-shadow:inset 0 2px rgba(255,225,169,.55)}
-#home .coming-card .wip-ribbon span{position:absolute;left:19%;top:50%;transform:translate(-50%,-50%) rotate(-30deg);font-size:clamp(14px,2.4vh,19px);line-height:1;letter-spacing:.06em;color:#fff4d5;text-shadow:0 2px 1px #843916}
-@media(max-width:600px){#home .coming-card .wip-ribbon span{transform:translate(-50%,-50%) rotate(-50deg);font-size:clamp(12px,3.4vw,17px)}}
-
-/* Flexible illustrated armband: curved face, folded returns and contact shadow. */
 #home .coming-card{overflow:visible;opacity:1}
 #home .coming-card::before{border-radius:inherit}
-#home .coming-card .wip-ribbon{clip-path:none;background:none;box-shadow:none;filter:drop-shadow(1px 3px 1px rgba(5,22,39,.45))}
-#home .coming-card .wip-ribbon svg{display:block;width:100%;height:100%;max-width:none;overflow:visible}
-#home .coming-card .wip-ribbon span{left:20%;top:49%;font-weight:400;-webkit-text-stroke:.4px #62321e;text-shadow:0 1px 1px #63311e}
 
-/* Cloth drape replaces the elastic sheen; lettering stays outlined. */
-#home .coming-card .wip-ribbon span{-webkit-text-stroke:1px #172033;paint-order:stroke fill;text-shadow:0 1px 1px rgba(23,32,51,.55)}
-
-/* Cloth ends continue behind the card; lettering follows the actual band slope. */
-#home .coming-card .wip-ribbon svg{overflow:hidden}
-#home .coming-card::after{content:"";display:block;position:absolute;inset:-2px;z-index:3;border:2px solid #21c8ef;border-radius:inherit;pointer-events:none}
-#home .coming-card .wip-ribbon span{left:19.5%;top:50%;transform:translate(-50%,-50%) rotate(var(--wip-angle,-45deg));-webkit-text-stroke:2px #172033;paint-order:stroke fill;text-shadow:0 1px 0 #172033}
-
-/* Cover the card edge at both cloth ends; remove the inherited decorative square. */
-#home .coming-card::after{display:none}
-#home .coming-card .wip-ribbon{inset:-3px;z-index:3}
-#home .coming-card .wip-ribbon span{font-family:var(--site-font);font-weight:400;font-synthesis:none}
+/* Tampon encreur circulaire, légèrement de biais, à la place de l'icône (rouge des casques T11/T12). */
+#home .coming-card .wip-stamp{position:absolute;left:0;top:50%;z-index:2;height:calc(100% + 12px);aspect-ratio:1;color:#cf3e47;transform:translateY(-50%) rotate(-14deg);pointer-events:none;filter:drop-shadow(0 1px 0 rgba(120,22,30,.35))}
+#home .coming-card .wip-stamp svg{display:block;width:100%;height:100%;overflow:visible;font-family:var(--site-font)}
+@media(max-width:600px){#home .coming-card .wip-stamp{left:-4px;height:calc(100% - 10px)}}
