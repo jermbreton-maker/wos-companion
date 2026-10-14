@@ -123,7 +123,7 @@ function renderResult(){
   /* Ressources de base : proportions de démonstration calquées sur les tables du jeu (≈ 46 viande et bois,
      9 charbon et 2,3 fer par unité d'acier) ; les vraies tables viendront en dernière étape. */
   const tiles=[
-    ['shard','Fragment de Cristal Ardent','assets/visuals/t11/fire-crystal-shard.png',fmt(Math.round(shards))],
+    ['shard','Fragment de Cristal Ardent','assets/visuals/t11/fire-crystal-shard.png?v=hd',fmt(Math.round(shards))],
     ['steel','Acier','assets/visuals/t11/steel.png',fmt(Math.round(steel))],
     ['meat','Viande','assets/visuals/furnace-materials/meat.png',fmt(Math.round(steel*46))],
     ['wood','Bois','assets/visuals/furnace-materials/wood.png',fmt(Math.round(steel*46))],
