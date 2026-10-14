@@ -49,13 +49,9 @@ const ICONS={
 const troopIds=Object.keys(T11.troops);
 const nodeName=(node,troop)=>node.name.replace('{troop}',T11.troops[troop]);
 
-/* Niveaux de départ de démonstration, proches de la capture : tout est au max sauf les trois dernières recherches. */
-const demoLevels=()=>Object.fromEntries(T11.nodes.map(node=>{
-  const partial={heal:7,train:7,aid:6}[node.id];
-  const from=partial??node.max;
-  return [node.id,{from,to:node.max}];
-}));
-const t11State={troop:'lancer',levels:Object.fromEntries(troopIds.map(id=>[id,demoLevels()])),editing:null,draft:null};
+/* À l'ouverture, toutes les recherches sont à 0 (actuel et objectif) : la personne saisit ses propres niveaux. */
+const emptyLevels=()=>Object.fromEntries(T11.nodes.map(node=>[node.id,{from:0,to:0}]));
+const t11State={troop:'lancer',levels:Object.fromEntries(troopIds.map(id=>[id,emptyLevels()])),editing:null,draft:null};
 
 const badge=(value,max)=>value>=max?'MAX':`${value}/${max}`;
 const iconSvg=id=>`<svg class="t11-ico" viewBox="0 0 100 100" aria-hidden="true">${ICONS[id]}</svg>`;
@@ -101,7 +97,7 @@ function renderResult(){
   ];
   document.getElementById('t11Result').innerHTML=`<h2>Coût de recherche</h2>
     <div class="t11-cost-grid">${tiles.map(([key,label,src,value])=>`<div class="t11-cost t11-cost-${key}"><span class="t11-cost-tile" title="${label}"><img src="${src}" alt=""></span><strong>${value}</strong><small>${label}</small></div>`).join('')}</div>
-    <p class="t11-summary">${steps?`${steps} niveau${steps>1?'x':''} à rechercher sur ${researches} recherche${researches>1?'s':''}`:'Tout est déjà à l’objectif.'}</p>`;
+    <p class="t11-summary">${steps?`${steps} niveau${steps>1?'x':''} à rechercher sur ${researches} recherche${researches>1?'s':''}`:T11.nodes.every(node=>!levels[node.id].from&&!levels[node.id].to)?'Touche une recherche pour saisir ton niveau actuel et ton objectif.':'Tout est déjà à l’objectif.'}</p>`;
 }
 
 function render(){
@@ -148,12 +144,14 @@ picker.querySelectorAll('[data-t11-field]').forEach(box=>{
   box.querySelectorAll('[data-t11-step]').forEach(button=>button.onclick=()=>set(t11State.draft[field]+Number(button.dataset.t11Step)));
   box.querySelector('[data-t11-max]').onclick=()=>set(Infinity);
 });
-picker.addEventListener('close',()=>{
-  if(picker.returnValue==='apply'&&t11State.editing){
+/* Enregistrement immédiat au clic sur « Appliquer » (sans attendre l'événement close, qui peut arriver en retard). */
+picker.querySelector('.t11-apply').addEventListener('click',event=>{
+  event.preventDefault();
+  if(t11State.editing){
     t11State.levels[t11State.troop][t11State.editing]={...t11State.draft};
     render();
   }
-  t11State.editing=null;
+  picker.close('apply');
 });
 picker.addEventListener('click',event=>{if(event.target===picker)picker.close('cancel')});
 
