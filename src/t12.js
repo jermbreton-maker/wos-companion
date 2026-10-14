@@ -201,7 +201,7 @@ function renderResult(){
       ['time','Accélérateurs','assets/visuals/furnace-materials/accelerator.png',formatFurnaceDuration(days)]
     ];
   }
-  document.getElementById('t12Result').innerHTML=`<h2>${state.view==='unlock'?'Coût du déblocage':'Coût de recherche'}</h2>
+  document.getElementById('t12Result').innerHTML=`<h2>${state.view==='unlock'?'Coût total du déblocage':'Coût de recherche'}</h2>
     <div class="t12-cost-grid">${tiles.map(([key,label,src,value])=>`<div class="t12-cost t12-cost-${key}" tabindex="0" data-tip="${label}" aria-label="${label} : ${value}"><span class="t12-cost-tile"><img src="${src}" alt=""></span><strong>${value}</strong></div>`).join('')}</div>`;
 }
 
