@@ -129,3 +129,13 @@
 #furnace #furnaceResult{position:static;z-index:auto}
 
 #furnacePicker .furnace-picker-grid{flex:1 1 auto}
+
+/* Pictogrammes des ressources : dessin visible à 73 % de la case, comme sur la page Talismans
+   (tailles calculées d'après les marges transparentes de chaque image ; léger recentrage du dessin). */
+#furnace .furnace-cost-grid .furnace-material.furnace-material-fire img{width:100.9%!important;height:100.9%!important;max-width:none;transform:translate(-0.6%,-1.7%)}
+#furnace .furnace-cost-grid .furnace-material.furnace-material-refined img{width:82.8%!important;height:82.8%!important;max-width:none}
+#furnace .furnace-cost-grid .furnace-material.furnace-material-food img{width:107.1%!important;height:107.1%!important;max-width:none;transform:translate(-2.1%,-0.2%)}
+#furnace .furnace-cost-grid .furnace-material.furnace-material-wood img{width:118%!important;height:118%!important;max-width:none;transform:translate(-0.4%,-0.8%)}
+#furnace .furnace-cost-grid .furnace-material.furnace-material-coal img{width:124.5%!important;height:124.5%!important;max-width:none;transform:translate(-2.1%,-1.4%)}
+#furnace .furnace-cost-grid .furnace-material.furnace-material-iron img{width:114.3%!important;height:114.3%!important;max-width:none;transform:translate(-3.4%,0.8%)}
+#furnace .furnace-cost-grid .furnace-material.furnace-material-time img{width:112.1%!important;height:112.1%!important;max-width:none;transform:translate(-0.8%,0.2%)}

@@ -134,3 +134,13 @@
   #t11Picker .t11-stepper output{min-width:46px;font-size:19px}
   #t11Picker .t11-stepper-arrow{font-size:22px}
 }
+
+/* Pictogrammes des ressources : dessin visible à 73 % de la case, comme sur la page Talismans
+   (tailles calculées d'après les marges transparentes de chaque image ; léger recentrage du dessin). */
+#t11 .t11-cost-shard .t11-cost-tile img{width:80.2%!important;height:80.2%!important;max-width:none}
+#t11 .t11-cost-steel .t11-cost-tile img{width:106.5%!important;height:106.5%!important;max-width:none;transform:translate(-2.8%,-0.5%)}
+#t11 .t11-cost-meat .t11-cost-tile img{width:107.1%!important;height:107.1%!important;max-width:none;transform:translate(-2.1%,-0.2%)}
+#t11 .t11-cost-wood .t11-cost-tile img{width:118%!important;height:118%!important;max-width:none;transform:translate(-0.4%,-0.8%)}
+#t11 .t11-cost-coal .t11-cost-tile img{width:124.5%!important;height:124.5%!important;max-width:none;transform:translate(-2.1%,-1.4%)}
+#t11 .t11-cost-iron .t11-cost-tile img{width:114.3%!important;height:114.3%!important;max-width:none;transform:translate(-3.4%,0.8%)}
+#t11 .t11-cost-time .t11-cost-tile img{width:112.1%!important;height:112.1%!important;max-width:none;transform:translate(-0.8%,0.2%)}
