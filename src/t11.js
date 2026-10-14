@@ -94,8 +94,9 @@ function renderTree(){
   </svg>`;
   const nodes=T11.nodes.map(node=>{
     const pos=LAYOUT[node.id],lvl=levels[node.id],planned=lvl.to>lvl.from,name=nodeName(node,t11State.troop);
-    const style=`left:${pos.x/VIEW.w*100}%;top:${pos.y/VIEW.h*100}%;width:${pos.size/VIEW.w*100}%`;
-    const label=pos.label?`<span class="t11-label" style="left:${pos.x/VIEW.w*100}%;top:${(pos.y+pos.size/2+14)/VIEW.h*100}%">${name}</span>`:'';
+    /* --t11-node-scale (CSS) agrandit les cases sur mobile ; les noms se décalent d'autant. */
+    const style=`left:${pos.x/VIEW.w*100}%;top:${pos.y/VIEW.h*100}%;width:calc(${pos.size/VIEW.w*100}% * var(--t11-node-scale,1))`;
+    const label=pos.label?`<span class="t11-label" style="left:${pos.x/VIEW.w*100}%;top:calc((${pos.y} + ${pos.size/2} * var(--t11-node-scale,1) + 14) / ${VIEW.h} * 100%)">${name}</span>`:'';
     const locked=!lvl.from&&!isUnlocked(node.id,t11State.troop,levels);
     return `<button type="button" class="t11-node${planned?' planned':''}${lvl.from>=node.max?' maxed':''}${locked?' locked':''}" data-t11-node="${node.id}" style="${style}" aria-label="${name} : niveau ${lvl.from} sur ${node.max}${planned?`, objectif ${lvl.to}`:''}${locked?', verrouillée':''}">
       ${iconImg(node.id,t11State.troop)}

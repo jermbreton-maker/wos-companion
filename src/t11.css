@@ -97,10 +97,12 @@
 #t11Picker .t11-apply{justify-self:center;margin-top:2px;padding:11px 34px;border:0;border-radius:14px;color:#fff;background:linear-gradient(180deg,#b5603d,#8c4129);font:inherit;font-size:17px;cursor:pointer;box-shadow:0 4px 0 #6a2e1d}
 
 @media(max-width:600px){
-  #t11{padding:26px 14px 60px}
+  #t11{padding:26px 6px 60px}
+  #t11 .t11-tree{width:100%;--t11-node-scale:1.14}
   #t11 .section-head h1{font-size:28px}
   #t11 .section-head p{font-size:14px}
-  #t11 .t11-board{padding:14px 8px 20px;border-radius:22px}
+  #t11 .t11-board{padding:14px 0 20px}
+  #t11 .t11-tabs,#t11 .t11-actions,#t11 .t11-result,#t11 .section-head{margin-inline:8px}
   #t11 .t11-node{box-shadow:inset 0 0 0 2px var(--t11-core),0 0 5px 1px var(--t11-glow),0 0 10px 2px var(--t11-glow)}
   #t11 .t11-node.locked{box-shadow:inset 0 0 0 2px #5a4644}
   #t11 .t11-node.planned{box-shadow:inset 0 0 0 2px var(--t11-core),0 0 6px 2px var(--t11-halo-on),0 0 12px 3px var(--t11-glow)}
