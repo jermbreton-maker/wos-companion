@@ -168,7 +168,11 @@
 #t12 .t12-forge-stage{position:relative;display:grid;place-items:center;aspect-ratio:720/486;overflow:hidden;
   background:radial-gradient(ellipse 34% 12% at 50% 86%,rgba(120,140,255,.55),transparent 70%),radial-gradient(ellipse 60% 70% at 50% 55%,#2a2a5c 0,#16163a 55%,#0b0b20 100%)}
 #t12 .t12-forge-stage::before{content:"";position:absolute;left:50%;top:0;bottom:12%;width:30%;transform:translateX(-50%);background:linear-gradient(180deg,rgba(110,130,255,.0),rgba(110,130,255,.16) 60%,rgba(130,150,255,.3));filter:blur(8px)}
-#t12 .t12-forge-art{position:relative;max-width:68%;max-height:70%;transform:translateY(-7%);object-fit:contain;filter:drop-shadow(0 0 14px rgba(255,60,30,.35)) drop-shadow(0 10px 12px rgba(0,0,0,.55))}
+/* Pièce un peu en retrait, avec une lueur rouge douce qui en émane (respiration lente). */
+#t12 .t12-forge-art{position:relative;max-width:58%;max-height:60%;transform:translateY(-8%);object-fit:contain;
+  filter:drop-shadow(0 0 5px rgba(255,60,35,.55)) drop-shadow(0 0 18px rgba(255,40,20,.4)) drop-shadow(0 10px 12px rgba(0,0,0,.5));animation:t12-glow 3.2s ease-in-out infinite alternate}
+@keyframes t12-glow{to{filter:drop-shadow(0 0 7px rgba(255,70,40,.7)) drop-shadow(0 0 26px rgba(255,45,20,.55)) drop-shadow(0 10px 12px rgba(0,0,0,.5))}}
+@media (prefers-reduced-motion:reduce){#t12 .t12-forge-art{animation:none}}
 #t12 .t12-forge-stage::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,transparent 78%,rgba(58,25,22,.9))}
 #t12 .t12-forge-unit{position:absolute;z-index:1;left:12px;top:10px;padding:4px 10px;border:1px solid rgba(240,170,120,.45);border-radius:10px;font-size:13px;color:#f6dcc8;background:rgba(42,14,12,.78)}
 #t12 .t12-forge-unit.ok{border-color:#7fd06a;color:#d9ffd0}
