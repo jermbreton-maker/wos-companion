@@ -129,10 +129,10 @@ function renderResult(){
     ['wood','Bois','assets/visuals/furnace-materials/wood.png',fmt(Math.round(steel*46))],
     ['coal','Charbon','assets/visuals/furnace-materials/coal.png',fmt(Math.round(steel*9.3))],
     ['iron','Fer','assets/visuals/furnace-materials/iron.png',fmt(Math.round(steel*2.3))],
-    ['time','Temps','assets/visuals/furnace-materials/accelerator.png',formatFurnaceDuration(days)]
+    ['time','Accélérateurs','assets/visuals/furnace-materials/accelerator.png',formatFurnaceDuration(days)]
   ];
   document.getElementById('t11Result').innerHTML=`<h2>Coût de recherche</h2>
-    <div class="t11-cost-grid">${tiles.map(([key,label,src,value])=>`<div class="t11-cost t11-cost-${key}" tabindex="0" data-label="${label}" aria-label="${label} : ${value}"><span class="t11-cost-tile"><img src="${src}" alt=""></span><strong>${value}</strong></div>`).join('')}</div>
+    <div class="t11-cost-grid">${tiles.map(([key,label,src,value])=>`<div class="t11-cost t11-cost-${key}" tabindex="0" data-tip="${label}" aria-label="${label} : ${value}"><span class="t11-cost-tile"><img src="${src}" alt=""></span><strong>${value}</strong></div>`).join('')}</div>
     <p class="t11-summary">${steps?`${steps} niveau${steps>1?'x':''} à rechercher sur ${researches} recherche${researches>1?'s':''}`:T11.nodes.every(node=>!levels[node.id].from&&!levels[node.id].to)?'Touche une recherche pour saisir ton niveau actuel et ton objectif.':'Tout est déjà à l’objectif.'}</p>`;
 }
 
@@ -203,12 +203,6 @@ picker.querySelector('.t11-apply').addEventListener('click',event=>{
 picker.addEventListener('click',event=>{if(event.target===picker)picker.close('cancel')});
 
 document.querySelectorAll('[data-t11-troop]').forEach(tab=>tab.onclick=()=>{t11State.troop=tab.dataset.t11Troop;render()});
-/* Nom des ressources : au survol sur ordinateur, au toucher sur mobile (toucher ailleurs le masque). */
-document.addEventListener('click',event=>{
-  const cost=event.target.closest?.('#t11 .t11-cost');
-  document.querySelectorAll('#t11 .t11-cost.show-label').forEach(item=>{if(item!==cost)item.classList.remove('show-label')});
-  cost?.classList.toggle('show-label');
-});
 /* Remettre à zéro : actuel et objectif de toutes les recherches de la troupe affichée. */
 document.getElementById('t11Reset').addEventListener('change',()=>{t11State.levels[t11State.troop]=emptyLevels();render()});
 render();

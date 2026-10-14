@@ -1,0 +1,6 @@
+/* Infobulles du site (src/tooltip.js) : même style partout, couleurs accordées au fond de la page. */
+.site-tip{position:fixed;left:0;top:0;z-index:1000;max-width:260px;padding:6px 10px;border:1px solid;border-radius:9px;font-family:var(--site-font);font-size:13px;line-height:1.15;white-space:nowrap;box-shadow:0 6px 14px rgba(2,8,20,.45);opacity:0;transform:translateY(4px);pointer-events:none;transition:opacity .15s,transform .15s}
+.site-tip.visible{opacity:1;transform:none}
+.site-tip[data-theme="blue"]{border-color:rgba(131,203,240,.55);background:#0b2d4e;color:#e9faff}
+.site-tip[data-theme="t11"]{border-color:rgba(240,170,120,.5);background:#2a0f0c;color:#fbe3d2;box-shadow:0 6px 14px rgba(10,2,2,.45)}
+.site-tip[data-theme="light"]{border-color:#acd4e4;background:#f4fbff;color:#174c69;box-shadow:0 6px 14px rgba(20,60,90,.2)}

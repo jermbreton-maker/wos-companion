@@ -63,9 +63,6 @@
 /* Coûts sur 2 lignes centrées : 4 puis 3. */
 #t11 .t11-cost-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:16px 28px;max-width:calc(4 * 76px + 3 * 28px);margin:0 auto}
 #t11 .t11-cost{position:relative;display:grid;justify-items:center;align-content:start;gap:6px;width:76px;outline:none}
-/* Nom de la ressource au survol (ou au toucher sur mobile). */
-#t11 .t11-cost::after{content:attr(data-label);position:absolute;bottom:calc(100% + 8px);left:50%;z-index:3;padding:6px 10px;border:1px solid rgba(240,170,120,.5);border-radius:9px;background:#2a0f0c;color:#fbe3d2;font-size:13px;line-height:1.1;white-space:nowrap;box-shadow:0 6px 14px rgba(10,2,2,.45);opacity:0;transform:translate(-50%,4px);pointer-events:none;transition:opacity .15s,transform .15s}
-#t11 .t11-cost:hover::after,#t11 .t11-cost:focus-visible::after,#t11 .t11-cost.show-label::after{opacity:1;transform:translate(-50%,0)}
 #t11 .t11-cost-tile{display:grid;place-items:center;width:76px;height:76px;border:3px solid #76afee;border-radius:17px;background:linear-gradient(180deg,#365894,#a7d4f2);box-shadow:0 6px 12px rgba(0,15,39,.35)}
 #t11 .t11-cost-shard .t11-cost-tile{border-color:#eba16e;background:linear-gradient(180deg,#935b2d,#f2ceaf)}
 /* Ressources de base : cases vertes, comme sur la page Chaudière. */
