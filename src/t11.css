@@ -24,8 +24,8 @@
 /* Couleur des chemins de lumière (liaisons + liseré des nœuds) selon la troupe :
    bleu pour Lancier, vert pour Infanterie, rouge pour Tireur. */
 #t11 .t11-tree{--t11-glow:rgba(64,160,255,.5);--t11-core:#2f8cf0;--t11-light:#9fdcff;--t11-rim:#7fd6ff;--t11-rim-dark:#1c5fc4;--t11-halo:rgba(72,170,255,.75);--t11-rim-on:#b9f0ff;--t11-rim-on-dark:#1c7fe0;--t11-halo-on:rgba(120,210,255,.85)}
-#t11 .t11-tree[data-troop="infantry"]{--t11-glow:rgba(70,220,110,.5);--t11-core:#2fbf5a;--t11-light:#b4f5c4;--t11-rim:#8cf0a4;--t11-rim-dark:#1f8f3e;--t11-halo:rgba(80,220,120,.75);--t11-rim-on:#d0ffd9;--t11-rim-on-dark:#26a84a;--t11-halo-on:rgba(130,240,160,.85)}
-#t11 .t11-tree[data-troop="marksman"]{--t11-glow:rgba(240,140,60,.55);--t11-core:#e09048;--t11-light:#ffdca8;--t11-rim:#e8b870;--t11-rim-dark:#8a3a24;--t11-halo:rgba(240,150,70,.7);--t11-rim-on:#ffe2b0;--t11-rim-on-dark:#a8502c;--t11-halo-on:rgba(255,180,100,.85)}
+#t11 .t11-tree[data-troop="infantry"]{--t11-glow:rgba(110,255,40,.6);--t11-core:#5cff1f;--t11-light:#e2ffc4;--t11-rim:#a8ff70;--t11-rim-dark:#2d9a0c;--t11-halo:rgba(120,255,50,.8);--t11-rim-on:#eaffd6;--t11-rim-on-dark:#3fc414;--t11-halo-on:rgba(160,255,90,.9)}
+#t11 .t11-tree[data-troop="marksman"]{--t11-glow:rgba(245,95,45,.6);--t11-core:#ea6a32;--t11-light:#ffc9a0;--t11-rim:#f2a774;--t11-rim-dark:#8f2e1a;--t11-halo:rgba(245,105,55,.75);--t11-rim-on:#ffd6b8;--t11-rim-on-dark:#b04324;--t11-halo-on:rgba(255,140,90,.85)}
 
 /* Liaisons lumineuses. */
 #t11 .t11-links{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
