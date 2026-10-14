@@ -1,6 +1,7 @@
 /* Emplacements publicitaires (maquette avec annonces fictives) — insérés par src/ads.js.
-   Ordinateur : bandeaux verticaux centrés dans les marges latérales, de part et d'autre du contenu.
-   Mobile : bannière 320×50 en haut de chaque page (sous le menu), pavé 300×250 sous le panneau Coût. */
+   À partir de 1320 px : bandeaux verticaux centrés dans les marges latérales, de part et d'autre du contenu.
+   En dessous : bannière en haut de chaque page (320×50 sur téléphone, 728×90 au-delà de 768 px)
+   et pavé 300×250 sous le panneau Coût. */
 .ad-slot{display:none;flex-direction:column;align-items:center;gap:4px;margin:0 auto}
 .ad-slot small{font:700 10px/1 Arial,Helvetica,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:rgba(214,236,250,.62)}
 .ad-slot img{display:block;max-width:100%;height:auto;border-radius:6px;box-shadow:0 6px 18px rgba(0,10,25,.35)}
@@ -21,13 +22,24 @@
   .ad-rail .ad-rail-narrow{display:none}
   .ad-rail .ad-rail-wide{display:flex}
 }
+
+/* Sans bandeaux latéraux (moins de 1320 px) : emplacements « mobiles » — bannière en haut de page, pavé sous le Coût. */
+.ad-mobile-top .ad-top-wide{display:none}
+@media(max-width:1319px){
+  .ad-mobile-top{display:flex;margin:0 auto 14px}
+  .ad-mobile-mrec{display:flex;margin:18px auto 0}
+}
+/* Écran large sans bandeaux : bannière 728×90 ; l'accueil garde sa hauteur d'écran. */
+@media(min-width:768px) and (max-width:1319px){
+  :root{--ad-top-h:118px}
+  .ad-mobile-top .ad-top-small{display:none}
+  .ad-mobile-top .ad-top-wide{display:block}
+  #home{min-height:calc(100svh - 76px - var(--ad-top-h))}
+  #home .home-shell{min-height:calc(100svh - 76px - clamp(16px,2.7vh,30px) - clamp(18px,2.8vh,32px) - var(--ad-top-h))}
 }
 
 @media(max-width:767px){
   :root{--ad-top-h:78px}
-  /* Bannière posée sur le fond de la page, juste sous le menu. */
-  .ad-mobile-top{display:flex;margin:0 auto 14px}
-  .ad-mobile-mrec{display:flex;margin:18px auto 0}
   /* L'accueil reste sur une hauteur d'écran malgré la bannière du haut. */
   /* Espacements de l'accueil resserrés pour compenser la bannière (34 px regagnés). */
   #home{min-height:calc(100svh - 76px - var(--ad-top-h));padding-top:10px}

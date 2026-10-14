@@ -17,10 +17,16 @@ const slot=(cls,file,w,h,alt)=>{
   document.body.append(rail);
 });
 
-/* Mobile : bannière en haut de chaque page, sur son fond, juste sous le menu. */
-document.querySelectorAll('main > .view').forEach(view=>view.prepend(slot('ad-mobile-top','chocolat-320x50.svg',320,50,'Chocolat Givré (annonce fictive)')));
+/* Sans bandeaux latéraux (téléphone, fenêtre étroite) : bannière en haut de chaque page, sur son fond, sous le menu.
+   320×50 sur téléphone, 728×90 sur écran plus large (choix dans ads.css). */
+document.querySelectorAll('main > .view').forEach(view=>{
+  const banner=slot('ad-mobile-top','chocolat-320x50.svg',320,50,'Chocolat Givré (annonce fictive)');
+  banner.querySelector('img').classList.add('ad-top-small');
+  banner.insertAdjacentHTML('beforeend','<img class="ad-top-wide" src="assets/ads/chocolat-728x90.svg" width="728" height="90" alt="Chocolat Givré (annonce fictive)" loading="lazy">');
+  view.prepend(banner);
+});
 
-/* Mobile : pavé sous le panneau Coût de chaque page (sous le panneau principal pour T12). */
+/* Sans bandeaux latéraux : pavé sous le panneau Coût de chaque page (sous le panneau principal pour T12). */
 ['#furnaceResult','#chiefResult','#charmResult','#t11Result','#t12 .t12-page-panel'].forEach(selector=>{
   document.querySelector(selector)?.after(slot('ad-mobile-mrec','aurora-300x250.svg',300,250,'Aurora Voyages (annonce fictive)'));
 });

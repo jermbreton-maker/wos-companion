@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="728" height="90" viewBox="0 0 728 90" font-family="Arial,Helvetica,sans-serif">
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#4a2414"/><stop offset=".6" stop-color="#7a3f22"/><stop offset="1" stop-color="#9a5530"/></linearGradient></defs>
+  <rect width="728" height="90" fill="url(#bg)"/>
+  <g fill="#fff" opacity=".25"><circle cx="300" cy="14" r="2.5"/><circle cx="420" cy="70" r="2"/><circle cx="520" cy="20" r="3"/><circle cx="360" cy="80" r="2"/></g>
+  <g transform="translate(58 50) scale(1.7)">
+    <path d="M-14 -8h24v14a10 10 0 0 1 -10 10h-4a10 10 0 0 1 -10 -10z" fill="#fff4e6"/>
+    <path d="M10 -4a6 6 0 0 1 0 12" fill="none" stroke="#fff4e6" stroke-width="3"/>
+    <ellipse cx="-2" cy="-8" rx="12" ry="3" fill="#6b3a20"/>
+    <path d="M-6 -14q3 -4 0 -8M2 -14q3 -4 0 -8" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" opacity=".7"/>
+  </g>
+  <text x="112" y="42" fill="#fff" font-size="28" font-weight="900">CHOCOLAT GIVRÉ</text>
+  <text x="112" y="66" fill="#ffd9b0" font-size="16">Le chocolat chaud des explorateurs — 2 achetés, le 3ᵉ offert</text>
+  <rect x="590" y="24" width="120" height="42" rx="21" fill="#ffd28a"/>
+  <text x="650" y="51" text-anchor="middle" fill="#4a2414" font-size="17" font-weight="900">GOÛTER</text>
+  <text x="716" y="84" text-anchor="end" fill="#fff" font-size="9" opacity=".6">Annonce fictive</text>
+</svg>
