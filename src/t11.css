@@ -1,7 +1,9 @@
 /* Recherche T11 — styles propres à la page #t11 (référence : arbre de l'Académie de guerre). */
 
 /* Page : même fond, même titre centré que les autres modules. */
-#t11{padding:42px 22px 80px;color:#fff;background:linear-gradient(180deg,#184d7d 0,#236b9b 38%,#16476f 100%)}
+/* Fond de page : brun-rouge de l'Académie, éclairé par une lumière chaude placée derrière la case Hélios
+   (voir .t11-tree::before) qui s'assombrit jusqu'aux bords de la page. */
+#t11{position:relative;isolation:isolate;overflow:hidden;padding:42px 22px 80px;color:#fff;background:#260d0f}
 #t11 .section-head{max-width:900px;margin:0 auto 22px;text-align:center}
 #t11 .section-head>div{max-width:760px;margin-inline:auto}
 #t11 .section-head h1{margin:0 0 12px;font-size:32px;color:#fff}
@@ -14,8 +16,10 @@
 #t11 .t11-tabs button.active{color:#fff;background:linear-gradient(180deg,#4b8dc3,#3977ae);box-shadow:inset 0 1px rgba(255,255,255,.25),0 3px 8px rgba(1,22,48,.3)}
 
 /* Panneau de l'arbre : fond brun-rouge chaud de l'Académie. */
-#t11 .t11-board{max-width:900px;margin:0 auto 22px;padding:22px 16px 30px;border:2px solid rgba(131,203,240,.46);border-radius:30px;background:radial-gradient(ellipse at 50% 38%,#a3452f 0,#8a3929 32%,#68291f 68%,#4a1c1c 100%);box-shadow:inset 0 1px rgba(255,255,255,.16),inset 0 0 60px rgba(30,6,6,.45),0 14px 35px rgba(1,22,48,.34)}
+#t11 .t11-board{max-width:900px;margin:0 auto 22px;padding:22px 16px 30px;border:2px solid rgba(131,203,240,.46);border-radius:30px;background:transparent;box-shadow:inset 0 1px rgba(255,255,255,.16),0 14px 35px rgba(30,6,6,.28)}
 #t11 .t11-tree{position:relative;width:min(100%,520px);aspect-ratio:1000/1400;margin:0 auto;container-type:inline-size}
+/* Lumière chaude centrée sur la case Hélios (x 50 %, y 870/1400 de l'arbre), étalée sur toute la page. */
+#t11 .t11-tree::before{content:"";position:absolute;left:50%;top:62.14%;z-index:-1;width:560cqi;height:560cqi;transform:translate(-50%,-50%);pointer-events:none;background:radial-gradient(circle,#ffcf91 0,#f39250 6.5cqi,#d2643a 17cqi,#b1502f 33cqi,#9c452d 54cqi,#853a28 81cqi,#6c2d23 112cqi,#55231e 146cqi,#3f1918 186cqi,#2e1113 228cqi,#260d0f 270cqi)}
 
 /* Liaisons bleues lumineuses. */
 #t11 .t11-links{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
