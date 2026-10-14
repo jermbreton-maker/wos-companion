@@ -4,7 +4,8 @@
 .ad-slot{display:none;flex-direction:column;align-items:center;gap:4px;margin:0 auto}
 .ad-slot small{font:700 10px/1 Arial,Helvetica,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:rgba(214,236,250,.62)}
 .ad-slot img{display:block;max-width:100%;height:auto;border-radius:6px;box-shadow:0 6px 18px rgba(0,10,25,.35)}
-.ad-rail{display:none;position:fixed;top:96px;z-index:5}
+/* Bandeaux posés dans la page, en haut à côté du contenu : ils défilent avec elle. */
+.ad-rail{display:none;position:absolute;top:96px;z-index:5}
 
 /* Bandeaux centrés dans l'espace libre entre le bord de l'écran et le contenu (900 px de large sur toutes les pages). */
 @media(min-width:1320px){
@@ -20,10 +21,6 @@
   .ad-rail .ad-rail-narrow{display:none}
   .ad-rail .ad-rail-wide{display:flex}
 }
-/* Écran peu haut : le bandeau rapetisse pour rester entier. */
-@media(min-width:1320px) and (max-height:760px){
-  .ad-rail{top:88px}
-  .ad-rail img{width:auto;max-height:calc(100vh - 116px)}
 }
 
 @media(max-width:767px){
