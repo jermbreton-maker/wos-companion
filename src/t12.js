@@ -108,7 +108,7 @@ function renderTree(){
 }
 
 /* ---------- Déblocage : écran de forge du jeu (rendu 3D, rangée des 5 pièces, détails de la pièce choisie) ---------- */
-const RENDER=(troop,id)=>`assets/visuals/t12/pieces/${troop}-${id}.png?v=20261014`;
+const RENDER=(troop,id)=>`assets/visuals/t12/pieces/${troop}-${id}.png?v=20261014b`;
 const TROOP_NOUN={infantry:'Infanterie',lancer:'Lancier',marksman:'Tireur'};
 const RES=[
   ['steel','Acier','assets/visuals/t11/steel.png'],
