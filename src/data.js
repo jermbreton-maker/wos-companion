@@ -16,7 +16,12 @@ window.COMPANION_DATA={
       lancer:["Couronne de Guerre Glorifiée","Épaulière Glorifiée","Cotte de Maille Glorifiée","Bas de Guerre Glorifié","Pique Glorifiée"],
       marksman:["Voile Glorifié","Manteau Glorifié","Tenue de Guerre Glorifiée","Cadence Glorifiée","Tromblon Glorifié"]
     },
-    unlockTotal:{steel:1624000,rfc:440,shards:3080},
+    /* Forge des pièces (captures du jeu) : cristaux raffinés par niveau (1 à 5) ; acier = cristaux × 4 000 (pièce 1)
+       ou × 3 600 (pièces 2 à 5) ; fragments = cristaux × 7. Total par troupe : 440 cristaux, 1 624 000 acier, 3 080 fragments.
+       Pièces 2 à 5, niveaux 4 et 5 : seule leur somme (50) est connue, répartition 20 + 30 supposée. */
+    unlockCost:{rfc:[[10,15,20,25,30],[10,10,15,20,30]],steelPerRfc:[4000,3600],shardsPerRfc:7},
+    /* Bonus par niveau : pièce 1 = capacité de déploiement, pièces 2 à 5 = attaque, défense, létalité, santé de la troupe. */
+    unlockStats:[{label:"Capacité de déploiement",step:600,unit:""},{label:"Attaque",step:3,unit:" %"},{label:"Défense",step:3,unit:" %"},{label:"Létalité",step:3,unit:" %"},{label:"Santé",step:3,unit:" %"}],
     /* Lignes Brûlantes (I, II, III) : attaque, santé, défense, létalité (positions de gauche à droite dans le jeu). */
     molten:{
       infantry:["Lames Brûlantes","Armure Brûlante","Boucliers Brûlants","Garde Brûlante"],

@@ -139,8 +139,6 @@
 #t12 .t12-node:hover{transform:translate(-50%,-50%) scale(1.05)}
 #t12 .t12-node:focus-visible{outline:3px solid #fff;outline-offset:4px}
 :is(#t12,#t12Picker) .t12-ico{position:absolute;inset:17%;width:66%;height:66%;border-radius:50%;object-fit:cover;pointer-events:none;user-select:none}
-:is(#t12,#t12Picker) .t12-ico-svg{fill:#fff7ef;background:radial-gradient(circle at 50% 38%,color-mix(in srgb,var(--t12-ring) 70%,#fff),var(--t12-ring-dark));padding:9%;box-sizing:border-box;filter:drop-shadow(0 2px 1px rgba(0,0,0,.3))}
-:is(#t12,#t12Picker) .t12-ico-svg .t12-cut{fill:var(--t12-ring-dark)}
 #t12 .t12-badge{position:absolute;left:50%;bottom:16%;transform:translateX(-50%);font-size:clamp(9px,3.6cqi,19px);line-height:1;color:#fff;white-space:nowrap;-webkit-text-stroke:3px #2a1410;paint-order:stroke fill}
 #t12 .t12-target{position:absolute;top:-4%;right:-14%;padding:2px 5px;border-radius:8px;font-size:clamp(8px,2.7cqi,13px);line-height:1.1;color:#2a1410;background:#ffd98a;box-shadow:0 2px 4px rgba(20,4,4,.5),0 0 8px rgba(255,190,80,.8)}
 #t12 .t12-node.planned{box-shadow:0 4px 8px rgba(20,4,4,.55),0 0 14px 4px rgba(255,190,80,.6)}
@@ -164,3 +162,6 @@
 #t12Picker .t12-step10{display:none}
 #t12Picker.t12-long .t12-step10{display:inline-block;width:auto!important;padding:0 8px;font-size:14px!important}
 #t12Picker .t12-node.t12-node-preview{position:relative;display:block;width:82px;transform:none;cursor:default}
+
+/* Déblocage : niveau posé sur le bas de l'anneau, l'illustration de la pièce reste dégagée. */
+#t12 .t12-tree[data-view="unlock"] .t12-badge{bottom:-3%;padding:1px 6px;border-radius:8px;background:#3a1712;-webkit-text-stroke:0;font-size:clamp(9px,3cqi,15px)}

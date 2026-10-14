@@ -3,7 +3,7 @@
 (()=>{
 const T12=window.COMPANION_DATA.t12;
 const TROOPS=Object.keys(T12.units);
-const ICON=(troop,id)=>`assets/visuals/t12/icons/${troop}-${id}.png?v=20261014`;
+const ICON=(troop,id)=>`assets/visuals/t12/icons/${troop}-${id}.png?v=20261014b`;
 
 /* ---------- Structure des deux vues (repère 1000 × hauteur) ---------- */
 const COLS=[114,371,628,884];
@@ -26,12 +26,12 @@ const TREE={h:2480,nodes:[
   ...COLS.map(x=>({d:`M${x} 1681 V1840 H500 V1975`,to:'dom'})),
   ...COLS.map((x,i)=>({d:`M500 1975 V2149 H${x} V2311`,to:'m3'+'abcd'[i]}))
 ]};
-const UNLOCK={h:1300,nodes:[
-  ...[0,1,2,3,4].map(i=>({id:'p'+(i+1),x:300,y:110+i*190,size:150,max:5,label:true,piece:i})),
-  {id:'unit',x:300,y:1150,size:190,label:true,display:true}
+const UNLOCK={h:1400,nodes:[
+  ...[0,1,2,3,4].map(i=>({id:'p'+(i+1),x:300,y:120+i*215,size:180,max:5,label:true,piece:i})),
+  {id:'unit',x:300,y:1260,size:200,label:true,display:true}
 ],links:[
-  ...[0,1,2,3].map(i=>({d:`M300 ${110+i*190} V${300+i*190}`,to:'p'+(i+2)})),
-  {d:'M300 870 V1150',to:'unit'}
+  ...[0,1,2,3].map(i=>({d:`M300 ${120+i*215} V${335+i*215}`,to:'p'+(i+2)})),
+  {d:'M300 980 V1260',to:'unit'}
 ]};
 
 /* ---------- Noms ---------- */
@@ -77,16 +77,7 @@ const isUnlocked=(id,levels)=>Object.entries(requirements(id)[1]||{}).every(([ot
 const maxOf=id=>[...UNLOCK.nodes,...TREE.nodes].find(n=>n.id===id).max;
 const badge=(value,max)=>value>=max?'MAX':`${value}/${max}`;
 
-/* ---------- Icônes des pièces de déblocage (pas de capture disponible) : pictogrammes simples ---------- */
-const PIECES=[
-  '<path d="M22 84V52C22 28 36 14 50 14S78 28 78 52V84Z"/><path class="t12-cut" d="M32 48H68V56H32ZM36 61H43V76H36ZM46 61H54V76H46ZM57 61H64V76H57Z"/>',
-  '<path d="M14 62C14 38 30 22 50 22S86 38 86 62C76 56 64 54 50 54S24 56 14 62Z"/><path d="M22 66C30 62 40 60 50 60S70 62 78 66L72 82C66 78 58 76 50 76S34 78 28 82Z"/>',
-  '<path d="M30 16H70L84 30V58C84 76 68 86 50 90C32 86 16 76 16 58V30Z"/><path class="t12-cut" d="M44 34H56V48H70V60H56V76H44V60H30V48H44Z"/>',
-  '<path d="M34 12H56V58L82 66C88 68 90 74 88 80V86H22V70L34 58Z"/><path class="t12-cut" d="M38 70H82V76H38Z"/>',
-  '<path d="M18 82L66 34L60 28L82 12L68 34L74 40L26 88Z"/><path d="M58 22L74 8L90 24L76 38Z"/>'
-];
-const pieceSvg=i=>`<svg class="t12-ico t12-ico-svg" viewBox="0 0 100 100" aria-hidden="true">${PIECES[i]}</svg>`;
-const nodeArt=(node,troop)=>node.piece!==undefined?pieceSvg(node.piece):`<img class="t12-ico" src="${ICON(troop,iconId(node.id))}" alt="" draggable="false">`;
+const nodeArt=(node,troop)=>`<img class="t12-ico" src="${ICON(troop,iconId(node.id))}" alt="" draggable="false">`;
 
 /* ---------- Rendu ---------- */
 function renderTree(){
@@ -120,13 +111,16 @@ function renderResult(){
   const levels=state.levels[state.troop];
   let tiles;
   if(state.view==='unlock'){
-    let weight=0;
-    UNLOCK.nodes.forEach(node=>{if(node.display)return;const {from,to}=levels[node.id];for(let l=from+1;l<=to;l++)weight+=node.piece*5+l});
-    const share=weight/325; /* répartition croissante du coût total réel sur les 25 niveaux */
+    const C=T12.unlockCost;let rfc=0,steel=0;
+    UNLOCK.nodes.forEach(node=>{
+      if(node.display)return;
+      const kind=node.piece?1:0,{from,to}=levels[node.id];
+      for(let l=from;l<to;l++){rfc+=C.rfc[kind][l];steel+=C.rfc[kind][l]*C.steelPerRfc[kind]}
+    });
     tiles=[
-      ['shard','Fragment de Cristal Ardent','assets/visuals/t11/fire-crystal-shard.png?v=hd',fmt(Math.round(T12.unlockTotal.shards*share))],
-      ['rfc','Cristaux raffinés','assets/visuals/furnace-materials/refined-fire-crystal.png',fmt(Math.round(T12.unlockTotal.rfc*share))],
-      ['steel','Acier','assets/visuals/t11/steel.png',fmt(Math.round(T12.unlockTotal.steel*share))]
+      ['shard','Fragment de Cristal Ardent','assets/visuals/t11/fire-crystal-shard.png?v=hd',fmt(rfc*C.shardsPerRfc)],
+      ['rfc','Cristaux raffinés','assets/visuals/furnace-materials/refined-fire-crystal.png',fmt(rfc)],
+      ['steel','Acier','assets/visuals/t11/steel.png',fmt(steel)]
     ];
   }else{
     let steel=0,days=0;
@@ -174,6 +168,10 @@ function syncPicker(){
     box.querySelectorAll('[data-t12-step]').forEach(b=>{const step=+b.dataset.t12Step;b.disabled=step<0?value<=min:value>=max});
     box.querySelector('[data-t12-max]').disabled=value>=max;
   });
+  const piece=/^p\d$/.test(id)?T12.unlockStats[+id[1]-1]:null,bonus=l=>`+${(l*piece.step).toLocaleString("fr-FR")}${piece.unit}`;
+  document.getElementById('t12PickerDesc').textContent=piece
+    ?`${piece.label} : ${bonus(draft.from)}${draft.to>draft.from?` → ${bonus(draft.to)}`:''} (${bonus(1)} par niveau).`
+    :'Règle le niveau actuel de cette recherche et le niveau que tu vises.';
   const needs=Object.entries(requirementsUpTo(id,draft.to)),list=document.getElementById('t12PickerReqs');
   list.hidden=!needs.length;
   list.innerHTML=needs.length?`<small>PRÉREQUIS${draft.to>1?` JUSQU'AU NIVEAU ${draft.to}`:''}</small>`+needs.map(([other,min])=>{
