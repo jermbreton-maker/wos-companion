@@ -111,11 +111,10 @@ function renderTree(){
 
 function renderResult(){
   const levels=t11State.levels[t11State.troop];
-  let steel=0,shards=0,days=0,steps=0,researches=0;
+  let steel=0,shards=0,days=0;
   T11.nodes.forEach(node=>{
     const {from,to}=levels[node.id],count=Math.max(0,to-from);
     if(!count)return;
-    researches++;steps+=count;
     steel+=node.cost*1000*count;
     shards+=node.cost*.62*count;
     days+=node.days*count;
@@ -132,8 +131,7 @@ function renderResult(){
     ['time','Accélérateurs','assets/visuals/furnace-materials/accelerator.png',formatFurnaceDuration(days)]
   ];
   document.getElementById('t11Result').innerHTML=`<h2>Coût de recherche</h2>
-    <div class="t11-cost-grid">${tiles.map(([key,label,src,value])=>`<div class="t11-cost t11-cost-${key}" tabindex="0" data-tip="${label}" aria-label="${label} : ${value}"><span class="t11-cost-tile"><img src="${src}" alt=""></span><strong>${value}</strong></div>`).join('')}</div>
-    <p class="t11-summary">${steps?`${steps} niveau${steps>1?'x':''} à rechercher sur ${researches} recherche${researches>1?'s':''}`:T11.nodes.every(node=>!levels[node.id].from&&!levels[node.id].to)?'Touche une recherche pour saisir ton niveau actuel et ton objectif.':'Tout est déjà à l’objectif.'}</p>`;
+    <div class="t11-cost-grid">${tiles.map(([key,label,src,value])=>`<div class="t11-cost t11-cost-${key}" tabindex="0" data-tip="${label}" aria-label="${label} : ${value}"><span class="t11-cost-tile"><img src="${src}" alt=""></span><strong>${value}</strong></div>`).join('')}</div>`;
 }
 
 function render(){

@@ -74,7 +74,6 @@
 #t11 .t11-cost-steel .t11-cost-tile img{width:100%;height:100%}
 #t11 .t11-cost-tile img{width:82%;height:82%;object-fit:contain;filter:drop-shadow(0 4px 4px rgba(3,35,61,.32))}
 #t11 .t11-cost strong{font-size:18px;color:#fff}
-#t11 .t11-summary{margin:16px 0 0;text-align:center;font-size:14px;color:#f6dcc8}
 
 /* Fenêtre de réglage d'une recherche : couleurs des fenêtres d'information du jeu
    (fond rose pâle, rebord rosé, titre bordeaux, zone grisée, voile sombre flouté). */
