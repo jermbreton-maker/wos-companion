@@ -196,7 +196,8 @@
 #home .coming-card{overflow:visible;opacity:1}
 #home .coming-card::before{border-radius:inherit}
 
-/* Tampon encreur circulaire, légèrement de biais, à la place de l'icône (rouge des casques T11/T12). */
-#home .coming-card .wip-stamp{position:absolute;left:0;top:50%;z-index:2;height:calc(100% + 12px);aspect-ratio:1;color:#cf3e47;transform:translateY(-50%) rotate(-14deg);pointer-events:none;filter:drop-shadow(0 1px 0 rgba(120,22,30,.35))}
+/* Tampon encreur circulaire, légèrement de biais, apposé sur le bouton (rouge des casques T11/T12).
+   Son centre se place à gauche du titre (centré à 2/3 de la carte) pour en recouvrir environ le premier quart. */
+#home .coming-card .wip-stamp{position:absolute;left:calc(66.7% - 91px);top:50%;z-index:2;height:calc(100% + 12px);aspect-ratio:1;color:#cf3e47;opacity:.93;transform:translate(-50%,-50%) rotate(-14deg);pointer-events:none;filter:drop-shadow(0 1px 0 rgba(120,22,30,.35))}
 #home .coming-card .wip-stamp svg{display:block;width:100%;height:100%;overflow:visible;font-family:var(--site-font)}
-@media(max-width:600px){#home .coming-card .wip-stamp{left:-4px;height:calc(100% - 10px)}}
+@media(max-width:600px){#home .coming-card .wip-stamp{left:calc(66.7% - 9.4vw - 23px);height:100%}}
