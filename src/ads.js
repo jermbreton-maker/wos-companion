@@ -17,8 +17,8 @@ const slot=(cls,file,w,h,alt)=>{
   document.body.append(rail);
 });
 
-/* Mobile : bannière sous le menu du haut, sur toutes les pages. */
-document.querySelector('main').prepend(slot('ad-mobile-top','chocolat-320x50.svg',320,50,'Chocolat Givré (annonce fictive)'));
+/* Mobile : bannière en haut de chaque page, sur son fond, juste sous le menu. */
+document.querySelectorAll('main > .view').forEach(view=>view.prepend(slot('ad-mobile-top','chocolat-320x50.svg',320,50,'Chocolat Givré (annonce fictive)')));
 
 /* Mobile : pavé sous le panneau Coût de chaque page (sous le panneau principal pour T12). */
 ['#furnaceResult','#chiefResult','#charmResult','#t11Result','#t12 .t12-page-panel'].forEach(selector=>{
