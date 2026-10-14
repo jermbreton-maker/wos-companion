@@ -596,9 +596,9 @@
 
 /* Matériaux : dégradé cuivre vers pêche pâle de la référence WOS. */
 #chief-charms #charmResult .resource-item.material-skin{
-  border-color:#e99761;
-  background:linear-gradient(180deg,#b9682c 0,#d6823d 34%,#efa064 66%,#ffd2aa 100%);
-  box-shadow:inset 0 0 0 2px rgba(255,201,151,.48),inset 0 -9px 16px rgba(255,232,205,.24),0 6px 12px rgba(0,15,39,.35),0 0 10px rgba(232,130,57,.22);
+  border-color:#eba16e;
+  background:linear-gradient(180deg,#935b2d,#f2ceaf);
+  box-shadow:0 6px 12px rgba(0,15,39,.35);
 }
 
 /* Un seul talisman par niveau, avec sélection directe du sous-niveau. */
@@ -990,8 +990,8 @@ img,svg,canvas,video{max-width:100%}
 
 /* Cases originales des quatre matériaux d'amélioration d'équipement. */
 #chief-gear .gear-material-skin{
-  width:82px;
-  height:82px;
+  width:84px;
+  height:84px;
   padding:0;
   border:0;
   border-radius:18px;
@@ -999,8 +999,8 @@ img,svg,canvas,video{max-width:100%}
   box-shadow:none;
   overflow:visible;
 }
-#chief-gear .gear-material-skin img{display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 5px 6px rgba(4,24,43,.28))}
-@media(max-width:520px){#chief-gear .gear-material-skin{width:68px;height:68px}}
+#chief-gear .gear-material-skin img{display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 6px 6px rgba(0,15,39,.35))}
+@media(max-width:600px){#chief-gear .gear-material-skin{width:64px;height:64px}}
 
 /* Les sprites HD sont déjà éclairés : on conserve uniquement les ombres de relief. */
 #chief-gear .gear-orbit .gear-level-skin,
