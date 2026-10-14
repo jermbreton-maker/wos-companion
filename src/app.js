@@ -55,7 +55,10 @@ function gearVisualData(level){return GEAR_VISUAL_LEVELS[Math.max(0,Math.min(GEA
 function gearLevelSkin(g,level){const visual=gearVisualData(level),slot=g.id==='helmet'?'headgear':g.id,key=visual.skin+'/'+slot,src=visual.skin==='p5-p6'&&slot==='headgear'?'assets/visuals/home/chief-p6-hd.png':'assets/visuals/gear-hd/'+visual.skin+'/'+slot+'.png';return `<img class="gear-level-skin gear-visual-${visual.skin}" style="${gearArtworkStyle(key,slot)}" src="${src}?v=20261006-hd-gear-complete" alt="">`}
 const $=(s,p=document)=>p.querySelector(s),$$=(s,p=document)=>[...p.querySelectorAll(s)],fmt=n=>{const value=Number(n);if(!Number.isFinite(value))return String(n);const units=['','K','M','B'];let unit=0;while(Math.abs(value)/1000**unit>=1000&&unit<units.length-1)unit++;let rounded=Number((value/1000**unit).toFixed(2));if(Math.abs(rounded)>=1000&&unit<units.length-1){unit++;rounded=Number((value/1000**unit).toFixed(2))}return rounded+units[unit]};
 function formatFurnaceDuration(days){const seconds=Math.round(days*86400);if(!seconds)return '—';const units=[['J',86400],['h',3600],['min',60],['s',1]],parts=[];let rest=seconds;for(const[label,size]of units){const amount=Math.floor(rest/size);if(amount){parts.push(amount+' '+label);rest-=amount*size}if(parts.length===2)break}return parts.join(' ')}
-function go(id){$$('.view').forEach(v=>v.classList.toggle('active',v.id===id));scrollTo({top:0,behavior:'smooth'})}$$('[data-go]').forEach(b=>b.onclick=()=>go(b.dataset.go));
+function go(id){$$('.view').forEach(v=>v.classList.toggle('active',v.id===id));syncNav(id);scrollTo({top:0,behavior:'smooth'})}
+function syncNav(id){const nav=$('.topbar nav');$$('[data-go]',nav).forEach(b=>{if(b.dataset.go!==id){b.removeAttribute('aria-current');return}b.setAttribute('aria-current','page');if(nav.scrollWidth>nav.clientWidth){const offset=b.getBoundingClientRect().left-nav.getBoundingClientRect().left;nav.scrollTo({left:nav.scrollLeft+offset-(nav.clientWidth-b.offsetWidth)/2,behavior:'smooth'})}})}
+function syncNavEdge(){const nav=$('.topbar nav');nav.classList.toggle('at-end',nav.scrollLeft+nav.clientWidth>=nav.scrollWidth-2)}
+$('.topbar nav').addEventListener('scroll',syncNavEdge,{passive:true});addEventListener('resize',syncNavEdge);$$('[data-go]').forEach(b=>b.onclick=()=>go(b.dataset.go));
 function sumSteps(arr,a,b){const out={fc:0,rfc:0,food:0,wood:0,coal:0,iron:0,time:0};arr.slice(a+1,b+1).forEach(x=>Object.keys(out).forEach(k=>out[k]+=x[k]||0));return out}
 function addCosts(...costs){const out={fc:0,rfc:0,food:0,wood:0,coal:0,iron:0,time:0};costs.forEach(cost=>Object.keys(out).forEach(key=>out[key]+=(cost?.[key]||0)));return out}
 function sumFurnaceBuildings(a,b,scope){const out={fc:0,rfc:0,food:0,wood:0,coal:0,iron:0,time:0},table=D.furnaceBuildingCosts||[];for(let index=a+1;index<=b;index++)Object.keys(out).forEach(key=>out[key]+=(table[index]?.[scope]?.[key]||0));return out}
@@ -260,7 +263,7 @@ openLevelPicker=function(spec){
   lockLevelPickerBackground();
   picker.showModal();
 };
-$('#lang').onchange=e=>{if(e.target.value==='en')alert('English translation layer is ready; the reviewed terminology will be enabled in the next dataset pass.')};renderFurnace();renderGear();renderTech();renderT12();
+$('#lang').onchange=e=>{if(e.target.value==='en')alert('English translation layer is ready; the reviewed terminology will be enabled in the next dataset pass.')};renderFurnace();renderGear();renderTech();renderT12();syncNav('home');syncNavEdge();
 
 
 /* Mobile touch zoom: reuse the exact level buttons and their calculation handlers. */
