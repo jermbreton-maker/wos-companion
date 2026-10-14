@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="src/home.css?v=20261014-pwa4" />
   <link rel="stylesheet" href="src/furnace.css?v=20261014-4x3">
   <link rel="stylesheet" href="src/t11.css?v=20261014-nosum">
+  <link rel="stylesheet" href="src/t12.css?v=20261014-t12c">
   <link rel="stylesheet" href="src/tooltip.css?v=20261014-tip">
   <link rel="stylesheet" href="src/ads.css?v=20261014-pub4">
 </head>
@@ -105,13 +106,40 @@
     </section>
 
     <section class="view calculator" id="t12">
-      <div class="section-head"><div><p class="eyebrow">MODULE C2</p><h1>Déblocage T12</h1><p>Monte les quatre pièces glorifiées requises pour ouvrir la troupe T12.</p></div></div>
-      <div class="t12 t12-page-panel panel"><div><p class="eyebrow">PROGRESSION T12</p><h2>Les 4 pièces glorifiées</h2><p>Renseigne le niveau actuel de chaque pièce.</p></div><div class="t12-pieces" id="t12Pieces"></div><div id="t12Result"></div></div>
+      <div class="section-head"><div><h1>Recherche T12</h1><p>Choisis ta troupe, débloque l'unité glorifiée puis fais progresser son arbre.</p></div></div>
+      <div class="t12-tabs" role="tablist" aria-label="Troupe">
+        <button type="button" role="tab" data-t12-troop="infantry">Infanterie</button>
+        <button type="button" role="tab" data-t12-troop="lancer">Lancier</button>
+        <button type="button" role="tab" data-t12-troop="marksman">Tireur</button>
+      </div>
+      <div class="t12-subtabs" role="tablist" aria-label="Section">
+        <button type="button" role="tab" data-t12-view="unlock">Déblocage <span class="t12-subtab-state" id="t12UnlockState"></span></button>
+        <button type="button" role="tab" data-t12-view="tree">Arbre</button>
+      </div>
+      <p class="t12-banner" id="t12Banner" hidden>Unité pas encore débloquée : l'arbre reste réglable pour planifier.</p>
+      <div class="t12-board"><div class="t12-tree" id="t12Tree"></div></div>
+      <div class="t12-actions"><label class="select-all-charms charm-bulk-select"><input type="checkbox" id="t12Reset"><span class="bulk-toggle" aria-hidden="true"><i></i></span><span>Remettre à zéro</span></label></div>
+      <div class="t12-result" id="t12Result"></div>
+      <dialog id="t12Picker" aria-labelledby="t12PickerTitle">
+        <form method="dialog">
+          <button class="t12-close" value="cancel" aria-label="Fermer">×</button>
+          <div class="t12-picker-head">
+            <div id="t12PickerNode"></div>
+            <div><p class="t12-eyebrow" id="t12PickerTroop"></p><h2 id="t12PickerTitle"></h2><p class="t12-picker-desc">Règle le niveau actuel de cette recherche et le niveau que tu vises.</p></div>
+          </div>
+          <div class="t12-steppers">
+            <div class="t12-stepper" data-t12-field="from"><small>ACTUEL</small><div><button type="button" data-t12-step="-10" class="t12-step10" aria-label="Moins 10">−10</button><button type="button" data-t12-step="-1" aria-label="Diminuer le niveau actuel">−</button><output></output><button type="button" data-t12-step="1" aria-label="Augmenter le niveau actuel">+</button><button type="button" data-t12-step="10" class="t12-step10" aria-label="Plus 10">+10</button></div><button type="button" class="t12-max" data-t12-max>MAX</button></div>
+            <div class="t12-stepper" data-t12-field="to"><small>OBJECTIF</small><div><button type="button" data-t12-step="-10" class="t12-step10" aria-label="Moins 10">−10</button><button type="button" data-t12-step="-1" aria-label="Diminuer l’objectif">−</button><output></output><button type="button" data-t12-step="1" aria-label="Augmenter l’objectif">+</button><button type="button" data-t12-step="10" class="t12-step10" aria-label="Plus 10">+10</button></div><button type="button" class="t12-max" data-t12-max>MAX</button></div>
+          </div>
+          <p class="t12-reqs" id="t12PickerReqs" hidden></p>
+          <button class="t12-apply" value="apply">Appliquer</button>
+        </form>
+      </dialog>
     </section>
   </main>
   <div hidden><div id="gearLeft"></div><div id="gearRight"></div></div>
   <dialog id="gearDialog"><form method="dialog"><button class="dialog-close" value="cancel" aria-label="Fermer">×</button><p class="eyebrow" id="dialogType"></p><h2 id="dialogTitle"></h2><p class="profile-dialog-note">Renseigne uniquement l’état actuel de ton Chef.</p><div class="dialog-compare"><label class="current-setting"><small>ÉQUIPEMENT ACTUEL</small><span class="gear-preview" id="gearFromPreview"></span><select id="gearFrom"></select></label><span class="dialog-arrow">→</span><label class="target-setting"><small>OBJECTIF</small><span class="gear-preview target" id="gearToPreview"></span><select id="gearTo"></select></label></div><h3>3 talismans actuels</h3><div id="charmInputs" class="charm-inputs"></div><button class="primary" value="save" id="saveGear">Appliquer</button></form></dialog>
   <dialog id="levelPicker"><form method="dialog"><button class="dialog-close" value="cancel" aria-label="Fermer">×</button><p class="eyebrow" id="pickerEyebrow">NIVEAU</p><h2 id="pickerTitle">Choisir un niveau</h2><div class="level-picker-grid" id="levelPickerGrid"></div></form></dialog>
-      <script src="src/data.js?v=20261014-pub"></script><script src="src/chief-gear-sublevels.js?v=20261014-pub"></script><script src="src/app.js?v=20261014-tip"></script><script src="src/t11.js?v=20261014-nosum"></script><script src="src/tooltip.js?v=20261014-tip"></script><script src="src/ads.js?v=20261014-pub4"></script>
+      <script src="src/data.js?v=20261014-t12"></script><script src="src/chief-gear-sublevels.js?v=20261014-pub"></script><script src="src/app.js?v=20261014-t12"></script><script src="src/t11.js?v=20261014-nosum"></script><script src="src/t12.js?v=20261014-t12b"></script><script src="src/tooltip.js?v=20261014-t12"></script><script src="src/ads.js?v=20261014-t12"></script>
 </body>
 </html>

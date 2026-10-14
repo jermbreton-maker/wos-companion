@@ -6,6 +6,33 @@ window.COMPANION_DATA={
     {alloy:120,polish:40,plans:0,amber:0},{alloy:180,polish:60,plans:0,amber:0},{alloy:260,polish:90,plans:20,amber:0},{alloy:360,polish:130,plans:30,amber:0},{alloy:480,polish:180,plans:45,amber:0},{alloy:620,polish:240,plans:60,amber:0},{alloy:800,polish:320,plans:85,amber:0},{alloy:1000,polish:420,plans:110,amber:0},{alloy:1300,polish:540,plans:145,amber:10},{alloy:1650,polish:690,plans:190,amber:15},{alloy:2100,polish:880,plans:250,amber:20},{alloy:2650,polish:1100,plans:320,amber:25},{alloy:3300,polish:1400,plans:410,amber:35},{alloy:4100,polish:1750,plans:520,amber:45},{alloy:5100,polish:2200,plans:660,amber:60},{alloy:6400,polish:2750,plans:840,amber:80}
   ],
   gears:[{id:"helmet",name:"Casque",troop:"Lancier",icon:"⛑️"},{id:"coat",name:"Veste",troop:"Infanterie",icon:"🥋"},{id:"ring",name:"Bague",troop:"Tireur",icon:"💍"},{id:"watch",name:"Montre",troop:"Lancier",icon:"⌚"},{id:"pants",name:"Pantalon",troop:"Infanterie",icon:"👖"},{id:"cane",name:"Canne",troop:"Tireur",icon:"🦯"}],
+  /* Recherche T12 (Glorifié). Noms FR : whiteoutsurvival.wiki/fr/research ; prérequis : whiteoutsurvival.wiki ;
+     ordre et coût total du déblocage : wostools.net (2026-10-14). Coûts de l'arbre : valeurs de démonstration. */
+  t12:{
+    units:{infantry:"Infanterie Glorifiée",lancer:"Lancier Glorifié",marksman:"Tireur Glorifié"},
+    /* Déblocage : 5 pièces à monter dans l'ordre, niveau 5 chacune ; la 5e au niveau 5 débloque l'unité. */
+    unlock:{
+      infantry:["Casque Glorifié","Garde-épaules Glorifié","Place Forte Glorifiée","Excursion Glorifiée","Armement Glorifié"],
+      lancer:["Couronne de Guerre Glorifiée","Épaulière Glorifiée","Cotte de Maille Glorifiée","Bas de Guerre Glorifié","Pique Glorifiée"],
+      marksman:["Voile Glorifié","Manteau Glorifié","Tenue de Guerre Glorifiée","Cadence Glorifiée","Tromblon Glorifié"]
+    },
+    unlockTotal:{steel:1624000,rfc:440,shards:3080},
+    /* Lignes Brûlantes (I, II, III) : attaque, santé, défense, létalité (positions de gauche à droite dans le jeu). */
+    molten:{
+      infantry:["Lames Brûlantes","Armure Brûlante","Boucliers Brûlants","Garde Brûlante"],
+      lancer:["Lance Brûlante","Casques Brûlants","Protège-bras Brûlants","Tactiques Brûlantes"],
+      marksman:["Tir Brûlant","Écailles Brûlantes","Gants Brûlants","Précision Brûlante"]
+    },
+    elite:{infantry:"Mur Indomptable",lancer:"Phalange Méridienne",marksman:"Tir Ardent"},
+    support:{
+      heal:{infantry:"Soins de l'Infanterie glorifiée",lancer:"Soins des lanciers glorifiés",marksman:"Soins des tireurs glorifiés"},
+      aid:{infantry:"Premiers secours de l'Infanterie glorifiée",lancer:"Premiers secours des lanciers glorifiés",marksman:"Premiers secours des tireurs glorifiés"},
+      train:{infantry:"Entraînement d'Infanterie glorifiée",lancer:"Entraînement de lanciers glorifiés",marksman:"Entraînement de tireurs glorifiés"}
+    },
+    dom:"Domination Solaire",
+    /* Coût de démonstration par niveau de l'arbre : base en milliers d'acier, jours de recherche. */
+    treeCost:{m1:{steel:120,days:.8},elite:{steel:600,days:4},heal:{steel:180,days:1.5},aid:{steel:180,days:1.5},train:{steel:180,days:1.5},m2:{steel:200,days:1.2},dom:{steel:400,days:2.5},m3:{steel:300,days:1.8}}
+  },
   /* Recherche T11 (Académie de guerre). Même arbre pour les trois troupes, seuls certains noms changent.
      Noms FR, niveaux max et prérequis : whiteoutsurvival.wiki/fr/research et wiki.wosforge.org/wiki/Helios (2026-10-14).
      cost (milliers d'acier par niveau) et days (jours par niveau) restent des valeurs de démonstration.

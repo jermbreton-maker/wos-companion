@@ -8,8 +8,8 @@ tip.setAttribute('role','tooltip');
 document.body.append(tip);
 let target=null;
 
-/* Couleurs selon le fond : brun (T11), clair (T12 et fenêtres à fond blanc), bleu marine ailleurs. */
-const theme=el=>el.closest('#t11,#t11Picker')?'t11':el.closest('#t12,#gearDialog')?'light':'blue';
+/* Couleurs selon le fond : brun (T11, T12), clair (fenêtres à fond blanc), bleu marine ailleurs. */
+const theme=el=>el.closest('#t11,#t11Picker,#t12,#t12Picker')?'t11':el.closest('#gearDialog')?'light':'blue';
 const find=node=>node?.closest?.('[title],[data-tip]');
 function textOf(el){
   if(el.hasAttribute('title')){el.dataset.tip=el.getAttribute('title');el.removeAttribute('title')}

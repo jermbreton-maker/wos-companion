@@ -1,0 +1,166 @@
+/* Recherche T11 — styles propres à la page #t12 (référence : arbre de l'Académie de guerre). */
+
+/* Page : même fond, même titre centré que les autres modules. */
+/* Fond de page : brun-rouge de l'Académie, éclairé par une lumière chaude placée derrière la case Hélios
+#t12{position:relative;isolation:isolate;overflow:hidden;padding:42px 22px 80px;color:#fff;background:#331b26}
+/* Fond sur toute la largeur et la hauteur de l'écran ; le contenu reste dans la colonne centrale de 1240 px
+   (les côtés accueilleront les bandeaux publicitaires verticaux). */
+#t12.view{max-width:none;margin:0;min-height:calc(100svh - 76px);padding-inline:max(22px,calc((100% - 1240px) / 2 + 22px))}
+#t12 .section-head{max-width:900px;margin:0 auto 22px;text-align:center}
+#t12 .section-head>div{max-width:760px;margin-inline:auto}
+#t12 .section-head h1{margin:0 0 12px;font-size:32px;color:#fff}
+#t12 .section-head p{margin:0;font-size:16px;color:#d4efff}
+
+/* Onglets de troupe. */
+#t12 .t12-tabs{display:flex;justify-content:center;gap:6px;max-width:420px;margin:0 auto 18px;padding:5px;border:2px solid rgba(240,170,120,.42);border-radius:18px;background:rgba(42,14,12,.55)}
+#t12 .t12-tabs button{flex:1;padding:10px 8px;border:0;border-radius:13px;background:transparent;color:#f3d2bb;font:inherit;font-size:16px;cursor:pointer}
+#t12 .t12-tabs button:hover{color:#fff;background:rgba(255,190,140,.12)}
+#t12 .t12-tabs button.active{color:#fff;background:linear-gradient(180deg,#b5603d,#8c4129);box-shadow:inset 0 1px rgba(255,220,190,.3),0 3px 8px rgba(30,6,6,.4)}
+
+#t12 .t12-board{max-width:900px;margin:0 auto 22px;padding:22px 16px 30px;background:transparent}
+
+/* Interrupteur « Remettre à zéro » : même composant que les autres pages, en tons bruns. */
+#t12 .t12-actions{max-width:900px;margin:-8px auto 18px}
+#t12 .t12-actions .charm-bulk-select{margin:0;border-color:rgba(240,170,120,.42);background:rgba(42,14,12,.72);box-shadow:inset 0 1px rgba(255,220,190,.12),0 5px 14px rgba(20,4,4,.3);color:#fff}
+#t12 .t12-actions .bulk-toggle{border-color:rgba(240,180,140,.5);background:linear-gradient(180deg,#6a3326,#4a2119);box-shadow:inset 0 2px 5px rgba(20,4,4,.45),0 1px rgba(255,220,190,.14)}
+#t12 .t12-actions .bulk-toggle i{background:linear-gradient(180deg,#fff,#f3dccd)}
+#t12 .t12-actions input:checked+.bulk-toggle{border-color:#ffc79c;background:linear-gradient(180deg,#d9804f,#a8502f);box-shadow:inset 0 1px rgba(255,255,255,.35),0 0 9px rgba(240,140,80,.45)}
+
+/* Coût de recherche : mêmes cases que la page Chaudière. */
+#t12 .t12-result{max-width:900px;margin:0 auto;padding:14px 18px 20px;border:2px solid rgba(240,170,120,.42);border-radius:26px;background:rgba(42,14,12,.72);box-shadow:inset 0 1px rgba(255,220,190,.14),0 14px 35px rgba(20,4,4,.4)}
+#t12 .t12-result h2{margin:0 0 16px;padding:9px;border-radius:16px;font-size:20px;text-align:center;color:#fff;background:linear-gradient(180deg,#b5603d,#8c4129)}
+/* Coûts sur 2 lignes centrées : 4 puis 3. */
+#t12 .t12-cost-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:16px 28px;max-width:calc(4 * 76px + 3 * 28px);margin:0 auto}
+#t12 .t12-cost{position:relative;display:grid;justify-items:center;align-content:start;gap:6px;width:76px;outline:none}
+#t12 .t12-cost-tile{display:grid;place-items:center;width:76px;height:76px;border:3px solid #76afee;border-radius:17px;background:linear-gradient(180deg,#365894,#a7d4f2);box-shadow:0 6px 12px rgba(0,15,39,.35)}
+#t12 .t12-cost-shard .t12-cost-tile{border-color:#eba16e;background:linear-gradient(180deg,#935b2d,#f2ceaf)}
+/* Ressources de base : cases vertes, comme sur la page Chaudière. */
+#t12 :is(.t12-cost-meat,.t12-cost-wood,.t12-cost-coal,.t12-cost-iron) .t12-cost-tile{border-color:#6fc96a;background:linear-gradient(180deg,#2c7a2a,#a9e09c)}
+/* Accélérateurs : même case bleue et même taille de pictogramme que la page Chaudière. */
+#t12 .t12-cost-time .t12-cost-tile{border-color:#76afee;background:linear-gradient(180deg,#365894,#a7d4f2)}
+#t12 .t12-cost-time .t12-cost-tile img{width:92%;height:92%}
+/* Acier : pictogramme agrandi (l'image comporte des marges transparentes). */
+#t12 .t12-cost-steel .t12-cost-tile img{width:100%;height:100%}
+#t12 .t12-cost-tile img{width:82%;height:82%;object-fit:contain;filter:drop-shadow(0 4px 4px rgba(3,35,61,.32))}
+#t12 .t12-cost strong{font-size:18px;color:#fff}
+
+/* Fenêtre de réglage d'une recherche : couleurs des fenêtres d'information du jeu
+   (fond rose pâle, rebord rosé, titre bordeaux, zone grisée, voile sombre flouté). */
+#t12Picker{width:min(92vw,440px);padding:0;border:0;border-radius:22px;color:#665454;background:#f6e2e2;box-shadow:0 5px 0 #e4a2a2,0 24px 60px rgba(0,0,0,.55)}
+#t12Picker::backdrop{background:rgba(24,12,15,.78);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+#t12Picker form{position:relative;display:grid;gap:14px;padding:20px 20px 22px;font-family:var(--site-font)}
+#t12Picker .t12-close{position:absolute;top:12px;right:12px;width:32px;height:32px;border:1px solid #dec6c0;border-radius:50%;color:#843030;background:#fbeeee;font:inherit;font-size:20px;line-height:1;cursor:pointer}
+#t12Picker .t12-picker-head{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:14px;padding:0 34px 14px 0;border-bottom:2px solid #dec6c0}
+#t12Picker .t12-eyebrow{margin:0 0 2px;font-size:12px;letter-spacing:.12em;color:#b47e7e}
+#t12Picker h2{margin:0 0 4px;font-size:22px;line-height:1.1;color:#843030}
+#t12Picker .t12-picker-desc{margin:0;font-size:13px;line-height:1.3;color:#b47e7e}
+#t12Picker .t12-steppers{display:flex;align-items:center;justify-content:center;gap:10px;padding:14px 12px;border-radius:12px;background:#e0c5c5}
+#t12Picker .t12-stepper{display:grid;justify-items:center;gap:7px}
+#t12Picker .t12-stepper small{font-size:13px;letter-spacing:.08em;color:#a84e4e}
+#t12Picker .t12-stepper>div{display:flex;align-items:center;gap:6px}
+#t12Picker .t12-stepper output{min-width:54px;text-align:center;font-size:22px;color:#665454}
+#t12Picker .t12-stepper button,#t12Picker .t12-max{border:1px solid #c99a9a;color:#843030;background:#fbeeee;font:inherit;cursor:pointer;box-shadow:0 2px 0 #c99a9a}
+#t12Picker .t12-stepper [data-t12-step]{width:36px;height:36px;border-radius:11px;font-size:20px;line-height:1}
+#t12Picker .t12-max{padding:5px 14px;border-radius:10px;font-size:13px}
+#t12Picker button:disabled{opacity:.4;cursor:default}
+#t12Picker .t12-reqs{display:grid;gap:4px;margin:0;padding:10px 12px;border-radius:12px;background:#efd6d4;font-size:14px}
+#t12Picker .t12-reqs[hidden]{display:none}
+#t12Picker .t12-reqs small{font-size:12px;letter-spacing:.08em;color:#a84e4e}
+#t12Picker .t12-reqs .ok{color:#3f7a3a}
+#t12Picker .t12-reqs .missing{color:#a83a32}
+#t12Picker .t12-apply{justify-self:center;margin-top:2px;padding:11px 34px;border:0;border-radius:14px;color:#fff;background:linear-gradient(180deg,#b5603d,#8c4129);font:inherit;font-size:17px;cursor:pointer;box-shadow:0 4px 0 #6a2e1d}
+
+@media(max-width:600px){
+  #t12.view{padding:26px 6px 60px}
+  #t12 .section-head h1{font-size:28px}
+  #t12 .section-head p{font-size:14px}
+  #t12 .t12-board{padding:14px 0 20px}
+  #t12 .t12-tabs,#t12 .t12-actions,#t12 .t12-result,#t12 .section-head{margin-inline:8px}
+  #t12 .t12-cost-tile{width:58px;height:58px;border-radius:13px}
+  #t12 .t12-cost{width:58px}
+  #t12 .t12-cost-grid{gap:14px 16px;max-width:calc(4 * 58px + 3 * 16px)}
+  #t12 .t12-cost strong{font-size:15px}
+}
+
+@media(max-width:600px){
+  #t12Picker form{padding:18px 14px 20px}
+  #t12Picker .t12-picker-head{gap:12px}
+  #t12Picker h2{font-size:19px}
+  #t12Picker .t12-steppers{gap:4px;padding:12px 6px}
+  #t12Picker .t12-stepper>div{gap:4px}
+  #t12Picker .t12-stepper [data-t12-step]{width:30px;height:30px;border-radius:9px;font-size:18px}
+  #t12Picker .t12-stepper output{min-width:46px;font-size:19px}
+}
+
+/* Pictogrammes des ressources : dessin visible à 73 % de la case, comme sur la page Talismans
+   (tailles calculées d'après les marges transparentes de chaque image ; léger recentrage du dessin). */
+#t12 .t12-cost-shard .t12-cost-tile img{width:80.2%!important;height:80.2%!important;max-width:none}
+#t12 .t12-cost-steel .t12-cost-tile img{width:106.5%!important;height:106.5%!important;max-width:none;transform:translate(-2.8%,-0.5%)}
+#t12 .t12-cost-meat .t12-cost-tile img{width:107.1%!important;height:107.1%!important;max-width:none;transform:translate(-2.1%,-0.2%)}
+#t12 .t12-cost-wood .t12-cost-tile img{width:118%!important;height:118%!important;max-width:none;transform:translate(-0.4%,-0.8%)}
+#t12 .t12-cost-coal .t12-cost-tile img{width:124.5%!important;height:124.5%!important;max-width:none;transform:translate(-2.1%,-1.4%)}
+#t12 .t12-cost-iron .t12-cost-tile img{width:114.3%!important;height:114.3%!important;max-width:none;transform:translate(-3.4%,0.8%)}
+#t12 .t12-cost-time .t12-cost-tile img{width:112.1%!important;height:112.1%!important;max-width:none;transform:translate(-0.8%,0.2%)}
+
+/* ---------- Propre au T12 ---------- */
+/* Fond : bordeaux de l'Académie, lumière chaude en haut de l'arbre (unité glorifiée). */
+#t12{background:radial-gradient(ellipse 90% 60% at 50% 22%,#8f4a3d 0,#6e3934 30%,#4a2830 62%,#331b26 100%)}
+#t12 .t12-board{max-width:900px;margin:0 auto 22px;padding:10px 16px 26px;background:transparent}
+#t12 .t12-tree{position:relative;width:min(100%,520px);aspect-ratio:1000/1300;margin:0 auto;container-type:inline-size}
+
+/* Sous-onglets Déblocage / Arbre : plus discrets que les onglets de troupe (soulignés). */
+#t12 .t12-subtabs{display:flex;justify-content:center;gap:28px;max-width:420px;margin:0 auto 14px;border-bottom:2px solid rgba(240,170,120,.25)}
+#t12 .t12-subtabs button{position:relative;padding:8px 6px 10px;border:0;background:transparent;color:#e3bfa6;font:inherit;font-size:16px;cursor:pointer}
+#t12 .t12-subtabs button::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:3px;border-radius:3px;background:transparent}
+#t12 .t12-subtabs button.active{color:#fff}
+#t12 .t12-subtabs button.active::after{background:linear-gradient(90deg,#f7c766,#e08a3a)}
+#t12 .t12-subtab-state{margin-left:4px;padding:1px 6px;border-radius:8px;font-size:12px;color:#2a1410;background:#f2c06b}
+#t12 .t12-banner{max-width:520px;margin:0 auto 10px;padding:8px 14px;border:1px solid rgba(240,170,120,.42);border-radius:12px;background:rgba(42,14,12,.72);text-align:center;font-size:14px;color:#f6dcc8}
+#t12 .t12-banner[hidden]{display:none}
+
+/* Chemins dorés (toutes les troupes), à angles droits comme dans le jeu. */
+#t12 .t12-links{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+#t12 .t12-links path{fill:none;stroke-linejoin:miter;stroke-linecap:square;vector-effect:non-scaling-stroke}
+#t12 .t12-link-off path{stroke:#2a1311;stroke-width:7px}
+#t12 .t12-link-glow path{stroke:rgba(255,186,64,.6);stroke-width:14px;filter:blur(5px)}
+#t12 .t12-link-core path{stroke:#f6b23c;stroke-width:6px}
+#t12 .t12-link-light path{stroke:#fff1b8;stroke-width:1.8px}
+
+/* Médaillons : bordure dorée vissée, anneau de la couleur de la troupe, illustration ronde. */
+#t12 .t12-tree,#t12Picker .t12-node-preview{--t12-ring:#3fbf3a;--t12-ring-dark:#1d6e19}
+#t12 .t12-tree[data-troop="lancer"],#t12Picker .t12-node-preview[data-troop="lancer"]{--t12-ring:#3a7fe0;--t12-ring-dark:#1b3f8a}
+#t12 .t12-tree[data-troop="marksman"],#t12Picker .t12-node-preview[data-troop="marksman"]{--t12-ring:#f0a024;--t12-ring-dark:#9a5410}
+:is(#t12,#t12Picker) .t12-node{position:absolute;z-index:1;aspect-ratio:1;padding:0;border:0;border-radius:50%;transform:translate(-50%,-50%);cursor:pointer;
+  background:radial-gradient(circle closest-side,var(--t12-ring-dark) 0 66%,var(--t12-ring) 68% 76%,#7a4f1c 77%,#e7c27a 80%,#f6dda0 84%,#c9933e 90%,#6e4416 97%,transparent 100%);
+  box-shadow:0 4px 8px rgba(20,4,4,.55);transition:transform .15s ease}
+/* Rivets aux quatre points cardinaux. */
+:is(#t12,#t12Picker) .t12-node::after{content:"";position:absolute;inset:0;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle at 50% 6.5%,#fff2c8 0 2.6%,#8a5a20 3.6%,transparent 4.4%),radial-gradient(circle at 93.5% 50%,#fff2c8 0 2.6%,#8a5a20 3.6%,transparent 4.4%),radial-gradient(circle at 50% 93.5%,#fff2c8 0 2.6%,#8a5a20 3.6%,transparent 4.4%),radial-gradient(circle at 6.5% 50%,#fff2c8 0 2.6%,#8a5a20 3.6%,transparent 4.4%)}
+#t12 .t12-node:hover{transform:translate(-50%,-50%) scale(1.05)}
+#t12 .t12-node:focus-visible{outline:3px solid #fff;outline-offset:4px}
+:is(#t12,#t12Picker) .t12-ico{position:absolute;inset:17%;width:66%;height:66%;border-radius:50%;object-fit:cover;pointer-events:none;user-select:none}
+:is(#t12,#t12Picker) .t12-ico-svg{fill:#fff7ef;background:radial-gradient(circle at 50% 38%,color-mix(in srgb,var(--t12-ring) 70%,#fff),var(--t12-ring-dark));padding:9%;box-sizing:border-box;filter:drop-shadow(0 2px 1px rgba(0,0,0,.3))}
+:is(#t12,#t12Picker) .t12-ico-svg .t12-cut{fill:var(--t12-ring-dark)}
+#t12 .t12-badge{position:absolute;left:50%;bottom:16%;transform:translateX(-50%);font-size:clamp(9px,3.6cqi,19px);line-height:1;color:#fff;white-space:nowrap;-webkit-text-stroke:3px #2a1410;paint-order:stroke fill}
+#t12 .t12-target{position:absolute;top:-4%;right:-14%;padding:2px 5px;border-radius:8px;font-size:clamp(8px,2.7cqi,13px);line-height:1.1;color:#2a1410;background:#ffd98a;box-shadow:0 2px 4px rgba(20,4,4,.5),0 0 8px rgba(255,190,80,.8)}
+#t12 .t12-node.planned{box-shadow:0 4px 8px rgba(20,4,4,.55),0 0 14px 4px rgba(255,190,80,.6)}
+#t12 .t12-node.locked{filter:grayscale(.6) brightness(.55)}
+#t12 .t12-unit{cursor:default}
+#t12 .t12-unit:hover{transform:translate(-50%,-50%)}
+#t12 .t12-label{position:absolute;z-index:1;width:40%;transform:translateX(-50%);text-align:center;font-size:clamp(10px,3.4cqi,17px);line-height:1.15;color:#ecdcdc;-webkit-text-stroke:3px #3a1712;paint-order:stroke fill;pointer-events:none}
+/* Déblocage : noms à droite des médaillons. */
+#t12 .t12-label.t12-label-side{width:52%;transform:translateY(-50%);text-align:left}
+
+/* Coût : cristaux en orange (comme la Chaudière). */
+#t12 :is(.t12-cost-fc,.t12-cost-rfc,.t12-cost-shard) .t12-cost-tile{border-color:#eba16e;background:linear-gradient(180deg,#935b2d,#f2ceaf)}
+#t12 .t12-cost-fc .t12-cost-tile img{width:100.9%!important;height:100.9%!important;max-width:none;transform:translate(-0.6%,-1.7%)}
+#t12 .t12-cost-rfc .t12-cost-tile img{width:82.8%!important;height:82.8%!important;max-width:none}
+
+/* Fenêtre : ±10 pour les recherches longues (20 à 50 niveaux) ; réglages l'un sous l'autre. */
+#t12Picker .t12-steppers{display:grid;gap:12px}
+#t12Picker .t12-stepper{grid-template-columns:76px 1fr auto;align-items:center;justify-items:stretch}
+#t12Picker .t12-stepper small{text-align:right}
+#t12Picker .t12-stepper>div{justify-content:center}
+#t12Picker .t12-step10{display:none}
+#t12Picker.t12-long .t12-step10{display:inline-block;width:auto!important;padding:0 8px;font-size:14px!important}
+#t12Picker .t12-node.t12-node-preview{position:relative;display:block;width:82px;transform:none;cursor:default}
