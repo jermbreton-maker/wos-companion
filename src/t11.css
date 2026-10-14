@@ -3,7 +3,7 @@
 /* Page : même fond, même titre centré que les autres modules. */
 /* Fond de page : brun-rouge de l'Académie, éclairé par une lumière chaude placée derrière la case Hélios
    (voir .t11-tree::before) qui s'assombrit jusqu'aux bords de la page. */
-#t11{position:relative;isolation:isolate;overflow:hidden;padding:42px 22px 80px;color:#fff;background:#260d0f}
+#t11{position:relative;isolation:isolate;overflow:hidden;padding:42px 22px 80px;color:#fff;background:#331b26}
 #t11 .section-head{max-width:900px;margin:0 auto 22px;text-align:center}
 #t11 .section-head>div{max-width:760px;margin-inline:auto}
 #t11 .section-head h1{margin:0 0 12px;font-size:32px;color:#fff}
@@ -16,23 +16,23 @@
 #t11 .t11-tabs button.active{color:#fff;background:linear-gradient(180deg,#b5603d,#8c4129);box-shadow:inset 0 1px rgba(255,220,190,.3),0 3px 8px rgba(30,6,6,.4)}
 
 /* Panneau de l'arbre : fond brun-rouge chaud de l'Académie. */
-#t11 .t11-board{max-width:900px;margin:0 auto 22px;padding:22px 16px 30px;border:2px solid rgba(131,203,240,.46);border-radius:30px;background:transparent;box-shadow:inset 0 1px rgba(255,255,255,.16),0 14px 35px rgba(30,6,6,.28)}
+#t11 .t11-board{max-width:900px;margin:0 auto 22px;padding:22px 16px 30px;background:transparent}
 #t11 .t11-tree{position:relative;width:min(100%,520px);aspect-ratio:1000/1400;margin:0 auto;container-type:inline-size}
 /* Lumière chaude centrée sur la case Hélios (x 50 %, y 870/1400 de l'arbre), étalée sur toute la page. */
-#t11 .t11-tree::before{content:"";position:absolute;left:50%;top:62.14%;z-index:-1;width:560cqi;height:560cqi;transform:translate(-50%,-50%);pointer-events:none;background:radial-gradient(circle,#ffcf91 0,#f39250 6.5cqi,#d2643a 17cqi,#b1502f 33cqi,#9c452d 54cqi,#853a28 81cqi,#6c2d23 112cqi,#55231e 146cqi,#3f1918 186cqi,#2e1113 228cqi,#260d0f 270cqi)}
+#t11 .t11-tree::before{content:"";position:absolute;left:50%;top:62.14%;z-index:-1;width:560cqi;height:560cqi;transform:translate(-50%,-50%);pointer-events:none;background:radial-gradient(circle,#e08a52 0,#c46a42 5cqi,#a8553e 14cqi,#934a3f 28cqi,#7e4140 48cqi,#683839 74cqi,#573137 104cqi,#4a2a34 140cqi,#3d212d 185cqi,#331b26 240cqi)}
 
 /* Couleur des chemins de lumière (liaisons + liseré des nœuds) selon la troupe :
    bleu pour Lancier, vert pour Infanterie, rouge pour Tireur. */
 #t11 .t11-tree{--t11-glow:rgba(64,160,255,.5);--t11-core:#2f8cf0;--t11-light:#9fdcff;--t11-rim:#7fd6ff;--t11-rim-dark:#1c5fc4;--t11-halo:rgba(72,170,255,.75);--t11-rim-on:#b9f0ff;--t11-rim-on-dark:#1c7fe0;--t11-halo-on:rgba(120,210,255,.85)}
 #t11 .t11-tree[data-troop="infantry"]{--t11-glow:rgba(70,220,110,.5);--t11-core:#2fbf5a;--t11-light:#b4f5c4;--t11-rim:#8cf0a4;--t11-rim-dark:#1f8f3e;--t11-halo:rgba(80,220,120,.75);--t11-rim-on:#d0ffd9;--t11-rim-on-dark:#26a84a;--t11-halo-on:rgba(130,240,160,.85)}
-#t11 .t11-tree[data-troop="marksman"]{--t11-glow:rgba(255,80,70,.5);--t11-core:#e8443a;--t11-light:#ffb3a8;--t11-rim:#ff9a8a;--t11-rim-dark:#b0241c;--t11-halo:rgba(255,90,70,.75);--t11-rim-on:#ffd2c8;--t11-rim-on-dark:#d0362c;--t11-halo-on:rgba(255,140,120,.85)}
+#t11 .t11-tree[data-troop="marksman"]{--t11-glow:rgba(240,140,60,.55);--t11-core:#e09048;--t11-light:#ffdca8;--t11-rim:#e8b870;--t11-rim-dark:#8a3a24;--t11-halo:rgba(240,150,70,.7);--t11-rim-on:#ffe2b0;--t11-rim-on-dark:#a8502c;--t11-halo-on:rgba(255,180,100,.85)}
 
 /* Liaisons lumineuses. */
 #t11 .t11-links{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
 #t11 .t11-links path{fill:none;stroke-linejoin:round;stroke-linecap:round;vector-effect:non-scaling-stroke}
 #t11 .t11-link-off path{stroke:rgba(28,8,8,.6);stroke-width:5px}
-#t11 .t11-link-glow path{stroke:var(--t11-glow);stroke-width:10px;filter:blur(3px)}
-#t11 .t11-link-core path{stroke:var(--t11-core);stroke-width:5px}
+#t11 .t11-link-glow path{stroke:var(--t11-glow);stroke-width:14px;filter:blur(5px)}
+#t11 .t11-link-core path{stroke:var(--t11-core);stroke-width:6px}
 #t11 .t11-link-light path{stroke:var(--t11-light);stroke-width:1.6px}
 
 /* Nœuds : case rouge, liseré bleu lumineux, pictogramme blanc. */
@@ -42,11 +42,11 @@
 #t11 .t11-ico{position:absolute;inset:4% 6% 8% 4%;width:90%;height:88%;fill:#fff7ef;filter:drop-shadow(0 2px 1px rgba(90,14,10,.55))}
 #t11 .t11-ico .t11-ico-cut{fill:#a8291f}
 #t11 .t11-badge{position:absolute;right:5%;bottom:3%;font-size:clamp(10px,4cqi,21px);line-height:1;color:#fff;-webkit-text-stroke:3px #2a1410;paint-order:stroke fill}
-#t11 .t11-target{position:absolute;top:-12%;right:-16%;padding:2px 5px;border-radius:8px;font-size:clamp(8px,2.7cqi,13px);line-height:1.1;color:#06233e;background:#8be4ff;box-shadow:0 2px 4px rgba(4,24,48,.5),0 0 8px rgba(139,228,255,.8)}
+#t11 .t11-target{position:absolute;top:-12%;right:-16%;padding:2px 5px;border-radius:8px;font-size:clamp(8px,2.7cqi,13px);line-height:1.1;color:#2a1410;background:var(--t11-rim-on);box-shadow:0 2px 4px rgba(20,4,4,.5),0 0 8px var(--t11-halo-on)}
 #t11 .t11-node.planned{border-color:var(--t11-rim-on);box-shadow:0 0 0 3px var(--t11-rim-on-dark),0 0 18px 5px var(--t11-halo-on),inset 0 0 12px rgba(60,6,6,.45)}
 /* Recherche verrouillée (prérequis non remplis) : éteinte, sans halo. */
 #t11 .t11-node.locked{border-color:#8d7b78;box-shadow:0 0 0 3px #3b2a28,inset 0 0 12px rgba(30,4,4,.5);filter:grayscale(.7) brightness(.6)}
-#t11 .t11-label{position:absolute;z-index:1;width:34%;transform:translateX(-50%);text-align:center;font-size:clamp(10px,3.4cqi,17px);line-height:1.15;color:#fff3e6;-webkit-text-stroke:3px #3a1712;paint-order:stroke fill;pointer-events:none}
+#t11 .t11-label{position:absolute;z-index:1;width:34%;transform:translateX(-50%);text-align:center;font-size:clamp(10px,3.4cqi,17px);line-height:1.15;color:#ecdcdc;-webkit-text-stroke:3px #3a1712;paint-order:stroke fill;pointer-events:none}
 
 /* Interrupteur « Remettre à zéro » : même composant que les autres pages, en tons bruns. */
 #t11 .t11-actions{max-width:900px;margin:-8px auto 18px}
@@ -102,7 +102,7 @@
   #t11 .section-head h1{font-size:28px}
   #t11 .section-head p{font-size:14px}
   #t11 .t11-board{padding:14px 8px 20px;border-radius:22px}
-  #t11 .t11-node{border-width:2px;box-shadow:0 0 0 2px var(--t11-rim-dark),0 0 10px 2px var(--t11-halo),inset 0 0 10px rgba(60,6,6,.45)}
+  #t11 .t11-node{border-width:3px;box-shadow:0 0 0 2px var(--t11-rim-dark),0 0 10px 2px var(--t11-halo),inset 0 0 10px rgba(60,6,6,.45)}
   #t11 .t11-node.locked{box-shadow:0 0 0 2px #3b2a28,inset 0 0 10px rgba(30,4,4,.5)}
   #t11 .t11-node.planned{box-shadow:0 0 0 2px var(--t11-rim-on-dark),0 0 12px 3px var(--t11-halo-on),inset 0 0 10px rgba(60,6,6,.45)}
   #t11 .t11-badge{-webkit-text-stroke:2px #2a1410}
