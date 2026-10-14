@@ -86,9 +86,10 @@
       <dialog id="t11Picker" aria-labelledby="t11PickerTitle">
         <form method="dialog">
           <button class="t11-close" value="cancel" aria-label="Fermer">×</button>
-          <p class="t11-eyebrow" id="t11PickerTroop"></p>
-          <h2 id="t11PickerTitle"></h2>
-          <div class="t11-picker-node" id="t11PickerNode"></div>
+          <div class="t11-picker-head">
+            <div class="t11-picker-node" id="t11PickerNode"></div>
+            <div><p class="t11-eyebrow" id="t11PickerTroop"></p><h2 id="t11PickerTitle"></h2><p class="t11-picker-desc">Règle le niveau actuel de cette recherche et le niveau que tu vises.</p></div>
+          </div>
           <div class="t11-steppers">
             <div class="t11-stepper" data-t11-field="from"><small>ACTUEL</small><div><button type="button" data-t11-step="-1" aria-label="Diminuer le niveau actuel">−</button><output></output><button type="button" data-t11-step="1" aria-label="Augmenter le niveau actuel">+</button></div><button type="button" class="t11-max" data-t11-max>MAX</button></div>
             <span class="t11-stepper-arrow" aria-hidden="true">›</span>
