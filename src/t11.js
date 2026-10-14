@@ -30,6 +30,25 @@ const LINKS=[
   {d:'M500 870 V1222',from:'helios',to:'train'}
 ];
 
+/* Coins des chemins coupés en biseau à 45°, comme dans le jeu (tracés écrits en angles droits : M, H, V). */
+const CHAMFER=22;
+function chamfer(d){
+  const pts=[];let x=0,y=0;
+  d.trim().split(/\s+(?=[MHV])/).forEach(cmd=>{
+    const [op,...v]=cmd.split(/[\s]+|(?<=[MHV])/).filter(Boolean);
+    if(op==='M'){x=+v[0];y=+v[1]}else if(op==='H')x=+v[0];else y=+v[0];
+    pts.push([x,y]);
+  });
+  let out=`M${pts[0][0]} ${pts[0][1]}`;
+  for(let i=1;i<pts.length-1;i++){
+    const [ax,ay]=pts[i-1],[px,py]=pts[i],[bx,by]=pts[i+1];
+    const la=Math.hypot(px-ax,py-ay),lb=Math.hypot(bx-px,by-py),c=Math.min(CHAMFER,la/2,lb/2);
+    out+=` L${px-(px-ax)/la*c} ${py-(py-ay)/la*c} L${px+(bx-px)/lb*c} ${py+(by-py)/lb*c}`;
+  }
+  const [lx,ly]=pts[pts.length-1];
+  return out+` L${lx} ${ly}`;
+}
+
 /* Icônes du jeu, extraites des captures de l'Académie (badge de niveau effacé) : assets/visuals/t11/icons/{troupe}-{recherche}.png */
 
 const troopIds=Object.keys(T11.units);
@@ -65,7 +84,7 @@ const iconImg=(id,troop)=>`<img class="t11-ico" src="assets/visuals/t11/icons/${
 function renderTree(){
   const tree=document.getElementById('t11Tree');
   const levels=t11State.levels[t11State.troop];
-  const paths=list=>list.map(link=>`<path d="${link.d}"/>`).join('');
+  const paths=list=>list.map(link=>`<path d="${chamfer(link.d)}"/>`).join('');
   const open=LINKS.filter(link=>isOpen(link,t11State.troop,levels));
   const links=`<svg class="t11-links" viewBox="0 0 ${VIEW.w} ${VIEW.h}" preserveAspectRatio="none" aria-hidden="true">
     <g class="t11-link-off">${paths(LINKS)}</g>
