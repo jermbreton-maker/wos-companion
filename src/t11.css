@@ -39,8 +39,7 @@
 #t11 .t11-node{position:absolute;z-index:1;aspect-ratio:1;padding:0;transform:translate(-50%,-50%);border:3px solid var(--t11-rim);border-radius:18%;background:radial-gradient(circle at 50% 38%,#e8634a 0,#c13b2b 48%,#86211a 100%);box-shadow:0 0 0 3px var(--t11-rim-dark),0 0 14px 3px var(--t11-halo),inset 0 0 12px rgba(60,6,6,.45);cursor:pointer;transition:transform .15s ease,box-shadow .15s ease}
 #t11 .t11-node:hover{transform:translate(-50%,-50%) scale(1.05)}
 #t11 .t11-node:focus-visible{outline:3px solid #fff;outline-offset:4px}
-#t11 .t11-ico{position:absolute;inset:4% 6% 8% 4%;width:90%;height:88%;fill:#fff7ef;filter:drop-shadow(0 2px 1px rgba(90,14,10,.55))}
-#t11 .t11-ico .t11-ico-cut{fill:#a8291f}
+#t11 .t11-ico{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:14%;pointer-events:none;user-select:none}
 #t11 .t11-badge{position:absolute;right:5%;bottom:3%;font-size:clamp(10px,4cqi,21px);line-height:1;color:#fff;-webkit-text-stroke:3px #2a1410;paint-order:stroke fill}
 #t11 .t11-target{position:absolute;top:-12%;right:-16%;padding:2px 5px;border-radius:8px;font-size:clamp(8px,2.7cqi,13px);line-height:1.1;color:#2a1410;background:var(--t11-rim-on);box-shadow:0 2px 4px rgba(20,4,4,.5),0 0 8px var(--t11-halo-on)}
 #t11 .t11-node.planned{border-color:var(--t11-rim-on);box-shadow:0 0 0 3px var(--t11-rim-on-dark),0 0 18px 5px var(--t11-halo-on),inset 0 0 12px rgba(60,6,6,.45)}

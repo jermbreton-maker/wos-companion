@@ -30,21 +30,7 @@ const LINKS=[
   {d:'M500 870 V1222',from:'helios',to:'train'}
 ];
 
-/* Pictogrammes blancs (repère 100 × 100). Casque + accessoire, à la manière des icônes du jeu. */
-const HELMET='<path d="M24 92V56C24 30 38 16 50 16S76 30 76 56V92Z"/><path class="t11-ico-cut" d="M33 50H67V57H33ZM37 61H43V78H37ZM47 61H53V78H47ZM57 61H63V78H57Z"/>';
-const smallHelmet=(x,y,s)=>`<g transform="translate(${x} ${y}) scale(${s})">${HELMET}</g>`;
-const ICONS={
-  squad:smallHelmet(4,26,.5)+smallHelmet(46,26,.5)+smallHelmet(22,40,.62),
-  atk:'<path d="M22 84L70 36L64 30L84 16L70 36L76 42L28 90Z"/><path d="M60 26L74 12L88 26L74 40Z"/>',
-  def:'<path d="M50 12L82 24V48C82 70 68 84 50 92C32 84 18 70 18 48V24Z"/><path class="t11-ico-cut" d="M44 38H56V50H68V62H56V74H44V62H32V50H44Z"/>',
-  legion:'<path d="M50 6C58 18 70 20 70 34C70 42 64 46 60 46C64 38 58 32 54 28C54 38 46 40 46 48C40 44 38 38 40 30C34 34 30 40 30 46C26 42 26 34 30 26C36 16 46 14 50 6Z"/>'+smallHelmet(8,40,.5)+smallHelmet(50,40,.5)+smallHelmet(25,30,.66),
-  atk2:'<path d="M18 86L66 38L60 32L84 14L68 38L74 44L26 92Z"/><path d="M30 60C24 50 30 40 38 36C36 44 42 46 44 52C48 44 46 36 52 30C54 40 62 44 58 56Z"/>',
-  def2:HELMET,
-  helios:'<g transform="translate(-4 4) scale(.92)">'+HELMET+'</g><path d="M80 10L94 30H86V52H74V30H66Z"/>',
-  heal:smallHelmet(-2,22,.78)+'<path d="M70 12H84V20H82V30C90 34 94 42 94 50C94 62 86 70 77 70S60 62 60 50C60 42 64 34 72 30V20H70Z"/><path class="t11-ico-cut" d="M66 50H88C88 58 84 64 77 64S66 58 66 50Z"/>',
-  train:smallHelmet(-2,22,.78)+'<circle cx="77" cy="34" r="18"/><circle class="t11-ico-cut" cx="77" cy="34" r="11"/><circle cx="77" cy="34" r="5"/>',
-  aid:smallHelmet(-2,22,.78)+'<circle cx="77" cy="34" r="19"/><path class="t11-ico-cut" d="M74 20H80V33L89 40L86 45L74 36Z"/>'
-};
+/* Icônes du jeu, extraites des captures de l'Académie (badge de niveau effacé) : assets/visuals/t11/icons/{troupe}-{recherche}.png */
 
 const troopIds=Object.keys(T11.units);
 const nodeName=(node,troop)=>(node.name||T11.names[troop][node.id]).replace('{unit}',T11.units[troop]).replace(/\bde ([AEIOUÉ])/g,'d’$1');
@@ -74,7 +60,7 @@ const emptyLevels=()=>Object.fromEntries(T11.nodes.map(node=>[node.id,{from:0,to
 const t11State={troop:'lancer',levels:Object.fromEntries(troopIds.map(id=>[id,emptyLevels()])),editing:null,draft:null};
 
 const badge=(value,max)=>value>=max?'MAX':`${value}/${max}`;
-const iconSvg=id=>`<svg class="t11-ico" viewBox="0 0 100 100" aria-hidden="true">${ICONS[id]}</svg>`;
+const iconImg=(id,troop)=>`<img class="t11-ico" src="assets/visuals/t11/icons/${troop}-${id}.png?v=20261014" alt="" draggable="false">`;
 
 function renderTree(){
   const tree=document.getElementById('t11Tree');
@@ -93,7 +79,7 @@ function renderTree(){
     const label=pos.label?`<span class="t11-label" style="left:${pos.x/VIEW.w*100}%;top:${(pos.y+pos.size/2+14)/VIEW.h*100}%">${name}</span>`:'';
     const locked=!lvl.from&&!isUnlocked(node.id,t11State.troop,levels);
     return `<button type="button" class="t11-node${planned?' planned':''}${lvl.from>=node.max?' maxed':''}${locked?' locked':''}" data-t11-node="${node.id}" style="${style}" aria-label="${name} : niveau ${lvl.from} sur ${node.max}${planned?`, objectif ${lvl.to}`:''}${locked?', verrouillée':''}">
-      ${iconSvg(node.id)}
+      ${iconImg(node.id,t11State.troop)}
       <span class="t11-badge">${badge(lvl.from,node.max)}</span>
       ${planned?`<span class="t11-target">→${lvl.to>=node.max?'MAX':lvl.to}</span>`:''}
     </button>${label}`;
@@ -163,7 +149,7 @@ function openPicker(id){
   t11State.draft={...t11State.levels[t11State.troop][id]};
   document.getElementById('t11PickerTroop').textContent=T11.units[t11State.troop].toUpperCase();
   document.getElementById('t11PickerTitle').textContent=nodeName(node,t11State.troop);
-  document.getElementById('t11PickerNode').innerHTML=`<span class="t11-node t11-node-preview">${iconSvg(id)}</span>`;
+  document.getElementById('t11PickerNode').innerHTML=`<span class="t11-node t11-node-preview">${iconImg(id,t11State.troop)}</span>`;
   syncPicker();
   picker.showModal();
 }
