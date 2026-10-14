@@ -20,6 +20,7 @@ FILES = {
     'marksman-p1': 'Voile exalté rouge lumineux-1.png',
     'marksman-p2': 'Manteau exalté cramoisi, pièce d’armure-2.png',
     'marksman-p3': 'Plastron de guerre rouge exalté-3.png',
+    'marksman-p4': 'Cadence exaltée (détourée HD).png',  # détourée depuis IMG_1055, agrandie et teintée
     'marksman-p5': 'Fusil steampunk cramoisi orné.png',
 }
 for name, file in FILES.items():

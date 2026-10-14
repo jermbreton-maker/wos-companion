@@ -3,7 +3,7 @@
 (()=>{
 const T12=window.COMPANION_DATA.t12;
 const TROOPS=Object.keys(T12.units);
-const ICON=(troop,id)=>`assets/visuals/t12/icons/${troop}-${id}.png?v=20261014b`;
+const ICON=(troop,id)=>`assets/visuals/t12/icons/${troop}-${id}.png?v=20261014c`;
 
 /* ---------- Structure des deux vues (repère 1000 × hauteur) ---------- */
 const COLS=[114,371,628,884];
@@ -108,7 +108,7 @@ function renderTree(){
 }
 
 /* ---------- Déblocage : écran de forge du jeu (rendu 3D, rangée des 5 pièces, détails de la pièce choisie) ---------- */
-const RENDER=(troop,id)=>`assets/visuals/t12/pieces/${troop}-${id}.png?v=20261014b`;
+const RENDER=(troop,id)=>`assets/visuals/t12/pieces/${troop}-${id}.png?v=20261014c`;
 const TROOP_NOUN={infantry:'Infanterie',lancer:'Lancier',marksman:'Tireur'};
 const RES=[
   ['steel','Acier','assets/visuals/t11/steel.png'],
