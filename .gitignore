@@ -1,0 +1,8 @@
+# Système
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Exports et archives générées
+*.zip
+outputs/

@@ -12,7 +12,7 @@ if not exist "%APP_NODE%" (
   pause
   exit /b 1
 )
-start "Whiteout Companion" /min "%APP_NODE%" "%~dp0work\server-node.js"
+start "Whiteout Companion" /min "%APP_NODE%" "%~dp0tools\server.js"
 timeout /t 1 /nobreak >nul
 start "" "http://127.0.0.1:4173/"
 endlocal
