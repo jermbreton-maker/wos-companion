@@ -154,3 +154,9 @@ html,body{background-color:#123f66}
 
 /* Fenêtres de sélection : même forme que celle de la Chaudière (coins arrondis 22 px, liseré bleu 2 px). */
 dialog#levelPicker,dialog#levelPicker.charm-level-picker{border-radius:22px;border:2px solid rgba(131,203,240,.65)}
+
+/* Mobile : fenêtres de sélection fixées à l'écran et limitées à la hauteur réellement visible (barres du navigateur
+   déduites), avec défilement interne — le haut n'est plus coupé et le bas reste atteignable. */
+@media(max-width:767px){
+  dialog#levelPicker,dialog#levelPicker.charm-level-picker,dialog#gearDialog{position:fixed;inset:0;margin:auto;max-height:calc(100dvh - 24px);overflow-y:auto;overscroll-behavior:contain}
+}
