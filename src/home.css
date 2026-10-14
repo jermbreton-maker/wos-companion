@@ -2,6 +2,7 @@
 #home{
   max-width:none;
   min-height:calc(100svh - 76px);
+  min-height:calc(100lvh - 76px); /* même hauteur que body (100vh) : pas de bande claire sous l'accueil quand la barre Safari est visible */
   padding:clamp(16px,2.7vh,30px) max(22px,calc((100% - 1240px)/2)) clamp(18px,2.8vh,32px);
   color:#fff;
   background:linear-gradient(180deg,#124d81 0,#185e95 44%,#10466f 100%);
