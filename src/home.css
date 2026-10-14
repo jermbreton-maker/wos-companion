@@ -206,3 +206,7 @@
    donc ni défilement superflu ni bande claire sous la page. */
 body:has(#home.active){min-height:100svh}
 @media(max-width:600px){#home .home-shell{min-height:calc(100svh - 76px - 18px - 22px)}}
+
+/* Mobile : le texte communautaire suit directement les boutons, quelle que soit la hauteur d'écran
+   (en web app, sans barres de navigateur, il n'est plus poussé tout en bas en laissant un vide). */
+@media(max-width:767px){#home .disclaimer{margin-top:14px}}
