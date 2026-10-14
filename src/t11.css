@@ -60,10 +60,12 @@
 /* Coût de recherche : mêmes cases que la page Chaudière. */
 #t11 .t11-result{max-width:900px;margin:0 auto;padding:14px 18px 20px;border:2px solid rgba(240,170,120,.42);border-radius:26px;background:rgba(42,14,12,.72);box-shadow:inset 0 1px rgba(255,220,190,.14),0 14px 35px rgba(20,4,4,.4)}
 #t11 .t11-result h2{margin:0 0 16px;padding:9px;border-radius:16px;font-size:20px;text-align:center;color:#fff;background:linear-gradient(180deg,#b5603d,#8c4129)}
-#t11 .t11-cost-grid{display:flex;justify-content:center;gap:clamp(14px,5vw,44px)}
-#t11 .t11-cost{display:grid;justify-items:center;gap:6px;min-width:76px}
+#t11 .t11-cost-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:13px;justify-items:center}
+#t11 .t11-cost{display:grid;justify-items:center;align-content:start;gap:6px;min-width:76px}
 #t11 .t11-cost-tile{display:grid;place-items:center;width:76px;height:76px;border:3px solid #76afee;border-radius:17px;background:linear-gradient(180deg,#365894,#a7d4f2);box-shadow:0 6px 12px rgba(0,15,39,.35)}
-#t11 .t11-cost-crystal .t11-cost-tile{border-color:#eba16e;background:linear-gradient(180deg,#935b2d,#f2ceaf)}
+#t11 .t11-cost-dust .t11-cost-tile{border-color:#eba16e;background:linear-gradient(180deg,#935b2d,#f2ceaf)}
+/* Ressources de base : cases vertes, comme sur la page Chaudière. */
+#t11 :is(.t11-cost-meat,.t11-cost-wood,.t11-cost-coal,.t11-cost-iron) .t11-cost-tile{border-color:#6fc96a;background:linear-gradient(180deg,#2c7a2a,#a9e09c)}
 /* Accélérateurs : même case bleue et même taille de pictogramme que la page Chaudière. */
 #t11 .t11-cost-time .t11-cost-tile{border-color:#76afee;background:linear-gradient(180deg,#365894,#a7d4f2)}
 #t11 .t11-cost-time .t11-cost-tile img{width:92%;height:92%}
@@ -117,6 +119,8 @@
   #t11 .t11-label{-webkit-text-stroke:2px #3a1712}
   #t11 .t11-cost-tile{width:58px;height:58px;border-radius:13px}
   #t11 .t11-cost{min-width:58px}
+  #t11 .t11-cost-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:14px 10px}
+  #t11 .t11-cost small{font-size:10px;text-align:center}
   #t11 .t11-cost strong{font-size:15px}
 }
 

@@ -111,18 +111,24 @@ function renderTree(){
 
 function renderResult(){
   const levels=t11State.levels[t11State.troop];
-  let steel=0,crystals=0,days=0,steps=0,researches=0;
+  let steel=0,dust=0,days=0,steps=0,researches=0;
   T11.nodes.forEach(node=>{
     const {from,to}=levels[node.id],count=Math.max(0,to-from);
     if(!count)return;
     researches++;steps+=count;
     steel+=node.cost*1000*count;
-    crystals+=node.cost*.62*count;
+    dust+=node.cost*.62*count;
     days+=node.days*count;
   });
+  /* Ressources de base : proportions de démonstration calquées sur les tables du jeu (≈ 46 viande et bois,
+     9 charbon et 2,3 fer par unité d'acier) ; les vraies tables viendront en dernière étape. */
   const tiles=[
+    ['dust','Poussière de cristal','assets/visuals/t11/fire-crystal-dust.png',fmt(Math.round(dust))],
     ['steel','Acier','assets/visuals/t11/steel.png',fmt(Math.round(steel))],
-    ['crystal','Cristaux de feu','assets/visuals/furnace-materials/fire-crystal.png',fmt(Math.round(crystals))],
+    ['meat','Viande','assets/visuals/furnace-materials/meat.png',fmt(Math.round(steel*46))],
+    ['wood','Bois','assets/visuals/furnace-materials/wood.png',fmt(Math.round(steel*46))],
+    ['coal','Charbon','assets/visuals/furnace-materials/coal.png',fmt(Math.round(steel*9.3))],
+    ['iron','Fer','assets/visuals/furnace-materials/iron.png',fmt(Math.round(steel*2.3))],
     ['time','Temps','assets/visuals/furnace-materials/accelerator.png',formatFurnaceDuration(days)]
   ];
   document.getElementById('t11Result').innerHTML=`<h2>Coût de recherche</h2>
