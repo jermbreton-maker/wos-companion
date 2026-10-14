@@ -47,7 +47,7 @@ const ICONS={
 };
 
 const troopIds=Object.keys(T11.units);
-const nodeName=(node,troop)=>(node.name||T11.names[troop][node.id]).replace('{unit}',T11.units[troop]);
+const nodeName=(node,troop)=>(node.name||T11.names[troop][node.id]).replace('{unit}',T11.units[troop]).replace(/\bde ([AEIOUÉ])/g,'d’$1');
 
 /* Prérequis d'une recherche pour une troupe : { niveau visé: { recherche: niveau actuel minimum } }. */
 function requirements(id,troop){
