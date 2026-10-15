@@ -218,7 +218,7 @@
 #t12 .t12-forge-piece .t12-target{top:-12%;right:-22%}
 #t12 .t12-forge-piece.sel .t12-target{display:none}
 /* Jauge des 5 niveaux : arc cuivré de 5 cases jointives qui se remplit (orange = atteint, clair = objectif). */
-#t12 .t12-forge-gauge{position:absolute;left:-70%;top:-70%;width:240%;max-width:none;height:240%;overflow:visible;pointer-events:none}
+#t12 .t12-forge-gauge{position:absolute;left:-50%;top:-50%;width:200%;max-width:none;height:200%;overflow:visible;pointer-events:none}
 /* Jauge (capture du jeu) : cadre orange lumineux, cases sombres translucides, cases atteintes jaune vif ;
    la lueur grandit avec le nombre de cases allumées (--lava de 0 à 1). */
 #t12 .t12-gauge-frame{fill:url(#t12Frame);stroke:#ffd27a;stroke-width:1.5;stroke-linejoin:round;
@@ -229,7 +229,14 @@
 #t12 .t12-gauge-lava{filter:drop-shadow(0 0 calc(var(--lava) * 6px) rgba(255,230,80,calc(var(--lava) * .9)))}
 #t12 .t12-gauge-cell.front{animation:t12-lava 1.6s ease-in-out infinite alternate}
 @keyframes t12-lava{to{fill-opacity:.8}}
-@media (prefers-reduced-motion:reduce){#t12 .t12-gauge-cell.front{animation:none}}
+#t12 .t12-gauge-shine path{fill:url(#t12Shine);mix-blend-mode:screen;pointer-events:none}
+/* pièce en cours : halo doré qui respire et reflet qui passe sur la vitre */
+#t12 .t12-forge-piece.sel{box-shadow:0 3px 7px rgba(10,2,2,.6),0 0 14px 3px rgba(255,170,60,.5);animation:t12-halo 2.4s ease-in-out infinite alternate}
+@keyframes t12-halo{to{box-shadow:0 3px 7px rgba(10,2,2,.6),0 0 22px 7px rgba(255,190,70,.75)}}
+#t12 .t12-forge-piece.sel .t12-forge-disc::before{content:"";position:absolute;inset:-20%;z-index:1;pointer-events:none;
+  background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.55) 50%,transparent 60%) no-repeat;background-size:250% 100%;animation:t12-glint 2.8s ease-in-out infinite}
+@keyframes t12-glint{0%{background-position:130% 0}60%,100%{background-position:-30% 0}}
+@media (prefers-reduced-motion:reduce){#t12 .t12-gauge-cell.front,#t12 .t12-forge-piece.sel,#t12 .t12-forge-piece.sel .t12-forge-disc::before{animation:none}#t12 .t12-gauge-shine{display:none}}
 /* Panneau de la pièce : nom, niveau, bonus, ressources requises, réglage. */
 #t12 .t12-forge-panel{padding:12px 4% 16px}
 #t12 .t12-forge-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:8px}
