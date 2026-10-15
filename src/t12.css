@@ -207,10 +207,11 @@
 #t12 .t12-forge-piece:hover{transform:scale(1.05)}
 #t12 .t12-forge-piece:focus-visible{outline:3px solid #fff;outline-offset:3px}
 #t12 .t12-forge-piece.sel{width:min(17.5cqi,90px)}
-/* Fond du médaillon : bleu nuit tant que la pièce n'est pas terminée, orange une fois terminée (comme dans le jeu). */
+/* Fond du médaillon : bleu nuit tant que la pièce n'est pas terminée, orange une fois terminée (comme dans le jeu) ;
+   l'icône du jeu est détourée (tools/cutout-t12-piece-icons.py) pour se poser sur l'un ou l'autre. */
 #t12 .t12-forge-disc{position:absolute;inset:15%;overflow:hidden;border-radius:50%;background:radial-gradient(circle at 50% 40%,#2e3358,#171a33 72%,#10122a)}
-#t12 .t12-forge-piece.done .t12-forge-disc{background:radial-gradient(circle at 50% 45%,#ffe08a 0,#f9a83a 45%,#e0601c 100%)}
-#t12 .t12-forge-disc img{box-sizing:border-box;width:100%;height:100%;padding:13%;object-fit:contain;pointer-events:none;filter:drop-shadow(0 2px 2px rgba(0,0,0,.45))}
+#t12 .t12-forge-piece.done .t12-forge-disc{background:radial-gradient(circle at 50% 45%,#ffd45a 0,#f9a032 50%,#ea6a1e 100%)}
+#t12 .t12-forge-disc img{width:100%;height:100%;object-fit:cover;pointer-events:none}
 #t12 .t12-forge-piece.locked .t12-forge-disc img{filter:grayscale(.7) brightness(.32)}
 #t12 .t12-forge-lock{position:absolute;inset:0;display:grid;place-items:center;font-size:min(5.2cqi,27px);filter:drop-shadow(0 1px 1px #000)}
 #t12 .t12-forge-piece .t12-target{top:-12%;right:-22%}
