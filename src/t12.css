@@ -335,6 +335,9 @@
   #t12 .t12-unit-banner b{white-space:nowrap;font-size:17px}
   #t12 .t12-unit-banner small{white-space:nowrap;font-size:11px}
   #t12 .t12-unit-figure{--unit-top:58px;--unit-zoom:1.3;--unit-sink:.22}
+  #t12 .t12-tree[data-troop="marksman"] .t12-unit-figure{--unit-sink:.3}
+  /* éclairs devant le personnage et plus écartés, sinon il les masque sur petit écran */
+  #t12 .t12-unit-bolts{z-index:1;width:118cqi}
   /* pièce rouge : la rangée ne masque presque rien sur mobile, on recentre dans la zone sombre */
   #t12 .t12-forge-stage:not(.unit){padding-bottom:10px}
 }
