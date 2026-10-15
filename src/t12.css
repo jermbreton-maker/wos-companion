@@ -20,7 +20,7 @@
 #t12 .t12-board{max-width:900px;margin:0 auto 22px;padding:22px 16px 30px;background:transparent}
 
 /* Interrupteur « Remettre à zéro » : même composant que les autres pages, en tons bruns. */
-#t12 .t12-actions{display:flex;justify-content:center;max-width:900px;margin:0 auto 4px}
+#t12 .t12-actions{display:flex;justify-content:center;max-width:900px;margin:-6px auto 18px}
 #t12 .t12-actions .charm-bulk-select{margin:0;border-color:rgba(240,170,120,.42);background:rgba(42,14,12,.72);box-shadow:inset 0 1px rgba(255,220,190,.12),0 5px 14px rgba(20,4,4,.3);color:#fff}
 #t12 .t12-actions .bulk-toggle{border-color:rgba(240,180,140,.5);background:linear-gradient(180deg,#6a3326,#4a2119);box-shadow:inset 0 2px 5px rgba(20,4,4,.45),0 1px rgba(255,220,190,.14)}
 #t12 .t12-actions .bulk-toggle i{background:linear-gradient(180deg,#fff,#f3dccd)}
@@ -275,28 +275,36 @@
 }
 
 /* Unité débloquée : le personnage glorifié remplace la pièce, dans un halo doré avec des rayons qui tournent. */
-#t12 .t12-forge-stage.unit{padding-bottom:104px;background:radial-gradient(ellipse 34% 12% at 50% 86%,rgba(255,200,90,.6),transparent 70%),radial-gradient(ellipse 60% 70% at 50% 55%,#3a2a3c 0,#1e1830 55%,#0d0b1c 100%)}
+#t12 .t12-forge-stage.unit{padding-bottom:94px;background:radial-gradient(ellipse 34% 12% at 50% 86%,rgba(255,200,90,.6),transparent 70%),radial-gradient(ellipse 60% 70% at 50% 55%,#3a2a3c 0,#1e1830 55%,#0d0b1c 100%)}
 #t12 .t12-forge-stage.unit::before{display:none}
-#t12 .t12-unit-halo{position:absolute;left:50%;top:calc((100% - 104px) / 2);width:78%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;
+#t12 .t12-unit-halo{position:absolute;left:50%;top:calc((100% - 94px) * .55);width:78%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;
   background:radial-gradient(circle,rgba(255,226,130,.75) 0,rgba(255,190,60,.45) 32%,rgba(240,150,30,.18) 55%,transparent 70%)}
 /* éclairs (captures du jeu) : rouge-orange, cœur jaune, lueur rouge ; visibles par éclats brefs */
-#t12 .t12-unit-bolts{position:absolute;left:50%;top:calc((100% - 104px) / 2);width:96%;height:auto;transform:translate(-50%,-50%);overflow:visible;pointer-events:none}
+#t12 .t12-unit-bolts{position:absolute;left:50%;top:calc((100% - 94px) * .55);width:96%;height:auto;transform:translate(-50%,-50%);overflow:visible;pointer-events:none}
 #t12 .t12-unit-bolts g{opacity:0;animation:t12-bolt 2s steps(1,end) infinite}
 #t12 .t12-unit-bolts path{fill:none;stroke-linejoin:miter;stroke-miterlimit:8;stroke-linecap:round}
 #t12 .t12-unit-bolts .b-glow{stroke:#ff2a10;stroke-width:9;opacity:.55;filter:blur(4px)}
 #t12 .t12-unit-bolts .b-mid{stroke:#ff6a1a;stroke-width:4.5}
 #t12 .t12-unit-bolts .b-core{stroke:#ffe46a;stroke-width:1.6}
 @keyframes t12-bolt{0%{opacity:0}8%{opacity:1}12%{opacity:.25}16%{opacity:1}24%,100%{opacity:0}}
-#t12 .t12-forge-art.t12-unit-art{max-width:70%;max-height:94%;animation:t12-unit-in .9s ease-out both,t12-unit-glow 2.6s ease-in-out .9s infinite alternate;
+#t12 .t12-forge-art.t12-unit-art{align-self:end;max-width:70%;max-height:96%;animation:t12-unit-in .9s ease-out both,t12-unit-glow 2.6s ease-in-out .9s infinite alternate;
   filter:drop-shadow(0 0 6px rgba(255,215,100,.9)) drop-shadow(0 0 22px rgba(255,170,40,.6)) drop-shadow(0 10px 12px rgba(0,0,0,.5))}
 @keyframes t12-unit-in{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:none}}
 @keyframes t12-unit-glow{to{filter:drop-shadow(0 0 9px rgba(255,225,120,1)) drop-shadow(0 0 32px rgba(255,180,50,.75)) drop-shadow(0 10px 12px rgba(0,0,0,.5))}}
 /* bandeau de déblocage, au style des titres de la page */
-#t12 .t12-unit-banner{position:absolute;z-index:2;left:50%;bottom:48px;display:grid;justify-items:center;gap:1px;min-width:56%;padding:7px 20px 8px;transform:translateX(-50%);
+#t12 .t12-unit-banner{position:absolute;z-index:2;left:50%;bottom:44px;display:grid;justify-items:center;gap:0;min-width:56%;padding:4px 18px 5px;transform:translateX(-50%);
   border:2px solid #ffd27a;border-radius:16px;background:linear-gradient(180deg,#c26a3e,#8c4129);box-shadow:0 0 0 3px rgba(60,20,10,.55),0 0 18px rgba(255,190,70,.6),inset 0 1px rgba(255,230,190,.45);
   text-align:center;animation:t12-banner-in .7s cubic-bezier(.2,1.4,.4,1) .2s both}
 #t12 .t12-unit-banner b{display:flex;align-items:center;gap:8px;font-size:clamp(16px,3.6cqi,22px);font-weight:inherit;color:#fff;text-shadow:0 2px 0 rgba(60,15,5,.6)}
-#t12 .t12-unit-banner .t12-lock{width:.95em;height:auto;filter:drop-shadow(0 2px 0 rgba(60,15,5,.6))}
+/* cadenas ouvert doré : l'anse se relève à l'apparition, puis il brille doucement */
+#t12 .t12-unit-banner .t12-lock{width:1.15em;height:auto;overflow:visible;filter:drop-shadow(0 0 4px rgba(255,220,110,.9)) drop-shadow(0 2px 0 rgba(60,15,5,.6));animation:t12-lock-glow 1.8s ease-in-out 1.4s infinite alternate}
+#t12 .t12-unit-banner .t12-lock .l-body{fill:#ffd65e;stroke:#7a4a10}
+#t12 .t12-unit-banner .t12-lock .l-shackle{stroke:#ffe48a}
+#t12 .t12-unit-banner .t12-lock .l-shackle-o{stroke:#7a4a10}
+#t12 .t12-unit-banner .t12-lock .l-hole{fill:#7a4a10}
+#t12 .t12-unit-banner .t12-lock :is(.l-shackle,.l-shackle-o){animation:t12-unlock .5s cubic-bezier(.3,1.6,.5,1) .8s both}
+@keyframes t12-unlock{from{transform:translateY(4px)}to{transform:none}}
+@keyframes t12-lock-glow{to{filter:drop-shadow(0 0 9px rgba(255,225,120,1)) drop-shadow(0 2px 0 rgba(60,15,5,.6))}}
 #t12 .t12-unit-banner small{font-size:12px;color:#ffe2b8}
 @keyframes t12-banner-in{from{opacity:0;transform:translateX(-50%) translateY(14px) scale(.8)}to{opacity:1;transform:translateX(-50%)}}
-@media (prefers-reduced-motion:reduce){#t12 .t12-unit-bolts g,#t12 .t12-forge-art.t12-unit-art,#t12 .t12-unit-banner{animation:none}#t12 .t12-unit-bolts g{opacity:.6}}
+@media (prefers-reduced-motion:reduce){#t12 .t12-unit-banner .t12-lock,#t12 .t12-unit-banner .t12-lock :is(.l-shackle,.l-shackle-o),#t12 .t12-unit-bolts g,#t12 .t12-forge-art.t12-unit-art,#t12 .t12-unit-banner{animation:none}#t12 .t12-unit-bolts g{opacity:.6}}
