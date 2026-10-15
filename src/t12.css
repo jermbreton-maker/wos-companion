@@ -292,10 +292,10 @@
 #t12 .t12-unit-bolts .b-core{stroke:#ffe46a;stroke-width:1.6}
 @keyframes t12-bolt{0%{opacity:0}8%{opacity:1}12%{opacity:.25}16%{opacity:1}24%,100%{opacity:0}}
 /* même hauteur pour les 3 personnages (référence : le Tireur), posés bas derrière les médaillons ; liseré rouge comme les éclairs */
-#t12 .t12-forge-art.t12-unit-art{align-self:end;height:calc((100cqi / 1.4815 - 70px) * .95 * var(--unit-scale,1));width:auto;max-width:94%;max-height:none;object-fit:contain;transform:translateY(12%);
+#t12 .t12-forge-art.t12-unit-art{align-self:end;height:calc((100cqi / 1.4815 - var(--unit-top,70px)) * .95 * var(--unit-scale,1) * var(--unit-zoom,1));width:auto;max-width:94%;max-height:none;object-fit:contain;transform:translateY(var(--unit-drop,12%));
   animation:t12-unit-in .9s ease-out both,t12-unit-glow 2.6s ease-in-out .9s infinite alternate;
   filter:drop-shadow(0 0 3px rgba(255,50,20,.95)) drop-shadow(0 0 12px rgba(255,40,16,.55)) drop-shadow(0 10px 12px rgba(0,0,0,.5))}
-@keyframes t12-unit-in{from{opacity:0;transform:translateY(16%) scale(.9)}to{opacity:1;transform:translateY(12%)}}
+@keyframes t12-unit-in{from{opacity:0;transform:translateY(calc(var(--unit-drop,12%) + 4%)) scale(.9)}to{opacity:1;transform:translateY(var(--unit-drop,12%))}}
 @keyframes t12-unit-glow{to{filter:drop-shadow(0 0 5px rgba(255,70,30,1)) drop-shadow(0 0 20px rgba(255,40,16,.7)) drop-shadow(0 10px 12px rgba(0,0,0,.5))}}
 /* bandeau de déblocage, au style des titres de la page */
 #t12 .t12-unit-banner{position:absolute;z-index:2;left:50%;top:12px;display:grid;justify-items:center;gap:0;min-width:56%;padding:4px 18px 5px;transform:translateX(-50%);
@@ -324,3 +324,12 @@
 #t12 .t12-forge-all .bulk-toggle i{background:linear-gradient(180deg,#fff,#f3dccd)}
 #t12 .t12-forge-all input:checked+.bulk-toggle{border-color:#ffc79c;background:linear-gradient(180deg,#d9804f,#a8502f);box-shadow:inset 0 1px rgba(255,255,255,.35),0 0 9px rgba(240,140,80,.45)}
 #t12 .t12-actions[hidden]{display:none}
+
+/* Mobile : bandeau élargi (2 lignes), personnage plus grand qui descend davantage derrière les médaillons */
+@media (max-width:600px){
+  #t12 .t12-forge-stage.unit{padding-top:58px}
+  #t12 .t12-unit-banner{top:8px;width:calc(100% - 20px);min-width:0;padding:4px 10px 5px;box-sizing:border-box}
+  #t12 .t12-unit-banner b{white-space:nowrap;font-size:17px}
+  #t12 .t12-unit-banner small{white-space:nowrap;font-size:11px}
+  #t12 .t12-forge-art.t12-unit-art{--unit-top:58px;--unit-zoom:1.3;--unit-drop:22%}
+}
