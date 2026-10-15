@@ -81,8 +81,8 @@ const nodeArt=(node,troop)=>`<img class="t12-ico" src="${ICON(troop,iconId(node.
 
 /* ---------- Rendu ---------- */
 function renderTree(){
-  /* l'interrupteur peut être dans le panneau de la forge : on le remet à sa place avant de redessiner */
-  document.getElementById('t12Result').before(T12_ACTIONS);
+  /* interrupteur et coût total peuvent être dans la forge : on les remet à leur place avant de redessiner */
+  T12_BOARD.after(T12_ACTIONS);T12_ACTIONS.after(T12_RESULT);
   T12_ACTIONS.hidden=state.view==='unlock';  /* en Déblocage, « Tout au max » est dans les encadrés Actuel / Objectif */
   if(state.view==='unlock')return renderForge();
   const layout=TREE,levels=state.levels[state.troop],troop=state.troop;
@@ -153,7 +153,7 @@ const BOLTS=(()=>{
 /* Cadenas du jeu (corps crème, anse épaisse, trou de serrure) ; ouvert = anse relevée d'un côté. */
 /* ouvert : l'anse pivote vers l'extérieur, la branche libre passe de l'autre côté, hors du corps */
 const LOCK=open=>{const sh=open?'M17 13V8A5 5 0 0 1 27 8V10':'M7 13V8A5 5 0 0 1 17 8V13';return `<svg class="t12-lock${open?' open':''}" viewBox="0 0 ${open?30:24} 28" aria-hidden="true"><path class="l-shackle-o" d="${sh}"/><path class="l-shackle" d="${sh}"/><rect class="l-body" x="3" y="12" width="18" height="14" rx="3.5"/><circle class="l-hole" cx="12" cy="18" r="2.1"/><rect class="l-hole" x="11" y="18.5" width="2" height="4.5" rx="1"/></svg>`};
-const T12_ACTIONS=document.querySelector('#t12 .t12-actions');
+const T12_ACTIONS=document.querySelector('#t12 .t12-actions'),T12_RESULT=document.getElementById('t12Result'),T12_BOARD=document.querySelector('#t12 .t12-board');
 let advanceTimer=null;
 const revealPending={};  /* troupe dont la dernière pièce vient d'être terminée : personnage affiché après 2 s */
 const UNIT_ART=troop=>`assets/visuals/t12/units/${troop}.png?v=20261015`;
@@ -194,6 +194,7 @@ function renderForge(){
       <div class="t12-forge-stats">${statLine(statLabel,stat.step,stat.unit)}${statLine('Puissance',i?150000:180000,'')}</div>
       <div class="t12-forge-set">${stepper('from','Actuel',lvl.from,0)}${stepper('to','Objectif',lvl.to,lvl.from)}</div>
     </div></div>`;
+  host.querySelector('.t12-forge').append(T12_RESULT);  /* coût total dans le même encadrement que la forge */
   host.querySelectorAll('[data-t12-all]').forEach(box=>box.onchange=()=>{
     const field=box.dataset.t12All,on=box.checked;
     pieces.forEach(n=>{const l=levels[n.id];

@@ -333,3 +333,6 @@
   #t12 .t12-unit-banner small{white-space:nowrap;font-size:11px}
   #t12 .t12-forge-art.t12-unit-art{--unit-top:58px;--unit-zoom:1.3;--unit-drop:22%}
 }
+
+/* Coût total intégré à l'encadrement de la forge : même titre sur fond cuivré, sans second cadre */
+#t12 .t12-forge .t12-result{max-width:none;margin:0;padding:6px 4% 18px;border:0;border-top:2px solid rgba(240,170,120,.16);border-radius:0;background:transparent;box-shadow:none}
