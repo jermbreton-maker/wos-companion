@@ -80,9 +80,14 @@ const badge=(value,max)=>value>=max?'MAX':`${value}/${max}`;
 const nodeArt=(node,troop)=>`<img class="t12-ico" src="${ICON(troop,iconId(node.id))}" alt="" draggable="false">`;
 
 /* ---------- Rendu ---------- */
+let usingKeyboard=false;
+addEventListener('keydown',()=>{usingKeyboard=true},true);
+addEventListener('pointerdown',()=>{usingKeyboard=false},true);
 function renderTree(){
   /* le contenu est redessiné à chaque clic : on garde la position de défilement (sinon saut de page sur mobile) */
-  const keepY=scrollY,keepFocus=document.activeElement?.closest?.('#t12Tree')?focusKey(document.activeElement):null;
+  /* focus rendu seulement au clavier : au toucher (iPhone), le focus reste sur un ancien médaillon et le lui rendre faisait sauter la page */
+  const keepY=scrollY,keepFocus=usingKeyboard&&document.activeElement?.closest?.('#t12Tree')?focusKey(document.activeElement):null;
+  if(!usingKeyboard&&document.activeElement?.closest?.('#t12Tree'))document.activeElement.blur();
   drawTree();
   if(scrollY!==keepY)scrollTo(0,keepY);
   requestAnimationFrame(()=>{if(scrollY!==keepY)scrollTo(0,keepY)});  /* certains navigateurs mobiles recalent après coup */
