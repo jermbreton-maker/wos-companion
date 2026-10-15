@@ -89,8 +89,8 @@ function renderTree(){
   const keepY=scrollY,keepFocus=usingKeyboard&&document.activeElement?.closest?.('#t12Tree')?focusKey(document.activeElement):null;
   if(!usingKeyboard&&document.activeElement?.closest?.('#t12Tree'))document.activeElement.blur();
   drawTree();
-  if(scrollY!==keepY)scrollTo(0,keepY);
-  requestAnimationFrame(()=>{if(scrollY!==keepY)scrollTo(0,keepY)});  /* certains navigateurs mobiles recalent après coup */
+  if(scrollY!==keepY)scrollTo({top:keepY,behavior:'instant'});
+  requestAnimationFrame(()=>{if(scrollY!==keepY)scrollTo({top:keepY,behavior:'instant'})});  /* certains navigateurs mobiles recalent après coup */
   if(keepFocus)document.querySelector(keepFocus)?.focus({preventScroll:true});
 }
 /* clé pour retrouver le bouton qui avait le focus après le redessin */

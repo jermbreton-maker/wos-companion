@@ -166,7 +166,7 @@ function unlockLevelPickerBackground(){
   if(!document.body.classList.contains('level-picker-open'))return;
   document.body.classList.remove('level-picker-open');
   document.body.style.removeProperty('--level-picker-page-offset');
-  window.scrollTo(0,levelPickerPageScrollY);
+  window.scrollTo({top:levelPickerPageScrollY,behavior:'instant'});  /* instantané : en fluide, Safari repartait du haut */
 }
 $('#levelPicker').addEventListener('close',unlockLevelPickerBackground);
 openLevelPicker=function(spec){const parts=spec.split(':'),[kind,direction]=parts[0].split('-'),id=parts[1],index=parts[2]===undefined?null:+parts[2],isGear=kind==='gear',s=state.gear[id],from=isGear?s.from:s.charms[index],to=isGear?s.to:s.targetCharms[index],min=direction==='to'?from:(isGear?0:1),max=isGear?D.gearLevels.length-1:18,current=direction==='to'?to:from;$('#pickerEyebrow').textContent=direction==='to'?'OBJECTIF':'NIVEAU ACTUEL';$('#pickerTitle').textContent=isGear?D.gears.find(g=>g.id===id).name:`Talisman ${index+1}`;$('#levelPickerGrid').innerHTML=Array.from({length:max-min+1},(_,i)=>{const value=min+i,label=isGear?D.gearLevels[value]:`Niveau ${value}`;return `<button value="cancel" class="level-choice ${value===current?'active':''}" data-level="${value}">${label}</button>`}).join('');$$('[data-level]').forEach(b=>b.onclick=()=>{const value=+b.dataset.level;if(isGear){state.selectedUpgradeGear=id;if(direction==='from'){s.from=value;s.to=Math.max(s.to,value)}else s.to=value}else{state.selectedUpgradeCharm=id+':'+index;if(direction==='from'){s.charms[index]=value;s.targetCharms[index]=Math.max(s.targetCharms[index],value)}else s.targetCharms[index]=value}renderGear()});$('#levelPicker').showModal()};
