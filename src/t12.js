@@ -127,6 +127,13 @@ const arcPoint=(r,deg)=>{const a=(deg-90)*Math.PI/180;return`${(r*Math.cos(a)).t
 const sector=(r1,r2,a0,a1)=>`M${arcPoint(r2,a0)}A${r2} ${r2} 0 0 1 ${arcPoint(r2,a1)}L${arcPoint(r1,a1)}A${r1} ${r1} 0 0 0 ${arcPoint(r1,a0)}Z`;
 const GAUGE_SPAN=110,GAUGE_FRAME=sector(55,83,-GAUGE_SPAN/2,GAUGE_SPAN/2);
 const GAUGE_CELLS=[0,1,2,3,4].map(k=>{const step=(GAUGE_SPAN-6)/5,a0=-GAUGE_SPAN/2+3+k*step;return sector(59,79,a0+1.2,a0+step-1.2)});
+/* Coudes d'arrivée (gauche) et de sortie (droite) du tuyau : traits superposés pour le volume, trou dans le panneau. */
+const PIPE_LAYERS={lit:['#8e3410',44,'#e2682a',36,'#ffae48',22,'#ffe08e',8],off:['#0e1528',44,'#1f2c4a',36,'#2e4068',20,'#45598a',7]};
+function elbow(side,lit){
+  const d=side==='inlet'?'M60 22H44A22 22 0 0 0 22 44V84':'M0 22H16A22 22 0 0 1 38 44V84',x=side==='inlet'?22:38,L=PIPE_LAYERS[lit?'lit':'off'];
+  const strokes=[0,2,4,6].map(i=>`<path d="${d}" stroke="${L[i]}" stroke-width="${L[i+1]}"/>`).join('');
+  return `<span class="t12-forge-elbow t12-forge-${side}${lit?' lit':''}" aria-hidden="true"><svg viewBox="0 0 60 100"><ellipse class="t12-socket" cx="${x}" cy="88" rx="30" ry="11"/><g fill="none">${strokes}</g></svg></span>`;
+}
 const num=n=>String(n).replace(/\B(?=(\d{3})+(?!\d))/g,' ');
 function renderForge(){
   const troop=state.troop,levels=state.levels[troop],host=document.getElementById('t12Tree');
@@ -153,7 +160,7 @@ function renderForge(){
   host.innerHTML=`<div class="t12-forge">
     <div class="t12-forge-stage"><img class="t12-forge-art" src="${RENDER(troop,id)}" alt="${nodeName(id,troop)}" draggable="false">
       <span class="t12-forge-unit${unit?' ok':''}">${unit?`✓ ${T12.units[troop]} débloquée`:`🔒 ${T12.units[troop]} · ${done}/5 pièces`}</span></div>
-    <div class="t12-forge-row"><i class="t12-forge-pipe t12-forge-inlet lit" aria-hidden="true"></i>${row}<i class="t12-forge-pipe t12-forge-outlet${unit?' lit':''}" aria-hidden="true"></i></div>
+    <div class="t12-forge-row">${elbow('inlet',true)}${row}${elbow('outlet',unit)}</div>
     <div class="t12-forge-panel">
       <div class="t12-forge-head"><h3>${nodeName(id,troop)}</h3><span class="t12-forge-lv">Niv. ${lvl.from}${maxed?' · MAX':`<i>➜</i>${target}`}</span></div>
       <div class="t12-forge-stats">${statLine(statLabel,stat.step,stat.unit)}${statLine('Puissance',i?150000:180000,'')}</div>
