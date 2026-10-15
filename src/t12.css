@@ -277,14 +277,13 @@
 }
 }
 
-/* Unité débloquée : le personnage glorifié remplace la pièce, dans un halo doré avec des rayons qui tournent. */
+/* Unité débloquée : le personnage glorifié remplace la pièce, avec un liseré rouge et des éclairs. */
 #t12 .t12-forge-stage.unit{padding:70px 0 0;background:radial-gradient(ellipse 40% 14% at 50% 88%,rgba(255,60,30,.35),transparent 70%),radial-gradient(ellipse 60% 70% at 50% 55%,#2a1a30 0,#18132a 55%,#0b0a1a 100%)}
 /* fondu du bas du personnage vers les médaillons (calque, pas de masque : la lueur n'est pas coupée en rectangle) */
 #t12 .t12-forge-stage.unit::after{z-index:1;background:linear-gradient(180deg,transparent 66%,rgba(58,25,22,.75) 84%,#3a1916 96%)}
 #t12 .t12-forge-stage.unit::before{display:none}
-  background:radial-gradient(circle,rgba(255,226,130,.75) 0,rgba(255,190,60,.45) 32%,rgba(240,150,30,.18) 55%,transparent 70%)}
 /* éclairs (captures du jeu) : rouge-orange, cœur jaune, lueur rouge ; visibles par éclats brefs */
-#t12 .t12-unit-bolts{position:absolute;left:50%;top:calc(70px + (100% - 70px) * .5);width:96%;height:auto;transform:translate(-50%,-50%);overflow:visible;pointer-events:none}
+#t12 .t12-unit-bolts{position:absolute;left:50%;top:50%;width:92cqi;height:auto;transform:translate(-50%,-50%);overflow:visible;pointer-events:none}
 #t12 .t12-unit-bolts g{opacity:0;animation:t12-bolt 2s steps(1,end) infinite}
 #t12 .t12-unit-bolts path{fill:none;stroke-linejoin:miter;stroke-miterlimit:8;stroke-linecap:round}
 #t12 .t12-unit-bolts .b-glow{stroke:#ff2a10;stroke-width:9;opacity:.55;filter:blur(4px)}
@@ -292,10 +291,14 @@
 #t12 .t12-unit-bolts .b-core{stroke:#ffe46a;stroke-width:1.6}
 @keyframes t12-bolt{0%{opacity:0}8%{opacity:1}12%{opacity:.25}16%{opacity:1}24%,100%{opacity:0}}
 /* même hauteur pour les 3 personnages (référence : le Tireur), posés bas derrière les médaillons ; liseré rouge comme les éclairs */
-#t12 .t12-forge-art.t12-unit-art{align-self:end;height:calc((100cqi / 1.4815 - var(--unit-top,70px)) * .95 * var(--unit-scale,1) * var(--unit-zoom,1));width:auto;max-width:94%;max-height:none;object-fit:contain;transform:translateY(var(--unit-drop,12%));
+/* Personnage : posé par les pieds au même niveau pour les 3 troupes (enfoncé derrière les médaillons),
+   hauteur commune (référence : le Tireur) corrigée par --unit-scale ; liseré rouge comme les éclairs */
+#t12 .t12-unit-figure{--zone:calc(100cqi / 1.4815 - var(--unit-top,70px));position:absolute;left:50%;bottom:calc(var(--zone) * var(--unit-sink,.1) * -1);
+  height:calc(var(--zone) * .95 * var(--unit-scale,1) * var(--unit-zoom,1));transform:translateX(-50%)}
+#t12 .t12-forge-art.t12-unit-art{position:relative;display:block;height:100%;width:auto;max-width:none;max-height:none;
   animation:t12-unit-in .9s ease-out both,t12-unit-glow 2.6s ease-in-out .9s infinite alternate;
   filter:drop-shadow(0 0 3px rgba(255,50,20,.95)) drop-shadow(0 0 12px rgba(255,40,16,.55)) drop-shadow(0 10px 12px rgba(0,0,0,.5))}
-@keyframes t12-unit-in{from{opacity:0;transform:translateY(calc(var(--unit-drop,12%) + 4%)) scale(.9)}to{opacity:1;transform:translateY(var(--unit-drop,12%))}}
+@keyframes t12-unit-in{from{opacity:0;transform:translateY(12px) scale(.9)}to{opacity:1;transform:none}}
 @keyframes t12-unit-glow{to{filter:drop-shadow(0 0 5px rgba(255,70,30,1)) drop-shadow(0 0 20px rgba(255,40,16,.7)) drop-shadow(0 10px 12px rgba(0,0,0,.5))}}
 /* bandeau de déblocage, au style des titres de la page */
 #t12 .t12-unit-banner{position:absolute;z-index:2;left:50%;top:12px;display:grid;justify-items:center;gap:0;min-width:56%;padding:4px 18px 5px;transform:translateX(-50%);
@@ -316,8 +319,8 @@
 @media (prefers-reduced-motion:reduce){#t12 .t12-unit-banner .t12-lock,#t12 .t12-unit-banner .t12-lock :is(.l-shackle,.l-shackle-o),#t12 .t12-unit-bolts g,#t12 .t12-forge-art.t12-unit-art,#t12 .t12-unit-banner{animation:none}#t12 .t12-unit-bolts g{opacity:.6}}
 
 /* même place visuelle pour les 3 personnages : l'Infanterie (trapue) un peu réduite, le Lancier (fin) un peu agrandi */
-#t12 .t12-tree[data-troop="infantry"] .t12-unit-art{--unit-scale:.84}
-#t12 .t12-tree[data-troop="lancer"] .t12-unit-art{--unit-scale:1.1}
+#t12 .t12-tree[data-troop="infantry"] .t12-unit-figure{--unit-scale:.84}
+#t12 .t12-tree[data-troop="lancer"] .t12-unit-figure{--unit-scale:1.1}
 /* « Tout au max » de chaque encadré : même interrupteur que la page */
 #t12 .t12-forge-all{margin:0;border-color:rgba(240,170,120,.42);background:rgba(42,14,12,.72);box-shadow:inset 0 1px rgba(255,220,190,.12);color:#fff}
 #t12 .t12-forge-all .bulk-toggle{border-color:rgba(240,180,140,.5);background:linear-gradient(180deg,#6a3326,#4a2119);box-shadow:inset 0 2px 5px rgba(20,4,4,.45),0 1px rgba(255,220,190,.14)}
@@ -331,7 +334,9 @@
   #t12 .t12-unit-banner{top:8px;width:calc(100% - 20px);min-width:0;padding:4px 10px 5px;box-sizing:border-box}
   #t12 .t12-unit-banner b{white-space:nowrap;font-size:17px}
   #t12 .t12-unit-banner small{white-space:nowrap;font-size:11px}
-  #t12 .t12-forge-art.t12-unit-art{--unit-top:58px;--unit-zoom:1.3;--unit-drop:22%}
+  #t12 .t12-unit-figure{--unit-top:58px;--unit-zoom:1.3;--unit-sink:.22}
+  /* pièce rouge : la rangée ne masque presque rien sur mobile, on recentre dans la zone sombre */
+  #t12 .t12-forge-stage:not(.unit){padding-bottom:10px}
 }
 
 /* Coût total intégré à l'encadrement de la forge : même titre sur fond cuivré, sans second cadre */

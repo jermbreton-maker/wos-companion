@@ -184,7 +184,7 @@ function renderForge(){
     <label class="select-all-charms charm-bulk-select t12-forge-all"><input type="checkbox" data-t12-all="${field}" ${allMax[field]?'checked':''}><span class="bulk-toggle" aria-hidden="true"><i></i></span><span>Tout au max</span></label></div>`;
   host.innerHTML=`<div class="t12-forge">
     <div class="t12-forge-stage${showUnit?' unit':''}">${showUnit
-      ?`${BOLTS}<img class="t12-forge-art t12-unit-art" src="${UNIT_ART(troop)}" alt="${T12.units[troop]}" draggable="false">
+      ?`<span class="t12-unit-figure">${BOLTS}<img class="t12-forge-art t12-unit-art" src="${UNIT_ART(troop)}" alt="${T12.units[troop]}" draggable="false"></span>
         <div class="t12-unit-banner" role="status"><b>${T12.units[troop]} ${LOCK(true)}</b><small>L'arbre de recherche est accessible</small></div>`
       :`<img class="t12-forge-art" src="${RENDER(troop,id)}" alt="${nodeName(id,troop)}" draggable="false">`}
       ${showUnit?'':`<span class="t12-forge-unit">${LOCK(false)} ${T12.units[troop]} · ${done}/5 pièces</span>`}</div>
