@@ -81,6 +81,23 @@ const nodeArt=(node,troop)=>`<img class="t12-ico" src="${ICON(troop,iconId(node.
 
 /* ---------- Rendu ---------- */
 function renderTree(){
+  /* le contenu est redessiné à chaque clic : on garde la position de défilement (sinon saut de page sur mobile) */
+  const keepY=scrollY,keepFocus=document.activeElement?.closest?.('#t12Tree')?focusKey(document.activeElement):null;
+  drawTree();
+  if(scrollY!==keepY)scrollTo(0,keepY);
+  requestAnimationFrame(()=>{if(scrollY!==keepY)scrollTo(0,keepY)});  /* certains navigateurs mobiles recalent après coup */
+  if(keepFocus)document.querySelector(keepFocus)?.focus({preventScroll:true});
+}
+/* clé pour retrouver le bouton qui avait le focus après le redessin */
+function focusKey(el){
+  const box=el.closest('[data-t12-forge-field]'),piece=el.closest('[data-t12-piece]'),node=el.closest('[data-t12-node]');
+  if(box&&el.dataset.d)return `[data-t12-forge-field="${box.dataset.t12ForgeField}"] [data-d="${el.dataset.d}"]`;
+  if(el.dataset.t12All)return `[data-t12-all="${el.dataset.t12All}"]`;
+  if(piece)return `[data-t12-piece="${piece.dataset.t12Piece}"]`;
+  if(node)return `[data-t12-node="${node.dataset.t12Node}"]`;
+  return null;
+}
+function drawTree(){
   /* interrupteur et coût total peuvent être dans la forge : on les remet à leur place avant de redessiner */
   T12_BOARD.after(T12_ACTIONS);T12_ACTIONS.after(T12_RESULT);
   T12_ACTIONS.hidden=state.view==='unlock';  /* en Déblocage, « Tout au max » est dans les encadrés Actuel / Objectif */
