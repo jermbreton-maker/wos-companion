@@ -27,7 +27,7 @@ document.querySelectorAll('main > .view').forEach(view=>{
 });
 
 /* Sans bandeaux latéraux : pavé sous le panneau Coût de chaque page (sous le panneau principal pour T12). */
-['#furnaceResult','#chiefResult','#charmResult','#t11Result','#t12Result'].forEach(selector=>{
+['#furnaceResult','#chiefResult','#charmResult','#t11Result','#t12AdAnchor'].forEach(selector=>{
   document.querySelector(selector)?.after(slot('ad-mobile-mrec','aurora-300x250.svg',300,250,'Aurora Voyages (annonce fictive)'));
 });
 })();

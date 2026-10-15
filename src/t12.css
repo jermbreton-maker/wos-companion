@@ -335,4 +335,4 @@
 }
 
 /* Coût total intégré à l'encadrement de la forge : même titre sur fond cuivré, sans second cadre */
-#t12 .t12-forge .t12-result{max-width:none;margin:0;padding:6px 4% 18px;border:0;border-top:2px solid rgba(240,170,120,.16);border-radius:0;background:transparent;box-shadow:none}
+#t12 .t12-forge .t12-result{max-width:none;margin:0;padding:6px 4% 18px;border:0;border-radius:0;background:transparent;box-shadow:none}
