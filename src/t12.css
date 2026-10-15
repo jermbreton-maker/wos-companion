@@ -162,7 +162,8 @@
 #t12Picker .t12-node.t12-node-preview{position:relative;display:block;width:82px;transform:none;cursor:default}
 
 /* ---------- Déblocage : écran de forge (même mise en forme que le jeu) ---------- */
-#t12 .t12-tree.t12-forge-host{aspect-ratio:auto!important}
+/* Écran de forge plus large que l'arbre : les médaillons gardent leur taille, le tuyau prend de la place entre eux. */
+#t12 .t12-tree.t12-forge-host{aspect-ratio:auto!important;width:min(100%,680px)}
 #t12 .t12-forge{--copper:#c07a45;--copper-dark:#5a2a16;overflow:hidden;border:2px solid #6b3523;border-radius:22px;background:#3a1916;box-shadow:0 14px 35px rgba(20,4,4,.45)}
 /* Pièce détourée sur le fond de l'atelier : nuit bleutée, faisceau et halo bleus sous la pièce. */
 #t12 .t12-forge-stage{position:relative;display:grid;place-items:center;box-sizing:border-box;aspect-ratio:720/486;padding-bottom:40px;overflow:hidden;
@@ -180,22 +181,22 @@
 /* Rangée des 5 pièces reliées par un tuyau épais (comme dans le jeu) : orange à cœur jaune une fois la pièce
    précédente terminée, bleu nuit sinon ; bague de cuivre à chaque raccord ; coudes qui sortent du panneau aux extrémités. */
 #t12 .t12-forge-row{position:relative;display:flex;align-items:center;margin-top:-40px;padding:44px 2% 26px;border-bottom:2px solid rgba(240,170,120,.16)}
-#t12 .t12-forge-pipe{position:relative;flex:1;height:4.4cqi;margin:0 -1px;
+#t12 .t12-forge-pipe{position:relative;flex:1;height:min(4.4cqi,23px);margin:0 -1px;
   background:linear-gradient(180deg,#0e1528 0,#1f2c4a 18%,#2e4068 34%,#45598a 50%,#2e4068 66%,#1f2c4a 82%,#0e1528 100%)}
 #t12 .t12-forge-pipe.lit{background:linear-gradient(180deg,#8e3410 0,#e2682a 18%,#ffae48 34%,#ffe08e 50%,#ffae48 66%,#e2682a 82%,#8e3410 100%);box-shadow:0 0 8px rgba(255,120,40,.45)}
 /* bagues de cuivre aux deux raccords */
-#t12 .t12-forge-pipe::before,#t12 .t12-forge-pipe::after{content:"";position:absolute;top:-.7cqi;bottom:-.7cqi;width:1.7cqi;border-radius:2px;
+#t12 .t12-forge-pipe::before,#t12 .t12-forge-pipe::after{content:"";position:absolute;top:max(-.5cqi,-3px);bottom:max(-.5cqi,-3px);width:min(1.1cqi,6px);border-radius:2px;
   background:linear-gradient(180deg,#4a2414 0,#9a5634 30%,#c98258 50%,#9a5634 70%,#4a2414 100%);box-shadow:0 1px 2px rgba(0,0,0,.5)}
 #t12 .t12-forge-pipe::before{left:0}
 #t12 .t12-forge-pipe::after{right:0}
-#t12 .t12-forge-elbow{position:relative;flex:0 0 6cqi;align-self:stretch}
-#t12 .t12-forge-elbow svg{position:absolute;left:0;top:calc(50% - 2.2cqi);width:6cqi;height:10cqi;overflow:visible}
+#t12 .t12-forge-elbow{position:relative;flex:0 0 min(6cqi,31px);align-self:stretch}
+#t12 .t12-forge-elbow svg{position:absolute;left:0;top:calc(50% - min(2.2cqi,11.5px));width:min(6cqi,31px);height:min(10cqi,52px);overflow:visible}
 #t12 .t12-forge-elbow g{filter:blur(.35px)}
 #t12 .t12-forge-elbow.lit g{filter:blur(.35px) drop-shadow(0 0 3px rgba(255,120,40,.5))}
 #t12 .t12-socket{fill:#1a0b08;stroke:#5a2c1a;stroke-width:4}
 #t12 .t12-forge-inlet{margin-right:-1px}
 #t12 .t12-forge-outlet{margin-left:-1px}
-#t12 .t12-forge-piece{position:relative;z-index:2;flex:none;width:13.2cqi;aspect-ratio:1;padding:0;border:0;border-radius:50%;cursor:pointer;--ring:#5e3220;--ring-hi:#8a5232;
+#t12 .t12-forge-piece{position:relative;z-index:2;flex:none;width:min(13.2cqi,68px);aspect-ratio:1;padding:0;border:0;border-radius:50%;cursor:pointer;--ring:#5e3220;--ring-hi:#8a5232;
   background:radial-gradient(circle closest-side,transparent 0 70%,#120604 71% 74%,var(--ring) 76%,var(--ring-hi) 86%,var(--ring) 94%,#2a120a 99%,transparent 100%);box-shadow:0 3px 6px rgba(10,2,2,.55);transition:transform .15s}
 /* 4 encoches en diagonale et 2 rivets en haut */
 #t12 .t12-forge-piece::before{content:"";position:absolute;inset:0;border-radius:50%;pointer-events:none;
@@ -205,12 +206,13 @@
 #t12 .t12-forge-piece.sel{--ring:#9a5a32;--ring-hi:#d99a68}
 #t12 .t12-forge-piece:hover{transform:scale(1.05)}
 #t12 .t12-forge-piece:focus-visible{outline:3px solid #fff;outline-offset:3px}
-#t12 .t12-forge-piece.sel{width:17.5cqi}
-#t12 .t12-forge-disc{position:absolute;inset:15%;overflow:hidden;border-radius:50%;background:#1b1d3a}
-#t12 .t12-forge-disc img{width:100%;height:100%;object-fit:cover;pointer-events:none}
-#t12 .t12-forge-piece:not(.done) .t12-forge-disc img{filter:saturate(.75) brightness(.8)}
+#t12 .t12-forge-piece.sel{width:min(17.5cqi,90px)}
+/* Fond du médaillon : bleu nuit tant que la pièce n'est pas terminée, orange une fois terminée (comme dans le jeu). */
+#t12 .t12-forge-disc{position:absolute;inset:15%;overflow:hidden;border-radius:50%;background:radial-gradient(circle at 50% 40%,#2e3358,#171a33 72%,#10122a)}
+#t12 .t12-forge-piece.done .t12-forge-disc{background:radial-gradient(circle at 50% 45%,#ffe08a 0,#f9a83a 45%,#e0601c 100%)}
+#t12 .t12-forge-disc img{box-sizing:border-box;width:100%;height:100%;padding:13%;object-fit:contain;pointer-events:none;filter:drop-shadow(0 2px 2px rgba(0,0,0,.45))}
 #t12 .t12-forge-piece.locked .t12-forge-disc img{filter:grayscale(.7) brightness(.32)}
-#t12 .t12-forge-lock{position:absolute;inset:0;display:grid;place-items:center;font-size:5.2cqi;filter:drop-shadow(0 1px 1px #000)}
+#t12 .t12-forge-lock{position:absolute;inset:0;display:grid;place-items:center;font-size:min(5.2cqi,27px);filter:drop-shadow(0 1px 1px #000)}
 #t12 .t12-forge-piece .t12-target{top:-12%;right:-22%}
 #t12 .t12-forge-piece.sel .t12-target{display:none}
 /* Jauge des 5 niveaux : arc cuivré de 5 cases jointives qui se remplit (orange = atteint, clair = objectif). */
