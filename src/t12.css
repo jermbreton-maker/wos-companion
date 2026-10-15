@@ -20,7 +20,7 @@
 #t12 .t12-board{max-width:900px;margin:0 auto 22px;padding:22px 16px 30px;background:transparent}
 
 /* Interrupteur « Remettre à zéro » : même composant que les autres pages, en tons bruns. */
-#t12 .t12-actions{max-width:900px;margin:-8px auto 18px}
+#t12 .t12-actions{display:flex;justify-content:center;max-width:900px;margin:0 auto 4px}
 #t12 .t12-actions .charm-bulk-select{margin:0;border-color:rgba(240,170,120,.42);background:rgba(42,14,12,.72);box-shadow:inset 0 1px rgba(255,220,190,.12),0 5px 14px rgba(20,4,4,.3);color:#fff}
 #t12 .t12-actions .bulk-toggle{border-color:rgba(240,180,140,.5);background:linear-gradient(180deg,#6a3326,#4a2119);box-shadow:inset 0 2px 5px rgba(20,4,4,.45),0 1px rgba(255,220,190,.14)}
 #t12 .t12-actions .bulk-toggle i{background:linear-gradient(180deg,#fff,#f3dccd)}

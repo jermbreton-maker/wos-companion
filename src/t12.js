@@ -175,7 +175,7 @@ function renderForge(){
   const reqs=maxed?'<div class="t12-forge-req done"><span>Pièce terminée</span><b>✓</b></div>':
     (prev?`<div class="t12-forge-req${prevOk?'':' missing'}"><img src="${ICON(troop,prev)}" alt=""><span>${nodeName(prev,troop)} niv. 5</span><b>${prevOk?'✓':'✗'}</b></div>`:'')+
     RES.map(([k,label,src])=>`<div class="t12-forge-req t12-forge-req-${k}" data-tip="${label}"><img src="${src}" alt=""><span>${num(cost[k])}</span></div>`).join('');
-  const stepper=(field,label,value,min)=>`<div class="t12-forge-step" data-t12-forge-field="${field}"><small>${label}</small><button type="button" data-d="-1" ${value<=min?'disabled':''} aria-label="${label} : moins 1">−</button><output>${value}</output><button type="button" data-d="1" ${value>=5?'disabled':''} aria-label="${label} : plus 1">+</button>${field==='to'?`<button type="button" class="t12-forge-max" data-d="5" ${value>=5?'disabled':''}>MAX</button>`:''}</div>`;
+  const stepper=(field,label,value,min)=>`<div class="t12-forge-step" data-t12-forge-field="${field}"><small>${label}</small><button type="button" data-d="-1" ${value<=min?'disabled':''} aria-label="${label} : moins 1">−</button><output>${value}</output><button type="button" data-d="1" ${value>=5?'disabled':''} aria-label="${label} : plus 1">+</button><button type="button" class="t12-forge-max" data-d="5" ${value>=5?'disabled':''} aria-label="${label} : niveau max">MAX</button></div>`;
   host.innerHTML=`<div class="t12-forge">
     <div class="t12-forge-stage${showUnit?' unit':''}">${showUnit
       ?`<span class="t12-unit-halo" aria-hidden="true"></span>${BOLTS}<img class="t12-forge-art t12-unit-art" src="${UNIT_ART(troop)}" alt="${T12.units[troop]}" draggable="false">
@@ -197,7 +197,7 @@ function renderForge(){
       const d=+b.dataset.d,l=levels[id];
       l[field]=Math.max(0,Math.min(5,d===5?5:l[field]+d));l.to=Math.max(l.to,l.from);
       clearTimeout(advanceTimer);
-      /* pièce terminée : on laisse 2 s pour voir la jauge pleine, puis on passe à la suivante */
+      /* pièce terminée : on laisse 1 s pour voir la jauge pleine, puis on passe à la suivante */
       const allDone=UNLOCK.nodes.every(n=>n.display||levels[n.id].from>=5);
       if(field==='from'&&l.from>=5&&allDone&&!revealPending[troop]){
         revealPending[troop]=true;
@@ -205,7 +205,7 @@ function renderForge(){
       }
       if(field==='from'&&l.from>=5&&pieceIndex(id)<4)advanceTimer=setTimeout(()=>{
         if(state.view==='unlock'&&state.troop===troop&&state.piece[troop]===id&&levels[id].from>=5){state.piece[troop]='p'+(pieceIndex(id)+2);render()}
-      },2000);
+      },1000);
       render();
     });
   });
