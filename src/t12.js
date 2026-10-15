@@ -136,6 +136,7 @@ function elbow(side,lit){
   return `<span class="t12-forge-elbow t12-forge-${side}${lit?' lit':''}" aria-hidden="true"><svg viewBox="0 0 60 100"><ellipse class="t12-socket" cx="${x}" cy="88" rx="30" ry="11"/><g fill="none">${strokes}</g></svg></span>`;
 }
 const num=n=>String(n).replace(/\B(?=(\d{3})+(?!\d))/g,' ');
+let advanceTimer=null;
 function renderForge(){
   const troop=state.troop,levels=state.levels[troop],host=document.getElementById('t12Tree');
   const id=state.piece[troop],lvl=levels[id],i=pieceIndex(id),stat=T12.unlockStats[i];
@@ -176,7 +177,11 @@ function renderForge(){
     box.querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>{
       const d=+b.dataset.d,l=levels[id];
       l[field]=Math.max(0,Math.min(5,d===5?5:l[field]+d));l.to=Math.max(l.to,l.from);
-      if(field==='from'&&l.from>=5&&pieceIndex(id)<4)state.piece[troop]='p'+(pieceIndex(id)+2);  /* pièce terminée : on passe à la suivante */
+      clearTimeout(advanceTimer);
+      /* pièce terminée : on laisse 3 s pour voir la jauge pleine, puis on passe à la suivante */
+      if(field==='from'&&l.from>=5&&pieceIndex(id)<4)advanceTimer=setTimeout(()=>{
+        if(state.view==='unlock'&&state.troop===troop&&state.piece[troop]===id&&levels[id].from>=5){state.piece[troop]='p'+(pieceIndex(id)+2);render()}
+      },3000);
       render();
     });
   });
