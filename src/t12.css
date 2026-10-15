@@ -196,21 +196,20 @@
 #t12 .t12-socket{fill:#1a0b08;stroke:#5a2c1a;stroke-width:4}
 #t12 .t12-forge-inlet{margin-right:-1px}
 #t12 .t12-forge-outlet{margin-left:-1px}
-#t12 .t12-forge-piece{position:relative;z-index:2;flex:none;width:min(13.2cqi,68px);aspect-ratio:1;padding:0;border:0;border-radius:50%;cursor:pointer;--ring:#5e3220;--ring-hi:#8a5232;
-  background:radial-gradient(circle closest-side,transparent 0 70%,#120604 71% 74%,var(--ring) 76%,var(--ring-hi) 86%,var(--ring) 94%,#2a120a 99%,transparent 100%);box-shadow:0 3px 6px rgba(10,2,2,.55);transition:transform .15s}
-/* 4 encoches en diagonale et 2 rivets en haut */
-#t12 .t12-forge-piece::before{content:"";position:absolute;inset:0;border-radius:50%;pointer-events:none;
-  background:radial-gradient(circle at 30% 12%,#b07450 0 2.2%,#3a1a0e 3%,transparent 3.6%),radial-gradient(circle at 70% 12%,#b07450 0 2.2%,#3a1a0e 3%,transparent 3.6%),
-    repeating-conic-gradient(from 43deg,#1e0c06 0 4deg,transparent 4deg 90deg);
-  -webkit-mask:radial-gradient(circle closest-side,transparent 74%,#000 75% 98%,transparent 99%);mask:radial-gradient(circle closest-side,transparent 74%,#000 75% 98%,transparent 99%)}
-#t12 .t12-forge-piece.sel{--ring:#9a5a32;--ring-hi:#d99a68}
+/* Médaillon en hublot : anneau de métal bombé, lèvre intérieure, 8 rivets, reflet sur la vitre. */
+#t12 .t12-forge-piece{position:relative;z-index:2;flex:none;width:min(13.2cqi,68px);aspect-ratio:1;padding:0;border:0;border-radius:50%;cursor:pointer;--ring-d:#3e1e10;--ring:#7a4628;--ring-hi:#c08050;
+  background:radial-gradient(circle closest-side,transparent 0 69%,#0b0503 70% 72%,var(--ring-hi) 73%,var(--ring-d) 76%,var(--ring) 81%,var(--ring-hi) 88%,var(--ring) 93%,var(--ring-d) 98%,transparent 100%);
+  box-shadow:0 3px 7px rgba(10,2,2,.6),inset 0 0 0 1px rgba(0,0,0,.4);transition:transform .15s}
+#t12 .t12-forge-piece::before{content:"";position:absolute;inset:0;border-radius:50%;pointer-events:none;background:radial-gradient(circle at 50.0% 6.8%,#f0c89a 0 1.5%,#8a5432 2.4%,#2a120a 3.1%,transparent 3.6%),radial-gradient(circle at 80.5% 19.5%,#f0c89a 0 1.5%,#8a5432 2.4%,#2a120a 3.1%,transparent 3.6%),radial-gradient(circle at 93.2% 50.0%,#f0c89a 0 1.5%,#8a5432 2.4%,#2a120a 3.1%,transparent 3.6%),radial-gradient(circle at 80.5% 80.5%,#f0c89a 0 1.5%,#8a5432 2.4%,#2a120a 3.1%,transparent 3.6%),radial-gradient(circle at 50.0% 93.2%,#f0c89a 0 1.5%,#8a5432 2.4%,#2a120a 3.1%,transparent 3.6%),radial-gradient(circle at 19.5% 80.5%,#f0c89a 0 1.5%,#8a5432 2.4%,#2a120a 3.1%,transparent 3.6%),radial-gradient(circle at 6.8% 50.0%,#f0c89a 0 1.5%,#8a5432 2.4%,#2a120a 3.1%,transparent 3.6%),radial-gradient(circle at 19.5% 19.5%,#f0c89a 0 1.5%,#8a5432 2.4%,#2a120a 3.1%,transparent 3.6%)}
+#t12 .t12-forge-piece.sel{--ring-d:#5a2e16;--ring:#a8683e;--ring-hi:#e8b07a}
+#t12 .t12-forge-disc::after{content:"";position:absolute;inset:0;border-radius:50%;pointer-events:none;
+  background:radial-gradient(ellipse 60% 35% at 32% 22%,rgba(255,255,255,.28),transparent 70%),radial-gradient(circle closest-side,transparent 82%,rgba(0,0,0,.45) 100%)}
 #t12 .t12-forge-piece:hover{transform:scale(1.05)}
 #t12 .t12-forge-piece:focus-visible{outline:3px solid #fff;outline-offset:3px}
 #t12 .t12-forge-piece.sel{width:min(17.5cqi,90px)}
-/* Fond du médaillon : bleu nuit tant que la pièce n'est pas terminée, orange une fois terminée (comme dans le jeu) ;
-   l'icône du jeu est détourée (tools/cutout-t12-piece-icons.py) pour se poser sur l'un ou l'autre. */
+/* Fond du médaillon : icône détourée sur bleu nuit tant que la pièce n'est pas terminée (tools/cutout-t12-piece-icons.py),
+   icône d'origine du jeu (fond rouge et jaune) une fois terminée. */
 #t12 .t12-forge-disc{position:absolute;inset:15%;overflow:hidden;border-radius:50%;background:radial-gradient(circle at 50% 40%,#2e3358,#171a33 72%,#10122a)}
-#t12 .t12-forge-piece.done .t12-forge-disc{background:radial-gradient(circle at 50% 45%,#ffd45a 0,#f9a032 50%,#ea6a1e 100%)}
 #t12 .t12-forge-disc img{width:100%;height:100%;object-fit:cover;pointer-events:none}
 #t12 .t12-forge-piece.locked .t12-forge-disc img{filter:grayscale(.7) brightness(.32)}
 #t12 .t12-forge-lock{position:absolute;inset:0;display:grid;place-items:center;font-size:min(5.2cqi,27px);filter:drop-shadow(0 1px 1px #000)}
@@ -220,8 +219,13 @@
 #t12 .t12-forge-gauge{position:absolute;left:-50%;top:-50%;width:200%;max-width:none;height:200%;overflow:visible;pointer-events:none}
 #t12 .t12-gauge-frame{fill:#2a120a;stroke:var(--copper);stroke-width:4;stroke-linejoin:round;filter:drop-shadow(0 2px 2px rgba(0,0,0,.5))}
 #t12 .t12-gauge-cell{fill:#140a0c;stroke:#6b3a1e;stroke-width:1}
-#t12 .t12-gauge-cell.on{fill:#f59a2c;stroke:#ffd27a}
-#t12 .t12-gauge-cell.plan{fill:#e7c27a;fill-opacity:.45;stroke:#fff2c4}
+#t12 .t12-gauge-cell.plan{fill:#e7c27a;fill-opacity:.35;stroke:#fff2c4;stroke-opacity:.6}
+#t12 .t12-gauge-cell.on{fill:url(#t12Lava);stroke:#fff1a8;stroke-width:.8}
+/* lueur de lave : plus large et plus vive à mesure que la jauge se remplit */
+#t12 .t12-gauge-lava{filter:drop-shadow(0 0 calc(1px + var(--lava) * 5px) rgba(255,190,50,calc(.35 + var(--lava) * .55))) drop-shadow(0 0 calc(var(--lava) * 12px) rgba(255,110,20,calc(var(--lava) * .7)))}
+#t12 .t12-gauge-cell.front{animation:t12-lava 1.6s ease-in-out infinite alternate}
+@keyframes t12-lava{to{fill-opacity:.78}}
+@media (prefers-reduced-motion:reduce){#t12 .t12-gauge-cell.front{animation:none}}
 /* Panneau de la pièce : nom, niveau, bonus, ressources requises, réglage. */
 #t12 .t12-forge-panel{padding:12px 4% 16px}
 #t12 .t12-forge-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:8px}

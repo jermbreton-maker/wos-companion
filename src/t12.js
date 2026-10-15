@@ -125,8 +125,9 @@ function pieceCost(id,from,to){
 /* Jauge des 5 niveaux : arc de cercle de 5 cases jointives au-dessus du médaillon (repère centré, médaillon de rayon 50). */
 const arcPoint=(r,deg)=>{const a=(deg-90)*Math.PI/180;return`${(r*Math.cos(a)).toFixed(2)} ${(r*Math.sin(a)).toFixed(2)}`};
 const sector=(r1,r2,a0,a1)=>`M${arcPoint(r2,a0)}A${r2} ${r2} 0 0 1 ${arcPoint(r2,a1)}L${arcPoint(r1,a1)}A${r1} ${r1} 0 0 0 ${arcPoint(r1,a0)}Z`;
-const GAUGE_SPAN=110,GAUGE_FRAME=sector(55,83,-GAUGE_SPAN/2,GAUGE_SPAN/2);
-const GAUGE_CELLS=[0,1,2,3,4].map(k=>{const step=(GAUGE_SPAN-6)/5,a0=-GAUGE_SPAN/2+3+k*step;return sector(59,79,a0+1.2,a0+step-1.2)});
+/* l'arc repose sur le bord du médaillon (rayon 50) */
+const GAUGE_SPAN=96,GAUGE_FRAME=sector(48,72,-GAUGE_SPAN/2,GAUGE_SPAN/2);
+const GAUGE_CELLS=[0,1,2,3,4].map(k=>{const step=(GAUGE_SPAN-6)/5,a0=-GAUGE_SPAN/2+3+k*step;return sector(51.5,68.5,a0+1,a0+step-1)});
 /* Coudes d'arrivée (gauche) et de sortie (droite) du tuyau : traits superposés pour le volume, trou dans le panneau. */
 const PIPE_LAYERS={lit:['#8e3410',44,'#e2682a',36,'#ffae48',22,'#ffe08e',8],off:['#0e1528',44,'#1f2c4a',36,'#2e4068',20,'#45598a',7]};
 function elbow(side,lit){
@@ -141,12 +142,13 @@ function renderForge(){
   const target=lvl.to>lvl.from?lvl.to:Math.min(lvl.from+1,5),maxed=lvl.from>=5&&lvl.to<=lvl.from;
   host.style.aspectRatio='';host.dataset.troop=troop;host.dataset.view='unlock';host.classList.add('t12-forge-host');
   const done=UNLOCK.nodes.filter(n=>!n.display&&levels[n.id].from>=5).length,unit=unitUnlocked(levels);
-  const gauge=`<svg class="t12-forge-gauge" viewBox="-100 -100 200 200" aria-hidden="true"><path class="t12-gauge-frame" d="${GAUGE_FRAME}"/>${GAUGE_CELLS.map((d,k)=>`<path class="t12-gauge-cell${k<lvl.from?' on':k<lvl.to?' plan':''}" d="${d}"/>`).join('')}</svg>`;
+  /* cases allumées = lave jaune ; la lueur grandit avec le nombre de cases (--lava de 0 à 1) */
+  const gauge=`<svg class="t12-forge-gauge" viewBox="-100 -100 200 200" style="--lava:${lvl.from/5}" aria-hidden="true"><defs><radialGradient id="t12Lava" cx="0" cy="0" r="72" gradientUnits="userSpaceOnUse"><stop offset=".68" stop-color="#ff7a12"/><stop offset=".8" stop-color="#ffd23a"/><stop offset=".88" stop-color="#fff6b8"/><stop offset="1" stop-color="#ff9a1e"/></radialGradient></defs><path class="t12-gauge-frame" d="${GAUGE_FRAME}"/><g class="t12-gauge-lava">${GAUGE_CELLS.map((d,k)=>`<path class="t12-gauge-cell${k<lvl.from?' on':k<lvl.to?' plan':''}${k===lvl.from-1?' front':''}" d="${d}"/>`).join('')}</g></svg>`;
   const row=UNLOCK.nodes.filter(n=>!n.display).map((n,k)=>{
     const l=levels[n.id],locked=pieceLocked(levels,n.id),sel=n.id===id,name=nodeName(n.id,troop);
     const cls=['t12-forge-piece',sel&&'sel',l.from>=5&&'done',locked&&'locked',l.to>l.from&&'planned'].filter(Boolean).join(' ');
     const pipe=k?`<i class="t12-forge-pipe${levels['p'+k].from>=5?' lit':''}" aria-hidden="true"></i>`:'';
-    return `${pipe}<button type="button" class="${cls}" data-t12-piece="${n.id}" aria-pressed="${sel}" aria-label="${name} : niveau ${l.from} sur 5${locked?', verrouillée':''}" data-tip="${name}">${sel?gauge:''}<span class="t12-forge-disc"><img src="${ICON(troop,n.id+'-cut')}" alt="" draggable="false">${locked?'<span class="t12-forge-lock">🔒</span>':''}</span>${l.to>l.from?`<span class="t12-target">→${l.to>=5?'MAX':l.to}</span>`:''}</button>`;
+    return `${pipe}<button type="button" class="${cls}" data-t12-piece="${n.id}" aria-pressed="${sel}" aria-label="${name} : niveau ${l.from} sur 5${locked?', verrouillée':''}" data-tip="${name}">${sel?gauge:''}<span class="t12-forge-disc"><img src="${ICON(troop,l.from>=5?n.id:n.id+'-cut')}" alt="" draggable="false">${locked?'<span class="t12-forge-lock">🔒</span>':''}</span>${l.to>l.from?`<span class="t12-target">→${l.to>=5?'MAX':l.to}</span>`:''}</button>`;
   }).join('');
   const gainTo=maxed?lvl.from:target;
   const statLine=(label,step,unit)=>`<div><span>${label}</span><b>${num(lvl.from*step)}${unit}${gainTo>lvl.from?`<em>+${num((gainTo-lvl.from)*step)}${unit}</em>`:''}</b></div>`;
@@ -174,6 +176,7 @@ function renderForge(){
     box.querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>{
       const d=+b.dataset.d,l=levels[id];
       l[field]=Math.max(0,Math.min(5,d===5?5:l[field]+d));l.to=Math.max(l.to,l.from);
+      if(field==='from'&&l.from>=5&&pieceIndex(id)<4)state.piece[troop]='p'+(pieceIndex(id)+2);  /* pièce terminée : on passe à la suivante */
       render();
     });
   });
