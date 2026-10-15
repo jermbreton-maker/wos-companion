@@ -151,7 +151,8 @@ const BOLTS=(()=>{
   }).join('')}</svg>`;
 })();
 /* Cadenas du jeu (corps crème, anse épaisse, trou de serrure) ; ouvert = anse relevée d'un côté. */
-const LOCK=open=>`<svg class="t12-lock${open?' open':''}" viewBox="0 0 24 28" aria-hidden="true"><path class="l-shackle-o" d="${open?'M17 13V8A5 5 0 0 0 7 8V9':'M7 13V8A5 5 0 0 1 17 8V13'}"/><path class="l-shackle" d="${open?'M17 13V8A5 5 0 0 0 7 8V9':'M7 13V8A5 5 0 0 1 17 8V13'}"/><rect class="l-body" x="3" y="12" width="18" height="14" rx="3.5"/><circle class="l-hole" cx="12" cy="18" r="2.1"/><rect class="l-hole" x="11" y="18.5" width="2" height="4.5" rx="1"/></svg>`;
+/* ouvert : l'anse pivote vers l'extérieur, la branche libre passe de l'autre côté, hors du corps */
+const LOCK=open=>{const sh=open?'M17 13V8A5 5 0 0 1 27 8V10':'M7 13V8A5 5 0 0 1 17 8V13';return `<svg class="t12-lock${open?' open':''}" viewBox="0 0 ${open?30:24} 28" aria-hidden="true"><path class="l-shackle-o" d="${sh}"/><path class="l-shackle" d="${sh}"/><rect class="l-body" x="3" y="12" width="18" height="14" rx="3.5"/><circle class="l-hole" cx="12" cy="18" r="2.1"/><rect class="l-hole" x="11" y="18.5" width="2" height="4.5" rx="1"/></svg>`};
 const T12_ACTIONS=document.querySelector('#t12 .t12-actions');
 let advanceTimer=null;
 const revealPending={};  /* troupe dont la dernière pièce vient d'être terminée : personnage affiché après 2 s */

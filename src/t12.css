@@ -203,15 +203,15 @@
   background:radial-gradient(circle at 30.0% 12.5%,#e2a070 0 2%,#7a3e1c 3%,transparent 3.6%),radial-gradient(circle at 70.0% 12.5%,#e2a070 0 2%,#7a3e1c 3%,transparent 3.6%),radial-gradient(circle at 70.0% 87.5%,#e2a070 0 2%,#7a3e1c 3%,transparent 3.6%),radial-gradient(circle at 30.0% 87.5%,#e2a070 0 2%,#7a3e1c 3%,transparent 3.6%),repeating-conic-gradient(from 44deg,#2a1008 0 2.5deg,transparent 2.5deg 90deg);
   -webkit-mask:radial-gradient(circle closest-side,transparent 76%,#000 77% 99%,transparent 100%);mask:radial-gradient(circle closest-side,transparent 76%,#000 77% 99%,transparent 100%)}
 #t12 .t12-forge-piece.sel{--ring-d:#6e3818;--ring:#b86a38;--ring-hi:#e09a62}
-#t12 .t12-forge-disc::after{content:"";position:absolute;inset:0;border-radius:50%;pointer-events:none;
-  background:radial-gradient(ellipse 60% 35% at 32% 22%,rgba(255,255,255,.28),transparent 70%),radial-gradient(circle closest-side,transparent 82%,rgba(0,0,0,.45) 100%)}
+/* simple ombre intérieure au bord de la vitre (plus de reflet blanc : il voilait l'icône) */
+#t12 .t12-forge-disc::after{content:"";position:absolute;inset:0;border-radius:50%;pointer-events:none;background:radial-gradient(circle closest-side,transparent 86%,rgba(0,0,0,.4) 100%)}
 #t12 .t12-forge-piece:hover{transform:scale(1.05)}
 #t12 .t12-forge-piece:focus-visible{outline:3px solid #fff;outline-offset:3px}
 #t12 .t12-forge-piece.sel{width:min(17.5cqi,90px)}
 /* Fond du médaillon : icône détourée sur bleu nuit tant que la pièce n'est pas terminée (tools/cutout-t12-piece-icons.py),
    icône d'origine du jeu (fond rouge et jaune) une fois terminée. */
 #t12 .t12-forge-disc{position:absolute;inset:15%;overflow:hidden;border-radius:50%;background:radial-gradient(circle at 50% 40%,#2e3358,#171a33 72%,#10122a)}
-#t12 .t12-forge-disc img{width:100%;height:100%;object-fit:cover;pointer-events:none}
+#t12 .t12-forge-disc img{width:100%;height:100%;object-fit:cover;pointer-events:none;image-rendering:-webkit-optimize-contrast}
 #t12 .t12-forge-piece.locked .t12-forge-disc img{filter:grayscale(.7) brightness(.32)}
 #t12 .t12-forge-lock{position:absolute;inset:0;display:grid;place-items:center}
 #t12 .t12-forge-lock .t12-lock{width:46%;height:auto;filter:drop-shadow(0 2px 2px rgba(0,0,0,.6))}
