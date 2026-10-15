@@ -83,6 +83,7 @@ const nodeArt=(node,troop)=>`<img class="t12-ico" src="${ICON(troop,iconId(node.
 function renderTree(){
   /* l'interrupteur peut être dans le panneau de la forge : on le remet à sa place avant de redessiner */
   document.getElementById('t12Result').before(T12_ACTIONS);
+  T12_ACTIONS.hidden=state.view==='unlock';  /* en Déblocage, « Tout au max » est dans les encadrés Actuel / Objectif */
   if(state.view==='unlock')return renderForge();
   const layout=TREE,levels=state.levels[state.troop],troop=state.troop;
   const host=document.getElementById('t12Tree');
@@ -174,7 +175,12 @@ function renderForge(){
   const gainTo=maxed?lvl.from:target;
   const statLine=(label,step,unit)=>`<div><span>${label}</span><b>${num(lvl.from*step)}${unit}${gainTo>lvl.from?`<em>+${num((gainTo-lvl.from)*step)}${unit}</em>`:''}</b></div>`;
   const statLabel=i?`${stat.label} ${TROOP_NOUN[troop]==='Infanterie'?"de l'Infanterie":`du ${TROOP_NOUN[troop]}`}`:'Capacité de déploiement des troupes';
-  const stepper=(field,label,value,min)=>`<div class="t12-forge-step" data-t12-forge-field="${field}"><small>${label}</small><button type="button" data-d="-1" ${value<=min?'disabled':''} aria-label="${label} : moins 1">−</button><output>${value}</output><button type="button" data-d="1" ${value>=5?'disabled':''} aria-label="${label} : plus 1">+</button><button type="button" class="t12-forge-max" data-d="5" ${value>=5?'disabled':''} aria-label="${label} : niveau max">MAX</button></div>`;
+  const pieces=UNLOCK.nodes.filter(n=>!n.display);
+  const allMax={from:pieces.every(n=>levels[n.id].from>=5),to:pieces.every(n=>levels[n.id].to>=5)};
+  /* Actuel et Objectif : un encadré chacun (réglage de la pièce + « Tout au max » pour les 5 pièces) */
+  const stepper=(field,label,value,min)=>`<div class="t12-forge-box" data-t12-forge-field="${field}"><small>${label}</small>
+    <div class="t12-forge-step"><button type="button" data-d="-1" ${value<=min?'disabled':''} aria-label="${label} : moins 1">−</button><output>${value}</output><button type="button" data-d="1" ${value>=5?'disabled':''} aria-label="${label} : plus 1">+</button><button type="button" class="t12-forge-max" data-d="5" ${value>=5?'disabled':''} aria-label="${label} : niveau max">MAX</button></div>
+    <label class="select-all-charms charm-bulk-select t12-forge-all"><input type="checkbox" data-t12-all="${field}" ${allMax[field]?'checked':''}><span class="bulk-toggle" aria-hidden="true"><i></i></span><span>Tout au max</span></label></div>`;
   host.innerHTML=`<div class="t12-forge">
     <div class="t12-forge-stage${showUnit?' unit':''}">${showUnit
       ?`${BOLTS}<img class="t12-forge-art t12-unit-art" src="${UNIT_ART(troop)}" alt="${T12.units[troop]}" draggable="false">
@@ -187,7 +193,14 @@ function renderForge(){
       <div class="t12-forge-stats">${statLine(statLabel,stat.step,stat.unit)}${statLine('Puissance',i?150000:180000,'')}</div>
       <div class="t12-forge-set">${stepper('from','Actuel',lvl.from,0)}${stepper('to','Objectif',lvl.to,lvl.from)}</div>
     </div></div>`;
-  host.querySelector('.t12-forge-panel').append(T12_ACTIONS);  /* « Tout au max » sous les réglages */
+  host.querySelectorAll('[data-t12-all]').forEach(box=>box.onchange=()=>{
+    const field=box.dataset.t12All,on=box.checked;
+    pieces.forEach(n=>{const l=levels[n.id];
+      if(field==='from'){l.from=on?5:0;l.to=Math.max(l.to,l.from)}else l.to=on?5:l.from;
+    });
+    clearTimeout(advanceTimer);delete revealPending[troop];
+    render();
+  });
   host.querySelectorAll('[data-t12-piece]').forEach(b=>b.onclick=()=>{state.piece[troop]=b.dataset.t12Piece;render()});
   host.querySelectorAll('[data-t12-forge-field]').forEach(box=>{
     const field=box.dataset.t12ForgeField;
@@ -256,11 +269,7 @@ function render(){
   document.getElementById('t12Banner').hidden=state.view!=='tree'||unitUnlocked(levels);
   renderTree();
   renderResult();
-  /* interrupteur : « Tout au max » en Déblocage (accès rapide à l'arbre), « Remettre à zéro » dans l'Arbre */
-  document.getElementById('t12ResetLabel').textContent=state.view==='unlock'?'Tout au max':'Remettre à zéro';
-  document.getElementById('t12Reset').checked=state.view==='unlock'
-    ?UNLOCK.nodes.every(n=>n.display||levels[n.id].from>=5)
-    :TREE.nodes.every(n=>n.display||(!levels[n.id].from&&!levels[n.id].to));
+  document.getElementById('t12Reset').checked=TREE.nodes.every(n=>n.display||(!levels[n.id].from&&!levels[n.id].to));
 }
 
 /* ---------- Fenêtre de réglage ---------- */
@@ -305,13 +314,9 @@ picker.addEventListener('click',event=>{if(event.target===picker)picker.close('c
 /* ---------- Onglets et remise à zéro ---------- */
 document.querySelectorAll('[data-t12-troop]').forEach(tab=>tab.onclick=()=>{state.troop=tab.dataset.t12Troop;render()});
 document.querySelectorAll('[data-t12-view]').forEach(tab=>tab.onclick=()=>{state.view=tab.dataset.t12View;render()});
-document.getElementById('t12Reset').addEventListener('change',event=>{
+document.getElementById('t12Reset').addEventListener('change',()=>{
   const levels=state.levels[state.troop];
-  if(state.view==='unlock'){
-    const max=event.target.checked?5:0;
-    UNLOCK.nodes.forEach(n=>{if(!n.display)levels[n.id]={from:max,to:max}});
-    clearTimeout(advanceTimer);delete revealPending[state.troop];
-  }else TREE.nodes.forEach(n=>{if(!n.display)levels[n.id]={from:0,to:0}});
+  TREE.nodes.forEach(n=>{if(!n.display)levels[n.id]={from:0,to:0}});
   render();
 });
 render();
