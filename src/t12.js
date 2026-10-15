@@ -116,10 +116,10 @@ function drawTree(){
     const label=node.label?`<span class="t12-label" style="left:${node.x/10}%;top:${(node.y+node.size/2+16)/layout.h*100}%">${name}</span>`:'';
     if(node.display){
       const ok=unitUnlocked(levels);
-      return `<div class="t12-node t12-unit${ok?' unlocked':' locked'}" style="${pos}" data-tip="${name} : ${ok?'débloquée':'pas encore débloquée'}">${nodeArt(node,troop)}<span class="t12-badge">${ok?'✓':'🔒'}</span></div>${label}`;
+      return `<div class="t12-node t12-big t12-unit${ok?' unlocked':' locked'}" style="${pos}" data-tip="${name} : ${ok?'débloquée':'pas encore débloquée'}">${nodeArt(node,troop)}<span class="t12-badge">${ok?'✓':'🔒'}</span></div>${label}`;
     }
     const lvl=levels[node.id],planned=lvl.to>lvl.from,locked=!lvl.from&&!isUnlocked(node.id,levels);
-    return `<button type="button" class="t12-node${planned?' planned':''}${locked?' locked':''}" style="${pos}" data-t12-node="${node.id}" aria-label="${name} : niveau ${lvl.from} sur ${node.max}${planned?`, objectif ${lvl.to}`:''}${locked?', verrouillée':''}">
+    return `<button type="button" class="t12-node${node.id==='elite'?' t12-big':''}${planned?' planned':''}${locked?' locked':''}" style="${pos}" data-t12-node="${node.id}" aria-label="${name} : niveau ${lvl.from} sur ${node.max}${planned?`, objectif ${lvl.to}`:''}${locked?', verrouillée':''}">
       ${nodeArt(node,troop)}<span class="t12-badge">${badge(lvl.from,node.max)}</span>${planned?`<span class="t12-target">→${lvl.to>=node.max?'MAX':lvl.to}</span>`:''}</button>${label}`;
   }).join('');
   host.classList.remove('t12-forge-host');
@@ -314,7 +314,7 @@ function openPicker(id){
   state.editing=id;state.draft={...state.levels[state.troop][id]};
   document.getElementById('t12PickerTroop').textContent=T12.units[state.troop].toUpperCase();
   document.getElementById('t12PickerTitle').textContent=nodeName(id,state.troop);
-  document.getElementById('t12PickerNode').innerHTML=`<span class="t12-node t12-node-preview" data-troop="${state.troop}">${nodeArt(node,state.troop)}</span>`;
+  document.getElementById('t12PickerNode').innerHTML=`<span class="t12-node t12-node-preview${id==='elite'?' t12-big':''}" data-troop="${state.troop}">${nodeArt(node,state.troop)}</span>`;
   syncPicker();picker.showModal();
 }
 picker.querySelectorAll('[data-t12-field]').forEach(box=>{

@@ -130,15 +130,19 @@
 #t12 .t12-tree,#t12Picker .t12-node-preview{--t12-ring:#3fbf3a;--t12-ring-dark:#1d6e19}
 #t12 .t12-tree[data-troop="lancer"],#t12Picker .t12-node-preview[data-troop="lancer"]{--t12-ring:#3a7fe0;--t12-ring-dark:#1b3f8a}
 #t12 .t12-tree[data-troop="marksman"],#t12Picker .t12-node-preview[data-troop="marksman"]{--t12-ring:#f0a024;--t12-ring-dark:#9a5410}
+/* Médaillons de l'arbre (capture du jeu).
+   Recherches : épais anneau extérieur de la couleur de la troupe, fin cercle doré intérieur, 4 plots dorés. */
 :is(#t12,#t12Picker) .t12-node{position:absolute;z-index:1;aspect-ratio:1;padding:0;border:0;border-radius:50%;transform:translate(-50%,-50%);cursor:pointer;
-  background:radial-gradient(circle closest-side,var(--t12-ring-dark) 0 66%,var(--t12-ring) 68% 76%,#7a4f1c 77%,#e7c27a 80%,#f6dda0 84%,#c9933e 90%,#6e4416 97%,transparent 100%);
+  background:radial-gradient(circle closest-side,var(--t12-ring-dark) 0 63%,#5a3a14 64%,#f2d494 66% 68%,#8a5a20 70%,var(--t12-ring-dark) 72%,var(--t12-ring) 78%,color-mix(in srgb,var(--t12-ring) 70%,#fff) 86%,var(--t12-ring) 91%,var(--t12-ring-dark) 97%,transparent 100%);
   box-shadow:0 4px 8px rgba(20,4,4,.55);transition:transform .15s ease}
-/* Rivets aux quatre points cardinaux. */
-:is(#t12,#t12Picker) .t12-node::after{content:"";position:absolute;inset:0;border-radius:50%;pointer-events:none;
-  background:radial-gradient(circle at 50% 6.5%,#fff2c8 0 2.6%,#8a5a20 3.6%,transparent 4.4%),radial-gradient(circle at 93.5% 50%,#fff2c8 0 2.6%,#8a5a20 3.6%,transparent 4.4%),radial-gradient(circle at 50% 93.5%,#fff2c8 0 2.6%,#8a5a20 3.6%,transparent 4.4%),radial-gradient(circle at 6.5% 50%,#fff2c8 0 2.6%,#8a5a20 3.6%,transparent 4.4%)}
+:is(#t12,#t12Picker) .t12-node::after{content:"";position:absolute;inset:-4%;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle at 50% 4%,#fff0c8 0 3.4%,#c99a48 4.8%,#5a3a14 6%,transparent 6.6%),radial-gradient(circle at 96% 50%,#fff0c8 0 3.4%,#c99a48 4.8%,#5a3a14 6%,transparent 6.6%),radial-gradient(circle at 50% 96%,#fff0c8 0 3.4%,#c99a48 4.8%,#5a3a14 6%,transparent 6.6%),radial-gradient(circle at 4% 50%,#fff0c8 0 3.4%,#c99a48 4.8%,#5a3a14 6%,transparent 6.6%)}
+/* Unité et compétence d'élite : large anneau doré à 8 rivets, bordé de liserés de la couleur de la troupe. */
+:is(#t12,#t12Picker) .t12-node.t12-big{background:radial-gradient(circle closest-side,var(--t12-ring-dark) 0 64%,var(--t12-ring) 65% 70%,#6e4416 71%,#c9a35e 73%,#f0d496 80%,#d8b06a 88%,#8a5a20 92%,var(--t12-ring) 93.5% 97%,#1a1020 98.5%,transparent 100%)}
+:is(#t12,#t12Picker) .t12-node.t12-big::after{inset:0;background:radial-gradient(circle at 50.0% 8.5%,#fff0c8 0 2.4%,#b98a40 3.6%,#5a3a14 4.4%,transparent 5%),radial-gradient(circle at 79.3% 20.7%,#fff0c8 0 2.4%,#b98a40 3.6%,#5a3a14 4.4%,transparent 5%),radial-gradient(circle at 91.5% 50.0%,#fff0c8 0 2.4%,#b98a40 3.6%,#5a3a14 4.4%,transparent 5%),radial-gradient(circle at 79.3% 79.3%,#fff0c8 0 2.4%,#b98a40 3.6%,#5a3a14 4.4%,transparent 5%),radial-gradient(circle at 50.0% 91.5%,#fff0c8 0 2.4%,#b98a40 3.6%,#5a3a14 4.4%,transparent 5%),radial-gradient(circle at 20.7% 79.3%,#fff0c8 0 2.4%,#b98a40 3.6%,#5a3a14 4.4%,transparent 5%),radial-gradient(circle at 8.5% 50.0%,#fff0c8 0 2.4%,#b98a40 3.6%,#5a3a14 4.4%,transparent 5%),radial-gradient(circle at 20.7% 20.7%,#fff0c8 0 2.4%,#b98a40 3.6%,#5a3a14 4.4%,transparent 5%)}
 #t12 .t12-node:hover{transform:translate(-50%,-50%) scale(1.05)}
 #t12 .t12-node:focus-visible{outline:3px solid #fff;outline-offset:4px}
-:is(#t12,#t12Picker) .t12-ico{position:absolute;inset:17%;width:66%;height:66%;border-radius:50%;object-fit:cover;pointer-events:none;user-select:none}
+:is(#t12,#t12Picker) .t12-ico{position:absolute;inset:18.5%;width:63%;height:63%;border-radius:50%;object-fit:cover;pointer-events:none;user-select:none}
 #t12 .t12-badge{position:absolute;left:50%;bottom:16%;transform:translateX(-50%);font-size:clamp(9px,3.6cqi,19px);line-height:1;color:#fff;white-space:nowrap;-webkit-text-stroke:3px #2a1410;paint-order:stroke fill}
 #t12 .t12-target{position:absolute;top:-4%;right:-14%;padding:2px 5px;border-radius:8px;font-size:clamp(8px,2.7cqi,13px);line-height:1.1;color:#2a1410;background:#ffd98a;box-shadow:0 2px 4px rgba(20,4,4,.5),0 0 8px rgba(255,190,80,.8)}
 #t12 .t12-node.planned{box-shadow:0 4px 8px rgba(20,4,4,.55),0 0 14px 4px rgba(255,190,80,.6)}
