@@ -189,7 +189,7 @@ function renderForge(){
   const stepper=(field,label,value,min)=>`<div class="t12-forge-step" data-t12-forge-field="${field}"><small>${label}</small><button type="button" data-d="-1" ${value<=min?'disabled':''} aria-label="${label} : moins 1">−</button><output>${value}</output><button type="button" data-d="1" ${value>=5?'disabled':''} aria-label="${label} : plus 1">+</button><button type="button" class="t12-forge-max" data-d="5" ${value>=5?'disabled':''} aria-label="${label} : niveau max">MAX</button></div>`;
   host.innerHTML=`<div class="t12-forge">
     <div class="t12-forge-stage${showUnit?' unit':''}">${showUnit
-      ?`<span class="t12-unit-halo" aria-hidden="true"></span>${BOLTS}<img class="t12-forge-art t12-unit-art" src="${UNIT_ART(troop)}" alt="${T12.units[troop]}" draggable="false">
+      ?`${BOLTS}<img class="t12-forge-art t12-unit-art" src="${UNIT_ART(troop)}" alt="${T12.units[troop]}" draggable="false">
         <div class="t12-unit-banner" role="status"><b>${T12.units[troop]} ${LOCK(true)}</b><small>L'arbre de recherche est accessible</small></div>`
       :`<img class="t12-forge-art" src="${RENDER(troop,id)}" alt="${nodeName(id,troop)}" draggable="false">`}
       ${showUnit?'':`<span class="t12-forge-unit">${LOCK(false)} ${T12.units[troop]} · ${done}/5 pièces</span>`}</div>
