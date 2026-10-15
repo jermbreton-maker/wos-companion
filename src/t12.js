@@ -122,6 +122,11 @@ function pieceCost(id,from,to){
   for(let l=from;l<to;l++){const r=C.rfc[kind][l];out.rfc+=r;out.steel+=r*C.steelPerRfc[kind];out.shard+=r*C.shardsPerRfc}
   return out;
 }
+/* Jauge des 5 niveaux : arc de cercle de 5 cases jointives au-dessus du médaillon (repère centré, médaillon de rayon 50). */
+const arcPoint=(r,deg)=>{const a=(deg-90)*Math.PI/180;return`${(r*Math.cos(a)).toFixed(2)} ${(r*Math.sin(a)).toFixed(2)}`};
+const sector=(r1,r2,a0,a1)=>`M${arcPoint(r2,a0)}A${r2} ${r2} 0 0 1 ${arcPoint(r2,a1)}L${arcPoint(r1,a1)}A${r1} ${r1} 0 0 0 ${arcPoint(r1,a0)}Z`;
+const GAUGE_SPAN=110,GAUGE_FRAME=sector(55,83,-GAUGE_SPAN/2,GAUGE_SPAN/2);
+const GAUGE_CELLS=[0,1,2,3,4].map(k=>{const step=(GAUGE_SPAN-6)/5,a0=-GAUGE_SPAN/2+3+k*step;return sector(59,79,a0+1.2,a0+step-1.2)});
 const num=n=>String(n).replace(/\B(?=(\d{3})+(?!\d))/g,' ');
 function renderForge(){
   const troop=state.troop,levels=state.levels[troop],host=document.getElementById('t12Tree');
@@ -129,11 +134,11 @@ function renderForge(){
   const target=lvl.to>lvl.from?lvl.to:Math.min(lvl.from+1,5),maxed=lvl.from>=5&&lvl.to<=lvl.from;
   host.style.aspectRatio='';host.dataset.troop=troop;host.dataset.view='unlock';host.classList.add('t12-forge-host');
   const done=UNLOCK.nodes.filter(n=>!n.display&&levels[n.id].from>=5).length,unit=unitUnlocked(levels);
-  const gauge=`<span class="t12-forge-gauge" aria-hidden="true">${[0,1,2,3,4].map(k=>`<i class="${k<lvl.from?'on':k<lvl.to?'plan':''}" style="--k:${k-2}"></i>`).join('')}</span>`;
+  const gauge=`<svg class="t12-forge-gauge" viewBox="-100 -100 200 200" aria-hidden="true"><path class="t12-gauge-frame" d="${GAUGE_FRAME}"/>${GAUGE_CELLS.map((d,k)=>`<path class="t12-gauge-cell${k<lvl.from?' on':k<lvl.to?' plan':''}" d="${d}"/>`).join('')}</svg>`;
   const row=UNLOCK.nodes.filter(n=>!n.display).map((n,k)=>{
     const l=levels[n.id],locked=pieceLocked(levels,n.id),sel=n.id===id,name=nodeName(n.id,troop);
     const cls=['t12-forge-piece',sel&&'sel',l.from>=5&&'done',locked&&'locked',l.to>l.from&&'planned'].filter(Boolean).join(' ');
-    const pipe=k?`<i class="t12-forge-pipe${pieceLocked(levels,n.id)?'':' lit'}" aria-hidden="true"></i>`:'';
+    const pipe=k?`<i class="t12-forge-pipe${levels['p'+k].from>=5?' lit':''}" aria-hidden="true"></i>`:'';
     return `${pipe}<button type="button" class="${cls}" data-t12-piece="${n.id}" aria-pressed="${sel}" aria-label="${name} : niveau ${l.from} sur 5${locked?', verrouillée':''}" data-tip="${name}">${sel?gauge:''}<span class="t12-forge-disc"><img src="${ICON(troop,n.id)}" alt="" draggable="false">${locked?'<span class="t12-forge-lock">🔒</span>':''}</span>${l.to>l.from?`<span class="t12-target">→${l.to>=5?'MAX':l.to}</span>`:''}</button>`;
   }).join('');
   const gainTo=maxed?lvl.from:target;
@@ -148,7 +153,7 @@ function renderForge(){
   host.innerHTML=`<div class="t12-forge">
     <div class="t12-forge-stage"><img class="t12-forge-art" src="${RENDER(troop,id)}" alt="${nodeName(id,troop)}" draggable="false">
       <span class="t12-forge-unit${unit?' ok':''}">${unit?`✓ ${T12.units[troop]} débloquée`:`🔒 ${T12.units[troop]} · ${done}/5 pièces`}</span></div>
-    <div class="t12-forge-row">${row}</div>
+    <div class="t12-forge-row"><i class="t12-forge-pipe t12-forge-inlet lit" aria-hidden="true"></i>${row}<i class="t12-forge-pipe t12-forge-outlet${unit?' lit':''}" aria-hidden="true"></i></div>
     <div class="t12-forge-panel">
       <div class="t12-forge-head"><h3>${nodeName(id,troop)}</h3><span class="t12-forge-lv">Niv. ${lvl.from}${maxed?' · MAX':`<i>➜</i>${target}`}</span></div>
       <div class="t12-forge-stats">${statLine(statLabel,stat.step,stat.unit)}${statLine('Puissance',i?150000:180000,'')}</div>
