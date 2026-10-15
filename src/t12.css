@@ -176,7 +176,6 @@
 @media (prefers-reduced-motion:reduce){#t12 .t12-forge-art{animation:none}}
 #t12 .t12-forge-stage::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,transparent 78%,rgba(58,25,22,.9))}
 #t12 .t12-forge-unit{position:absolute;z-index:1;left:12px;top:10px;padding:4px 10px;border:1px solid rgba(240,170,120,.45);border-radius:10px;font-size:13px;color:#f6dcc8;background:rgba(42,14,12,.78)}
-#t12 .t12-forge-unit.ok{border-color:#7fd06a;color:#d9ffd0}
 
 /* Rangée des 5 pièces reliées par un tuyau épais (comme dans le jeu) : orange à cœur jaune une fois la pièce
    précédente terminée, bleu nuit sinon ; bague de cuivre à chaque raccord ; coudes qui sortent du panneau aux extrémités. */
@@ -235,8 +234,6 @@
 #t12 .t12-forge-piece.sel{--ring-d:#8a5410;--ring:#d8982a;--ring-hi:#ffcf5a;
   box-shadow:0 0 0 2px #ffd25a,0 0 12px 4px rgba(255,190,40,.8),0 0 30px 10px rgba(240,150,20,.45);animation:t12-halo 2.2s ease-in-out infinite alternate}
 @keyframes t12-halo{to{box-shadow:0 0 0 2px #ffdc6e,0 0 18px 7px rgba(255,200,50,.95),0 0 44px 16px rgba(245,155,25,.6)}}
-#t12 .t12-forge-piece:not(.sel){filter:brightness(.82) saturate(.9)}
-#t12 .t12-forge-piece:not(.sel):hover{filter:none}
 #t12 .t12-forge-gauge{filter:drop-shadow(0 0 6px rgba(255,190,40,.9)) drop-shadow(0 0 16px rgba(240,150,20,.6))}
 #t12 .t12-gauge-frame{stroke:#ffd25a;stroke-width:2.2}
 @media (prefers-reduced-motion:reduce){#t12 .t12-gauge-cell.front,#t12 .t12-forge-piece.sel{animation:none}#t12 .t12-gauge-shine{display:none}}
@@ -276,12 +273,20 @@
 #t12 .t12-forge-stage.unit::before{display:none}
 #t12 .t12-unit-halo{position:absolute;left:50%;top:calc(50% - 20px);width:78%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;
   background:radial-gradient(circle,rgba(255,226,130,.75) 0,rgba(255,190,60,.45) 32%,rgba(240,150,30,.18) 55%,transparent 70%)}
-#t12 .t12-unit-halo::before{content:"";position:absolute;inset:-12%;border-radius:50%;
-  background:repeating-conic-gradient(from 0deg,rgba(255,215,110,.32) 0 6deg,transparent 6deg 22deg);
-  -webkit-mask:radial-gradient(circle,#000 20%,transparent 68%);mask:radial-gradient(circle,#000 20%,transparent 68%);animation:t12-rays 24s linear infinite}
-@keyframes t12-rays{to{transform:rotate(360deg)}}
+/* éclairs : trait blanc-or qui crépite (visible par éclats brefs) */
+#t12 .t12-unit-bolts{position:absolute;left:50%;top:calc(50% - 20px);width:96%;height:auto;transform:translate(-50%,-50%);overflow:visible;pointer-events:none}
+#t12 .t12-unit-bolts path{fill:none;stroke:#fff8d8;stroke-width:2.8;stroke-linejoin:bevel;opacity:0;
+  filter:drop-shadow(0 0 2px #ffe27a) drop-shadow(0 0 6px rgba(255,190,60,.9));animation:t12-bolt 2s steps(1,end) infinite}
+@keyframes t12-bolt{0%{opacity:0}8%{opacity:1}12%{opacity:.2}16%{opacity:.95}22%,100%{opacity:0}}
 #t12 .t12-forge-art.t12-unit-art{max-width:70%;max-height:78%;animation:t12-unit-in .9s ease-out both,t12-unit-glow 2.6s ease-in-out .9s infinite alternate;
   filter:drop-shadow(0 0 6px rgba(255,215,100,.9)) drop-shadow(0 0 22px rgba(255,170,40,.6)) drop-shadow(0 10px 12px rgba(0,0,0,.5))}
 @keyframes t12-unit-in{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:none}}
 @keyframes t12-unit-glow{to{filter:drop-shadow(0 0 9px rgba(255,225,120,1)) drop-shadow(0 0 32px rgba(255,180,50,.75)) drop-shadow(0 10px 12px rgba(0,0,0,.5))}}
-@media (prefers-reduced-motion:reduce){#t12 .t12-unit-halo::before,#t12 .t12-forge-art.t12-unit-art{animation:none}}
+/* bandeau de déblocage, au style des titres de la page */
+#t12 .t12-unit-banner{position:absolute;z-index:2;left:50%;top:14px;display:grid;justify-items:center;gap:1px;min-width:56%;padding:7px 20px 8px;transform:translateX(-50%);
+  border:2px solid #ffd27a;border-radius:16px;background:linear-gradient(180deg,#c26a3e,#8c4129);box-shadow:0 0 0 3px rgba(60,20,10,.55),0 0 18px rgba(255,190,70,.6),inset 0 1px rgba(255,230,190,.45);
+  text-align:center;animation:t12-banner-in .7s cubic-bezier(.2,1.4,.4,1) .2s both}
+#t12 .t12-unit-banner b{font-size:clamp(16px,3.6cqi,22px);font-weight:inherit;color:#fff;text-shadow:0 2px 0 rgba(60,15,5,.6)}
+#t12 .t12-unit-banner small{font-size:12px;color:#ffe2b8}
+@keyframes t12-banner-in{from{opacity:0;transform:translateX(-50%) translateY(-14px) scale(.8)}to{opacity:1;transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){#t12 .t12-unit-bolts path,#t12 .t12-forge-art.t12-unit-art,#t12 .t12-unit-banner{animation:none}#t12 .t12-unit-bolts path{opacity:.6}}

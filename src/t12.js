@@ -136,6 +136,18 @@ function elbow(side,lit){
   return `<span class="t12-forge-elbow t12-forge-${side}${lit?' lit':''}" aria-hidden="true"><svg viewBox="0 0 60 100"><ellipse class="t12-socket" cx="${x}" cy="88" rx="30" ry="11"/><g fill="none">${strokes}</g></svg></span>`;
 }
 const num=n=>String(n).replace(/\B(?=(\d{3})+(?!\d))/g,' ');
+/* Petits éclairs autour du personnage débloqué : tracés en zigzag (aléatoire figé), qui crépitent chacun à son rythme. */
+const BOLTS=(()=>{
+  let seed=7;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+  const spots=[[-150,-120,-60],[150,-110,60],[-175,10,-95],[178,30,90],[-135,120,-130],[140,125,130],[0,-175,0],[-60,-165,-25],[70,-160,30]];
+  const paths=spots.map(([x,y,deg],k)=>{
+    const a=(deg-90)*Math.PI/180,len=40+rnd()*30,pts=[[x,y]];
+    for(let i=1;i<=5;i++){const t=len*i/5,j=(rnd()-.5)*18;pts.push([x+Math.cos(a)*t-Math.sin(a)*j,y+Math.sin(a)*t+Math.cos(a)*j])}
+    const d='M'+pts.map(p=>p.map(v=>v.toFixed(1)).join(' ')).join('L');
+    return `<path d="${d}" style="animation-delay:${(k*.37%2.2).toFixed(2)}s;animation-duration:${(1.6+rnd()*1.4).toFixed(2)}s"/>`;
+  }).join('');
+  return `<svg class="t12-unit-bolts" viewBox="-240 -170 480 340" aria-hidden="true">${paths}</svg>`;
+})();
 let advanceTimer=null;
 const revealPending={};  /* troupe dont la dernière pièce vient d'être terminée : personnage affiché après 2 s */
 const UNIT_ART=troop=>`assets/visuals/t12/units/${troop}.png?v=20261015`;
@@ -166,9 +178,10 @@ function renderForge(){
   const stepper=(field,label,value,min)=>`<div class="t12-forge-step" data-t12-forge-field="${field}"><small>${label}</small><button type="button" data-d="-1" ${value<=min?'disabled':''} aria-label="${label} : moins 1">−</button><output>${value}</output><button type="button" data-d="1" ${value>=5?'disabled':''} aria-label="${label} : plus 1">+</button>${field==='to'?`<button type="button" class="t12-forge-max" data-d="5" ${value>=5?'disabled':''}>MAX</button>`:''}</div>`;
   host.innerHTML=`<div class="t12-forge">
     <div class="t12-forge-stage${showUnit?' unit':''}">${showUnit
-      ?`<span class="t12-unit-halo" aria-hidden="true"></span><img class="t12-forge-art t12-unit-art" src="${UNIT_ART(troop)}" alt="${T12.units[troop]}" draggable="false">`
+      ?`<span class="t12-unit-halo" aria-hidden="true"></span>${BOLTS}<img class="t12-forge-art t12-unit-art" src="${UNIT_ART(troop)}" alt="${T12.units[troop]}" draggable="false">
+        <div class="t12-unit-banner" role="status"><b>${T12.units[troop]}</b><small>débloquée · l'arbre de recherche est accessible</small></div>`
       :`<img class="t12-forge-art" src="${RENDER(troop,id)}" alt="${nodeName(id,troop)}" draggable="false">`}
-      <span class="t12-forge-unit${unit?' ok':''}">${unit?`✓ ${T12.units[troop]} débloquée`:`🔒 ${T12.units[troop]} · ${done}/5 pièces`}</span></div>
+      ${showUnit?'':`<span class="t12-forge-unit">🔒 ${T12.units[troop]} · ${done}/5 pièces</span>`}</div>
     <div class="t12-forge-row">${elbow('inlet',true)}${row}${elbow('outlet',unit)}</div>
     <div class="t12-forge-panel">
       <div class="t12-forge-head"><h3>${nodeName(id,troop)}</h3><span class="t12-forge-lv">Niv. ${lvl.from}${maxed?' · MAX':`<i>➜</i>${target}`}</span></div>
@@ -245,8 +258,11 @@ function render(){
   document.getElementById('t12Banner').hidden=state.view!=='tree'||unitUnlocked(levels);
   renderTree();
   renderResult();
-  const layout=state.view==='unlock'?UNLOCK:TREE;
-  document.getElementById('t12Reset').checked=layout.nodes.every(n=>n.display||(!levels[n.id].from&&!levels[n.id].to));
+  /* interrupteur : « Tout au max » en Déblocage (accès rapide à l'arbre), « Remettre à zéro » dans l'Arbre */
+  document.getElementById('t12ResetLabel').textContent=state.view==='unlock'?'Tout au max':'Remettre à zéro';
+  document.getElementById('t12Reset').checked=state.view==='unlock'
+    ?UNLOCK.nodes.every(n=>n.display||levels[n.id].from>=5)
+    :TREE.nodes.every(n=>n.display||(!levels[n.id].from&&!levels[n.id].to));
 }
 
 /* ---------- Fenêtre de réglage ---------- */
@@ -291,9 +307,13 @@ picker.addEventListener('click',event=>{if(event.target===picker)picker.close('c
 /* ---------- Onglets et remise à zéro ---------- */
 document.querySelectorAll('[data-t12-troop]').forEach(tab=>tab.onclick=()=>{state.troop=tab.dataset.t12Troop;render()});
 document.querySelectorAll('[data-t12-view]').forEach(tab=>tab.onclick=()=>{state.view=tab.dataset.t12View;render()});
-document.getElementById('t12Reset').addEventListener('change',()=>{
-  const layout=state.view==='unlock'?UNLOCK:TREE,levels=state.levels[state.troop];
-  layout.nodes.forEach(n=>{if(!n.display)levels[n.id]={from:0,to:0}});
+document.getElementById('t12Reset').addEventListener('change',event=>{
+  const levels=state.levels[state.troop];
+  if(state.view==='unlock'){
+    const max=event.target.checked?5:0;
+    UNLOCK.nodes.forEach(n=>{if(!n.display)levels[n.id]={from:max,to:max}});
+    clearTimeout(advanceTimer);delete revealPending[state.troop];
+  }else TREE.nodes.forEach(n=>{if(!n.display)levels[n.id]={from:0,to:0}});
   render();
 });
 render();
