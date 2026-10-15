@@ -183,7 +183,7 @@
 #t12 .t12-forge-row{position:relative;display:flex;align-items:center;margin-top:-40px;padding:44px 2% 26px;border-bottom:2px solid rgba(240,170,120,.16)}
 #t12 .t12-forge-pipe{position:relative;flex:1;height:min(4.4cqi,23px);margin:0 -1px;
   background:linear-gradient(180deg,#0e1528 0,#1f2c4a 18%,#2e4068 34%,#45598a 50%,#2e4068 66%,#1f2c4a 82%,#0e1528 100%)}
-#t12 .t12-forge-pipe.lit{background:linear-gradient(180deg,#8e3410 0,#e2682a 18%,#ffae48 34%,#ffe08e 50%,#ffae48 66%,#e2682a 82%,#8e3410 100%);box-shadow:0 0 8px rgba(255,120,40,.45)}
+#t12 .t12-forge-pipe.lit{background:linear-gradient(180deg,#a03a10 0,#f07228 18%,#ffb840 34%,#ffe680 50%,#ffb840 66%,#f07228 82%,#a03a10 100%);box-shadow:0 0 10px 2px rgba(255,140,30,.7),0 0 22px 4px rgba(255,110,20,.35)}
 /* bagues de cuivre aux deux raccords */
 #t12 .t12-forge-pipe::before,#t12 .t12-forge-pipe::after{content:"";position:absolute;top:max(-.5cqi,-3px);bottom:max(-.5cqi,-3px);width:min(1.1cqi,6px);border-radius:2px;
   background:linear-gradient(180deg,#4a2414 0,#9a5634 30%,#c98258 50%,#9a5634 70%,#4a2414 100%);box-shadow:0 1px 2px rgba(0,0,0,.5)}
@@ -192,7 +192,7 @@
 #t12 .t12-forge-elbow{position:relative;flex:0 0 min(6cqi,31px);align-self:stretch}
 #t12 .t12-forge-elbow svg{position:absolute;left:0;top:calc(50% - min(2.2cqi,11.5px));width:min(6cqi,31px);height:min(10cqi,52px);overflow:visible}
 #t12 .t12-forge-elbow g{filter:blur(.35px)}
-#t12 .t12-forge-elbow.lit g{filter:blur(.35px) drop-shadow(0 0 3px rgba(255,120,40,.5))}
+#t12 .t12-forge-elbow.lit g{filter:blur(.35px) drop-shadow(0 0 5px rgba(255,140,30,.75)) drop-shadow(0 0 12px rgba(255,110,20,.4))}
 #t12 .t12-socket{fill:#1a0b08;stroke:#5a2c1a;stroke-width:4}
 #t12 .t12-forge-inlet{margin-right:-1px}
 #t12 .t12-forge-outlet{margin-left:-1px}
@@ -232,13 +232,13 @@
 #t12 .t12-gauge-shine path{fill:url(#t12Shine);mix-blend-mode:screen;pointer-events:none}
 /* Pièce en cours : vraie surbrillance dorée (anneau doré, halo or qui respire, jauge cerclée d'or) ;
    les autres médaillons sont légèrement atténués pour la faire ressortir. */
-#t12 .t12-forge-piece.sel{--ring-d:#8a5a14;--ring:#d4a03a;--ring-hi:#ffe08a;
-  box-shadow:0 0 0 2px #ffe9a0,0 0 12px 4px rgba(255,215,90,.75),0 0 30px 10px rgba(255,180,40,.4);animation:t12-halo 2.2s ease-in-out infinite alternate}
-@keyframes t12-halo{to{box-shadow:0 0 0 2px #fff4c4,0 0 18px 7px rgba(255,225,110,.9),0 0 44px 16px rgba(255,185,50,.55)}}
+#t12 .t12-forge-piece.sel{--ring-d:#8a5410;--ring:#d8982a;--ring-hi:#ffcf5a;
+  box-shadow:0 0 0 2px #ffd25a,0 0 12px 4px rgba(255,190,40,.8),0 0 30px 10px rgba(240,150,20,.45);animation:t12-halo 2.2s ease-in-out infinite alternate}
+@keyframes t12-halo{to{box-shadow:0 0 0 2px #ffdc6e,0 0 18px 7px rgba(255,200,50,.95),0 0 44px 16px rgba(245,155,25,.6)}}
 #t12 .t12-forge-piece:not(.sel){filter:brightness(.82) saturate(.9)}
 #t12 .t12-forge-piece:not(.sel):hover{filter:none}
-#t12 .t12-forge-gauge{filter:drop-shadow(0 0 6px rgba(255,215,90,.85)) drop-shadow(0 0 16px rgba(255,180,40,.55))}
-#t12 .t12-gauge-frame{stroke:#fff0b0;stroke-width:2.2}
+#t12 .t12-forge-gauge{filter:drop-shadow(0 0 6px rgba(255,190,40,.9)) drop-shadow(0 0 16px rgba(240,150,20,.6))}
+#t12 .t12-gauge-frame{stroke:#ffd25a;stroke-width:2.2}
 @media (prefers-reduced-motion:reduce){#t12 .t12-gauge-cell.front,#t12 .t12-forge-piece.sel{animation:none}#t12 .t12-gauge-shine{display:none}}
 /* Panneau de la pièce : nom, niveau, bonus, ressources requises, réglage. */
 #t12 .t12-forge-panel{padding:12px 4% 16px}

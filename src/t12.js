@@ -178,10 +178,10 @@ function renderForge(){
       const d=+b.dataset.d,l=levels[id];
       l[field]=Math.max(0,Math.min(5,d===5?5:l[field]+d));l.to=Math.max(l.to,l.from);
       clearTimeout(advanceTimer);
-      /* pièce terminée : on laisse 3 s pour voir la jauge pleine, puis on passe à la suivante */
+      /* pièce terminée : on laisse 2 s pour voir la jauge pleine, puis on passe à la suivante */
       if(field==='from'&&l.from>=5&&pieceIndex(id)<4)advanceTimer=setTimeout(()=>{
         if(state.view==='unlock'&&state.troop===troop&&state.piece[troop]===id&&levels[id].from>=5){state.piece[troop]='p'+(pieceIndex(id)+2);render()}
-      },3000);
+      },2000);
       render();
     });
   });
