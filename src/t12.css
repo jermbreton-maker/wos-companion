@@ -283,7 +283,8 @@
 #t12 .t12-forge-stage.unit::after{z-index:1;background:linear-gradient(180deg,transparent 66%,rgba(58,25,22,.75) 84%,#3a1916 96%)}
 #t12 .t12-forge-stage.unit::before{display:none}
 /* éclairs (captures du jeu) : rouge-orange, cœur jaune, lueur rouge ; visibles par éclats brefs */
-#t12 .t12-unit-bolts{position:absolute;left:50%;top:50%;width:92cqi;height:auto;transform:translate(-50%,-50%);overflow:visible;pointer-events:none}
+/* largeur relative au personnage (sans le plafond général max-width:100% des SVG) */
+#t12 .t12-unit-bolts{position:absolute;left:50%;top:50%;width:100%;max-width:none;height:auto;transform:translate(-50%,-50%);overflow:visible;pointer-events:none}
 #t12 .t12-unit-bolts g{opacity:0;animation:t12-bolt 2s steps(1,end) infinite}
 #t12 .t12-unit-bolts path{fill:none;stroke-linejoin:miter;stroke-miterlimit:8;stroke-linecap:round}
 #t12 .t12-unit-bolts .b-glow{stroke:#ff2a10;stroke-width:9;opacity:.55;filter:blur(4px)}
@@ -337,7 +338,7 @@
   #t12 .t12-unit-figure{--unit-top:58px;--unit-zoom:1.3;--unit-sink:.22}
   #t12 .t12-tree[data-troop="marksman"] .t12-unit-figure{--unit-sink:.3}
   /* éclairs derrière le personnage mais plus écartés (même rapport qu'en desktop), pour l'entourer sans être masqués */
-  #t12 .t12-unit-bolts{width:158cqi}
+  #t12 .t12-unit-bolts{width:175%}
   /* pièce rouge : la rangée ne masque presque rien sur mobile, on recentre dans la zone sombre */
   #t12 .t12-forge-stage:not(.unit){padding-bottom:10px}
 }
