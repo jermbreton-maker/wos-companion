@@ -3,7 +3,7 @@
 (()=>{
 const T12=window.COMPANION_DATA.t12;
 const TROOPS=Object.keys(T12.units);
-const ICON=(troop,id)=>`assets/visuals/t12/icons/${troop}-${id}.png?v=20261014d`;
+const ICON=(troop,id)=>`assets/visuals/t12/icons/${troop}-${id}.png?v=20261015n`;
 
 /* ---------- Structure des deux vues (repère 1000 × hauteur) ---------- */
 const COLS=[114,371,628,884];
