@@ -166,7 +166,7 @@
 #t12 .t12-tree.t12-forge-host{aspect-ratio:auto!important;width:min(100%,680px)}
 #t12 .t12-forge{--copper:#c07a45;--copper-dark:#5a2a16;overflow:hidden;border:2px solid #6b3523;border-radius:22px;background:#3a1916;box-shadow:0 14px 35px rgba(20,4,4,.45)}
 /* Pièce détourée sur le fond de l'atelier : nuit bleutée, faisceau et halo bleus sous la pièce. */
-#t12 .t12-forge-stage{position:relative;display:grid;place-items:center;box-sizing:border-box;aspect-ratio:720/486;padding-bottom:40px;overflow:hidden;
+#t12 .t12-forge-stage{position:relative;display:grid;grid-template-rows:minmax(0,1fr);place-items:center;box-sizing:border-box;aspect-ratio:720/486;padding-bottom:40px;overflow:hidden;
   background:radial-gradient(ellipse 34% 12% at 50% 86%,rgba(120,140,255,.55),transparent 70%),radial-gradient(ellipse 60% 70% at 50% 55%,#2a2a5c 0,#16163a 55%,#0b0b20 100%)}
 #t12 .t12-forge-stage::before{content:"";position:absolute;left:50%;top:0;bottom:12%;width:30%;transform:translateX(-50%);background:linear-gradient(180deg,rgba(110,130,255,.0),rgba(110,130,255,.16) 60%,rgba(130,150,255,.3));filter:blur(8px)}
 /* Pièce un peu en retrait, avec une lueur rouge douce qui en émane (respiration lente). */
@@ -213,7 +213,13 @@
 #t12 .t12-forge-disc{position:absolute;inset:15%;overflow:hidden;border-radius:50%;background:radial-gradient(circle at 50% 40%,#2e3358,#171a33 72%,#10122a)}
 #t12 .t12-forge-disc img{width:100%;height:100%;object-fit:cover;pointer-events:none}
 #t12 .t12-forge-piece.locked .t12-forge-disc img{filter:grayscale(.7) brightness(.32)}
-#t12 .t12-forge-lock{position:absolute;inset:0;display:grid;place-items:center;font-size:min(5.2cqi,27px);filter:drop-shadow(0 1px 1px #000)}
+#t12 .t12-forge-lock{position:absolute;inset:0;display:grid;place-items:center}
+#t12 .t12-forge-lock .t12-lock{width:46%;height:auto;filter:drop-shadow(0 2px 2px rgba(0,0,0,.6))}
+#t12 .t12-lock .l-shackle-o{fill:none;stroke:#3a2418;stroke-width:5;stroke-linecap:round}
+#t12 .t12-lock .l-shackle{fill:none;stroke:#f3e6cf;stroke-width:3;stroke-linecap:round}
+#t12 .t12-lock .l-body{fill:#f6ecd8;stroke:#3a2418;stroke-width:1.2}
+#t12 .t12-lock .l-hole{fill:#3a2418}
+#t12 .t12-forge-unit .t12-lock{width:12px;height:auto;vertical-align:-2px}
 #t12 .t12-forge-piece .t12-target{top:-12%;right:-22%}
 #t12 .t12-forge-piece.sel .t12-target{display:none}
 /* Jauge des 5 niveaux : arc cuivré de 5 cases jointives qui se remplit (orange = atteint, clair = objectif). */
@@ -269,24 +275,28 @@
 }
 
 /* Unité débloquée : le personnage glorifié remplace la pièce, dans un halo doré avec des rayons qui tournent. */
-#t12 .t12-forge-stage.unit{background:radial-gradient(ellipse 34% 12% at 50% 86%,rgba(255,200,90,.6),transparent 70%),radial-gradient(ellipse 60% 70% at 50% 55%,#3a2a3c 0,#1e1830 55%,#0d0b1c 100%)}
+#t12 .t12-forge-stage.unit{padding-bottom:104px;background:radial-gradient(ellipse 34% 12% at 50% 86%,rgba(255,200,90,.6),transparent 70%),radial-gradient(ellipse 60% 70% at 50% 55%,#3a2a3c 0,#1e1830 55%,#0d0b1c 100%)}
 #t12 .t12-forge-stage.unit::before{display:none}
-#t12 .t12-unit-halo{position:absolute;left:50%;top:calc(50% - 20px);width:78%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;
+#t12 .t12-unit-halo{position:absolute;left:50%;top:calc((100% - 104px) / 2);width:78%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;
   background:radial-gradient(circle,rgba(255,226,130,.75) 0,rgba(255,190,60,.45) 32%,rgba(240,150,30,.18) 55%,transparent 70%)}
-/* éclairs : trait blanc-or qui crépite (visible par éclats brefs) */
-#t12 .t12-unit-bolts{position:absolute;left:50%;top:calc(50% - 20px);width:96%;height:auto;transform:translate(-50%,-50%);overflow:visible;pointer-events:none}
-#t12 .t12-unit-bolts path{fill:none;stroke:#fff8d8;stroke-width:2.8;stroke-linejoin:bevel;opacity:0;
-  filter:drop-shadow(0 0 2px #ffe27a) drop-shadow(0 0 6px rgba(255,190,60,.9));animation:t12-bolt 2s steps(1,end) infinite}
-@keyframes t12-bolt{0%{opacity:0}8%{opacity:1}12%{opacity:.2}16%{opacity:.95}22%,100%{opacity:0}}
-#t12 .t12-forge-art.t12-unit-art{max-width:70%;max-height:78%;animation:t12-unit-in .9s ease-out both,t12-unit-glow 2.6s ease-in-out .9s infinite alternate;
+/* éclairs (captures du jeu) : rouge-orange, cœur jaune, lueur rouge ; visibles par éclats brefs */
+#t12 .t12-unit-bolts{position:absolute;left:50%;top:calc((100% - 104px) / 2);width:96%;height:auto;transform:translate(-50%,-50%);overflow:visible;pointer-events:none}
+#t12 .t12-unit-bolts g{opacity:0;animation:t12-bolt 2s steps(1,end) infinite}
+#t12 .t12-unit-bolts path{fill:none;stroke-linejoin:miter;stroke-miterlimit:8;stroke-linecap:round}
+#t12 .t12-unit-bolts .b-glow{stroke:#ff2a10;stroke-width:9;opacity:.55;filter:blur(4px)}
+#t12 .t12-unit-bolts .b-mid{stroke:#ff6a1a;stroke-width:4.5}
+#t12 .t12-unit-bolts .b-core{stroke:#ffe46a;stroke-width:1.6}
+@keyframes t12-bolt{0%{opacity:0}8%{opacity:1}12%{opacity:.25}16%{opacity:1}24%,100%{opacity:0}}
+#t12 .t12-forge-art.t12-unit-art{max-width:70%;max-height:94%;animation:t12-unit-in .9s ease-out both,t12-unit-glow 2.6s ease-in-out .9s infinite alternate;
   filter:drop-shadow(0 0 6px rgba(255,215,100,.9)) drop-shadow(0 0 22px rgba(255,170,40,.6)) drop-shadow(0 10px 12px rgba(0,0,0,.5))}
 @keyframes t12-unit-in{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:none}}
 @keyframes t12-unit-glow{to{filter:drop-shadow(0 0 9px rgba(255,225,120,1)) drop-shadow(0 0 32px rgba(255,180,50,.75)) drop-shadow(0 10px 12px rgba(0,0,0,.5))}}
 /* bandeau de déblocage, au style des titres de la page */
-#t12 .t12-unit-banner{position:absolute;z-index:2;left:50%;top:14px;display:grid;justify-items:center;gap:1px;min-width:56%;padding:7px 20px 8px;transform:translateX(-50%);
+#t12 .t12-unit-banner{position:absolute;z-index:2;left:50%;bottom:48px;display:grid;justify-items:center;gap:1px;min-width:56%;padding:7px 20px 8px;transform:translateX(-50%);
   border:2px solid #ffd27a;border-radius:16px;background:linear-gradient(180deg,#c26a3e,#8c4129);box-shadow:0 0 0 3px rgba(60,20,10,.55),0 0 18px rgba(255,190,70,.6),inset 0 1px rgba(255,230,190,.45);
   text-align:center;animation:t12-banner-in .7s cubic-bezier(.2,1.4,.4,1) .2s both}
-#t12 .t12-unit-banner b{font-size:clamp(16px,3.6cqi,22px);font-weight:inherit;color:#fff;text-shadow:0 2px 0 rgba(60,15,5,.6)}
+#t12 .t12-unit-banner b{display:flex;align-items:center;gap:8px;font-size:clamp(16px,3.6cqi,22px);font-weight:inherit;color:#fff;text-shadow:0 2px 0 rgba(60,15,5,.6)}
+#t12 .t12-unit-banner .t12-lock{width:.95em;height:auto;filter:drop-shadow(0 2px 0 rgba(60,15,5,.6))}
 #t12 .t12-unit-banner small{font-size:12px;color:#ffe2b8}
-@keyframes t12-banner-in{from{opacity:0;transform:translateX(-50%) translateY(-14px) scale(.8)}to{opacity:1;transform:translateX(-50%)}}
-@media (prefers-reduced-motion:reduce){#t12 .t12-unit-bolts path,#t12 .t12-forge-art.t12-unit-art,#t12 .t12-unit-banner{animation:none}#t12 .t12-unit-bolts path{opacity:.6}}
+@keyframes t12-banner-in{from{opacity:0;transform:translateX(-50%) translateY(14px) scale(.8)}to{opacity:1;transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){#t12 .t12-unit-bolts g,#t12 .t12-forge-art.t12-unit-art,#t12 .t12-unit-banner{animation:none}#t12 .t12-unit-bolts g{opacity:.6}}

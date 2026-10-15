@@ -136,18 +136,29 @@ function elbow(side,lit){
   return `<span class="t12-forge-elbow t12-forge-${side}${lit?' lit':''}" aria-hidden="true"><svg viewBox="0 0 60 100"><ellipse class="t12-socket" cx="${x}" cy="88" rx="30" ry="11"/><g fill="none">${strokes}</g></svg></span>`;
 }
 const num=n=>String(n).replace(/\B(?=(\d{3})+(?!\d))/g,' ');
-/* Petits éclairs autour du personnage débloqué : tracés en zigzag (aléatoire figé), qui crépitent chacun à son rythme. */
+/* Éclairs autour du personnage débloqué (comme dans le jeu) : zigzags anguleux rouge-orange à cœur jaune,
+   avec une branche, tracés une fois (aléatoire figé) et qui crépitent chacun à son rythme. */
 const BOLTS=(()=>{
-  let seed=7;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
-  const spots=[[-150,-120,-60],[150,-110,60],[-175,10,-95],[178,30,90],[-135,120,-130],[140,125,130],[0,-175,0],[-60,-165,-25],[70,-160,30]];
-  const paths=spots.map(([x,y,deg],k)=>{
-    const a=(deg-90)*Math.PI/180,len=40+rnd()*30,pts=[[x,y]];
-    for(let i=1;i<=5;i++){const t=len*i/5,j=(rnd()-.5)*18;pts.push([x+Math.cos(a)*t-Math.sin(a)*j,y+Math.sin(a)*t+Math.cos(a)*j])}
-    const d='M'+pts.map(p=>p.map(v=>v.toFixed(1)).join(' ')).join('L');
-    return `<path d="${d}" style="animation-delay:${(k*.37%2.2).toFixed(2)}s;animation-duration:${(1.6+rnd()*1.4).toFixed(2)}s"/>`;
-  }).join('');
-  return `<svg class="t12-unit-bolts" viewBox="-240 -170 480 340" aria-hidden="true">${paths}</svg>`;
+  let seed=11;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+  const zigzag=(x,y,dir,len,steps)=>{
+    /* segments de longueurs inégales, cassures franches à gauche ou à droite (jamais de retour en arrière) */
+    const pts=[[x,y]];
+    for(let i=0;i<steps;i++){
+      const ang=dir+(rnd()-.5)*110,l=len/steps*(.45+rnd()*1.1),a=(ang-90)*Math.PI/180;
+      x+=Math.cos(a)*l;y+=Math.sin(a)*l;pts.push([x,y]);
+    }
+    return pts;
+  };
+  const d=pts=>'M'+pts.map(p=>p.map(v=>v.toFixed(1)).join(' ')).join('L');
+  const spots=[[-110,-50,-65,150],[115,-65,60,150],[-135,45,-105,130],[140,50,110,130],[-35,-120,-15,110],[45,-115,20,110],[-90,95,-150,100],[95,100,150,100]];
+  return `<svg class="t12-unit-bolts" viewBox="-240 -170 480 340" aria-hidden="true">${spots.map(([x,y,dir,len],k)=>{
+    const main=zigzag(x,y,dir,len,7+Math.floor(rnd()*4)),fork=main[3],branch=zigzag(fork[0],fork[1],dir+(rnd()<.5?-55:55),len*.4,4);
+    const path=d(main)+d(branch);
+    return `<g style="animation-delay:${(k*.41%2.4).toFixed(2)}s;animation-duration:${(1.7+rnd()*1.3).toFixed(2)}s"><path class="b-glow" d="${path}"/><path class="b-mid" d="${path}"/><path class="b-core" d="${path}"/></g>`;
+  }).join('')}</svg>`;
 })();
+/* Cadenas du jeu (corps crème, anse épaisse, trou de serrure) ; ouvert = anse relevée d'un côté. */
+const LOCK=open=>`<svg class="t12-lock${open?' open':''}" viewBox="0 0 24 28" aria-hidden="true"><path class="l-shackle-o" d="${open?'M17 13V8A5 5 0 0 0 7 8V9':'M7 13V8A5 5 0 0 1 17 8V13'}"/><path class="l-shackle" d="${open?'M17 13V8A5 5 0 0 0 7 8V9':'M7 13V8A5 5 0 0 1 17 8V13'}"/><rect class="l-body" x="3" y="12" width="18" height="14" rx="3.5"/><circle class="l-hole" cx="12" cy="18" r="2.1"/><rect class="l-hole" x="11" y="18.5" width="2" height="4.5" rx="1"/></svg>`;
 let advanceTimer=null;
 const revealPending={};  /* troupe dont la dernière pièce vient d'être terminée : personnage affiché après 2 s */
 const UNIT_ART=troop=>`assets/visuals/t12/units/${troop}.png?v=20261015`;
@@ -165,7 +176,7 @@ function renderForge(){
     const l=levels[n.id],locked=pieceLocked(levels,n.id),sel=n.id===id,name=nodeName(n.id,troop);
     const cls=['t12-forge-piece',sel&&'sel',l.from>=5&&'done',locked&&'locked',l.to>l.from&&'planned'].filter(Boolean).join(' ');
     const pipe=k?`<i class="t12-forge-pipe${levels['p'+k].from>=5?' lit':''}" aria-hidden="true"></i>`:'';
-    return `${pipe}<button type="button" class="${cls}" data-t12-piece="${n.id}" aria-pressed="${sel}" aria-label="${name} : niveau ${l.from} sur 5${locked?', verrouillée':''}" data-tip="${name}">${sel?gauge:''}<span class="t12-forge-disc"><img src="${ICON(troop,l.from>=5?n.id:n.id+'-cut')}" alt="" draggable="false">${locked?'<span class="t12-forge-lock">🔒</span>':''}</span>${l.to>l.from?`<span class="t12-target">→${l.to>=5?'MAX':l.to}</span>`:''}</button>`;
+    return `${pipe}<button type="button" class="${cls}" data-t12-piece="${n.id}" aria-pressed="${sel}" aria-label="${name} : niveau ${l.from} sur 5${locked?', verrouillée':''}" data-tip="${name}">${sel?gauge:''}<span class="t12-forge-disc"><img src="${ICON(troop,l.from>=5?n.id:n.id+'-cut')}" alt="" draggable="false">${locked?`<span class="t12-forge-lock">${LOCK(false)}</span>`:''}</span>${l.to>l.from?`<span class="t12-target">→${l.to>=5?'MAX':l.to}</span>`:''}</button>`;
   }).join('');
   const gainTo=maxed?lvl.from:target;
   const statLine=(label,step,unit)=>`<div><span>${label}</span><b>${num(lvl.from*step)}${unit}${gainTo>lvl.from?`<em>+${num((gainTo-lvl.from)*step)}${unit}</em>`:''}</b></div>`;
@@ -179,9 +190,9 @@ function renderForge(){
   host.innerHTML=`<div class="t12-forge">
     <div class="t12-forge-stage${showUnit?' unit':''}">${showUnit
       ?`<span class="t12-unit-halo" aria-hidden="true"></span>${BOLTS}<img class="t12-forge-art t12-unit-art" src="${UNIT_ART(troop)}" alt="${T12.units[troop]}" draggable="false">
-        <div class="t12-unit-banner" role="status"><b>${T12.units[troop]}</b><small>débloquée · l'arbre de recherche est accessible</small></div>`
+        <div class="t12-unit-banner" role="status"><b>${T12.units[troop]} ${LOCK(true)}</b><small>L'arbre de recherche est accessible</small></div>`
       :`<img class="t12-forge-art" src="${RENDER(troop,id)}" alt="${nodeName(id,troop)}" draggable="false">`}
-      ${showUnit?'':`<span class="t12-forge-unit">🔒 ${T12.units[troop]} · ${done}/5 pièces</span>`}</div>
+      ${showUnit?'':`<span class="t12-forge-unit">${LOCK(false)} ${T12.units[troop]} · ${done}/5 pièces</span>`}</div>
     <div class="t12-forge-row">${elbow('inlet',true)}${row}${elbow('outlet',unit)}</div>
     <div class="t12-forge-panel">
       <div class="t12-forge-head"><h3>${nodeName(id,troop)}</h3><span class="t12-forge-lv">Niv. ${lvl.from}${maxed?' · MAX':`<i>➜</i>${target}`}</span></div>
