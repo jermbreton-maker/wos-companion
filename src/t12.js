@@ -81,6 +81,8 @@ const nodeArt=(node,troop)=>`<img class="t12-ico" src="${ICON(troop,iconId(node.
 
 /* ---------- Rendu ---------- */
 function renderTree(){
+  /* l'interrupteur peut être dans le panneau de la forge : on le remet à sa place avant de redessiner */
+  document.getElementById('t12Result').before(T12_ACTIONS);
   if(state.view==='unlock')return renderForge();
   const layout=TREE,levels=state.levels[state.troop],troop=state.troop;
   const host=document.getElementById('t12Tree');
@@ -110,18 +112,8 @@ function renderTree(){
 /* ---------- Déblocage : écran de forge du jeu (rendu 3D, rangée des 5 pièces, détails de la pièce choisie) ---------- */
 const RENDER=(troop,id)=>`assets/visuals/t12/pieces/${troop}-${id}.png?v=20261014d`;
 const TROOP_NOUN={infantry:'Infanterie',lancer:'Lancier',marksman:'Tireur'};
-const RES=[
-  ['steel','Acier','assets/visuals/t11/steel.png'],
-  ['rfc','Cristaux raffinés','assets/visuals/furnace-materials/refined-fire-crystal.png'],
-  ['shard','Fragment de Cristal Ardent','assets/visuals/t11/fire-crystal-shard.png?v=hd']
-];
 const pieceIndex=id=>+id[1]-1;
 const pieceLocked=(levels,id)=>id!=='p1'&&!levels[id].from&&levels['p'+pieceIndex(id)].from<5;
-function pieceCost(id,from,to){
-  const C=T12.unlockCost,kind=pieceIndex(id)?1:0,out={steel:0,rfc:0,shard:0};
-  for(let l=from;l<to;l++){const r=C.rfc[kind][l];out.rfc+=r;out.steel+=r*C.steelPerRfc[kind];out.shard+=r*C.shardsPerRfc}
-  return out;
-}
 /* Jauge des 5 niveaux : arc de cercle de 5 cases jointives au-dessus du médaillon (repère centré, médaillon de rayon 50). */
 const arcPoint=(r,deg)=>{const a=(deg-90)*Math.PI/180;return`${(r*Math.cos(a)).toFixed(2)} ${(r*Math.sin(a)).toFixed(2)}`};
 const sector=(r1,r2,a0,a1)=>`M${arcPoint(r2,a0)}A${r2} ${r2} 0 0 1 ${arcPoint(r2,a1)}L${arcPoint(r1,a1)}A${r1} ${r1} 0 0 0 ${arcPoint(r1,a0)}Z`;
@@ -159,6 +151,7 @@ const BOLTS=(()=>{
 })();
 /* Cadenas du jeu (corps crème, anse épaisse, trou de serrure) ; ouvert = anse relevée d'un côté. */
 const LOCK=open=>`<svg class="t12-lock${open?' open':''}" viewBox="0 0 24 28" aria-hidden="true"><path class="l-shackle-o" d="${open?'M17 13V8A5 5 0 0 0 7 8V9':'M7 13V8A5 5 0 0 1 17 8V13'}"/><path class="l-shackle" d="${open?'M17 13V8A5 5 0 0 0 7 8V9':'M7 13V8A5 5 0 0 1 17 8V13'}"/><rect class="l-body" x="3" y="12" width="18" height="14" rx="3.5"/><circle class="l-hole" cx="12" cy="18" r="2.1"/><rect class="l-hole" x="11" y="18.5" width="2" height="4.5" rx="1"/></svg>`;
+const T12_ACTIONS=document.querySelector('#t12 .t12-actions');
 let advanceTimer=null;
 const revealPending={};  /* troupe dont la dernière pièce vient d'être terminée : personnage affiché après 2 s */
 const UNIT_ART=troop=>`assets/visuals/t12/units/${troop}.png?v=20261015`;
@@ -181,11 +174,6 @@ function renderForge(){
   const gainTo=maxed?lvl.from:target;
   const statLine=(label,step,unit)=>`<div><span>${label}</span><b>${num(lvl.from*step)}${unit}${gainTo>lvl.from?`<em>+${num((gainTo-lvl.from)*step)}${unit}</em>`:''}</b></div>`;
   const statLabel=i?`${stat.label} ${TROOP_NOUN[troop]==='Infanterie'?"de l'Infanterie":`du ${TROOP_NOUN[troop]}`}`:'Capacité de déploiement des troupes';
-  const cost=pieceCost(id,lvl.from,maxed?lvl.from:target);
-  const prev=i?`p${i}`:null,prevOk=!prev||levels[prev].from>=5;
-  const reqs=maxed?'<div class="t12-forge-req done"><span>Pièce terminée</span><b>✓</b></div>':
-    (prev?`<div class="t12-forge-req${prevOk?'':' missing'}"><img src="${ICON(troop,prev)}" alt=""><span>${nodeName(prev,troop)} niv. 5</span><b>${prevOk?'✓':'✗'}</b></div>`:'')+
-    RES.map(([k,label,src])=>`<div class="t12-forge-req t12-forge-req-${k}" data-tip="${label}"><img src="${src}" alt=""><span>${num(cost[k])}</span></div>`).join('');
   const stepper=(field,label,value,min)=>`<div class="t12-forge-step" data-t12-forge-field="${field}"><small>${label}</small><button type="button" data-d="-1" ${value<=min?'disabled':''} aria-label="${label} : moins 1">−</button><output>${value}</output><button type="button" data-d="1" ${value>=5?'disabled':''} aria-label="${label} : plus 1">+</button><button type="button" class="t12-forge-max" data-d="5" ${value>=5?'disabled':''} aria-label="${label} : niveau max">MAX</button></div>`;
   host.innerHTML=`<div class="t12-forge">
     <div class="t12-forge-stage${showUnit?' unit':''}">${showUnit
@@ -197,10 +185,9 @@ function renderForge(){
     <div class="t12-forge-panel">
       <div class="t12-forge-head"><h3>${nodeName(id,troop)}</h3><span class="t12-forge-lv">Niv. ${lvl.from}${maxed?' · MAX':`<i>➜</i>${target}`}</span></div>
       <div class="t12-forge-stats">${statLine(statLabel,stat.step,stat.unit)}${statLine('Puissance',i?150000:180000,'')}</div>
-      <h4>${maxed?'État':`Requis${target-lvl.from>1?` (niv. ${lvl.from} → ${target})`:''}`}</h4>
-      <div class="t12-forge-reqs">${reqs}</div>
       <div class="t12-forge-set">${stepper('from','Actuel',lvl.from,0)}${stepper('to','Objectif',lvl.to,lvl.from)}</div>
     </div></div>`;
+  host.querySelector('.t12-forge-panel').append(T12_ACTIONS);  /* « Tout au max » sous les réglages */
   host.querySelectorAll('[data-t12-piece]').forEach(b=>b.onclick=()=>{state.piece[troop]=b.dataset.t12Piece;render()});
   host.querySelectorAll('[data-t12-forge-field]').forEach(box=>{
     const field=box.dataset.t12ForgeField;

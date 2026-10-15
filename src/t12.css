@@ -227,11 +227,11 @@
 /* Jauge (capture du jeu) : cadre orange lumineux, cases sombres translucides, cases atteintes jaune vif ;
    la lueur grandit avec le nombre de cases allumées (--lava de 0 à 1). */
 #t12 .t12-gauge-frame{fill:url(#t12Frame);stroke:#ffd27a;stroke-width:1.5;stroke-linejoin:round;
-  filter:drop-shadow(0 0 calc(6px + var(--lava) * 8px) rgba(255,150,30,calc(.6 + var(--lava) * .35)))}
+  filter:drop-shadow(0 0 calc(4px + var(--lava) * 5px) rgba(255,150,30,calc(.4 + var(--lava) * .3)))}
 #t12 .t12-gauge-cell{fill:#4a3008;fill-opacity:.85;stroke:#ffdc7a;stroke-width:2.2}
 #t12 .t12-gauge-cell.plan{fill:#a0721c}
 #t12 .t12-gauge-cell.on{fill:url(#t12Lava);fill-opacity:1;stroke:#fff3b0}
-#t12 .t12-gauge-lava{filter:drop-shadow(0 0 calc(var(--lava) * 6px) rgba(255,230,80,calc(var(--lava) * .9)))}
+#t12 .t12-gauge-lava{filter:drop-shadow(0 0 calc(var(--lava) * 4px) rgba(255,220,80,calc(var(--lava) * .6)))}
 #t12 .t12-gauge-cell.front{animation:t12-lava 1.6s ease-in-out infinite alternate}
 @keyframes t12-lava{to{fill-opacity:.8}}
 #t12 .t12-gauge-shine path{fill:url(#t12Shine);mix-blend-mode:screen;pointer-events:none}
@@ -240,7 +240,7 @@
 #t12 .t12-forge-piece.sel{--ring-d:#8a5410;--ring:#d8982a;--ring-hi:#ffcf5a;
   box-shadow:0 0 0 2px #ffd25a,0 0 12px 4px rgba(255,190,40,.8),0 0 30px 10px rgba(240,150,20,.45);animation:t12-halo 2.2s ease-in-out infinite alternate}
 @keyframes t12-halo{to{box-shadow:0 0 0 2px #ffdc6e,0 0 18px 7px rgba(255,200,50,.95),0 0 44px 16px rgba(245,155,25,.6)}}
-#t12 .t12-forge-gauge{filter:drop-shadow(0 0 6px rgba(255,190,40,.9)) drop-shadow(0 0 16px rgba(240,150,20,.6))}
+#t12 .t12-forge-gauge{filter:drop-shadow(0 0 4px rgba(255,190,40,.6)) drop-shadow(0 0 10px rgba(240,150,20,.32))}
 #t12 .t12-gauge-frame{stroke:#ffd25a;stroke-width:2.2}
 @media (prefers-reduced-motion:reduce){#t12 .t12-gauge-cell.front,#t12 .t12-forge-piece.sel{animation:none}#t12 .t12-gauge-shine{display:none}}
 /* Panneau de la pièce : nom, niveau, bonus, ressources requises, réglage. */
@@ -249,17 +249,10 @@
 #t12 .t12-forge-head h3{margin:0;font-size:clamp(17px,4.4cqi,22px);color:#fff}
 #t12 .t12-forge-lv{flex:none;font-size:clamp(16px,4.2cqi,21px);color:#fff}
 #t12 .t12-forge-lv i{margin:0 6px;font-style:normal;color:#4cd64c}
-#t12 .t12-forge-stats,#t12 .t12-forge-reqs{display:grid;gap:2px;padding:6px 12px;border-radius:12px;background:#2a110f}
+#t12 .t12-forge-stats{display:grid;gap:2px;padding:6px 12px;border-radius:12px;background:#2a110f}
 #t12 .t12-forge-stats div{display:flex;justify-content:space-between;gap:10px;padding:5px 0;font-size:14px;color:#d8c2bd}
 #t12 .t12-forge-stats b{font-weight:inherit;color:#fff;white-space:nowrap}
 #t12 .t12-forge-stats em{font-style:normal;color:#4cd64c}
-#t12 .t12-forge-panel h4{margin:12px 0 6px;font-size:16px;color:#fff}
-#t12 .t12-forge-req{display:flex;align-items:center;gap:10px;padding:5px 0;font-size:15px;color:#e8d6d2}
-#t12 .t12-forge-req img{width:28px;height:28px;object-fit:contain;border-radius:50%}
-#t12 .t12-forge-req b{margin-left:auto;color:#4cd64c}
-#t12 .t12-forge-req.missing{color:#ffb0a0}
-#t12 .t12-forge-req.missing b{color:#ff6a5a}
-#t12 .t12-forge-req.done{justify-content:space-between}
 #t12 .t12-forge-set{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 18px;margin-top:14px}
 #t12 .t12-forge-step{display:flex;align-items:center;gap:6px}
 #t12 .t12-forge-step small{margin-right:2px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#e3bfa6}
@@ -289,7 +282,7 @@
 #t12 .t12-unit-bolts .b-core{stroke:#ffe46a;stroke-width:1.6}
 @keyframes t12-bolt{0%{opacity:0}8%{opacity:1}12%{opacity:.25}16%{opacity:1}24%,100%{opacity:0}}
 /* même hauteur pour les 3 personnages (référence : le Tireur), posés bas derrière les médaillons ; liseré rouge comme les éclairs */
-#t12 .t12-forge-art.t12-unit-art{align-self:end;height:calc((100cqi / 1.4815 - 70px) * .95);width:auto;max-width:94%;max-height:none;object-fit:contain;transform:translateY(12%);
+#t12 .t12-forge-art.t12-unit-art{align-self:end;height:calc((100cqi / 1.4815 - 70px) * .95 * var(--unit-scale,1));width:auto;max-width:94%;max-height:none;object-fit:contain;transform:translateY(12%);
   animation:t12-unit-in .9s ease-out both,t12-unit-glow 2.6s ease-in-out .9s infinite alternate;
   filter:drop-shadow(0 0 3px rgba(255,50,20,.95)) drop-shadow(0 0 12px rgba(255,40,16,.55)) drop-shadow(0 10px 12px rgba(0,0,0,.5))}
 @keyframes t12-unit-in{from{opacity:0;transform:translateY(16%) scale(.9)}to{opacity:1;transform:translateY(12%)}}
@@ -311,3 +304,9 @@
 #t12 .t12-unit-banner small{font-size:12px;color:#ffe2b8}
 @keyframes t12-banner-in{from{opacity:0;transform:translateX(-50%) translateY(-14px) scale(.8)}to{opacity:1;transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){#t12 .t12-unit-banner .t12-lock,#t12 .t12-unit-banner .t12-lock :is(.l-shackle,.l-shackle-o),#t12 .t12-unit-bolts g,#t12 .t12-forge-art.t12-unit-art,#t12 .t12-unit-banner{animation:none}#t12 .t12-unit-bolts g{opacity:.6}}
+
+/* même place visuelle pour les 3 personnages : l'Infanterie (trapue) un peu réduite, le Lancier (fin) un peu agrandi */
+#t12 .t12-tree[data-troop="infantry"] .t12-unit-art{--unit-scale:.84}
+#t12 .t12-tree[data-troop="lancer"] .t12-unit-art{--unit-scale:1.1}
+/* « Tout au max » dans le panneau de la pièce, sous Actuel / Objectif */
+#t12 .t12-forge-panel .t12-actions{margin:14px auto 0}
