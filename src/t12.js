@@ -137,12 +137,16 @@ function elbow(side,lit){
 }
 const num=n=>String(n).replace(/\B(?=(\d{3})+(?!\d))/g,' ');
 let advanceTimer=null;
+const revealPending={};  /* troupe dont la dernière pièce vient d'être terminée : personnage affiché après 2 s */
+const UNIT_ART=troop=>`assets/visuals/t12/units/${troop}.png?v=20261015`;
 function renderForge(){
   const troop=state.troop,levels=state.levels[troop],host=document.getElementById('t12Tree');
   const id=state.piece[troop],lvl=levels[id],i=pieceIndex(id),stat=T12.unlockStats[i];
   const target=lvl.to>lvl.from?lvl.to:Math.min(lvl.from+1,5),maxed=lvl.from>=5&&lvl.to<=lvl.from;
   host.style.aspectRatio='';host.dataset.troop=troop;host.dataset.view='unlock';host.classList.add('t12-forge-host');
   const done=UNLOCK.nodes.filter(n=>!n.display&&levels[n.id].from>=5).length,unit=unitUnlocked(levels);
+  /* les 5 pièces au max : le personnage glorifié apparaît dans un halo doré */
+  const showUnit=done===5&&!revealPending[troop];
   /* cases allumées = lave jaune ; la lueur grandit avec le nombre de cases (--lava de 0 à 1) */
   const gauge=`<svg class="t12-forge-gauge" viewBox="-100 -100 200 200" style="--lava:${lvl.from/5}" aria-hidden="true"><defs><radialGradient id="t12Lava" cx="0" cy="0" r="77" gradientUnits="userSpaceOnUse"><stop offset=".76" stop-color="#ffc21e"/><stop offset=".86" stop-color="#ffe94a"/><stop offset=".93" stop-color="#fff7a8"/><stop offset="1" stop-color="#ffd02a"/></radialGradient><radialGradient id="t12Frame" cx="0" cy="0" r="80" gradientUnits="userSpaceOnUse"><stop offset=".6" stop-color="#c8641a"/><stop offset=".7" stop-color="#f08e24"/><stop offset=".86" stop-color="#ffb43c"/><stop offset="1" stop-color="#e07a1c"/></radialGradient><linearGradient id="t12Shine" gradientUnits="userSpaceOnUse" x1="-30" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".85"/><stop offset="1" stop-color="#fff" stop-opacity="0"/><animateTransform attributeName="gradientTransform" type="translate" values="-60 0;110 0;110 0" keyTimes="0;.6;1" dur="2.8s" repeatCount="indefinite"/></linearGradient></defs><path class="t12-gauge-frame" d="${GAUGE_FRAME}"/><g class="t12-gauge-lava">${GAUGE_CELLS.map((d,k)=>`<path class="t12-gauge-cell${k<lvl.from?' on':k<lvl.to?' plan':''}${k===lvl.from-1?' front':''}" d="${d}"/>`).join('')}</g><g class="t12-gauge-shine">${GAUGE_CELLS.slice(0,lvl.from).map(d=>`<path d="${d}"/>`).join('')}</g></svg>`;
   const row=UNLOCK.nodes.filter(n=>!n.display).map((n,k)=>{
@@ -161,7 +165,9 @@ function renderForge(){
     RES.map(([k,label,src])=>`<div class="t12-forge-req t12-forge-req-${k}" data-tip="${label}"><img src="${src}" alt=""><span>${num(cost[k])}</span></div>`).join('');
   const stepper=(field,label,value,min)=>`<div class="t12-forge-step" data-t12-forge-field="${field}"><small>${label}</small><button type="button" data-d="-1" ${value<=min?'disabled':''} aria-label="${label} : moins 1">−</button><output>${value}</output><button type="button" data-d="1" ${value>=5?'disabled':''} aria-label="${label} : plus 1">+</button>${field==='to'?`<button type="button" class="t12-forge-max" data-d="5" ${value>=5?'disabled':''}>MAX</button>`:''}</div>`;
   host.innerHTML=`<div class="t12-forge">
-    <div class="t12-forge-stage"><img class="t12-forge-art" src="${RENDER(troop,id)}" alt="${nodeName(id,troop)}" draggable="false">
+    <div class="t12-forge-stage${showUnit?' unit':''}">${showUnit
+      ?`<span class="t12-unit-halo" aria-hidden="true"></span><img class="t12-forge-art t12-unit-art" src="${UNIT_ART(troop)}" alt="${T12.units[troop]}" draggable="false">`
+      :`<img class="t12-forge-art" src="${RENDER(troop,id)}" alt="${nodeName(id,troop)}" draggable="false">`}
       <span class="t12-forge-unit${unit?' ok':''}">${unit?`✓ ${T12.units[troop]} débloquée`:`🔒 ${T12.units[troop]} · ${done}/5 pièces`}</span></div>
     <div class="t12-forge-row">${elbow('inlet',true)}${row}${elbow('outlet',unit)}</div>
     <div class="t12-forge-panel">
@@ -179,6 +185,11 @@ function renderForge(){
       l[field]=Math.max(0,Math.min(5,d===5?5:l[field]+d));l.to=Math.max(l.to,l.from);
       clearTimeout(advanceTimer);
       /* pièce terminée : on laisse 2 s pour voir la jauge pleine, puis on passe à la suivante */
+      const allDone=UNLOCK.nodes.every(n=>n.display||levels[n.id].from>=5);
+      if(field==='from'&&l.from>=5&&allDone&&!revealPending[troop]){
+        revealPending[troop]=true;
+        setTimeout(()=>{delete revealPending[troop];if(state.view==='unlock'&&state.troop===troop)render()},2000);
+      }
       if(field==='from'&&l.from>=5&&pieceIndex(id)<4)advanceTimer=setTimeout(()=>{
         if(state.view==='unlock'&&state.troop===troop&&state.piece[troop]===id&&levels[id].from>=5){state.piece[troop]='p'+(pieceIndex(id)+2);render()}
       },2000);
