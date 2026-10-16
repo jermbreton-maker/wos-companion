@@ -154,3 +154,7 @@
   background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='54' height='62'%3E%3Cpath d='M27.0 0L54 31.0L27.0 62L0 31.0Z' fill='none' stroke='white' stroke-width='1'/%3E%3C/svg%3E") 0 0/54px 62px;opacity:.11;mix-blend-mode:soft-light;
   -webkit-mask:radial-gradient(ellipse 75% 65% at 50% 38%,#000 20%,transparent 85%);mask:radial-gradient(ellipse 75% 65% at 50% 38%,#000 20%,transparent 85%)}
 @media(max-width:600px){#t11 .t11-board::before{background-size:36px 41px}}
+
+/* Ressources : une seule ligne quand le cadre de coût est assez large (7 cases), sinon disposition actuelle */
+#t11 .t11-result{container-type:inline-size}
+@container (min-width:740px){#t11 .t11-cost-grid{max-width:none;flex-wrap:nowrap}}

@@ -175,7 +175,7 @@ function openPicker(id){
   document.getElementById('t11PickerTitle').textContent=nodeName(node,t11State.troop);
   document.getElementById('t11PickerNode').innerHTML=`<span class="t11-node t11-node-preview">${iconImg(id,t11State.troop)}</span>`;
   syncPicker();
-  picker.showModal();
+  lockLevelPickerBackground();picker.showModal();  /* page figée derrière la fenêtre (comme Chaudière, Équipement, Talismans) */
 }
 picker.querySelectorAll('[data-t11-field]').forEach(box=>{
   const field=box.dataset.t11Field;
@@ -199,6 +199,7 @@ picker.querySelector('.t11-apply').addEventListener('click',event=>{
   picker.close('apply');
 });
 picker.addEventListener('click',event=>{if(event.target===picker)picker.close('cancel')});
+picker.addEventListener('close',unlockLevelPickerBackground);
 
 document.querySelectorAll('[data-t11-troop]').forEach(tab=>tab.onclick=()=>{t11State.troop=tab.dataset.t11Troop;render()});
 /* Remettre à zéro : actuel et objectif de toutes les recherches de la troupe affichée. */

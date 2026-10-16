@@ -320,7 +320,7 @@ function openPicker(id){
   document.getElementById('t12PickerTroop').textContent=T12.units[state.troop].toUpperCase();
   document.getElementById('t12PickerTitle').textContent=nodeName(id,state.troop);
   document.getElementById('t12PickerNode').innerHTML=`<span class="t12-node t12-node-preview${id==='elite'?' t12-big':''}" data-troop="${state.troop}">${nodeArt(node,state.troop)}</span>`;
-  syncPicker();picker.showModal();
+  syncPicker();lockLevelPickerBackground();picker.showModal();  /* page figée derrière la fenêtre (comme Chaudière, Équipement, Talismans) */
 }
 picker.querySelectorAll('[data-t12-field]').forEach(box=>{
   const field=box.dataset.t12Field;
@@ -334,6 +334,7 @@ picker.querySelector('.t12-apply').addEventListener('click',event=>{
   picker.close('apply');
 });
 picker.addEventListener('click',event=>{if(event.target===picker)picker.close('cancel')});
+picker.addEventListener('close',unlockLevelPickerBackground);
 
 /* ---------- Onglets et remise à zéro ---------- */
 document.querySelectorAll('[data-t12-troop]').forEach(tab=>tab.onclick=()=>{state.troop=tab.dataset.t12Troop;render()});

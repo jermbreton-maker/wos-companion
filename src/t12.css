@@ -381,3 +381,7 @@
   /* libellé au-dessus des boutons : la ligne complète ne tient pas dans le cadre */
   #t12Picker .t12-stepper{grid-template-columns:1fr auto;row-gap:6px}
   #t12Picker .t12-stepper small{grid-column:1/-1;text-align:center}}
+
+/* Ressources : une seule ligne quand le cadre de coût est assez large (8 cases), sinon disposition actuelle */
+#t12 .t12-result{container-type:inline-size}
+@container (min-width:844px){#t12 .t12-cost-grid{max-width:none;flex-wrap:nowrap}}
