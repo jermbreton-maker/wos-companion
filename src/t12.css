@@ -242,8 +242,7 @@
 /* Pièce en cours : vraie surbrillance dorée (anneau doré, halo or qui respire, jauge cerclée d'or) ;
    les autres médaillons sont légèrement atténués pour la faire ressortir. */
 /* pièce choisie : pas de surbrillance, seulement plus grande que les autres */
-/* la jauge flotte : ombre portée sur le médaillon, en plus de la lueur */
-#t12 .t12-forge-gauge{filter:drop-shadow(0 4px 3px rgba(10,2,2,.5)) drop-shadow(0 0 4px rgba(214,150,80,.55)) drop-shadow(0 0 10px rgba(190,120,55,.3))}
+#t12 .t12-forge-gauge{filter:drop-shadow(0 0 4px rgba(214,150,80,.55)) drop-shadow(0 0 10px rgba(190,120,55,.3))}
 #t12 .t12-gauge-frame{stroke:#d8955e;stroke-width:2.2}  /* liseré clair des médaillons */
 @media (prefers-reduced-motion:reduce){#t12 .t12-gauge-cell.front,#t12 .t12-forge-piece.sel{animation:none}#t12 .t12-gauge-shine{display:none}}
 /* Panneau de la pièce : nom, niveau, bonus, ressources requises, réglage. */
