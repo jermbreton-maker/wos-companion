@@ -243,6 +243,8 @@
    les autres médaillons sont légèrement atténués pour la faire ressortir. */
 /* pièce choisie : pas de surbrillance, seulement plus grande que les autres */
 #t12 .t12-forge-gauge{filter:drop-shadow(0 0 4px rgba(214,150,80,.55)) drop-shadow(0 0 10px rgba(190,120,55,.3))}
+/* pas de halo sous l'arc : vide net entre la jauge et le médaillon */
+#t12 .t12-forge-gauge{-webkit-mask:radial-gradient(circle closest-side,transparent 47.6%,#000 47.9%);mask:radial-gradient(circle closest-side,transparent 47.6%,#000 47.9%)}
 #t12 .t12-gauge-frame{stroke:#d8955e;stroke-width:2.2}  /* liseré clair des médaillons */
 @media (prefers-reduced-motion:reduce){#t12 .t12-gauge-cell.front,#t12 .t12-forge-piece.sel{animation:none}#t12 .t12-gauge-shine{display:none}}
 /* Panneau de la pièce : nom, niveau, bonus, ressources requises, réglage. */
