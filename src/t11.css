@@ -147,6 +147,10 @@
 /* Encadrement de l'arbre, aussi large que le cadre de coût (l'arbre garde sa taille, centré) */
 #t11 .t11-board{max-width:900px;box-sizing:border-box;border:2px solid rgba(240,170,120,.42);border-radius:26px;background:rgba(42,14,12,.45);box-shadow:inset 0 1px rgba(255,220,190,.14),0 14px 35px rgba(20,4,4,.4)}
 @media(max-width:600px){#t11 .t11-board{margin-inline:8px;padding-inline:6px}}
-/* quadrillage en losanges très discret (fond de l'arbre T12 du jeu) : un losange ≈ la moitié d'un petit médaillon */
-#t11 .t11-board{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='37' height='42'%3E%3Cpath d='M18.5 0L37 21.0L18.5 42L0 21.0Z' fill='none' stroke='rgba(255,220,210,0.05)' stroke-width='1'/%3E%3C/svg%3E") 0 0/37px 42px,rgba(42,14,12,.45)}
-@media(max-width:600px){#t11 .t11-board{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='27'%3E%3Cpath d='M12.0 0L24 13.5L12.0 27L0 13.5Z' fill='none' stroke='rgba(255,220,210,0.05)' stroke-width='1'/%3E%3C/svg%3E") 0 0/24px 27px,rgba(42,14,12,.45)}}
+/* Fond de l'arbre (comme dans le jeu) : lueur chaude au centre et quadrillage en losanges qui suit cette lumière
+   (mélange doux, fondu vers les bords) ; un losange ≈ les deux tiers d'un petit médaillon */
+#t11 .t11-board{position:relative;isolation:isolate;background:radial-gradient(ellipse 70% 55% at 50% 35%,rgba(150,62,52,.42),transparent 75%),rgba(42,14,12,.45)}
+#t11 .t11-board::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='54' height='62'%3E%3Cpath d='M27.0 0L54 31.0L27.0 62L0 31.0Z' fill='none' stroke='white' stroke-width='1'/%3E%3C/svg%3E") 0 0/54px 62px;opacity:.22;mix-blend-mode:soft-light;
+  -webkit-mask:radial-gradient(ellipse 75% 65% at 50% 38%,#000 20%,transparent 85%);mask:radial-gradient(ellipse 75% 65% at 50% 38%,#000 20%,transparent 85%)}
+@media(max-width:600px){#t11 .t11-board::before{background-size:36px 41px}}
