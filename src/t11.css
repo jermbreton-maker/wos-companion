@@ -3,7 +3,7 @@
 /* Page : même fond, même titre centré que les autres modules. */
 /* Fond de page : brun-rouge de l'Académie, éclairé par une lumière chaude placée derrière la case Hélios
    (voir .t11-tree::before) qui s'assombrit jusqu'aux bords de la page. */
-#t11{position:relative;isolation:isolate;overflow:hidden;padding:42px 22px 80px;color:#fff;background:#331b26}
+#t11{position:relative;isolation:isolate;overflow:hidden;padding:42px 22px 80px;color:#fff;background:#381726}
 /* Fond sur toute la largeur et la hauteur de l'écran ; le contenu reste dans la colonne centrale de 1240 px
    (les côtés accueilleront les bandeaux publicitaires verticaux). */
 #t11.view{max-width:none;margin:0;min-height:calc(100svh - 76px);padding-inline:max(22px,calc((100% - 1240px) / 2 + 22px))}
@@ -22,7 +22,7 @@
 #t11 .t11-board{max-width:900px;margin:0 auto 22px;padding:22px 16px 30px;background:transparent}
 #t11 .t11-tree{position:relative;width:min(100%,520px);aspect-ratio:1000/1400;margin:0 auto;container-type:inline-size}
 /* Lumière chaude centrée sur la case Hélios (x 50 %, y 870/1400 de l'arbre), étalée sur toute la page. */
-#t11 .t11-tree::before{content:"";position:absolute;left:50%;top:62.14%;z-index:-1;width:560cqi;height:560cqi;transform:translate(-50%,-50%);pointer-events:none;background:radial-gradient(circle,#e08a52 0,#c46a42 5cqi,#a8553e 14cqi,#934a3f 28cqi,#7e4140 48cqi,#683839 74cqi,#573137 104cqi,#4a2a34 140cqi,#3d212d 185cqi,#331b26 240cqi)}
+#t11 .t11-tree::before{content:"";position:absolute;left:50%;top:62.14%;z-index:-1;width:560cqi;height:560cqi;transform:translate(-50%,-50%);pointer-events:none;background:radial-gradient(circle,#b9573f 0,#ad4f3e 8cqi,#a74c3d 18cqi,#8c4139 30cqi,#70322f 44cqi,#60313b 56cqi,#502735 70cqi,#45202f 86cqi,#3d1b2b 105cqi,#381726 135cqi)}  /* teintes relevées sur la capture du jeu */
 
 /* Couleur des chemins de lumière (liaisons + liseré des nœuds) selon la troupe :
    bleu pour Lancier, vert pour Infanterie, rouge pour Tireur. */
