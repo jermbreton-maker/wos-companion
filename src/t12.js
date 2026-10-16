@@ -155,9 +155,11 @@ const num=n=>String(n).replace(/\B(?=(\d{3})+(?!\d))/g,' ');
    Ils partent du bord de la silhouette de CHAQUE personnage (points calculés par tools/t12-unit-bolt-spots.py)
    et filent vers l'extérieur ; tracés une fois (aléatoire figé), ils crépitent chacun à son rythme. */
 const BOLT_SPOTS={"infantry": {"ratio": 0.9893, "spots": [[0.051, 0.729, -125], [0.105, 0.454, -95], [0.179, 0.25, -62], [0.296, 0.071, -30], [0.5, 0.002, 0], [0.679, 0.111, 30], [0.735, 0.295, 62], [0.975, 0.461, 95], [0.968, 0.745, 125]]}, "lancer": {"ratio": 0.5804, "spots": [[0.132, 0.58, -125], [0.095, 0.441, -95], [0.04, 0.268, -62], [0.111, 0.0, -30], [0.529, 0.286, 0], [0.649, 0.296, 30], [0.735, 0.355, 62], [0.963, 0.441, 95], [0.938, 0.586, 125]]}, "marksman": {"ratio": 0.6214, "spots": [[0.164, 0.509, -125], [0.02, 0.438, -95], [0.014, 0.302, -62], [0.138, 0.17, -30], [0.368, 0.011, 0], [0.578, 0.193, 30], [0.678, 0.316, 62], [0.917, 0.448, 95], [0.945, 0.67, 125]]}};
+const BOLT_SCALE={infantry:.84,lancer:1.2,marksman:1};
 const BOLTS=Object.fromEntries(Object.entries(BOLT_SPOTS).map(([troop,{ratio,spots}],t)=>{
   let seed=11+t*7;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
-  const W=1000,H=Math.round(W/ratio),len=H*.26;
+  /* même longueur d'éclair à l'écran pour les 3 : on compense l'échelle d'affichage de chaque personnage (--unit-scale du CSS) */
+  const W=1000,H=Math.round(W/ratio),len=H*.26/(BOLT_SCALE[troop]||1);
   const zigzag=(x,y,dir,len,steps)=>{
     /* segments de longueurs inégales, cassures franches à gauche ou à droite (jamais de retour en arrière) */
     const pts=[[x,y]];
