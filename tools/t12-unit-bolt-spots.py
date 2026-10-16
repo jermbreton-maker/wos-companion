@@ -7,21 +7,18 @@ import numpy as np
 from PIL import Image
 
 BODY_X = {'infantry': .5, 'lancer': .53, 'marksman': .37}  # centre horizontal du corps (fraction de largeur)
-# Même règle pour les 3 (point le plus éloigné de la silhouette dans chaque direction). Infanterie : hache et bouclier
-# sont détachés et très écartés, on limite donc la silhouette à la bande du corps (fraction de largeur).
-BODY_BAND = {'infantry': (.14, .76)}
+# Même règle pour les 3 : point le plus éloigné de la silhouette complète dans chaque direction (vrai contour).
+# Infanterie : au-delà de -90° et +60°, on tombe sur la hache et le bouclier ; ses 9 directions restent donc
+# sur le contour du corps (épaule gauche -> tête -> épaule droite).
+ANGLES_BY_TROOP = {'infantry': [-90, -75, -58, -40, -18, 5, 25, 45, 60]}
 ANGLES = [-125, -95, -62, -30, 0, 30, 62, 95, 125]  # 0 = haut, sens horaire
 out = {}
 for troop, bx in BODY_X.items():
     a = np.array(Image.open(f'assets/visuals/t12/units/{troop}.png').convert('RGBA'))[..., 3] > 60
     h, w = a.shape
-    if troop in BODY_BAND:
-        lo, hi = BODY_BAND[troop]
-        a[:, :int(lo * w)] = False
-        a[:, int(hi * w):] = False
     cx, cy = bx * w, .42 * h
     spots = []
-    for ang in ANGLES:
+    for ang in ANGLES_BY_TROOP.get(troop, ANGLES):
         rad = math.radians(ang - 90)
         dx, dy = math.cos(rad), math.sin(rad)
         last = None
