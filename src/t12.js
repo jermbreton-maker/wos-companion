@@ -193,7 +193,7 @@ function renderForge(){
   /* les 5 pièces au max : le personnage glorifié apparaît dans un halo doré */
   const showUnit=done===5&&!revealPending[troop];
   /* cases allumées = lave jaune ; la lueur grandit avec le nombre de cases (--lava de 0 à 1) */
-  const gauge=`<svg class="t12-forge-gauge" viewBox="-100 -100 200 200" style="--lava:${lvl.from/5}" aria-hidden="true"><defs><radialGradient id="t12Lava" cx="0" cy="0" r="77" gradientUnits="userSpaceOnUse"><stop offset=".76" stop-color="#ec8448"/><stop offset=".84" stop-color="#e45a3a"/><stop offset=".93" stop-color="#cf4a2e"/><stop offset="1" stop-color="#8a311f"/></radialGradient><radialGradient id="t12LavaFront" cx="0" cy="0" r="77" gradientUnits="userSpaceOnUse"><stop offset=".76" stop-color="#f6c45a"/><stop offset=".86" stop-color="#ec9a42"/><stop offset=".94" stop-color="#d9683a"/><stop offset="1" stop-color="#9a3f22"/></radialGradient><radialGradient id="t12Frame" cx="0" cy="0" r="80" gradientUnits="userSpaceOnUse"><stop offset=".6" stop-color="#5e2e14"/><stop offset=".72" stop-color="#a0592e"/><stop offset=".86" stop-color="#c87a46"/><stop offset="1" stop-color="#7a3e1e"/></radialGradient><linearGradient id="t12Shine" gradientUnits="userSpaceOnUse" x1="-30" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".85"/><stop offset="1" stop-color="#fff" stop-opacity="0"/><animateTransform attributeName="gradientTransform" type="translate" values="-60 0;110 0;110 0" keyTimes="0;.6;1" dur="2.8s" repeatCount="indefinite"/></linearGradient></defs><path class="t12-gauge-frame" d="${GAUGE_FRAME}"/><g class="t12-gauge-lava">${GAUGE_CELLS.map((d,k)=>`<path class="t12-gauge-cell${k<lvl.from?' on':k<lvl.to?' plan':''}${k===lvl.from-1?' front':''}" d="${d}"/>`).join('')}</g><g class="t12-gauge-shine">${GAUGE_CELLS.slice(0,lvl.from).map(d=>`<path d="${d}"/>`).join('')}</g></svg>`;
+  const gauge=`<svg class="t12-forge-gauge" viewBox="-100 -100 200 200" style="--lava:${lvl.from/5}" aria-hidden="true"><defs><radialGradient id="t12Lava" cx="0" cy="0" r="77" gradientUnits="userSpaceOnUse"><stop offset=".76" stop-color="#ec8448"/><stop offset=".84" stop-color="#e45a3a"/><stop offset=".93" stop-color="#cf4a2e"/><stop offset="1" stop-color="#8a311f"/></radialGradient><radialGradient id="t12LavaFront" cx="0" cy="0" r="77" gradientUnits="userSpaceOnUse"><stop offset=".76" stop-color="#fff0a0"/><stop offset=".85" stop-color="#ffd860"/><stop offset=".94" stop-color="#f3a63c"/><stop offset="1" stop-color="#c06a26"/></radialGradient><radialGradient id="t12Frame" cx="0" cy="0" r="80" gradientUnits="userSpaceOnUse"><stop offset=".6" stop-color="#5e2e14"/><stop offset=".72" stop-color="#a0592e"/><stop offset=".86" stop-color="#c87a46"/><stop offset="1" stop-color="#7a3e1e"/></radialGradient><linearGradient id="t12Shine" gradientUnits="userSpaceOnUse" x1="-30" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".85"/><stop offset="1" stop-color="#fff" stop-opacity="0"/><animateTransform attributeName="gradientTransform" type="translate" values="-60 0;110 0;110 0" keyTimes="0;.6;1" dur="2.8s" repeatCount="indefinite"/></linearGradient></defs><path class="t12-gauge-frame" d="${GAUGE_FRAME}"/><g class="t12-gauge-lava">${GAUGE_CELLS.map((d,k)=>`<path class="t12-gauge-cell${k<lvl.from?' on':k<lvl.to?' plan':''}${k===lvl.from-1?' front':''}" d="${d}"/>`).join('')}</g><g class="t12-gauge-shine">${GAUGE_CELLS.slice(0,lvl.from).map(d=>`<path d="${d}"/>`).join('')}</g></svg>`;
   const row=UNLOCK.nodes.filter(n=>!n.display).map((n,k)=>{
     const l=levels[n.id],locked=pieceLocked(levels,n.id),sel=n.id===id,name=nodeName(n.id,troop);
     const cls=['t12-forge-piece',sel&&'sel',l.from>=5&&'done',locked&&'locked',l.to>l.from&&'planned'].filter(Boolean).join(' ');
@@ -237,15 +237,12 @@ function renderForge(){
       const d=+b.dataset.d,l=levels[id];
       l[field]=Math.max(0,Math.min(5,d===5?5:l[field]+d));l.to=Math.max(l.to,l.from);
       clearTimeout(advanceTimer);
-      /* pièce terminée : on laisse 1 s pour voir la jauge pleine, puis on passe à la suivante */
+      /* dernière pièce terminée : le personnage glorifié apparaît après 2 s (plus de passage automatique d'une pièce à l'autre) */
       const allDone=UNLOCK.nodes.every(n=>n.display||levels[n.id].from>=5);
       if(field==='from'&&l.from>=5&&allDone&&!revealPending[troop]){
         revealPending[troop]=true;
         setTimeout(()=>{delete revealPending[troop];if(state.view==='unlock'&&state.troop===troop)render()},2000);
       }
-      if(field==='from'&&l.from>=5&&pieceIndex(id)<4)advanceTimer=setTimeout(()=>{
-        if(state.view==='unlock'&&state.troop===troop&&state.piece[troop]===id&&levels[id].from>=5){state.piece[troop]='p'+(pieceIndex(id)+2);render()}
-      },1000);
       render();
     });
   });
