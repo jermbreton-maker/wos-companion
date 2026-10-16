@@ -324,7 +324,7 @@
 
 /* même place visuelle pour les 3 personnages : l'Infanterie (trapue) un peu réduite, le Lancier (fin) un peu agrandi */
 #t12 .t12-tree[data-troop="infantry"] .t12-unit-figure{--unit-scale:.84}
-#t12 .t12-tree[data-troop="lancer"] .t12-unit-figure{--unit-scale:1.1}
+#t12 .t12-tree[data-troop="lancer"] .t12-unit-figure{--unit-scale:1.2}
 /* « Tout au max » de chaque encadré : même interrupteur que la page */
 #t12 .t12-forge-all{margin:0;border-color:rgba(240,170,120,.42);background:rgba(42,14,12,.72);box-shadow:inset 0 1px rgba(255,220,190,.12);color:#fff}
 #t12 .t12-forge-all .bulk-toggle{border-color:rgba(240,180,140,.5);background:linear-gradient(180deg,#6a3326,#4a2119);box-shadow:inset 0 2px 5px rgba(20,4,4,.45),0 1px rgba(255,220,190,.14)}
