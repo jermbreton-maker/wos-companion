@@ -151,10 +151,13 @@ function elbow(side,lit){
   return `<span class="t12-forge-elbow t12-forge-${side}${lit?' lit':''}" aria-hidden="true"><svg viewBox="0 0 60 100"><ellipse class="t12-socket" cx="${x}" cy="88" rx="30" ry="11"/><g fill="none">${strokes}</g></svg></span>`;
 }
 const num=n=>String(n).replace(/\B(?=(\d{3})+(?!\d))/g,' ');
-/* Éclairs autour du personnage débloqué (comme dans le jeu) : zigzags anguleux rouge-orange à cœur jaune,
-   avec une branche, tracés une fois (aléatoire figé) et qui crépitent chacun à son rythme. */
-const BOLTS=(()=>{
-  let seed=11;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+/* Éclairs autour du personnage débloqué (comme dans le jeu) : zigzags anguleux rouge-orange à cœur jaune, avec une branche.
+   Ils partent du bord de la silhouette de CHAQUE personnage (points calculés par tools/t12-unit-bolt-spots.py)
+   et filent vers l'extérieur ; tracés une fois (aléatoire figé), ils crépitent chacun à son rythme. */
+const BOLT_SPOTS={"infantry": {"ratio": 0.9893, "spots": [[0.051, 0.729, -125], [0.105, 0.454, -95], [0.179, 0.25, -62], [0.296, 0.071, -30], [0.5, 0.002, 0], [0.679, 0.111, 30], [0.735, 0.295, 62], [0.975, 0.461, 95], [0.968, 0.745, 125]]}, "lancer": {"ratio": 0.5804, "spots": [[0.132, 0.58, -125], [0.095, 0.441, -95], [0.04, 0.268, -62], [0.111, 0.0, -30], [0.529, 0.286, 0], [0.649, 0.296, 30], [0.735, 0.355, 62], [0.963, 0.441, 95], [0.938, 0.586, 125]]}, "marksman": {"ratio": 0.6214, "spots": [[0.164, 0.509, -125], [0.02, 0.438, -95], [0.014, 0.302, -62], [0.138, 0.17, -30], [0.368, 0.011, 0], [0.578, 0.193, 30], [0.678, 0.316, 62], [0.917, 0.448, 95], [0.945, 0.67, 125]]}};
+const BOLTS=Object.fromEntries(Object.entries(BOLT_SPOTS).map(([troop,{ratio,spots}],t)=>{
+  let seed=11+t*7;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+  const W=1000,H=Math.round(W/ratio),len=H*.26;
   const zigzag=(x,y,dir,len,steps)=>{
     /* segments de longueurs inégales, cassures franches à gauche ou à droite (jamais de retour en arrière) */
     const pts=[[x,y]];
@@ -165,13 +168,13 @@ const BOLTS=(()=>{
     return pts;
   };
   const d=pts=>'M'+pts.map(p=>p.map(v=>v.toFixed(1)).join(' ')).join('L');
-  const spots=[[-110,-50,-65,150],[115,-65,60,150],[-135,45,-105,130],[140,50,110,130],[-35,-120,-15,110],[45,-115,20,110],[-90,95,-150,100],[95,100,150,100]];
-  return `<svg class="t12-unit-bolts" viewBox="-240 -170 480 340" aria-hidden="true">${spots.map(([x,y,dir,len],k)=>{
-    const main=zigzag(x,y,dir,len,7+Math.floor(rnd()*4)),fork=main[3],branch=zigzag(fork[0],fork[1],dir+(rnd()<.5?-55:55),len*.4,4);
+  const paths=spots.map(([fx,fy,dir],k)=>{
+    const main=zigzag(fx*W,fy*H,dir,len*(.8+rnd()*.4),7+Math.floor(rnd()*4)),fork=main[3],branch=zigzag(fork[0],fork[1],dir+(rnd()<.5?-55:55),len*.4,4);
     const path=d(main)+d(branch);
     return `<g style="animation-delay:${(k*.41%2.4).toFixed(2)}s;animation-duration:${(1.7+rnd()*1.3).toFixed(2)}s"><path class="b-glow" d="${path}"/><path class="b-mid" d="${path}"/><path class="b-core" d="${path}"/></g>`;
-  }).join('')}</svg>`;
-})();
+  }).join('');
+  return [troop,`<svg class="t12-unit-bolts" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true">${paths}</svg>`];
+}));
 /* Cadenas du jeu (corps crème, anse épaisse, trou de serrure) ; ouvert = anse relevée d'un côté. */
 /* ouvert : l'anse pivote vers l'extérieur, la branche libre passe de l'autre côté, hors du corps */
 const LOCK=open=>{const sh=open?'M17 13V8A5 5 0 0 1 27 8V10':'M7 13V8A5 5 0 0 1 17 8V13';return `<svg class="t12-lock${open?' open':''}" viewBox="0 0 ${open?30:24} 28" aria-hidden="true"><path class="l-shackle-o" d="${sh}"/><path class="l-shackle" d="${sh}"/><rect class="l-body" x="3" y="12" width="18" height="14" rx="3.5"/><circle class="l-hole" cx="12" cy="18" r="2.1"/><rect class="l-hole" x="11" y="18.5" width="2" height="4.5" rx="1"/></svg>`};
@@ -206,7 +209,7 @@ function renderForge(){
     <label class="select-all-charms charm-bulk-select t12-forge-all"><input type="checkbox" data-t12-all="${field}" ${allMax[field]?'checked':''}><span class="bulk-toggle" aria-hidden="true"><i></i></span><span>Tout au max</span></label></div>`;
   host.innerHTML=`<div class="t12-forge">
     <div class="t12-forge-stage${showUnit?' unit':''}">${showUnit
-      ?`<span class="t12-unit-figure">${BOLTS}<img class="t12-forge-art t12-unit-art" src="${UNIT_ART(troop)}" alt="${T12.units[troop]}" draggable="false"></span>
+      ?`<span class="t12-unit-figure">${BOLTS[troop]}<img class="t12-forge-art t12-unit-art" src="${UNIT_ART(troop)}" alt="${T12.units[troop]}" draggable="false"></span>
         <div class="t12-unit-banner" role="status"><b>${T12.units[troop]} ${LOCK(true)}</b><small>L'arbre de recherche est accessible</small></div>`
       :`<img class="t12-forge-art" src="${RENDER(troop,id)}" alt="${nodeName(id,troop)}" draggable="false">`}
       ${showUnit?'':`<span class="t12-forge-unit">${LOCK(false)} ${T12.units[troop]} · ${done}/5 pièces</span>`}</div>

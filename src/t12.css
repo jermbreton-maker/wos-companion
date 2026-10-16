@@ -286,13 +286,13 @@
 #t12 .t12-forge-stage.unit::after{z-index:1;background:linear-gradient(180deg,transparent 66%,rgba(58,25,22,.75) 84%,#3a1916 96%)}
 #t12 .t12-forge-stage.unit::before{display:none}
 /* éclairs (captures du jeu) : rouge-orange, cœur jaune, lueur rouge ; visibles par éclats brefs */
-/* largeur relative au personnage (sans le plafond général max-width:100% des SVG) */
-#t12 .t12-unit-bolts{position:absolute;left:50%;top:50%;width:175%;max-width:none;height:auto;transform:translate(-50%,-50%);overflow:visible;pointer-events:none}
+/* éclairs calés sur l'image du personnage (points de départ sur sa silhouette), débordant librement autour */
+#t12 .t12-unit-bolts{position:absolute;inset:0;width:100%;max-width:none;height:100%;overflow:visible;pointer-events:none}
 #t12 .t12-unit-bolts g{opacity:0;animation:t12-bolt 2s steps(1,end) infinite}
-#t12 .t12-unit-bolts path{fill:none;stroke-linejoin:miter;stroke-miterlimit:8;stroke-linecap:round}
-#t12 .t12-unit-bolts .b-glow{stroke:#ff2a10;stroke-width:9;opacity:.55;filter:blur(4px)}
-#t12 .t12-unit-bolts .b-mid{stroke:#ff6a1a;stroke-width:4.5}
-#t12 .t12-unit-bolts .b-core{stroke:#ffe46a;stroke-width:1.6}
+#t12 .t12-unit-bolts path{fill:none;vector-effect:non-scaling-stroke;stroke-linejoin:miter;stroke-miterlimit:8;stroke-linecap:round}
+#t12 .t12-unit-bolts .b-glow{stroke:#ff2a10;stroke-width:7;opacity:.55;filter:blur(4px)}
+#t12 .t12-unit-bolts .b-mid{stroke:#ff6a1a;stroke-width:3.4}
+#t12 .t12-unit-bolts .b-core{stroke:#ffe46a;stroke-width:1.3}
 @keyframes t12-bolt{0%{opacity:0}8%{opacity:1}12%{opacity:.25}16%{opacity:1}24%,100%{opacity:0}}
 /* même hauteur pour les 3 personnages (référence : le Tireur), posés bas derrière les médaillons ; liseré rouge comme les éclairs */
 /* Personnage : posé par les pieds au même niveau pour les 3 troupes (enfoncé derrière les médaillons),
@@ -341,7 +341,7 @@
   #t12 .t12-unit-figure{--unit-top:58px;--unit-zoom:1.3;--unit-sink:.22}
   #t12 .t12-tree[data-troop="marksman"] .t12-unit-figure{--unit-sink:.3}
   /* pièce rouge : la rangée ne masque presque rien sur mobile, on recentre dans la zone sombre */
-  #t12 .t12-forge-stage:not(.unit){padding-bottom:10px}
+  #t12 .t12-forge-stage:not(.unit){padding:26px 0 0}
 }
 
 /* Coût total intégré à l'encadrement de la forge : même titre sur fond cuivré, sans second cadre */
@@ -388,6 +388,5 @@
 
 /* Tireur : le fusil élargit l'image vers la droite ; on centre sur le corps (≈ 37 % de la largeur), éclairs compris */
 #t12 .t12-tree[data-troop="marksman"] .t12-unit-figure{transform:translateX(-37%)}
-#t12 .t12-tree[data-troop="marksman"] .t12-unit-bolts{left:37%}
 /* Ordinateur : Infanterie et Lancier un peu moins enfoncés derrière les médaillons */
 @media(min-width:601px){#t12 .t12-tree:is([data-troop="infantry"],[data-troop="lancer"]) .t12-unit-figure{--unit-sink:.03}}
