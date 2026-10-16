@@ -229,12 +229,12 @@
 #t12 .t12-forge-gauge{position:absolute;left:-50%;top:-50%;width:200%;max-width:none;height:200%;overflow:visible;pointer-events:none}
 /* Jauge (capture du jeu) : cadre orange lumineux, cases sombres translucides, cases atteintes jaune vif ;
    la lueur grandit avec le nombre de cases allumées (--lava de 0 à 1). */
-#t12 .t12-gauge-frame{fill:url(#t12Frame);stroke:#ffd27a;stroke-width:1.5;stroke-linejoin:round;
-  filter:drop-shadow(0 0 calc(4px + var(--lava) * 5px) rgba(255,150,30,calc(.4 + var(--lava) * .3)))}
-#t12 .t12-gauge-cell{fill:#4a3008;fill-opacity:.85;stroke:#ffdc7a;stroke-width:2.2}
-#t12 .t12-gauge-cell.plan{fill:#a0721c}
-#t12 .t12-gauge-cell.on{fill:url(#t12Lava);fill-opacity:1;stroke:#fff3b0}
-#t12 .t12-gauge-lava{filter:drop-shadow(0 0 calc(var(--lava) * 4px) rgba(255,220,80,calc(var(--lava) * .6)))}
+#t12 .t12-gauge-frame{fill:url(#t12Frame);stroke:#e4bb7c;stroke-width:1.5;stroke-linejoin:round;
+  filter:drop-shadow(0 0 calc(4px + var(--lava) * 5px) rgba(205,135,70,calc(.4 + var(--lava) * .3)))}
+#t12 .t12-gauge-cell{fill:#3a2410;fill-opacity:.85;stroke:#d9ac6c;stroke-width:2.2}
+#t12 .t12-gauge-cell.plan{fill:#7d5428}
+#t12 .t12-gauge-cell.on{fill:url(#t12Lava);fill-opacity:1;stroke:#f6dcaa}
+#t12 .t12-gauge-lava{filter:drop-shadow(0 0 calc(var(--lava) * 4px) rgba(230,170,90,calc(var(--lava) * .6)))}
 #t12 .t12-gauge-cell.front{animation:t12-lava 1.6s ease-in-out infinite alternate}
 @keyframes t12-lava{to{fill-opacity:.8}}
 #t12 .t12-gauge-shine path{fill:url(#t12Shine);mix-blend-mode:screen;pointer-events:none}
@@ -243,8 +243,8 @@
 #t12 .t12-forge-piece.sel{--ring-d:#8a5410;--ring:#d8982a;--ring-hi:#ffcf5a;
   box-shadow:0 0 0 2px #ffd25a,0 0 12px 4px rgba(255,190,40,.8),0 0 30px 10px rgba(240,150,20,.45);animation:t12-halo 2.2s ease-in-out infinite alternate}
 @keyframes t12-halo{to{box-shadow:0 0 0 2px #ffdc6e,0 0 18px 7px rgba(255,200,50,.95),0 0 44px 16px rgba(245,155,25,.6)}}
-#t12 .t12-forge-gauge{filter:drop-shadow(0 0 4px rgba(255,190,40,.6)) drop-shadow(0 0 10px rgba(240,150,20,.32))}
-#t12 .t12-gauge-frame{stroke:#ffd25a;stroke-width:2.2}
+#t12 .t12-forge-gauge{filter:drop-shadow(0 0 4px rgba(214,150,80,.55)) drop-shadow(0 0 10px rgba(190,120,55,.3))}
+#t12 .t12-gauge-frame{stroke:#e4bb7c;stroke-width:2.2}
 @media (prefers-reduced-motion:reduce){#t12 .t12-gauge-cell.front,#t12 .t12-forge-piece.sel{animation:none}#t12 .t12-gauge-shine{display:none}}
 /* Panneau de la pièce : nom, niveau, bonus, ressources requises, réglage. */
 #t12 .t12-forge-panel{padding:12px 4% 16px}
