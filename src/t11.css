@@ -164,3 +164,12 @@
 /* bas de l'icône assombri derrière le niveau : fond la zone retouchée où était le badge du jeu */
 #t11Picker .t11-node-preview::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(180deg,transparent 45%,rgba(40,10,6,.55) 72%,rgba(30,6,4,.85) 100%)}
 #t11Picker .t11-node-preview .t11-badge{z-index:1}
+
+/* Liens comme dans le jeu : trait fin et plein, avec un halo doux qui éclaire le fond autour (plus d'effet « tuyau ») */
+#t11 .t11-link-off path{stroke:rgba(28,8,8,.42);stroke-width:3px}
+#t11 .t11-link-glow{filter:drop-shadow(0 0 10px var(--t11-glow)) drop-shadow(0 0 26px var(--t11-glow))}
+#t11 .t11-link-glow path{stroke:var(--t11-glow);stroke-width:9px;filter:blur(3px)}
+#t11 .t11-link-core path{stroke:color-mix(in srgb,var(--t11-core) 70%,var(--t11-light));stroke-width:3.4px}
+#t11 .t11-link-light path{stroke:var(--t11-light);stroke-width:1px;opacity:.55}
+/* lumière de la page visible dans l'encadrement : voile allégé */
+#t11 .t11-board{background:radial-gradient(ellipse 70% 55% at 50% 35%,rgba(150,62,52,.18),transparent 75%),rgba(42,14,12,.16)}
