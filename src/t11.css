@@ -149,8 +149,8 @@
 @media(max-width:600px){#t11 .t11-board{margin-inline:8px;padding-inline:6px}}
 /* Fond de l'arbre (comme dans le jeu) : lueur chaude au centre et quadrillage en losanges qui suit cette lumière
    (mélange doux, fondu vers les bords) ; un losange ≈ les deux tiers d'un petit médaillon */
-#t11 .t11-board{position:relative;isolation:isolate;background:radial-gradient(ellipse 70% 55% at 50% 35%,rgba(150,62,52,.42),transparent 75%),rgba(42,14,12,.45)}
-#t11 .t11-board::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='54' height='62'%3E%3Cpath d='M27.0 0L54 31.0L27.0 62L0 31.0Z' fill='none' stroke='white' stroke-width='1'/%3E%3C/svg%3E") 0 0/54px 62px;opacity:.22;mix-blend-mode:soft-light;
+#t11 .t11-board{position:relative;background:radial-gradient(ellipse 70% 55% at 50% 35%,rgba(150,62,52,.42),transparent 75%),rgba(42,14,12,.45)}
+#t11 .t11-board::before{content:"";position:absolute;inset:0;z-index:0;border-radius:inherit;pointer-events:none;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='54' height='62'%3E%3Cpath d='M27.0 0L54 31.0L27.0 62L0 31.0Z' fill='none' stroke='white' stroke-width='1'/%3E%3C/svg%3E") 0 0/54px 62px;opacity:.13;mix-blend-mode:soft-light;
   -webkit-mask:radial-gradient(ellipse 75% 65% at 50% 38%,#000 20%,transparent 85%);mask:radial-gradient(ellipse 75% 65% at 50% 38%,#000 20%,transparent 85%)}
 @media(max-width:600px){#t11 .t11-board::before{background-size:36px 41px}}
