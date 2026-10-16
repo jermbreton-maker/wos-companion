@@ -397,3 +397,5 @@
   #t12 .t12-tree[data-troop="infantry"] .t12-unit-figure{translate:0 -16px}
   #t12 .t12-tree[data-troop="lancer"] .t12-unit-figure{translate:0 -9px}
 }
+/* ordinateur : pièce d'armure un peu plus bas dans la zone sombre */
+@media(min-width:601px){#t12 .t12-forge-stage:not(.unit) .t12-forge-art{translate:0 18px}}
