@@ -235,7 +235,7 @@
 /* remplissage = fond rouge-orangé des médaillons terminés (capture du jeu) ; la dernière case remplie, plus jaune et lumineuse */
 #t12 .t12-gauge-cell.on{fill:url(#t12Lava);fill-opacity:1;stroke:#2a1208;stroke-width:1.2}
 #t12 .t12-gauge-cell.on.front{fill:url(#t12LavaFront)}
-#t12 .t12-gauge-lava{filter:drop-shadow(0 0 calc(var(--lava) * 4px) rgba(240,110,50,calc(var(--lava) * .55)))}
+#t12 .t12-gauge-lava{filter:drop-shadow(0 0 calc(var(--lava) * 4px) rgba(255,96,24,calc(var(--lava) * .7)))}
 #t12 .t12-gauge-cell.front{animation:t12-lava 1.6s ease-in-out infinite alternate}
 @keyframes t12-lava{to{fill-opacity:.8}}
 #t12 .t12-gauge-shine path{fill:url(#t12Shine);mix-blend-mode:screen;pointer-events:none}
