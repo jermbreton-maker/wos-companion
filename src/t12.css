@@ -385,3 +385,9 @@
 /* Ressources : une seule ligne quand le cadre de coût est assez large (8 cases), sinon disposition actuelle */
 #t12 .t12-result{container-type:inline-size}
 @container (min-width:844px){#t12 .t12-cost-grid{max-width:none;flex-wrap:nowrap}}
+
+/* Tireur : le fusil élargit l'image vers la droite ; on centre sur le corps (≈ 37 % de la largeur), éclairs compris */
+#t12 .t12-tree[data-troop="marksman"] .t12-unit-figure{transform:translateX(-37%)}
+#t12 .t12-tree[data-troop="marksman"] .t12-unit-bolts{left:37%}
+/* Ordinateur : Infanterie et Lancier un peu moins enfoncés derrière les médaillons */
+@media(min-width:601px){#t12 .t12-tree:is([data-troop="infantry"],[data-troop="lancer"]) .t12-unit-figure{--unit-sink:.03}}
