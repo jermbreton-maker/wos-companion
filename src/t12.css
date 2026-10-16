@@ -349,7 +349,3 @@
 
 /* pas d'ancrage de défilement automatique : la forge est redessinée à chaque réglage */
 #t12{overflow-anchor:none}
-
-/* Arbre aussi large que le cadre de coût (900 px max), proportions conservées */
-#t12 .t12-board{padding-inline:0}
-#t12 .t12-tree{width:100%}
