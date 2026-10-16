@@ -390,3 +390,10 @@
 #t12 .t12-tree[data-troop="marksman"] .t12-unit-figure{transform:translateX(-37%)}
 /* Ordinateur : Infanterie et Lancier un peu moins enfoncés derrière les médaillons */
 @media(min-width:601px){#t12 .t12-tree:is([data-troop="infantry"],[data-troop="lancer"]) .t12-unit-figure{--unit-sink:.03}}
+/* haut du casque aligné sur celui du Tireur (mesuré à l'écran) */
+#t12 .t12-tree[data-troop="infantry"] .t12-unit-figure{translate:0 -26px}
+#t12 .t12-tree[data-troop="lancer"] .t12-unit-figure{translate:0 -13px}
+@media(max-width:600px){
+  #t12 .t12-tree[data-troop="infantry"] .t12-unit-figure{translate:0 -16px}
+  #t12 .t12-tree[data-troop="lancer"] .t12-unit-figure{translate:0 -9px}
+}
