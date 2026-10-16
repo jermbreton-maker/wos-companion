@@ -361,3 +361,23 @@
   -webkit-mask:radial-gradient(ellipse 75% 65% at 50% 38%,#000 20%,transparent 85%);mask:radial-gradient(ellipse 75% 65% at 50% 38%,#000 20%,transparent 85%)}
 @media(max-width:600px){#t12 .t12-board:not(:has(.t12-forge-host))::before{background-size:36px 41px}}
 #t12 .t12-board>.t12-tree{z-index:1}  /* l'arbre au-dessus du quadrillage */
+
+/* Fenêtre de réglage de l'arbre : cadre à engrenages du jeu (3 morceaux : haut, milieu étirable, bas).
+   Le haut et le bas gardent leurs proportions (engrenages non déformés), le milieu suit la hauteur du contenu.
+   Repères en % de la largeur d'origine (1077 px) : haut 365, bas 110, intérieur 154 / 55 / 109. */
+#t12Picker{width:min(96vw,500px);overflow:visible;background:transparent;box-shadow:none;border-radius:0;container-type:inline-size;filter:drop-shadow(0 18px 30px rgba(0,0,0,.55))}
+#t12Picker form{z-index:0;padding:calc(14.3cqi + 16px) calc(5.1cqi + 12px) calc(10.1cqi + 18px)}
+#t12Picker form>*{min-width:0}
+#t12Picker form::before,#t12Picker form::after{content:"";position:absolute;pointer-events:none}
+/* panneau rose intérieur */
+#t12Picker form::after{z-index:-2;inset:calc(14.3cqi - 2px) calc(5.1cqi - 2px) calc(10.1cqi - 2px);border-radius:12px;background:#f6e2e2}
+/* cadre */
+#t12Picker form::before{z-index:-1;inset:0;
+  background:url(../assets/visuals/t12/picker/top.png) top center/100% auto no-repeat,
+    url(../assets/visuals/t12/picker/bottom.png) bottom center/100% auto no-repeat,
+    url(../assets/visuals/t12/picker/middle.png) 0 33.89cqi/100% calc(100% - 33.89cqi - 10.21cqi) no-repeat}
+#t12Picker .t12-close{top:calc(14.3cqi + 10px);right:calc(5.1cqi + 10px)}
+@media(max-width:600px){#t12Picker form{padding-inline:calc(5.1cqi + 8px)}
+  /* libellé au-dessus des boutons : la ligne complète ne tient pas dans le cadre */
+  #t12Picker .t12-stepper{grid-template-columns:1fr auto;row-gap:6px}
+  #t12Picker .t12-stepper small{grid-column:1/-1;text-align:center}}
