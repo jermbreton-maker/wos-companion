@@ -147,3 +147,7 @@
   #furnace .furnace-cost-grid{gap:14px 16px;max-width:calc(4 * 58px + 3 * 16px)}
   #furnace .furnace-cost-grid .upgrade-resource{width:58px}
 }
+
+/* Ressources : une seule ligne quand le cadre de coût est assez large (7 cases), sinon disposition 4 + 3 */
+#furnaceResult{container-type:inline-size}
+@container (min-width:740px){#furnace .furnace-cost-grid{max-width:none;flex-wrap:nowrap}}
