@@ -270,7 +270,7 @@ function renderResult(){
       for(let l=from+1;l<=to;l++){const k=1+l/node.max;steel+=cost.steel*1000*k;days+=cost.days*k}
     });
     tiles=[
-      ['fc','Cristaux de feu','assets/visuals/furnace-materials/fire-crystal.png',fmt(Math.round(steel*.004))],
+      ['shard','Fragment de Cristal Ardent','assets/visuals/t11/fire-crystal-shard.png?v=hd',fmt(Math.round(steel*.004))],
       ['rfc','Cristaux raffinés','assets/visuals/furnace-materials/refined-fire-crystal.png',fmt(Math.round(steel*.0005))],
       ['steel','Acier','assets/visuals/t11/steel.png',fmt(Math.round(steel))],
       ['meat','Viande','assets/visuals/furnace-materials/meat.png',fmt(Math.round(steel*46))],
