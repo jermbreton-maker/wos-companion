@@ -158,6 +158,8 @@ function syncPicker(){
     box.querySelector('[data-t11-step="1"]').disabled=value>=node.max;
     box.querySelector('[data-t11-max]').disabled=value>=node.max;
   });
+  /* niveau affiché sur l'icône, comme dans l'arbre : il masque aussi la zone retouchée où était le badge du jeu */
+  const pb=document.getElementById('t11PickerBadge');if(pb)pb.textContent=badge(draft.from,node.max);
   /* Prérequis à remplir (niveaux actuels) pour atteindre l'objectif choisi. */
   const levels=t11State.levels[t11State.troop],needs=Object.entries(requirementsUpTo(node.id,t11State.troop,draft.to));
   const list=document.getElementById('t11PickerReqs');
@@ -173,7 +175,7 @@ function openPicker(id){
   t11State.draft={...t11State.levels[t11State.troop][id]};
   document.getElementById('t11PickerTroop').textContent=T11.units[t11State.troop].toUpperCase();
   document.getElementById('t11PickerTitle').textContent=nodeName(node,t11State.troop);
-  document.getElementById('t11PickerNode').innerHTML=`<span class="t11-node t11-node-preview">${iconImg(id,t11State.troop)}</span>`;
+  document.getElementById('t11PickerNode').innerHTML=`<span class="t11-node t11-node-preview">${iconImg(id,t11State.troop)}<span class="t11-badge" id="t11PickerBadge"></span></span>`;
   syncPicker();
   lockLevelPickerBackground();picker.showModal();  /* page figée derrière la fenêtre (comme Chaudière, Équipement, Talismans) */
 }

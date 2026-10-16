@@ -312,6 +312,8 @@ function syncPicker(){
     box.querySelectorAll('[data-t12-step]').forEach(b=>{const step=+b.dataset.t12Step;b.disabled=step<0?value<=min:value>=max});
     box.querySelector('[data-t12-max]').disabled=value>=max;
   });
+  /* niveau affiché sur l'icône, comme dans l'arbre : il masque aussi la zone retouchée où était le badge du jeu */
+  const pb=document.getElementById('t12PickerBadge');if(pb)pb.textContent=badge(draft.from,max);
   const needs=Object.entries(requirementsUpTo(id,draft.to)),list=document.getElementById('t12PickerReqs');
   list.hidden=!needs.length;
   list.innerHTML=needs.length?`<small>PRÉREQUIS${draft.to>1?` JUSQU'AU NIVEAU ${draft.to}`:''}</small>`+needs.map(([other,min])=>{
@@ -324,7 +326,7 @@ function openPicker(id){
   state.editing=id;state.draft={...state.levels[state.troop][id]};
   document.getElementById('t12PickerTroop').textContent=T12.units[state.troop].toUpperCase();
   document.getElementById('t12PickerTitle').textContent=nodeName(id,state.troop);
-  document.getElementById('t12PickerNode').innerHTML=`<span class="t12-node t12-node-preview${id==='elite'?' t12-big':''}" data-troop="${state.troop}">${nodeArt(node,state.troop)}</span>`;
+  document.getElementById('t12PickerNode').innerHTML=`<span class="t12-node t12-node-preview${id==='elite'?' t12-big':''}" data-troop="${state.troop}">${nodeArt(node,state.troop)}<span class="t12-badge" id="t12PickerBadge"></span></span>`;
   syncPicker();lockLevelPickerBackground();picker.showModal();  /* page figée derrière la fenêtre (comme Chaudière, Équipement, Talismans) */
 }
 picker.querySelectorAll('[data-t12-field]').forEach(box=>{

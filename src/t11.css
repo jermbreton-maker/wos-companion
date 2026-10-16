@@ -158,3 +158,9 @@
 /* Ressources : une seule ligne quand le cadre de coût est assez large (7 cases), sinon disposition actuelle */
 #t11 .t11-result{container-type:inline-size}
 @container (min-width:740px){#t11 .t11-cost-grid{max-width:none;flex-wrap:nowrap}}
+/* niveau sur l'icône de la fenêtre de réglage */
+#t11Picker .t11-node-preview{position:relative}
+#t11Picker .t11-node-preview .t11-badge{position:absolute;right:6%;bottom:4%;font-size:15px;line-height:1;color:#fff;-webkit-text-stroke:3px #2a1410;paint-order:stroke fill}
+/* bas de l'icône assombri derrière le niveau : fond la zone retouchée où était le badge du jeu */
+#t11Picker .t11-node-preview::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(180deg,transparent 45%,rgba(40,10,6,.55) 72%,rgba(30,6,4,.85) 100%)}
+#t11Picker .t11-node-preview .t11-badge{z-index:1}

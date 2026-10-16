@@ -399,3 +399,8 @@
 }
 /* ordinateur : pièce d'armure un peu plus bas dans la zone sombre */
 @media(min-width:601px){#t12 .t12-forge-stage:not(.unit) .t12-forge-art{translate:0 18px}}
+/* niveau sur l'icône de la fenêtre de réglage */
+#t12Picker .t12-node-preview .t12-badge{position:absolute;z-index:2;left:50%;bottom:16%;transform:translateX(-50%);font-size:14px;line-height:1;color:#fff;white-space:nowrap;-webkit-text-stroke:3px #2a1410;paint-order:stroke fill}
+/* bas de l'icône assombri derrière le niveau : fond la zone retouchée où était le badge du jeu */
+#t12Picker .t12-node-preview .t12-ico{-webkit-mask:none;mask:none}
+#t12Picker .t12-node-preview::before{content:"";position:absolute;inset:14.5%;z-index:1;border-radius:50%;pointer-events:none;background:linear-gradient(180deg,transparent 45%,rgba(20,8,6,.55) 72%,rgba(15,5,4,.85) 100%)}
