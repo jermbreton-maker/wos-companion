@@ -143,3 +143,7 @@
 #t11 .t11-cost-coal .t11-cost-tile img{width:124.5%!important;height:124.5%!important;max-width:none;transform:translate(-2.1%,-1.4%)}
 #t11 .t11-cost-iron .t11-cost-tile img{width:114.3%!important;height:114.3%!important;max-width:none;transform:translate(-3.4%,0.8%)}
 #t11 .t11-cost-time .t11-cost-tile img{width:112.1%!important;height:112.1%!important;max-width:none;transform:translate(-0.8%,0.2%)}
+
+/* Encadrement de l'arbre, aussi large que le cadre de coût (l'arbre garde sa taille, centré) */
+#t11 .t11-board{max-width:900px;box-sizing:border-box;border:2px solid rgba(240,170,120,.42);border-radius:26px;background:rgba(42,14,12,.45);box-shadow:inset 0 1px rgba(255,220,190,.14),0 14px 35px rgba(20,4,4,.4)}
+@media(max-width:600px){#t11 .t11-board{margin-inline:8px;padding-inline:6px}}
