@@ -205,7 +205,6 @@
 #t12 .t12-forge-piece::before{content:"";position:absolute;inset:0;border-radius:50%;pointer-events:none;
   background:radial-gradient(circle at 30.0% 12.5%,#e2a070 0 2%,#7a3e1c 3%,transparent 3.6%),radial-gradient(circle at 70.0% 12.5%,#e2a070 0 2%,#7a3e1c 3%,transparent 3.6%),radial-gradient(circle at 70.0% 87.5%,#e2a070 0 2%,#7a3e1c 3%,transparent 3.6%),radial-gradient(circle at 30.0% 87.5%,#e2a070 0 2%,#7a3e1c 3%,transparent 3.6%),repeating-conic-gradient(from 44deg,#2a1008 0 2.5deg,transparent 2.5deg 90deg);
   -webkit-mask:radial-gradient(circle closest-side,transparent 76%,#000 77% 99%,transparent 100%);mask:radial-gradient(circle closest-side,transparent 76%,#000 77% 99%,transparent 100%)}
-#t12 .t12-forge-piece.sel{--ring-d:#6e3818;--ring:#b86a38;--ring-hi:#e09a62}
 /* simple ombre intérieure au bord de la vitre (plus de reflet blanc : il voilait l'icône) */
 #t12 .t12-forge-disc::after{content:"";position:absolute;inset:0;border-radius:50%;pointer-events:none;background:radial-gradient(circle closest-side,transparent 86%,rgba(0,0,0,.4) 100%)}
 #t12 .t12-forge-piece:hover{transform:scale(1.05)}
@@ -229,7 +228,7 @@
 #t12 .t12-forge-gauge{position:absolute;left:-50%;top:-50%;width:200%;max-width:none;height:200%;overflow:visible;pointer-events:none}
 /* Jauge (capture du jeu) : cadre orange lumineux, cases sombres translucides, cases atteintes jaune vif ;
    la lueur grandit avec le nombre de cases allumées (--lava de 0 à 1). */
-#t12 .t12-gauge-frame{fill:url(#t12Frame);stroke:#e4bb7c;stroke-width:1.5;stroke-linejoin:round;
+#t12 .t12-gauge-frame{fill:url(#t12Frame);stroke:#d8955e;stroke-width:1.5;stroke-linejoin:round;
   filter:drop-shadow(0 0 calc(4px + var(--lava) * 5px) rgba(205,135,70,calc(.4 + var(--lava) * .3)))}
 #t12 .t12-gauge-cell{fill:#3a2410;fill-opacity:.85;stroke:#d9ac6c;stroke-width:2.2}
 #t12 .t12-gauge-cell.plan{fill:#7d5428}
@@ -240,11 +239,11 @@
 #t12 .t12-gauge-shine path{fill:url(#t12Shine);mix-blend-mode:screen;pointer-events:none}
 /* Pièce en cours : vraie surbrillance dorée (anneau doré, halo or qui respire, jauge cerclée d'or) ;
    les autres médaillons sont légèrement atténués pour la faire ressortir. */
-#t12 .t12-forge-piece.sel{--ring-d:#8a5410;--ring:#d8982a;--ring-hi:#ffcf5a;
+#t12 .t12-forge-piece.sel{
   box-shadow:0 0 0 2px #ffd25a,0 0 12px 4px rgba(255,190,40,.8),0 0 30px 10px rgba(240,150,20,.45);animation:t12-halo 2.2s ease-in-out infinite alternate}
 @keyframes t12-halo{to{box-shadow:0 0 0 2px #ffdc6e,0 0 18px 7px rgba(255,200,50,.95),0 0 44px 16px rgba(245,155,25,.6)}}
 #t12 .t12-forge-gauge{filter:drop-shadow(0 0 4px rgba(214,150,80,.55)) drop-shadow(0 0 10px rgba(190,120,55,.3))}
-#t12 .t12-gauge-frame{stroke:#e4bb7c;stroke-width:2.2}
+#t12 .t12-gauge-frame{stroke:#d8955e;stroke-width:2.2}  /* liseré clair des médaillons */
 @media (prefers-reduced-motion:reduce){#t12 .t12-gauge-cell.front,#t12 .t12-forge-piece.sel{animation:none}#t12 .t12-gauge-shine{display:none}}
 /* Panneau de la pièce : nom, niveau, bonus, ressources requises, réglage. */
 #t12 .t12-forge-panel{padding:12px 4% 16px}
