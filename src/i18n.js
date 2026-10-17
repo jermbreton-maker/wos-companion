@@ -81,7 +81,7 @@
     const raw=node.nodeValue,core=raw.trim();
     if(!core)return;
     const done=translate(core);
-    if(done!==core)node.nodeValue=raw.replace(core,done);
+    if(done!==core){node.nodeValue=raw.replace(core,done);fitLater(parent)}
   }
   function element(el){
     for(const name of ATTRS){
@@ -97,6 +97,38 @@
     let node;
     while((node=walker.nextNode())){if(node.nodeType===3)textNode(node);else if(!SKIP.has(node.nodeName))element(node)}
   }
+  /* Texte traduit plus long que la zone prévue : police réduite au plus juste (par pas de 3 %, jusqu'à 72 %)
+     pour qu'il tienne sans déborder. Seuls les éléments traduits sont concernés : le français ne bouge jamais. */
+  const fitted=new Set(),pending=new Set();let fitTimer=0;
+  function fitLater(el){if(el&&el.nodeType===1){pending.add(el);clearTimeout(fitTimer);fitTimer=setTimeout(fitPending,60)}}
+  /* Dans une zone qui défile (menu du haut en mobile), dépasser est voulu : on n'y touche pas. */
+  function inScroller(el){
+    for(let a=el.parentElement;a&&a!==document.body;a=a.parentElement){const o=getComputedStyle(a).overflowX;if((o==='auto'||o==='scroll')&&a.scrollWidth>a.clientWidth+1)return true}
+    return false;
+  }
+  function overflows(el){
+    const box=el.getBoundingClientRect();
+    if(!box.width||inScroller(el))return false;
+    if(el.scrollWidth>el.clientWidth+1&&getComputedStyle(el).overflowX!=='visible')return true;
+    const holder=el.parentElement;if(!holder)return false;
+    const h=holder.getBoundingClientRect(),cs=getComputedStyle(holder);
+    return box.right>h.right-parseFloat(cs.paddingRight)+1||box.left<h.left+parseFloat(cs.paddingLeft)-1||el.scrollWidth>Math.ceil(box.width)+1;
+  }
+  function fit(el){
+    if(!el.isConnected)return;
+    if(el.dataset.i18nFont){el.style.fontSize='';delete el.dataset.i18nFont}
+    if(!overflows(el))return;
+    const base=parseFloat(getComputedStyle(el).fontSize);
+    for(let k=.97;k>=.72;k-=.03){
+      el.style.fontSize=(base*k).toFixed(2)+'px';el.dataset.i18nFont='1';
+      if(!overflows(el))break;
+    }
+    fitted.add(el);
+  }
+  function fitPending(){const list=[...pending];pending.clear();list.forEach(el=>{fitted.add(el);fit(el)})}
+  const refitAll=()=>{fitted.forEach(el=>{if(el.isConnected)pending.add(el);else fitted.delete(el)});clearTimeout(fitTimer);fitTimer=setTimeout(fitPending,80)};
+  addEventListener('resize',refitAll);
+  document.addEventListener('click',()=>setTimeout(refitAll,120),true);
   walk(document.body);
   new MutationObserver(records=>{
     for(const r of records){
