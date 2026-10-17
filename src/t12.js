@@ -83,6 +83,24 @@ const nodeArt=(node,troop)=>`<img class="t12-ico" src="${ICON(troop,iconId(node.
 let usingKeyboard=false;
 addEventListener('keydown',()=>{usingKeyboard=true},true);
 addEventListener('pointerdown',()=>{usingKeyboard=false},true);
+/* Chemins de l'arbre : tracés à angles droits (M x y, V, H) dont chaque coin est arrondi, comme dans le jeu. */
+function roundCorners(d,r=14){
+  const pts=[];let x=0,y=0;
+  d.match(/[MVH][^MVH]*/g).forEach(seg=>{
+    const c=seg[0],n=seg.slice(1).trim().split(/[\s,]+/).map(Number);
+    if(c==='M'){x=n[0];y=n[1]}else if(c==='V')y=n[0];else x=n[0];
+    pts.push([x,y]);
+  });
+  let out=`M${pts[0][0]} ${pts[0][1]}`;
+  for(let i=1;i<pts.length;i++){
+    const [px,py]=pts[i-1],[cx,cy]=pts[i],next=pts[i+1];
+    if(!next){out+=`L${cx} ${cy}`;break}
+    const lin=Math.min(r,Math.hypot(cx-px,cy-py)/2),lout=Math.min(r,Math.hypot(next[0]-cx,next[1]-cy)/2);
+    const ax=cx-Math.sign(cx-px)*lin,ay=cy-Math.sign(cy-py)*lin,bx=cx+Math.sign(next[0]-cx)*lout,by=cy+Math.sign(next[1]-cy)*lout;
+    out+=`L${ax} ${ay}Q${cx} ${cy} ${bx} ${by}`;
+  }
+  return out;
+}
 function renderTree(){
   /* le contenu est redessiné à chaque clic : on garde la position de défilement (sinon saut de page sur mobile) */
   /* focus rendu seulement au clavier : au toucher (iPhone), le focus reste sur un ancien médaillon et le lui rendre faisait sauter la page */
@@ -112,7 +130,7 @@ function drawTree(){
   host.style.aspectRatio=`1000/${layout.h}`;
   host.dataset.troop=troop;host.dataset.view=state.view;
   const lit=link=>link.to==='unit'?unitUnlocked(levels):isUnlocked(link.to,levels);
-  const paths=list=>list.map(link=>`<path d="${link.d}"/>`).join('');
+  const paths=list=>list.map(link=>`<path d="${roundCorners(link.d)}"/>`).join('');
   const on=layout.links.filter(lit);
   const svg=`<svg class="t12-links" viewBox="0 0 1000 ${layout.h}" preserveAspectRatio="none" aria-hidden="true">
     <g class="t12-link-off">${paths(layout.links)}</g><g class="t12-link-glow">${paths(on)}</g><g class="t12-link-core">${paths(on)}</g><g class="t12-link-light">${paths(on)}</g></svg>`;

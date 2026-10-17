@@ -413,3 +413,9 @@
 #t12 .t12-link-light path{stroke:#fff6c8;stroke-width:1.6px;opacity:.9}
 /* chemins éteints de la même épaisseur que les chemins allumés */
 #t12 .t12-link-off path{stroke-width:4px}
+/* chemins encore affinés (gros plan du jeu), coins arrondis : jointures rondes */
+#t12 .t12-links path{stroke-linejoin:round;stroke-linecap:round}
+#t12 .t12-link-off path{stroke-width:3px}
+#t12 .t12-link-glow path{stroke-width:7px}
+#t12 .t12-link-core path{stroke-width:3px}
+#t12 .t12-link-light path{stroke-width:1.2px}
