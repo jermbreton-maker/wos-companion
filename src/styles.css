@@ -166,3 +166,6 @@ dialog#furnacePicker::backdrop,dialog#levelPicker::backdrop,dialog#gearDialog::b
 
 /* Sélecteur de langue : plus discret que les boutons du menu, mais lisible */
 .language select{font-size:13px;padding:5px 8px;border-radius:9px}
+
+/* Pas de zoom au double appui (sélection rapide des niveaux) ; le zoom à deux doigts reste possible. */
+html{touch-action:manipulation}
