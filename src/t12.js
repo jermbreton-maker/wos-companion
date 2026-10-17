@@ -146,7 +146,7 @@ function drawTree(){
   const allD=layout.links.map(l=>l.d),paths=list=>list.map(link=>`<path d="${roundCorners(link.d,allD)}"/>`).join('');
   const on=layout.links.filter(lit);
   const svg=`<svg class="t12-links" viewBox="0 0 1000 ${layout.h}" preserveAspectRatio="none" aria-hidden="true">
-    <g class="t12-link-off">${paths(layout.links)}</g><g class="t12-link-glow">${paths(on)}</g><g class="t12-link-core">${paths(on)}</g><g class="t12-link-light">${paths(on)}</g></svg>`;
+    <g class="t12-link-off">${paths(layout.links)}</g><g class="t12-link-glow">${paths(on)}</g><g class="t12-link-core">${paths(on)}</g><g class="t12-link-edge t12-edge-a">${paths(on)}</g><g class="t12-link-edge t12-edge-b">${paths(on)}</g><g class="t12-link-light">${paths(on)}</g></svg>`;
   const nodes=layout.nodes.map(node=>{
     const name=nodeName(node.id,troop),pos=`left:${node.x/10}%;top:${node.y/layout.h*100}%;width:${node.size/10}%`;
     const label=node.label?`<span class="t12-label" style="left:${node.x/10}%;top:${(node.y+node.size/2+16)/layout.h*100}%">${name}</span>`:'';

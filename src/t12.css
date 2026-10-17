@@ -433,3 +433,16 @@
 #t12 .t12-link-core path{stroke:#ffcc33;stroke-width:3px}
 #t12 .t12-link-light path{stroke:#ff9a2a;stroke-width:2px;opacity:.55;stroke-dasharray:3 90;animation:t12-lava-flow 4.5s linear infinite}
 @keyframes t12-lava-flow{to{stroke-dashoffset:-93}}
+/* Lave (gros plan du jeu) : jaune vif, filaments irréguliers orangés le long des bords (alternés haut/bas, gauche/droite)
+   et filaments plus clairs au centre, fins, de longueurs variées, qui glissent lentement à des vitesses différentes */
+#t12 .t12-link-core path{stroke:#ffcf2e;stroke-width:3.4px}
+#t12 .t12-link-edge path{stroke:#ff8a1a;stroke-width:1px;opacity:.8;fill:none}
+#t12 .t12-edge-a{transform:translate(-2px,-2px)}
+#t12 .t12-edge-b{transform:translate(2px,2px)}
+#t12 .t12-edge-a path{stroke-dasharray:7 13 22 9 3 31 14 6 5 24;animation:t12-lava-flow-a 7s linear infinite}
+#t12 .t12-edge-b path{stroke-dasharray:11 27 4 8 18 15 6 34 9 12;animation:t12-lava-flow-b 9s linear infinite}
+#t12 .t12-link-light path{stroke:#fff3a8;stroke-width:1px;opacity:.85;stroke-dasharray:16 9 5 21 28 7 3 14;animation:t12-lava-flow 6s linear infinite}
+@keyframes t12-lava-flow-a{to{stroke-dashoffset:-134}}
+@keyframes t12-lava-flow-b{to{stroke-dashoffset:-144}}
+@keyframes t12-lava-flow{to{stroke-dashoffset:-103}}
+@media (prefers-reduced-motion:reduce){#t12 .t12-link-edge path,#t12 .t12-link-light path{animation:none}}
