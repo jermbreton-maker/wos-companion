@@ -411,3 +411,5 @@
 #t12 .t12-link-glow path{stroke:rgba(255,190,60,.7);stroke-width:9px;filter:blur(3px)}
 #t12 .t12-link-core path{stroke:#ffd257;stroke-width:4px}
 #t12 .t12-link-light path{stroke:#fff6c8;stroke-width:1.6px;opacity:.9}
+/* chemins éteints de la même épaisseur que les chemins allumés */
+#t12 .t12-link-off path{stroke-width:4px}
