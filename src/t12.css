@@ -200,7 +200,7 @@
 #t12 .t12-forge-outlet{margin-left:-1px}
 /* Médaillon en hublot (capture du jeu) : large anneau de cuivre en 4 segments, 4 rivets, liseré clair autour de la vitre. */
 #t12 .t12-forge-piece{position:relative;z-index:2;flex:none;width:min(13.2cqi,68px);aspect-ratio:1;padding:0;border:0;border-radius:50%;cursor:pointer;--ring-d:#5e2e14;--ring:#a0592e;--ring-hi:#c87a46;
-  background:radial-gradient(circle closest-side,transparent 0 69%,#140806 70% 71.5%,#d8955e 72.5% 74%,#2a1008 75% 76%,var(--ring) 78%,var(--ring-hi) 86%,var(--ring) 94%,var(--ring-d) 98.5%,transparent 100%);
+  background:radial-gradient(circle closest-side,transparent 0 69%,#140806 70% 71.5%,var(--ring-line,#d8955e) 72.5% 74%,#2a1008 75% 76%,var(--ring) 78%,var(--ring-hi) 86%,var(--ring) 94%,var(--ring-d) 98.5%,transparent 100%);
   box-shadow:0 3px 7px rgba(10,2,2,.6);transition:transform .15s}
 #t12 .t12-forge-piece::before{content:"";position:absolute;inset:0;border-radius:50%;pointer-events:none;
   background:radial-gradient(circle at 30.0% 12.5%,#e2a070 0 2%,#7a3e1c 3%,transparent 3.6%),radial-gradient(circle at 70.0% 12.5%,#e2a070 0 2%,#7a3e1c 3%,transparent 3.6%),radial-gradient(circle at 70.0% 87.5%,#e2a070 0 2%,#7a3e1c 3%,transparent 3.6%),radial-gradient(circle at 30.0% 87.5%,#e2a070 0 2%,#7a3e1c 3%,transparent 3.6%),repeating-conic-gradient(from 44deg,#2a1008 0 2.5deg,transparent 2.5deg 90deg);
@@ -210,6 +210,8 @@
 #t12 .t12-forge-piece:hover{transform:scale(1.05)}
 #t12 .t12-forge-piece:focus-visible{outline:3px solid #fff;outline-offset:3px}
 #t12 .t12-forge-piece.sel{width:min(20.5cqi,106px)}
+/* médaillons non sélectionnés : bord cuivré un peu plus sombre que celui de la pièce choisie */
+#t12 .t12-forge-piece:not(.sel){--ring-d:#4c2510;--ring:#874a26;--ring-hi:#a8663a;--ring-line:#b87d4f}
 /* Fond du médaillon : icône détourée sur bleu nuit tant que la pièce n'est pas terminée (tools/cutout-t12-piece-icons.py),
    icône d'origine du jeu (fond rouge et jaune) une fois terminée. */
 #t12 .t12-forge-disc{position:absolute;inset:15%;overflow:hidden;border-radius:50%;background:radial-gradient(circle at 50% 40%,#2e3358,#171a33 72%,#10122a)}
