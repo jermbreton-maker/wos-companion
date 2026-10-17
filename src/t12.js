@@ -83,21 +83,34 @@ const nodeArt=(node,troop)=>`<img class="t12-ico" src="${ICON(troop,iconId(node.
 let usingKeyboard=false;
 addEventListener('keydown',()=>{usingKeyboard=true},true);
 addEventListener('pointerdown',()=>{usingKeyboard=false},true);
-/* Chemins de l'arbre : tracés à angles droits (M x y, V, H) dont chaque coin est arrondi, comme dans le jeu. */
-function roundCorners(d,r=14){
+/* Chemins de l'arbre : tracés à angles droits (M x y, V, H). Seuls les vrais coins sont légèrement arrondis ;
+   un point où passe un autre chemin (jonction en T) reste à angle droit, sans décroché. */
+function cornerPoints(d){
   const pts=[];let x=0,y=0;
   d.match(/[MVH][^MVH]*/g).forEach(seg=>{
     const c=seg[0],n=seg.slice(1).trim().split(/[\s,]+/).map(Number);
     if(c==='M'){x=n[0];y=n[1]}else if(c==='V')y=n[0];else x=n[0];
     pts.push([x,y]);
   });
+  return pts;
+}
+/* directions (haut/bas/gauche/droite) qui partent d'un point, tous chemins confondus */
+function directionsAt([x,y],segs){
+  const dirs=new Set();
+  segs.forEach(([[ax,ay],[bx,by]])=>{
+    if(ax===bx&&x===ax&&y>=Math.min(ay,by)&&y<=Math.max(ay,by)){if(y>Math.min(ay,by))dirs.add('u');if(y<Math.max(ay,by))dirs.add('d')}
+    if(ay===by&&y===ay&&x>=Math.min(ax,bx)&&x<=Math.max(ax,bx)){if(x>Math.min(ax,bx))dirs.add('l');if(x<Math.max(ax,bx))dirs.add('r')}
+  });
+  return dirs.size;
+}
+function roundCorners(d,all,r=7){
+  const pts=cornerPoints(d),segs=all.flatMap(o=>{const p=cornerPoints(o);return p.slice(1).map((q,i)=>[p[i],q])});
   let out=`M${pts[0][0]} ${pts[0][1]}`;
   for(let i=1;i<pts.length;i++){
     const [px,py]=pts[i-1],[cx,cy]=pts[i],next=pts[i+1];
-    if(!next){out+=`L${cx} ${cy}`;break}
+    if(!next||directionsAt([cx,cy],segs)>=3){out+=`L${cx} ${cy}`;continue}  /* jonction en T : angle droit net */
     const lin=Math.min(r,Math.hypot(cx-px,cy-py)/2),lout=Math.min(r,Math.hypot(next[0]-cx,next[1]-cy)/2);
-    const ax=cx-Math.sign(cx-px)*lin,ay=cy-Math.sign(cy-py)*lin,bx=cx+Math.sign(next[0]-cx)*lout,by=cy+Math.sign(next[1]-cy)*lout;
-    out+=`L${ax} ${ay}Q${cx} ${cy} ${bx} ${by}`;
+    out+=`L${cx-Math.sign(cx-px)*lin} ${cy-Math.sign(cy-py)*lin}Q${cx} ${cy} ${cx+Math.sign(next[0]-cx)*lout} ${cy+Math.sign(next[1]-cy)*lout}`;
   }
   return out;
 }
@@ -130,7 +143,7 @@ function drawTree(){
   host.style.aspectRatio=`1000/${layout.h}`;
   host.dataset.troop=troop;host.dataset.view=state.view;
   const lit=link=>link.to==='unit'?unitUnlocked(levels):isUnlocked(link.to,levels);
-  const paths=list=>list.map(link=>`<path d="${roundCorners(link.d)}"/>`).join('');
+  const allD=layout.links.map(l=>l.d),paths=list=>list.map(link=>`<path d="${roundCorners(link.d,allD)}"/>`).join('');
   const on=layout.links.filter(lit);
   const svg=`<svg class="t12-links" viewBox="0 0 1000 ${layout.h}" preserveAspectRatio="none" aria-hidden="true">
     <g class="t12-link-off">${paths(layout.links)}</g><g class="t12-link-glow">${paths(on)}</g><g class="t12-link-core">${paths(on)}</g><g class="t12-link-light">${paths(on)}</g></svg>`;
