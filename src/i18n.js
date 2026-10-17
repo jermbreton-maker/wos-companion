@@ -21,9 +21,15 @@
     let touched=false;
     ['wheel','touchstart','keydown'].forEach(type=>addEventListener(type,()=>{touched=true},{once:true,passive:true}));
     const toY=()=>{if(!touched&&back.y)scrollTo({top:back.y,behavior:'instant'})};
+    /* bascule immédiate sur la page d'origine (le HTML est déjà là), sans la remontée en haut de la navigation */
+    const view=back.view&&document.getElementById(back.view)?.classList.contains('view')?back.view:null;
+    if(view)document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===view));
+    const reveal=()=>document.documentElement.classList.remove('lang-returning');
+    setTimeout(reveal,1500);                                     // filet de sécurité
     document.addEventListener('DOMContentLoaded',()=>{
-      if(back.view&&back.view!=='home'&&typeof window.go==='function'&&document.getElementById(back.view))window.go(back.view);
-      requestAnimationFrame(toY);
+      if(view){document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===view));if(typeof window.syncNav==='function')window.syncNav(view)}
+      toY();
+      requestAnimationFrame(()=>{toY();reveal()});
     },{once:true});
     addEventListener('load',()=>{toY();[150,400,800].forEach(ms=>setTimeout(toY,ms))},{once:true});
   }

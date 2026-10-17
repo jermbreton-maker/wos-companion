@@ -182,3 +182,6 @@ html{touch-action:manipulation}
 .lang-menu .lang-list li b{min-width:22px;font-weight:inherit;font-size:12px;color:#74d7ff}
 .lang-menu .lang-list li:hover,.lang-menu .lang-list li:focus-visible{background:#173757;color:#fff}
 .lang-menu .lang-list li[aria-selected="true"]{color:#fff;background:rgba(116,215,255,.2);box-shadow:inset 0 0 0 1px rgba(116,215,255,.5)}
+
+/* Retour après changement de langue : la page d'accueil ne s'affiche pas avant la page d'origine (src/i18n.js) */
+html.lang-returning main{visibility:hidden}
