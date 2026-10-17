@@ -211,7 +211,8 @@
 #t12 .t12-forge-piece:focus-visible{outline:3px solid #fff;outline-offset:3px}
 #t12 .t12-forge-piece.sel{width:min(20.5cqi,106px)}
 /* médaillons non sélectionnés : bord cuivré un peu plus sombre que celui de la pièce choisie */
-#t12 .t12-forge-piece:not(.sel){--ring-d:#4c2510;--ring:#874a26;--ring-hi:#a8663a;--ring-line:#b87d4f}
+#t12 .t12-forge-piece:not(.sel){--ring-d:#3d1d0c;--ring:#6e3c1f;--ring-hi:#8a5430;--ring-line:#9a6842}
+#t12 .t12-forge-piece:not(.sel)::before{filter:brightness(.78)}
 /* Fond du médaillon : icône détourée sur bleu nuit tant que la pièce n'est pas terminée (tools/cutout-t12-piece-icons.py),
    icône d'origine du jeu (fond rouge et jaune) une fois terminée. */
 #t12 .t12-forge-disc{position:absolute;inset:15%;overflow:hidden;border-radius:50%;background:radial-gradient(circle at 50% 40%,#2e3358,#171a33 72%,#10122a)}
