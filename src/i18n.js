@@ -10,8 +10,23 @@
     if(next===lang)return;
     if(select)select.value=next;
     try{window.WOSSave?.flush()}catch(error){}
+    /* on revient ensuite sur la même page, à la même hauteur */
+    try{sessionStorage.setItem('wos-lang-return',JSON.stringify({view:document.querySelector('.view.active')?.id,y:Math.round(scrollY)}))}catch(error){}
     location.reload();
   }};
+  let back=null;
+  try{back=JSON.parse(sessionStorage.getItem('wos-lang-return'));sessionStorage.removeItem('wos-lang-return')}catch(error){}
+  if(back){
+    /* la hauteur est réappliquée pendant le chargement (images, rendus), sauf si la personne fait défiler entre-temps */
+    let touched=false;
+    ['wheel','touchstart','keydown'].forEach(type=>addEventListener(type,()=>{touched=true},{once:true,passive:true}));
+    const toY=()=>{if(!touched&&back.y)scrollTo({top:back.y,behavior:'instant'})};
+    document.addEventListener('DOMContentLoaded',()=>{
+      if(back.view&&back.view!=='home'&&typeof window.go==='function'&&document.getElementById(back.view))window.go(back.view);
+      requestAnimationFrame(toY);
+    },{once:true});
+    addEventListener('load',()=>{toY();[150,400,800].forEach(ms=>setTimeout(toY,ms))},{once:true});
+  }
   const dict=window.I18N_DICT?.[lang];
   if(lang==='fr'||!dict)return;
   document.documentElement.lang=lang;
