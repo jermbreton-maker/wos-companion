@@ -5,7 +5,7 @@ import sys
 from PIL import Image
 
 SRC = sys.argv[1] if len(sys.argv) > 1 else '/home/koema-jr/Bureau/Screen Iphone/'
-FILES = {'t11': 'Image ChatGPT 17 oct. 2026, 10_13_26.png',  # fiole rouge transparente, badge T11
+FILES = {'t11': 'Potions rouges T11 en bois.png',  # tubes à essai dans un support en bois, badge T11
          't12': 'Flacon de potion magique T12.png'}           # fiole dorée en fusion, badge T12
 SIZE, FILL = 256, .93
 for key, file in FILES.items():
