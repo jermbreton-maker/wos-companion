@@ -1170,7 +1170,9 @@ img,svg,canvas,video{max-width:100%}
     grid-template-columns:repeat(3,minmax(82px,1fr));
     gap:7px;
     padding:3px;
-    max-height:65vh;
+    /* 65vh, mais jamais plus que la hauteur visible (Safari : barres du navigateur déduites),
+       moins l'en-tête et les marges de la fenêtre (~175 px) : la fenêtre entière reste à l'écran. */
+    max-height:min(65vh,calc(100dvh - 205px));
     overflow-x:hidden;
     overflow-y:auto;
   }
