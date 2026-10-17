@@ -262,6 +262,44 @@ openLevelPicker=function(spec){
   lockLevelPickerBackground();
   picker.showModal();
 };
+/* Sauvegarde automatique (src/save.js) : sélections restaurées avant le premier rendu. */
+if(window.WOSSave){
+  WOSSave.register('furnace',{
+    get:()=>({from:D.furnace[state.from].id,to:D.furnace[state.to].id,scope:state.scope}),
+    set:data=>{
+      const from=D.furnace.findIndex(level=>level.id===data.from),to=D.furnace.findIndex(level=>level.id===data.to);
+      if(from>=0)state.from=from;
+      if(to>=0)state.to=to;
+      if(state.to<state.from)state.to=state.from;
+      if(['furnace','required','total'].includes(data.scope))state.scope=data.scope;
+    }
+  });
+  WOSSave.register('gear',{
+    get:()=>Object.fromEntries(D.gears.map(g=>[g.id,{from:WOSSave.levelRef(state.gear[g.id].from,D.gearLevels),to:WOSSave.levelRef(state.gear[g.id].to,D.gearLevels)}])),
+    set:data=>D.gears.forEach(g=>{
+      const entry=data[g.id],s=state.gear[g.id];
+      if(!entry)return;
+      const from=WOSSave.levelIndex(entry.from,D.gearLevels),to=WOSSave.levelIndex(entry.to,D.gearLevels);
+      if(from>=0)s.from=from;
+      if(to>=0)s.to=to;
+      if(s.to<s.from)s.to=s.from;
+    })
+  });
+  const charmLabels=D.charmLevels.map(level=>level.label);
+  WOSSave.register('charms',{
+    get:()=>Object.fromEntries(D.gears.map(g=>[g.id,{from:state.gear[g.id].charms.map(index=>WOSSave.levelRef(index,charmLabels)),to:state.gear[g.id].targetCharms.map(index=>WOSSave.levelRef(index,charmLabels))}])),
+    set:data=>D.gears.forEach(g=>{
+      const entry=data[g.id],s=state.gear[g.id];
+      if(!entry)return;
+      s.charms.forEach((_,i)=>{
+        const from=WOSSave.levelIndex(entry.from?.[i],charmLabels),to=WOSSave.levelIndex(entry.to?.[i],charmLabels);
+        if(from>=0)s.charms[i]=from;
+        if(to>=0)s.targetCharms[i]=to;
+        if(s.targetCharms[i]<s.charms[i])s.targetCharms[i]=s.charms[i];
+      });
+    })
+  });
+}
 $('#lang').onchange=e=>{if(e.target.value==='en')alert('English translation layer is ready; the reviewed terminology will be enabled in the next dataset pass.')};renderFurnace();renderGear();syncNav('home');syncNavEdge();
 
 

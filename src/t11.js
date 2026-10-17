@@ -214,5 +214,7 @@ document.getElementById('t11AllMax').addEventListener('change',event=>{
   T11.nodes.forEach(node=>{const l=levels[node.id];l.to=on?node.max:l.from});
   render();
 });
+/* Sauvegarde automatique (src/save.js) : niveaux des trois troupes restaurés avant le premier rendu. */
+window.WOSSave?.register('t11',{get:()=>t11State.levels,set:data=>WOSSave.restoreLevels(data,t11State.levels,id=>T11.nodes.find(node=>node.id===id)?.max)});
 render();
 })();

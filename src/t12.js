@@ -447,5 +447,7 @@ document.getElementById('t12AllMax').addEventListener('change',event=>{
 /* la texture de lave est calée sur la largeur affichée de l'arbre : on redessine quand elle change (page affichée, rotation, fenêtre) */
 let t12TreeWidth=0;
 new ResizeObserver(([entry])=>{const w=Math.round(entry.contentRect.width);if(w&&w!==t12TreeWidth&&state.view==='tree'){t12TreeWidth=w;renderTree()}}).observe(document.getElementById('t12Tree'));
+/* Sauvegarde automatique (src/save.js) : niveaux des trois troupes restaurés avant le premier rendu. */
+window.WOSSave?.register('t12',{get:()=>state.levels,set:data=>WOSSave.restoreLevels(data,state.levels,maxOf)});
 render();
 })();
