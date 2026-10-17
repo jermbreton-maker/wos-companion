@@ -74,6 +74,7 @@
       if(data===undefined)return;
       try{set(data)}catch(error){}
     },
+    flush(){dirty=true;write()},
     restoreLevels,levelIndex,levelRef
   };
 })();

@@ -300,7 +300,7 @@ if(window.WOSSave){
     })
   });
 }
-$('#lang').onchange=e=>{if(e.target.value==='en')alert('English translation layer is ready; the reviewed terminology will be enabled in the next dataset pass.')};renderFurnace();renderGear();syncNav('home');syncNavEdge();
+$('#lang').onchange=e=>window.I18N?.setLang(e.target.value);renderFurnace();renderGear();syncNav('home');syncNavEdge();
 
 
 /* Mobile touch zoom: reuse the exact level buttons and their calculation handlers. */
