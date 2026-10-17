@@ -12,7 +12,8 @@
     try{window.WOSSave?.flush()}catch(error){}
     /* on revient ensuite sur la même page, à la même hauteur */
     try{sessionStorage.setItem('wos-lang-return',JSON.stringify({view:document.querySelector('.view.active')?.id,y:Math.round(scrollY)}))}catch(error){}
-    location.reload();
+    document.documentElement.classList.add('lang-leaving');
+    setTimeout(()=>location.reload(),150);
   }};
   let back=null;
   try{back=JSON.parse(sessionStorage.getItem('wos-lang-return'));sessionStorage.removeItem('wos-lang-return')}catch(error){}
@@ -24,7 +25,12 @@
     /* bascule immédiate sur la page d'origine (le HTML est déjà là), sans la remontée en haut de la navigation */
     const view=back.view&&document.getElementById(back.view)?.classList.contains('view')?back.view:null;
     if(view)document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===view));
-    const reveal=()=>document.documentElement.classList.remove('lang-returning');
+    const root=document.documentElement;
+    const reveal=()=>{
+      if(!root.classList.contains('lang-returning'))return;
+      root.classList.add('lang-revealing');root.classList.remove('lang-returning','lang-returning-away');
+      setTimeout(()=>root.classList.remove('lang-revealing'),350);
+    };
     setTimeout(reveal,1500);                                     // filet de sécurité
     document.addEventListener('DOMContentLoaded',()=>{
       if(view){document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===view));if(typeof window.syncNav==='function')window.syncNav(view)}
