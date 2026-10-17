@@ -228,10 +228,8 @@
 #t12 .t12-forge-piece.sel .t12-target{display:none}
 /* Jauge des 5 niveaux : arc cuivré de 5 cases jointives qui se remplit (orange = atteint, clair = objectif). */
 #t12 .t12-forge-gauge{position:absolute;left:-50%;top:-50%;width:200%;max-width:none;height:200%;overflow:visible;pointer-events:none}
-/* Jauge (capture du jeu) : cadre orange lumineux, cases sombres translucides, cases atteintes jaune vif ;
-   la lueur grandit avec le nombre de cases allumées (--lava de 0 à 1). */
-#t12 .t12-gauge-frame{fill:url(#t12Frame);stroke:#d8955e;stroke-width:1.5;stroke-linejoin:round;
-  filter:drop-shadow(0 0 calc(4px + var(--lava) * 5px) rgba(205,135,70,calc(.4 + var(--lava) * .3)))}
+/* Jauge (capture du jeu) : cadre orange lumineux, cases sombres translucides, cases atteintes jaune vif, sans halo autour du cadre. */
+#t12 .t12-gauge-frame{fill:url(#t12Frame);stroke:#d8955e;stroke-width:1.5;stroke-linejoin:round}
 #t12 .t12-gauge-cell{fill:#3a2410;fill-opacity:.85;stroke:#d9ac6c;stroke-width:2.2}
 #t12 .t12-gauge-cell.plan{fill:#7d5428}
 /* remplissage = fond rouge-orangé des médaillons terminés (capture du jeu) ; la dernière case remplie, plus jaune et lumineuse */
