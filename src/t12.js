@@ -384,6 +384,7 @@ function render(){
   renderTree();
   renderResult();
   document.getElementById('t12Reset').checked=TREE.nodes.every(n=>n.display||(!levels[n.id].from&&!levels[n.id].to));
+  document.getElementById('t12AllMax').checked=TREE.nodes.every(n=>n.display||levels[n.id].to>=n.max);
 }
 
 /* ---------- Fenêtre de réglage ---------- */
@@ -435,6 +436,12 @@ document.querySelectorAll('[data-t12-view]').forEach(tab=>tab.onclick=()=>{state
 document.getElementById('t12Reset').addEventListener('change',()=>{
   const levels=state.levels[state.troop];
   TREE.nodes.forEach(n=>{if(!n.display)levels[n.id]={from:0,to:0}});
+  render();
+});
+/* Tout au max : objectif de toutes les recherches de l'arbre au niveau max (décoché : objectif ramené au niveau actuel). */
+document.getElementById('t12AllMax').addEventListener('change',event=>{
+  const levels=state.levels[state.troop],on=event.target.checked;
+  TREE.nodes.forEach(n=>{if(!n.display)levels[n.id].to=on?n.max:levels[n.id].from});
   render();
 });
 /* la texture de lave est calée sur la largeur affichée de l'arbre : on redessine quand elle change (page affichée, rotation, fenêtre) */

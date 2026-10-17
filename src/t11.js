@@ -145,6 +145,7 @@ function render(){
   /* L'interrupteur reflète l'état « tout à zéro » de la troupe affichée. */
   const levels=t11State.levels[t11State.troop];
   document.getElementById('t11Reset').checked=T11.nodes.every(node=>!levels[node.id].from&&!levels[node.id].to);
+  document.getElementById('t11AllMax').checked=T11.nodes.every(node=>levels[node.id].to>=node.max);
 }
 
 /* Fenêtre de réglage d'une recherche : niveau actuel › objectif. */
@@ -207,5 +208,11 @@ picker.addEventListener('close',unlockLevelPickerBackground);
 document.querySelectorAll('[data-t11-troop]').forEach(tab=>tab.onclick=()=>{t11State.troop=tab.dataset.t11Troop;render()});
 /* Remettre à zéro : actuel et objectif de toutes les recherches de la troupe affichée. */
 document.getElementById('t11Reset').addEventListener('change',()=>{t11State.levels[t11State.troop]=emptyLevels();render()});
+/* Tout au max : objectif de toutes les recherches de la troupe au niveau max (décoché : objectif ramené au niveau actuel). */
+document.getElementById('t11AllMax').addEventListener('change',event=>{
+  const levels=t11State.levels[t11State.troop],on=event.target.checked;
+  T11.nodes.forEach(node=>{const l=levels[node.id];l.to=on?node.max:l.from});
+  render();
+});
 render();
 })();

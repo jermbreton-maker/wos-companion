@@ -173,3 +173,7 @@
 #t11 .t11-link-light path{stroke:var(--t11-light);stroke-width:1px;opacity:.55}
 /* lumière de la page visible dans l'encadrement : voile allégé */
 #t11 .t11-board{background:radial-gradient(ellipse 70% 55% at 50% 35%,rgba(150,62,52,.18),transparent 75%),rgba(42,14,12,.16)}
+
+/* Interrupteurs de l'arbre : même encadré que ceux de la Chaudière (cadre unique, deux interrupteurs empilés), couleurs de la page */
+#t11 .t11-toggles{display:flex;flex-direction:column;align-items:stretch;gap:0;width:max-content;max-width:calc(100% - 24px);padding:9px 13px;border:1px solid rgba(240,170,120,.42);border-radius:11px;background:rgba(42,14,12,.72);box-shadow:inset 0 1px rgba(255,220,190,.12),0 5px 14px rgba(20,4,4,.3)}
+#t11 .t11-toggles .charm-bulk-select{width:auto;max-width:100%;margin:0;padding:0;background:transparent;border:0;border-radius:0;box-shadow:none}
