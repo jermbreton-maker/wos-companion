@@ -405,3 +405,9 @@
 /* bas de l'icône assombri derrière le niveau : fond la zone retouchée où était le badge du jeu */
 #t12Picker .t12-node-preview .t12-ico{-webkit-mask:none;mask:none}
 #t12Picker .t12-node-preview::before{content:"";position:absolute;inset:14.5%;z-index:1;border-radius:50%;pointer-events:none;background:linear-gradient(180deg,transparent 45%,rgba(20,8,6,.55) 72%,rgba(15,5,4,.85) 100%)}
+
+/* Chemins allumés de l'arbre (capture du jeu) : trait fin jaune or lumineux, halo orangé doux qui éclaire le fond */
+#t12 .t12-link-glow{filter:drop-shadow(0 0 8px rgba(255,170,40,.75)) drop-shadow(0 0 20px rgba(255,140,30,.4))}
+#t12 .t12-link-glow path{stroke:rgba(255,190,60,.7);stroke-width:9px;filter:blur(3px)}
+#t12 .t12-link-core path{stroke:#ffd257;stroke-width:4px}
+#t12 .t12-link-light path{stroke:#fff6c8;stroke-width:1.6px;opacity:.9}
