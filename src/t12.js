@@ -140,14 +140,28 @@ function lavaLayer(links,all,hostWidth){
       if(!patterns.has(key)){
         const pos=h?`x="0" y="${y1-u/2}" width="${L}" height="${u}"`:`x="${x1-u/2}" y="0" width="${u}" height="${L}"`;
         const img=h?`<image href="assets/visuals/t12/lava-h.png?v=20261017" width="${L}" height="${u}" preserveAspectRatio="none"/>`:`<image href="assets/visuals/t12/lava-v.png?v=20261017" width="${u}" height="${L}" preserveAspectRatio="none"/>`;
-        const to=h?`${dir*L} 0`:`0 ${dir*L}`;
-        patterns.set(key,`<pattern id="t12lava-${key}" patternUnits="userSpaceOnUse" ${pos}>${img}<animateTransform attributeName="patternTransform" type="translate" from="0 0" to="${to}" dur="7s" repeatCount="indefinite"/></pattern>`);
+        patterns.set(key,`<pattern id="t12lava-${key}" patternUnits="userSpaceOnUse" ${pos} data-axis="${h?'x':'y'}" data-base="${h?0:0}" data-len="${L}" data-dir="${dir}">${img}</pattern>`);
       }
       strokes.push(`<path d="M${x1} ${y1}L${x2} ${y2}" stroke="url(#t12lava-${key})"/>`);
     });
   });
   return `<defs>${[...patterns.values()].join('')}</defs><g class="t12-link-lava">${strokes.join('')}</g><g class="t12-link-lava-corner">${curves.map(c=>`<path d="${c}"/>`).join('')}</g>`;
 }
+/* Défilement de la lave : script image par image (Safari iOS n'anime pas les motifs SVG via SMIL).
+   Un cycle = 7 s ; arrêté quand l'arbre n'est pas affiché ou si l'appareil demande moins d'animations. */
+const LAVA_CYCLE=7000,reduceMotion=matchMedia('(prefers-reduced-motion: reduce)');
+function lavaTick(now){
+  const host=document.getElementById('t12Tree');
+  if(!document.hidden&&!reduceMotion.matches&&state.view==='tree'&&host.offsetParent){
+    const phase=(now%LAVA_CYCLE)/LAVA_CYCLE;
+    host.querySelectorAll('pattern[data-len]').forEach(p=>{
+      const L=+p.dataset.len,off=(phase*L*+p.dataset.dir)%L;
+      p.setAttribute(p.dataset.axis,off);
+    });
+  }
+  requestAnimationFrame(lavaTick);
+}
+requestAnimationFrame(lavaTick);
 function renderTree(){
   /* le contenu est redessiné à chaque clic : on garde la position de défilement (sinon saut de page sur mobile) */
   /* focus rendu seulement au clavier : au toucher (iPhone), le focus reste sur un ancien médaillon et le lui rendre faisait sauter la page */
