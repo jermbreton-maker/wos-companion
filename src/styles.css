@@ -169,3 +169,16 @@ dialog#furnacePicker::backdrop,dialog#levelPicker::backdrop,dialog#gearDialog::b
 
 /* Pas de zoom au double appui (sélection rapide des niveaux) ; le zoom à deux doigts reste possible. */
 html{touch-action:manipulation}
+
+/* Menu des langues (src/lang-menu.js) : même famille que les boutons de la barre du haut */
+.lang-menu{position:relative;flex:none}
+.lang-menu .lang-current{display:flex;align-items:center;gap:6px;font:inherit;font-size:13px;line-height:1;color:#cce9f8;background:transparent;border:1px solid #33516c;border-radius:9px;padding:6px 9px;cursor:pointer}
+.lang-menu .lang-current:hover,.lang-menu .lang-current[aria-expanded="true"]{background:#173757;color:#fff}
+.lang-menu .lang-current i{width:7px;height:7px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:translateY(-2px) rotate(45deg);transition:transform .15s}
+.lang-menu .lang-current[aria-expanded="true"] i{transform:translateY(1px) rotate(-135deg)}
+.lang-menu .lang-list{position:absolute;right:0;top:calc(100% + 8px);z-index:30;min-width:150px;margin:0;padding:6px;list-style:none;background:linear-gradient(180deg,rgba(20,56,94,.98),rgba(12,39,70,.98));border:1px solid rgba(116,215,255,.32);border-radius:12px;box-shadow:0 12px 28px rgba(1,14,30,.45);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.lang-menu .lang-list[hidden]{display:none}
+.lang-menu .lang-list li{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:9px;color:#cce9f8;font-size:15px;line-height:1;cursor:pointer;outline:none;white-space:nowrap}
+.lang-menu .lang-list li b{min-width:22px;font-weight:inherit;font-size:12px;color:#74d7ff}
+.lang-menu .lang-list li:hover,.lang-menu .lang-list li:focus-visible{background:#173757;color:#fff}
+.lang-menu .lang-list li[aria-selected="true"]{color:#fff;background:rgba(116,215,255,.2);box-shadow:inset 0 0 0 1px rgba(116,215,255,.5)}

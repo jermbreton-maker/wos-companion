@@ -30,7 +30,7 @@
   const DURATION=/^\d+ (J|h|min|s)( \d+ (J|h|min|s))?$/;
   const cache=new Map();
   /* Virgule décimale dans les langues qui l'utilisent (comme dans le jeu) : « 2.16K » → « 2,16K ». */
-  const COMMA=['es'].includes(lang);
+  const COMMA=['es','it'].includes(lang);
 
   function translate(text,depth=0){
     if(COMMA&&/^\d+\.\d+[KMB]?$/.test(text))return text.replace('.',',');
