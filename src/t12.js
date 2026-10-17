@@ -114,6 +114,40 @@ function roundCorners(d,all,r=7){
   }
   return out;
 }
+/* Lave des chemins allumés : texture découpée dans une capture du jeu (tools/extract-t12-lava.py), appliquée tronçon par
+   tronçon (horizontaux / verticaux, orientée et centrée sur chaque tronçon) et qui défile lentement du parent vers l'enfant.
+   Les petits coins arrondis sont tracés en jaune lave uni. */
+const LAVA_W=3.4,LAVA_RATIO=330/26;
+function lavaPieces(d,all,r=7){
+  const pts=cornerPoints(d),segs=all.flatMap(o=>{const p=cornerPoints(o);return p.slice(1).map((q,i)=>[p[i],q])});
+  const lines=[],curves=[];let from=pts[0];
+  for(let i=1;i<pts.length;i++){
+    const [px,py]=pts[i-1],[cx,cy]=pts[i],next=pts[i+1];
+    if(!next||directionsAt([cx,cy],segs)>=3){lines.push([from,[cx,cy]]);from=[cx,cy];continue}
+    const lin=Math.min(r,Math.hypot(cx-px,cy-py)/2),lout=Math.min(r,Math.hypot(next[0]-cx,next[1]-cy)/2);
+    const a=[cx-Math.sign(cx-px)*lin,cy-Math.sign(cy-py)*lin],b=[cx+Math.sign(next[0]-cx)*lout,cy+Math.sign(next[1]-cy)*lout];
+    lines.push([from,a]);curves.push(`M${a[0]} ${a[1]}Q${cx} ${cy} ${b[0]} ${b[1]}`);from=b;
+  }
+  return {lines,curves};
+}
+function lavaLayer(links,all,hostWidth){
+  const u=LAVA_W*1000/Math.max(hostWidth,1),L=u*LAVA_RATIO,patterns=new Map(),strokes=[],curves=[];
+  links.forEach(link=>{
+    const {lines,curves:c}=lavaPieces(link.d,all);curves.push(...c);
+    lines.forEach(([[x1,y1],[x2,y2]])=>{
+      if(x1===x2&&y1===y2)return;
+      const h=y1===y2,dir=h?Math.sign(x2-x1):Math.sign(y2-y1),key=`${h?'h':'v'}${h?y1:x1}${dir>0?'p':'n'}`;
+      if(!patterns.has(key)){
+        const pos=h?`x="0" y="${y1-u/2}" width="${L}" height="${u}"`:`x="${x1-u/2}" y="0" width="${u}" height="${L}"`;
+        const img=h?`<image href="assets/visuals/t12/lava-h.png?v=20261017" width="${L}" height="${u}" preserveAspectRatio="none"/>`:`<image href="assets/visuals/t12/lava-v.png?v=20261017" width="${u}" height="${L}" preserveAspectRatio="none"/>`;
+        const to=h?`${dir*L} 0`:`0 ${dir*L}`;
+        patterns.set(key,`<pattern id="t12lava-${key}" patternUnits="userSpaceOnUse" ${pos}>${img}<animateTransform attributeName="patternTransform" type="translate" from="0 0" to="${to}" dur="7s" repeatCount="indefinite"/></pattern>`);
+      }
+      strokes.push(`<path d="M${x1} ${y1}L${x2} ${y2}" stroke="url(#t12lava-${key})"/>`);
+    });
+  });
+  return `<defs>${[...patterns.values()].join('')}</defs><g class="t12-link-lava">${strokes.join('')}</g><g class="t12-link-lava-corner">${curves.map(c=>`<path d="${c}"/>`).join('')}</g>`;
+}
 function renderTree(){
   /* le contenu est redessiné à chaque clic : on garde la position de défilement (sinon saut de page sur mobile) */
   /* focus rendu seulement au clavier : au toucher (iPhone), le focus reste sur un ancien médaillon et le lui rendre faisait sauter la page */
@@ -146,7 +180,7 @@ function drawTree(){
   const allD=layout.links.map(l=>l.d),paths=list=>list.map(link=>`<path d="${roundCorners(link.d,allD)}"/>`).join('');
   const on=layout.links.filter(lit);
   const svg=`<svg class="t12-links" viewBox="0 0 1000 ${layout.h}" preserveAspectRatio="none" aria-hidden="true">
-    <g class="t12-link-off">${paths(layout.links)}</g><g class="t12-link-glow">${paths(on)}</g><g class="t12-link-core">${paths(on)}</g><g class="t12-link-edge t12-edge-a">${paths(on)}</g><g class="t12-link-edge t12-edge-b">${paths(on)}</g><g class="t12-link-light">${paths(on)}</g></svg>`;
+    <g class="t12-link-off">${paths(layout.links)}</g><g class="t12-link-glow">${paths(on)}</g>${lavaLayer(on,allD,host.getBoundingClientRect().width||520)}</svg>`;
   const nodes=layout.nodes.map(node=>{
     const name=nodeName(node.id,troop),pos=`left:${node.x/10}%;top:${node.y/layout.h*100}%;width:${node.size/10}%`;
     const label=node.label?`<span class="t12-label" style="left:${node.x/10}%;top:${(node.y+node.size/2+16)/layout.h*100}%">${name}</span>`:'';
@@ -384,5 +418,8 @@ document.getElementById('t12Reset').addEventListener('change',()=>{
   TREE.nodes.forEach(n=>{if(!n.display)levels[n.id]={from:0,to:0}});
   render();
 });
+/* la texture de lave est calée sur la largeur affichée de l'arbre : on redessine quand elle change (page affichée, rotation, fenêtre) */
+let t12TreeWidth=0;
+new ResizeObserver(([entry])=>{const w=Math.round(entry.contentRect.width);if(w&&w!==t12TreeWidth&&state.view==='tree'){t12TreeWidth=w;renderTree()}}).observe(document.getElementById('t12Tree'));
 render();
 })();

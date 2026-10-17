@@ -446,3 +446,7 @@
 @keyframes t12-lava-flow-b{to{stroke-dashoffset:-144}}
 @keyframes t12-lava-flow{to{stroke-dashoffset:-103}}
 @media (prefers-reduced-motion:reduce){#t12 .t12-link-edge path,#t12 .t12-link-light path{animation:none}}
+
+/* lave texturée (capture du jeu) */
+#t12 .t12-link-lava path{fill:none;stroke-width:3.4px;stroke-linecap:butt;vector-effect:non-scaling-stroke}
+#t12 .t12-link-lava-corner path{fill:none;stroke:#f9d75a;stroke-width:3.4px;stroke-linecap:butt;vector-effect:non-scaling-stroke}
