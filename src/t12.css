@@ -242,7 +242,6 @@
 /* Pièce en cours : vraie surbrillance dorée (anneau doré, halo or qui respire, jauge cerclée d'or) ;
    les autres médaillons sont légèrement atténués pour la faire ressortir. */
 /* pièce choisie : pas de surbrillance, seulement plus grande que les autres */
-#t12 .t12-forge-gauge{filter:drop-shadow(0 0 4px rgba(214,150,80,.55)) drop-shadow(0 0 10px rgba(190,120,55,.3))}
 /* pas de halo sous l'arc : vide net entre la jauge et le médaillon */
 #t12 .t12-forge-gauge{-webkit-mask:radial-gradient(circle closest-side,transparent 52.2%,#000 52.5%);mask:radial-gradient(circle closest-side,transparent 52.2%,#000 52.5%)}
 #t12 .t12-gauge-frame{stroke:#d8955e;stroke-width:2.2}  /* liseré clair des médaillons */
