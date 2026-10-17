@@ -199,6 +199,7 @@ picker.querySelector('.t11-apply').addEventListener('click',event=>{
     render();
   }
   picker.close('apply');
+  unlockLevelPickerBackground();  /* page libérée tout de suite (l'événement « close » arrive parfois en retard sur mobile) */
 });
 picker.addEventListener('click',event=>{if(event.target===picker)picker.close('cancel')});
 picker.addEventListener('close',unlockLevelPickerBackground);

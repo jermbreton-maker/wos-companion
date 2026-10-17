@@ -165,11 +165,15 @@ requestAnimationFrame(lavaTick);
 function renderTree(){
   /* le contenu est redessiné à chaque clic : on garde la position de défilement (sinon saut de page sur mobile) */
   /* focus rendu seulement au clavier : au toucher (iPhone), le focus reste sur un ancien médaillon et le lui rendre faisait sauter la page */
+  /* page figée par une fenêtre ouverte (« Appliquer ») : c'est la fenêtre qui rétablit la position à sa fermeture */
+  const pageLocked=document.body.classList.contains('level-picker-open');
   const keepY=scrollY,keepFocus=usingKeyboard&&document.activeElement?.closest?.('#t12Tree')?focusKey(document.activeElement):null;
   if(!usingKeyboard&&document.activeElement?.closest?.('#t12Tree'))document.activeElement.blur();
   drawTree();
-  if(scrollY!==keepY)scrollTo({top:keepY,behavior:'instant'});
-  requestAnimationFrame(()=>{if(scrollY!==keepY)scrollTo({top:keepY,behavior:'instant'})});  /* certains navigateurs mobiles recalent après coup */
+  if(!pageLocked){
+    if(scrollY!==keepY)scrollTo({top:keepY,behavior:'instant'});
+    requestAnimationFrame(()=>{if(!document.body.classList.contains('level-picker-open')&&scrollY!==keepY)scrollTo({top:keepY,behavior:'instant'})});  /* certains navigateurs mobiles recalent après coup */
+  }
   if(keepFocus)document.querySelector(keepFocus)?.focus({preventScroll:true});
 }
 /* clé pour retrouver le bouton qui avait le focus après le redessin */
@@ -420,6 +424,7 @@ picker.querySelector('.t12-apply').addEventListener('click',event=>{
   event.preventDefault();
   if(state.editing){state.levels[state.troop][state.editing]={...state.draft};render()}
   picker.close('apply');
+  unlockLevelPickerBackground();  /* page libérée tout de suite (l'événement « close » arrive parfois en retard sur mobile) */
 });
 picker.addEventListener('click',event=>{if(event.target===picker)picker.close('cancel')});
 picker.addEventListener('close',unlockLevelPickerBackground);
