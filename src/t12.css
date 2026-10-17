@@ -428,3 +428,8 @@
 #t12 .t12-link-light path{stroke:#ffe04a;stroke-width:2px;opacity:1;stroke-dasharray:14 22;animation:t12-lava-flow 1.4s linear infinite}
 @keyframes t12-lava-flow{to{stroke-dashoffset:-36}}
 @media (prefers-reduced-motion:reduce){#t12 .t12-link-light path{animation:none}}
+/* Lave jaune uniforme : de rares petites nuances orangées qui glissent lentement (plus de traînées « snake ») */
+#t12 .t12-link-glow path{stroke:rgba(255,200,60,.45);stroke-width:6px;filter:blur(2.5px)}
+#t12 .t12-link-core path{stroke:#ffcc33;stroke-width:3px}
+#t12 .t12-link-light path{stroke:#ff9a2a;stroke-width:2px;opacity:.55;stroke-dasharray:3 90;animation:t12-lava-flow 4.5s linear infinite}
+@keyframes t12-lava-flow{to{stroke-dashoffset:-93}}
